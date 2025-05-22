@@ -8,8 +8,6 @@ export default function Header() {
     <header className="fixed w-full bg-black bg-opacity-70 backdrop-blur-md z-50 shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
-          {/* srcをダミーのplaceholder.svgに変更 */}
-          {/* ロゴのImageタグはそのまま残しておきます */}
           <Image
             src="/placeholder.svg"
             alt="サイトロゴ"
@@ -17,7 +15,7 @@ export default function Header() {
             height={40}
             className="rounded-full"
           />
-          {/* Casino Insight を calcasiどっとこむ に変更 */}
+          {/* サイト名を「calcasiどっとこむ」に修正 */}
           <span className="text-white text-2xl font-bold tracking-tight">
             calcasiどっとこむ
           </span>
@@ -34,8 +32,26 @@ export default function Header() {
                 最新情報
               </Link>
             </li>
+            {/* ここから追加するリンク */}
             <li>
-              <Link href="/contact" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
+              <Link href="/beginners-guide" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
+                初心者ガイド
+              </Link>
+            </li>
+            <li>
+              <Link href="/strategy" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
+                攻略法
+              </Link>
+            </li>
+            <li>
+              <Link href="/casino-ranking" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
+                カジノランキング
+              </Link>
+            </li>
+            {/* ここまで追加するリンク */}
+            <li>
+              {/* お問い合わせボタンとしてスタイルを変更 */}
+              <Link href="/contact" className="px-5 py-2 bg-amber-500 text-black text-lg font-semibold rounded-full hover:bg-amber-600 transition-colors duration-200">
                 お問い合わせ
               </Link>
             </li>
