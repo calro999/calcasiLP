@@ -27,7 +27,7 @@ export default function CasinoRanking() {
       name: "デュエルビッツ",
       // ★画像パスを更新
       logo: "/images/casinos/duelbits_logo.png",
-      bonus: "初回入金最大50%レーキバック（20%即時+30%段階解放）",
+      bonus: "出金条件なしの500回のフリースピンを獲得！",
       features: ["仮想通貨特化", "レーキバック", "オリジナルゲーム", "スポーツベット"],
       rating: 4.8,
       description:
@@ -55,7 +55,7 @@ export default function CasinoRanking() {
       name: "パリマッチ",
       // ★画像パスを更新
       logo: "/images/casinos/parimatch_logo.png",
-      bonus: "初回入金150%ボーナス（最大$1,500）",
+      bonus: "初回入金150%ボーナス",
       features: ["スポーツベット強化", "豊富なプロモーション", "日本語サポート"],
       rating: 4.6,
       description:
@@ -75,7 +75,7 @@ export default function CasinoRanking() {
       description:
         "Stakeは、仮想通貨専門カジノの代表格であり、世界中で絶大な人気を誇ります。独自のオリジナルゲームと、ベット額に応じたレーキバックシステムが特徴です。ライブカジノやスポーツベットも充実しています。",
       detailLink: "/casino-detail/stake",
-      officialLink: "stake.com/?c=aLjELsQU&offer=calro200"
+      officialLink: "https://stake.com/ja?c=aLjELsQU&offer=calro200"
     },
   ]
 
