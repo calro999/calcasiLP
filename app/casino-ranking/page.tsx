@@ -11,7 +11,7 @@ export default function CasinoRanking() {
       rank: 1,
       name: "ワンダーカジノ",
       // ★画像パスを更新
-      logo: "public/wondercasino_logo.png",
+      logo: "app/public/wondercasino_logo.png",
       bonus: "入金不要ボーナス$30(4,300円相当)",
       features: ["日本語サポート", "豊富なゲーム数", "高速出金", "仮想通貨対応"],
       rating: 4.9,
