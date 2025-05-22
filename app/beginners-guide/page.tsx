@@ -13,7 +13,7 @@ export default function BeginnersGuide() {
       description:
         "オンラインカジノの基本的な仕組みや、実際のカジノとの違いについて解説します。初心者が知っておくべき基礎知識を紹介します。",
       icon: <BookOpen className="w-10 h-10 text-amber-400" />,
-      image: "/casino.png?height=400&width=600",
+      image: "/oncasino.png?height=400&width=600",
       href: "/beginners-guide/basics", // ★修正点: 新しいページのURLパス
     },
     {
