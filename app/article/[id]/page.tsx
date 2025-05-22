@@ -25,14 +25,14 @@ interface Article {
 
 // 全記事のIDリストを取得する関数 (generateStaticParams用)
 async function getAllArticleIds(): Promise<string[]> {
-  const articlesDir = path.join(process.cwd(), 'data', 'articles');
+  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
   const filenames = await fs.readdir(articlesDir);
   return filenames.map(filename => path.parse(filename).name); // ファイル名からIDを取得
 }
 
 // 特定のIDの記事データを取得する関数
 async function getArticleById(id: string): Promise<Article | undefined> {
-  const filePath = path.join(process.cwd(), 'data', 'articles', `${id}.json`);
+  const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);

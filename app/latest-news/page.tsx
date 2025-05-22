@@ -24,7 +24,7 @@ interface Article {
 
 // 記事データを取得するサーバーコンポーネント関数
 async function getArticles(): Promise<Article[]> {
-  const articlesDir = path.join(process.cwd(), 'data', 'articles');
+  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
   const filenames = await fs.readdir(articlesDir);
 
   const articlesPromises = filenames.map(async (filename) => {
