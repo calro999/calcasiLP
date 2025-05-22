@@ -9,57 +9,73 @@ export default function CasinoRanking() {
     {
       id: 1,
       rank: 1,
-      name: "エルドアカジノ",
-      logo: "/placeholder.svg?height=200&width=400",
-      bonus: "初回入金100%ボーナス（最大$500）",
-      features: ["日本語サポート", "豊富なゲーム数", "高速出金"],
+      name: "ワンダーカジノ",
+      // ★画像パスを更新
+      logo: "/images/casinos/wondercasino_logo.png",
+      bonus: "入金不要ボーナス$30(4,300円相当)",
+      features: ["日本語サポート", "豊富なゲーム数", "高速出金", "仮想通貨対応"],
       rating: 4.9,
       description:
-        "エルドアカジノは、豊富なゲーム数と高額ボーナスが魅力のオンラインカジノです。日本語サポートも充実しており、初心者から上級者まで安心してプレイできます。特に出金スピードが業界トップクラスで、最短10分での出金が可能です。",
+        "ワンダーカジノは、豊富なゲーム数と高額ボーナスが魅力のオンラインカジノです。日本語サポートも充実しており、初心者から上級者まで安心してプレイできます。特に出金スピードが業界トップクラスで、最短10分での出金が可能です。",
+      // ★詳細ページへのリンクを追加（もしあれば）
+      detailLink: "/casino-detail/wondercasino",
+      officialLink: "https://tracker-pm2.casino-wonder.com/link?btag=96420424_437635" // 公式サイトのURLに置き換えてください
     },
     {
       id: 2,
       rank: 2,
-      name: "ベラジョンカジノ",
-      logo: "/placeholder.svg?height=200&width=400",
-      bonus: "初回入金100%ボーナス（最大$500）+ 200フリースピン",
-      features: ["日本人向けプロモーション", "豊富な決済方法", "24時間サポート"],
+      name: "デュエルビッツ",
+      // ★画像パスを更新
+      logo: "/images/casinos/duelbits_logo.png",
+      bonus: "初回入金最大50%レーキバック（20%即時+30%段階解放）",
+      features: ["仮想通貨特化", "レーキバック", "オリジナルゲーム", "スポーツベット"],
       rating: 4.8,
       description:
-        "ベラジョンカジノは日本人プレイヤーに最も人気のあるオンラインカジノの一つです。使いやすいインターフェースと充実した日本語サポートが特徴で、初心者でも安心してプレイできます。定期的に開催される日本人向けのプロモーションも魅力です。",
+        "デュエルビッツは、仮想通貨に特化したゲーミフィケーション要素が豊富なカジノです。高いレーキバックとオリジナルゲームが人気で、スポーツベットも楽しめます。コミュニティも活発で、新しいゲーム体験を求める方におすすめです。",
+      detailLink: "/casino-detail/duelbits",
+      officialLink: "https://affiliates.duelbits.com/visit/?bta=35925&nci=5768"
     },
     {
       id: 3,
       rank: 3,
-      name: "カジノシークレット",
-      logo: "/placeholder.svg?height=200&width=400",
-      bonus: "負けた場合の最大50%キャッシュバック",
-      features: ["キャッシュバック制度", "出金条件なし", "VIPプログラム"],
+      name: "K8",
+      // ★画像パスを更新
+      logo: "/images/casinos/k8_logo.png",
+      bonus: "初回入金100%ボーナス（最大$2,000）",
+      features: ["仮想通貨対応", "高額ボーナス", "多彩なプロモーション", "VIP制度"],
       rating: 4.7,
       description:
-        "カジノシークレットは、業界初のキャッシュバック型オンラインカジノです。負けた場合でも最大50%がキャッシュバックされるため、リスクを抑えてプレイできます。また、ボーナスに出金条件がないため、獲得した賞金をすぐに引き出すことができます。",
+        "K8は、高額な初回入金ボーナスと豊富なプロモーションが魅力の仮想通貨カジノです。スロット、ライブカジノ、スポーツベットなど幅広いゲームを提供しており、手厚いVIPプログラムも用意されています。",
+      detailLink: "/casino-detail/k8",
+      officialLink: "https://k8.io/?invite=calron"
     },
     {
       id: 4,
       rank: 4,
-      name: "インターカジノ",
-      logo: "/placeholder.svg?height=200&width=400",
-      bonus: "初回入金100%ボーナス（最大$1,000）",
-      features: ["老舗カジノ", "安心の運営実績", "充実したVIP制度"],
+      name: "パリマッチ",
+      // ★画像パスを更新
+      logo: "/images/casinos/parimatch_logo.png",
+      bonus: "初回入金150%ボーナス（最大$1,500）",
+      features: ["スポーツベット強化", "豊富なプロモーション", "日本語サポート"],
       rating: 4.6,
       description:
-        "インターカジノは1996年創業の老舗オンラインカジノで、長年の運営実績による安心感が魅力です。ゲーム数は1,000種類以上あり、特にテーブルゲームの種類が豊富です。VIP制度も充実しており、上位ランクになるほど特典が増えていきます。",
+        "パリマッチは、特にスポーツベットに強みを持つ世界的に有名なブックメーカー兼オンラインカジノです。多彩なスポーツイベントに賭けることができ、カジノゲームも充実しています。新規ユーザー向けのボーナスも魅力的です。",
+      detailLink: "/casino-detail/parimatch",
+      officialLink: "https://affcl.org/?serial=61314390&creative_id=4261"
     },
     {
       id: 5,
       rank: 5,
-      name: "ビットカジノ",
-      logo: "/placeholder.svg?height=200&width=400",
-      bonus: "入金不要ボーナス20フリースピン",
-      features: ["仮想通貨対応", "即時出金", "日本語ライブカジノ"],
+      name: "Stake",
+      // ★画像パスを更新
+      logo: "/images/casinos/stake_logo.png",
+      bonus: "初回入金200%ボーナス（最大$2,000）",
+      features: ["仮想通貨専門", "オリジナルゲーム", "レーキバック", "グローバル人気"],
       rating: 4.5,
       description:
-        "ビットカジノは仮想通貨専門のオンラインカジノで、ビットコインやイーサリアムなどの仮想通貨でプレイできます。入出金が即時反映されるため、待ち時間なくゲームを楽しめます。日本語対応のライブディーラーゲームも充実しています。",
+        "Stakeは、仮想通貨専門カジノの代表格であり、世界中で絶大な人気を誇ります。独自のオリジナルゲームと、ベット額に応じたレーキバックシステムが特徴です。ライブカジノやスポーツベットも充実しています。",
+      detailLink: "/casino-detail/stake",
+      officialLink: "stake.com/?c=aLjELsQU&offer=calro200"
     },
   ]
 
@@ -130,14 +146,16 @@ export default function CasinoRanking() {
                         <p className="text-gray-400 mb-4 line-clamp-2">{casino.description}</p>
 
                         <div className="mt-auto flex flex-col sm:flex-row gap-3">
+                          {/* 詳細を見るボタン（もし詳細ページを作成する場合） */}
                           <Link
-                            href={`/casino-detail/${casino.id}`}
+                            href={casino.detailLink || "#"} // detailLinkがあればそのURL、なければ#
                             className="bg-transparent border border-amber-500 text-amber-400 hover:bg-amber-500/10 px-4 py-2 rounded-md text-center transition-colors"
                           >
                             詳細を見る
                           </Link>
+                          {/* 公式サイトへボタン */}
                           <Link
-                            href="#"
+                            href={casino.officialLink || "#"} // officialLinkがあればそのURL、なければ#
                             className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-2 rounded-md text-center transition-all transform hover:scale-105"
                           >
                             公式サイトへ
