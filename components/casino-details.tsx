@@ -9,21 +9,21 @@ export default function CasinoDetails() {
       id: "wonder", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "ワンダーカジノ",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/wondercasino.png?height=400&width=600", // 実際の画像パスに置き換え
       description: "登録ボーナス$30！高速出金と豊富なゲームで初心者にも人気。",
     },
     {
       id: "duelbits", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "デュエルビッツ",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/duelbits_logo.png?height=400&width=600", // 実際の画像パスに置き換え
       description: "仮想通貨特化！独自のオリジナルゲームと豪華VIP特典が魅力の次世代カジノ。",
     },
     {
       id: "kachiwin", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "勝win",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/katsu.png?height=400&width=600", // 実際の画像パスに置き換え
       description: "カジノもスポーツベットも楽しめる！日本人向けのサービスが充実。",
     },
   ]
