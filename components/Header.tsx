@@ -39,7 +39,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/strategy" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
+              <Link href="/strategies" className="text-gray-300 hover:text-amber-400 transition-colors duration-200 text-lg font-semibold">
                 攻略法
               </Link>
             </li>
