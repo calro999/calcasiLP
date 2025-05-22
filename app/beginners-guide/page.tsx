@@ -14,6 +14,7 @@ export default function BeginnersGuide() {
         "オンラインカジノの基本的な仕組みや、実際のカジノとの違いについて解説します。初心者が知っておくべき基礎知識を紹介します。",
       icon: <BookOpen className="w-10 h-10 text-amber-400" />,
       image: "/placeholder.svg?height=400&width=600",
+      href: "/beginners-guide/basics", // ★修正点: 新しいページのURLパス
     },
     {
       id: 2,
@@ -22,6 +23,7 @@ export default function BeginnersGuide() {
         "信頼できるオンラインカジノを見分けるポイントや、ライセンスの重要性について解説します。安全にプレイするための選び方を紹介します。",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
       image: "/placeholder.svg?height=400&width=600",
+      href: "/beginners-guide/safety", // 例: 必要に応じて追加
     },
     {
       id: 3,
@@ -30,6 +32,7 @@ export default function BeginnersGuide() {
         "オンラインカジノのアカウント登録方法や、入金・出金の手順について詳しく解説します。初めての方でも安心して始められます。",
       icon: <HelpCircle className="w-10 h-10 text-amber-400" />,
       image: "/placeholder.svg?height=400&width=600",
+      href: "/beginners-guide/registration", // 例: 必要に応じて追加
     },
     {
       id: 4,
@@ -38,6 +41,7 @@ export default function BeginnersGuide() {
         "各種ボーナスの種類や効果的な活用方法、出金条件などの注意点について解説します。お得にプレイするためのコツを紹介します。",
       icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
       image: "/placeholder.svg?height=400&width=600",
+      href: "/beginners-guide/bonuses", // 例: 必要に応じて追加
     },
   ]
 
@@ -95,7 +99,8 @@ export default function BeginnersGuide() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             {guides.map((guide, index) => (
               <ScrollAnimation key={guide.id} variant="fadeInUp" delay={index * 0.1}>
-                <Link href={`/beginners-guide/${guide.id}`} className="block h-full">
+                {/* ★ここをLinkコンポーネントでラップしました */}
+                <Link href={guide.href} className="block h-full group">
                   <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden h-full transition-all duration-300 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 hover:translate-y-[-5px]">
                     <div className="grid grid-cols-1 md:grid-cols-3 h-full">
                       <div className="relative md:col-span-1">
@@ -112,7 +117,7 @@ export default function BeginnersGuide() {
                         <p className="text-gray-400 mb-4 flex-grow">{guide.description}</p>
                         <span className="text-amber-400 flex items-center text-sm font-medium">
                           詳しく見る
-                          <ArrowRight size={16} className="ml-1" />
+                          <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform duration-300" />
                         </span>
                       </div>
                     </div>
