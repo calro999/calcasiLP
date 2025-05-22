@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Youtube, Mail } from "lucide-react"
 import ScrollAnimation from "./animations/scroll-animation"
+import React from 'react';
 
 export default function Footer() {
   return (
