@@ -15,7 +15,7 @@ export default function LatestNews() {
       excerpt: "オンラインカジノ業界は常に進化しており、新しいカジノの登場や既存サイトのサービス改善が日々行われています。この記事では、2025年版の最新情報を基に、当サイトが厳選したおすすめオンラインカジノTOP10を徹底解説します。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "ランキング",
-      date: "2023-05-15",
+      date: "2025-05-22",
       readTime: "10分",
     },
     {
@@ -24,7 +24,7 @@ export default function LatestNews() {
       excerpt: "オンラインカジノに興味はあるけれど、どうやって始めたらいいかわからない…という方も多いのではないでしょうか。この記事では、オンラインカジノを始めるためのステップを、初心者の方にも分かりやすく解説します。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "初心者ガイド",
-      date: "2023-05-10",
+      date: "2025-05-22",
       readTime: "8分",
     },
     {
@@ -33,7 +33,7 @@ export default function LatestNews() {
       excerpt: "カジノの王様とも呼ばれるバカラは、シンプルながら奥深いゲームで、世界中のプレイヤーを魅了しています。この記事では、バカラで勝率を上げるための基本的な知識から、実践的な必勝法や攻略テクニックまでを詳しく解説します。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "攻略法",
-      date: "2023-05-08",
+      date: "2025-05-22",
       readTime: "12分",
     },
   ];
@@ -46,7 +46,7 @@ export default function LatestNews() {
       excerpt: "ワンダーカジノで、期間限定の超お得なボーナスキャンペーンがスタート！初回入金ボーナスやキャッシュバックが大幅にアップし、既存プレイヤーにも嬉しい特典が満載です。", // 説明文を修正
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "ボーナス情報",
-      date: "2023-05-01",
+      date: "2025-05-22",
       readTime: "5分",
     },
     {
@@ -55,7 +55,7 @@ export default function LatestNews() {
       excerpt: "近年、オンラインカジノでの仮想通貨利用が急速に拡大しています。匿名性や高速な入出金が魅力ですが、変動リスクなどのデメリットも存在します。主要な仮想通貨対応カジノを比較し、それぞれの特徴を解説。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "決済方法",
-      date: "2023-04-28",
+      date: "2025-05-22",
       readTime: "7分",
     },
     {
@@ -64,7 +64,7 @@ export default function LatestNews() {
       excerpt: "臨場感あふれるライブカジノは、まるで本物のカジノにいるかのような体験ができます。美人ディーラーとのチャットも可能！ブラックジャック、ルーレット、バカラなど、人気のライブカジノゲームを紹介します。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "ゲーム紹介",
-      date: "2023-04-25",
+      date: "2025-05-22",
       readTime: "9分",
     },
   ];
