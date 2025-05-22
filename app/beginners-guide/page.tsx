@@ -22,7 +22,7 @@ export default function BeginnersGuide() {
       description:
         "信頼できるオンラインカジノを見分けるポイントや、ライセンスの重要性について解説します。安全にプレイするための選び方を紹介します。",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/touroku.png?height=400&width=600",
       href: "/beginners-guide/safety", // 例: 必要に応じて追加
     },
     {
@@ -31,7 +31,7 @@ export default function BeginnersGuide() {
       description:
         "オンラインカジノのアカウント登録方法や、入金・出金の手順について詳しく解説します。初めての方でも安心して始められます。",
       icon: <HelpCircle className="w-10 h-10 text-amber-400" />,
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/touroku.png?height=400&width=600",
       href: "/beginners-guide/registration", // 例: 必要に応じて追加
     },
     {
@@ -40,7 +40,7 @@ export default function BeginnersGuide() {
       description:
         "各種ボーナスの種類や効果的な活用方法、出金条件などの注意点について解説します。お得にプレイするためのコツを紹介します。",
       icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/kin.png?height=400&width=600",
       href: "/beginners-guide/bonuses", // 例: 必要に応じて追加
     },
   ]
