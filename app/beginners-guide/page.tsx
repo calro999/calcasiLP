@@ -22,7 +22,7 @@ export default function BeginnersGuide() {
       description:
         "信頼できるオンラインカジノを見分けるポイントや、ライセンスの重要性について解説します。安全にプレイするための選び方を紹介します。",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
-      image: "/touroku.png?height=400&width=600",
+      image: "/tate.png?height=400&width=600",
       href: "/beginners-guide/safety", // 例: 必要に応じて追加
     },
     {
