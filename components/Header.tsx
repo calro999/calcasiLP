@@ -9,15 +9,17 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
           {/* srcをダミーのplaceholder.svgに変更 */}
+          {/* ロゴのImageタグはそのまま残しておきます */}
           <Image
-            src="/placeholder.svg" // ここを修正
+            src="/placeholder.svg"
             alt="サイトロゴ"
             width={40}
             height={40}
             className="rounded-full"
           />
+          {/* Casino Insight を calcasiどっとこむ に変更 */}
           <span className="text-white text-2xl font-bold tracking-tight">
-            Casino Insight
+            calcasiどっとこむ
           </span>
         </Link>
         <nav>
