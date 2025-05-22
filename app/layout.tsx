@@ -1,33 +1,38 @@
-import type React from "react"
-import "@/app/globals.css"
-import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/Footer"
+// app/layout.tsx
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css"; // グローバルCSSのインポート
 
-const inter = Inter({ subsets: ["latin"] })
+// ここでは Header や Footer はインポートしません。
+// 各ページコンポーネント (.tsx ファイル) で個別に呼び出しているため、
+// ここで呼び出すと重複します。
 
-export const metadata = {
-  title: "calcasiどっとこむ | オンカジ最新ニュース情報局",
-  description:
-    "オンカジの「今」を知るならカルカジ！最速で情報をお届け。初心者からベテランまで役立つオンラインカジノ情報サイト。",
-    generator: 'v0.dev'
-}
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "calcasiどっとこむ",
+  description: "オンラインカジノに関する最新情報を提供します。",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
-      <body className={`${inter.className} bg-black text-white min-h-screen flex flex-col`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} disableTransitionOnChange={true}>
-          <Navbar />
-          <div className="flex-grow pt-16">{children}</div>
-          <Footer />
-        </ThemeProvider>
+    <html lang="ja">
+      <body className={inter.className}>
+        {/*
+          この children は、各ページの内容（例: app/latest-news/page.tsxの内容全体）
+          を指します。各ページがそれぞれ Header を持っているため、
+          ここでは Header を直接レンダリングしません。
+          もしレイアウト全体で共通のヘッダーにする場合は、
+          ここに <Header /> を一度だけ置き、各ページからは Header の呼び出しを削除します。
+          現在の状況では、各ページに Header があるため、
+          ここに Header があると二重になります。
+        */}
+        {children}
       </body>
     </html>
-  )
+  );
 }
