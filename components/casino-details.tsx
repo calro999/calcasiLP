@@ -1,3 +1,4 @@
+// components/casino-details.tsx
 import Image from "next/image"
 import Link from "next/link"
 import ScrollAnimation from "./animations/scroll-animation"
@@ -5,25 +6,25 @@ import ScrollAnimation from "./animations/scroll-animation"
 export default function CasinoDetails() {
   const casinos = [
     {
-      id: 1,
-      name: "エルドアカジノ",
+      id: "wonder", // app/casino-detail/[id]/page.tsx のIDと一致させる
+      name: "ワンダーカジノ",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600",
-      description: "高額ボーナスと豊富なゲーム数が魅力のカジノ。初回入金で最大$500のボーナス！",
+      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      description: "登録ボーナス$30！高速出金と豊富なゲームで初心者にも人気。",
     },
     {
-      id: 2,
-      name: "ベラジョンカジノ",
+      id: "duelbits", // app/casino-detail/[id]/page.tsx のIDと一致させる
+      name: "デュエルビッツ",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600",
-      description: "日本人に最も人気のオンラインカジノ。安心の日本語サポートと豊富な決済方法。",
+      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      description: "仮想通貨特化！独自のオリジナルゲームと豪華VIP特典が魅力の次世代カジノ。",
     },
     {
-      id: 3,
-      name: "カジノシークレット",
+      id: "kachiwin", // app/casino-detail/[id]/page.tsx のIDと一致させる
+      name: "勝win",
       category: "オンラインカジノ",
-      image: "/placeholder.svg?height=400&width=600",
-      description: "キャッシュバック制度が魅力のカジノ。負けても最大50%が戻ってくる！",
+      image: "/placeholder.svg?height=400&width=600", // 実際の画像パスに置き換え
+      description: "カジノもスポーツベットも楽しめる！日本人向けのサービスが充実。",
     },
   ]
 
