@@ -2,15 +2,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+// import Header from '@/components/Header'; // Headerはlayout.tsxで呼び出すので、ここでは削除
+// import Footer from '@/components/Footer'; // Footerもlayout.tsxで呼び出すので、ここでは削除
 import ScrollAnimation from '@/components/ScrollAnimation';
 
-// fsモジュールとpathモジュールをインポート（サーバーサイドでのみ動作）
 import fs from 'fs/promises';
 import path from 'path';
 
-// 記事データの型定義 (必要に応じてexcerptも追加)
 interface Article {
   id: number;
   title: string;
@@ -19,13 +17,12 @@ interface Article {
   category: string;
   date: string;
   readTime: string;
-  author: string; // 著者を追加
-  content: string; // contentも読み込むがここでは使わない
+  author: string;
+  content: string;
 }
 
-// 記事データを取得するサーバーコンポーネント関数
 async function getArticles(): Promise<Article[]> {
-  const articlesDir = path.join(process.cwd(), 'contents', 'articles'); // 'contents' フォルダ名に合わせる
+  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
   const filenames = await fs.readdir(articlesDir);
 
   const articlesPromises = filenames.map(async (filename) => {
@@ -35,17 +32,16 @@ async function getArticles(): Promise<Article[]> {
     return {
       id: article.id,
       title: article.title,
-      excerpt: article.excerpt || '', // excerptがない場合を考慮
+      excerpt: article.excerpt || '',
       image: article.image,
       category: article.category,
       date: article.date,
       readTime: article.readTime,
-      author: article.author || '不明', // authorがない場合を考慮
+      author: article.author || '不明',
       content: article.content,
     };
   });
 
-  // ファイル名に基づいてソート（新しい記事が上に来るようにIDで降順ソート）
   const articles = await Promise.all(articlesPromises);
   return articles.sort((a, b) => b.id - a.id);
 }
@@ -55,7 +51,7 @@ export default async function LatestNewsPage() {
 
   return (
     <main className="pt-20 pb-20 bg-black">
-      <Header />
+      {/* <Header /> */} {/* Headerはlayout.tsxで呼び出すので、ここでは削除 */}
       <section className="bg-gray-900 py-16 px-4 md:px-8">
         <div className="container mx-auto max-w-5xl">
           <ScrollAnimation variant="fadeInUp" delay={0}>
@@ -99,7 +95,7 @@ export default async function LatestNewsPage() {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */} {/* Footerもlayout.tsxで呼び出すので、ここでは削除 */}
     </main>
   );
 }

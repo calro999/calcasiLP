@@ -2,15 +2,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+// import Header from '@/components/Header'; // Headerはlayout.tsxで呼び出すので、ここでは削除
+// import Footer from '@/components/Footer'; // Footerもlayout.tsxで呼び出すので、ここでは削除
 import ScrollAnimation from '@/components/ScrollAnimation';
 
-// fsモジュールをインポート（サーバーサイドでのみ動作）
 import fs from 'fs/promises';
 import path from 'path';
 
-// 記事データの型定義
 interface Article {
   id: number;
   title: string;
@@ -23,14 +21,12 @@ interface Article {
   content: string;
 }
 
-// 全記事のIDリストを取得する関数 (generateStaticParams用)
 async function getAllArticleIds(): Promise<string[]> {
   const articlesDir = path.join(process.cwd(), 'contents', 'articles');
   const filenames = await fs.readdir(articlesDir);
-  return filenames.map(filename => path.parse(filename).name); // ファイル名からIDを取得
+  return filenames.map(filename => path.parse(filename).name);
 }
 
-// 特定のIDの記事データを取得する関数
 async function getArticleById(id: string): Promise<Article | undefined> {
   const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
   try {
@@ -42,7 +38,6 @@ async function getArticleById(id: string): Promise<Article | undefined> {
   }
 }
 
-// generateStaticParams を定義して、記事IDに基づいて静的ページを生成
 export async function generateStaticParams() {
   const ids = await getAllArticleIds();
   return ids.map((id) => ({
@@ -54,10 +49,9 @@ export default async function ArticlePage({ params }: { params: { id: string } }
   const article = await getArticleById(params.id);
 
   if (!article) {
-    // 記事が見つからない場合の表示
     return (
       <main className="pt-20 pb-20 bg-black min-h-screen flex flex-col items-center justify-center text-white">
-        <Header />
+        {/* <Header /> */} {/* Headerはlayout.tsxで呼び出すので、ここでは削除 */}
         <section className="text-center p-8">
           <h2 className="text-3xl font-bold text-amber-300 mb-4">記事が見つかりませんでした</h2>
           <p className="text-gray-400 mb-8">お探しの記事は存在しないか、削除された可能性があります。</p>
@@ -65,14 +59,14 @@ export default async function ArticlePage({ params }: { params: { id: string } }
             最新情報一覧に戻る
           </Link>
         </section>
-        <Footer />
+        {/* <Footer /> */} {/* Footerもlayout.tsxで呼び出すので、ここでは削除 */}
       </main>
     );
   }
 
   return (
     <main className="pt-20 pb-20 bg-black">
-      <Header />
+      {/* <Header /> */} {/* Headerはlayout.tsxで呼び出すので、ここでは削除 */}
       <section className="bg-gray-900 py-16 px-4 md:px-8">
         <div className="container mx-auto max-w-4xl">
           <ScrollAnimation variant="fadeInUp" delay={0}>
@@ -106,13 +100,12 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                 </div>
               </div>
 
-              {/* dangerouslySetInnerHTML を使用してHTMLコンテンツを表示 */}
               <div className="text-gray-300 text-lg leading-relaxed article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
             </div>
           </ScrollAnimation>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */} {/* Footerもlayout.tsxで呼び出すので、ここでは削除 */}
     </main>
   );
 }
