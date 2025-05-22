@@ -5,53 +5,159 @@ import ScrollAnimation from "@/components/animations/scroll-animation"
 import Shimmer from "@/components/animations/shimmer"
 import Particles from "@/components/animations/particles"
 
-// このページは動的に生成されますが、デモのために静的なデータを使用します
-export default function CasinoDetail({ params }: { params: { id: string } }) {
-  // 実際のアプリケーションでは、IDに基づいてデータベースやAPIからデータを取得します
-  const casino = {
-    id: params.id,
-    name: "エルドアカジノ",
-    logo: "/placeholder.svg?height=200&width=400",
-    banner: "/placeholder.svg?height=600&width=1200",
-    bonus: "初回入金100%ボーナス（最大$500）",
-    rating: 4.9,
-    description:
-      "エルドアカジノは、豊富なゲーム数と高額ボーナスが魅力のオンラインカジノです。日本語サポートも充実しており、初心者から上級者まで安心してプレイできます。特に出金スピードが業界トップクラスで、最短10分での出金が可能です。",
+// ここに複数のカジノデータを定義します。
+// 実際のアプリケーションでは、これはデータベースや外部APIから取得されるデータに置き換わります。
+const casinoData = [
+  {
+    id: "wonder",
+    name: "ワンダーカジノ",
+    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
+    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    bonus: "登録ボーナス$30！初回入金100%ボーナス（最大$500）",
+    rating: 4.8,
+    description: "初心者にも優しい充実のサポートと、幅広いゲームラインナップが魅力のワンダーカジノ。登録ボーナスでお得に始めよう！",
     longDescription:
-      "エルドアカジノは2018年に設立された比較的新しいオンラインカジノですが、短期間で多くの日本人プレイヤーから支持を集めています。その最大の魅力は、業界トップクラスの出金スピードと豊富なゲーム数です。最短10分での出金処理が可能なため、獲得した賞金をすぐに手に入れることができます。\n\nゲーム数は2,000種類以上あり、人気プロバイダーのスロットやテーブルゲーム、ライブカジノなど幅広いジャンルをカバーしています。特に日本人に人気の高いバカラやブラックジャックのテーブル数が多いのが特徴です。\n\nボーナス面では、初回入金時に100%のマッチボーナス（最大$500）が提供されるほか、2回目以降の入金でも継続的にボーナスを獲得できます。また、VIPプログラムも充実しており、プレイヤーのランクに応じて様々な特典が用意されています。\n\n日本語サポートは24時間体制で、ライブチャットやメールでの問い合わせに迅速に対応してくれます。初心者でも安心してプレイできる環境が整っているため、オンラインカジノデビューにもおすすめです。",
+      "ワンダーカジノは、その名の通り「驚き」と「楽しさ」を提供するオンラインカジノです。2018年に設立され、迅速な入出金処理と充実したボーナスプロモーションで人気を集めています。特に初めてオンラインカジノをプレイする方でも安心して利用できるよう、24時間体制の日本語サポートが提供されています。\n\nゲームは3,000種類以上を取り揃えており、最新のスロットから、臨場感あふれるライブカジノ、様々なテーブルゲームまで、あらゆるニーズに応えます。特にEvolution GamingやPragmatic Playといった人気プロバイダーのゲームが豊富です。\n\nプロモーションも魅力的で、新規登録者向けの入金不要ボーナスや初回入金ボーナスはもちろん、リベートボーナスやキャッシュバックなど、既存プレイヤー向けの特典も充実しています。VIPプログラムでは、プレイすればするほどランクが上がり、特別なサービスや限定ボーナスが受けられます。\n\nモバイルにも完全対応しており、スマートフォンやタブレットからいつでもどこでもお気に入りのゲームを楽しめます。安全なキュラソーライセンスを取得しており、セキュリティ面も万全です。",
     features: [
-      "2,000種類以上のゲーム",
-      "最短10分の高速出金",
+      "登録するだけで$30ボーナス",
+      "3,000種類以上のゲーム",
       "24時間日本語サポート",
       "豊富なボーナスとプロモーション",
-      "VIPプログラム",
-      "モバイル対応",
-      "安全なライセンス取得済み",
+      "モバイル完全対応",
+      "安全なキュラソーライセンス取得済み",
+      "迅速な入出金対応",
     ],
     paymentMethods: [
-      { name: "クレジットカード", processing: "即時", withdrawal: "1-3営業日" },
-      { name: "エコペイズ", processing: "即時", withdrawal: "10分-24時間" },
-      { name: "ビットコイン", processing: "即時", withdrawal: "10分-1時間" },
-      { name: "銀行振込", processing: "1-3営業日", withdrawal: "3-5営業日" },
-      { name: "ヴィーナスポイント", processing: "即時", withdrawal: "24-48時間" },
+      { name: "クレジットカード", processing: "即時", withdrawal: "非対応" },
+      { name: "エコペイズ", processing: "即時", withdrawal: "1時間以内" },
+      { name: "Vega Wallet", processing: "即時", withdrawal: "1時間以内" },
+      { name: "銀行振込", processing: "即時-1時間", withdrawal: "1-3営業日" },
+      { name: "仮想通貨", processing: "即時", withdrawal: "1時間以内" },
     ],
     games: [
-      { name: "スロット", count: "1,500+" },
-      { name: "テーブルゲーム", count: "100+" },
-      { name: "ライブカジノ", count: "150+" },
-      { name: "ジャックポット", count: "50+" },
-      { name: "ビデオポーカー", count: "30+" },
+      { name: "スロット", count: "2,500+" },
+      { name: "テーブルゲーム", count: "150+" },
+      { name: "ライブカジノ", count: "200+" },
+      { name: "ジャックポット", count: "80+" },
     ],
     pros: [
-      "業界最速クラスの出金スピード",
-      "豊富なゲーム数と種類",
-      "充実した日本語サポート",
-      "魅力的なボーナス条件",
-      "安全性の高いライセンス",
+      "豊富なゲームラインナップ",
+      "登録ボーナスと充実のプロモーション",
+      "24時間日本語サポート",
+      "迅速な入出金処理",
+      "VIPプログラムの特典",
     ],
-    cons: ["一部の国からのアクセス制限", "電話サポートがない", "一部のゲームはモバイル非対応"],
+    cons: ["一部ボーナスに高めの賭け条件がある場合", "人気が高くサポートが混み合う時間帯がある"],
+    officialLink: "#" // 実際の公式サイトURLに置き換える
+  },
+  {
+    id: "duelbits",
+    name: "デュエルビッツ",
+    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
+    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    bonus: "最大$1000のウェルカムパッケージ",
+    rating: 4.7,
+    description: "仮想通貨に特化した次世代カジノ。独自のオリジナルゲームと充実したVIP特典が魅力！",
+    longDescription:
+      "デュエルビッツは、仮想通貨をメインに扱う革新的なオンラインカジノです。特にビットコインやイーサリアムなどの仮想通貨ユーザーにとっては、高速で安全な入出金が可能である点が大きな魅力です。\n\n独自の「オリジナルゲーム」が充実しており、他では味わえないユニークなゲーム体験ができます。シンプルながらも戦略性の高いダイスや、マインスイーパーのようなゲームなど、中毒性のあるゲームが多数あります。\n\nボーナス面では、新規プレイヤー向けのウェルカムパッケージだけでなく、日替わり、週替わりのプロモーションが豊富に用意されています。特に、VIPプログラムが充実しており、高額ベットを行うプレイヤーには、専用のサポートや限定ボーナス、キャッシュバックなどが提供されます。\n\n日本語サポートも提供されており、仮想通貨に関する疑問やゲームに関する問題にも迅速に対応してくれます。透明性の高いRTP（還元率）表示も特徴で、公平なゲームプレイが保証されています。",
+    features: [
+      "仮想通貨に特化",
+      "オリジナルゲームが豊富",
+      "VIPプログラムが充実",
+      "透明性の高い運営",
+      "高速な入出金",
+      "24時間サポート",
+    ],
+    paymentMethods: [
+      { name: "ビットコイン", processing: "即時", withdrawal: "10分以内" },
+      { name: "イーサリアム", processing: "即時", withdrawal: "10分以内" },
+      { name: "ライトコイン", processing: "即時", withdrawal: "10分以内" },
+      { name: "テザー", processing: "即時", withdrawal: "10分以内" },
+      { name: "Visa/Mastercard", processing: "即時", withdrawal: "非対応 (仮想通貨へ変換)" },
+    ],
+    games: [
+      { name: "オリジナルゲーム", count: "10+" },
+      { name: "スロット", count: "2,000+" },
+      { name: "ライブカジノ", count: "180+" },
+    ],
+    pros: [
+      "仮想通貨ユーザーに最適",
+      "独自の面白いオリジナルゲーム",
+      "VIPプログラムが豪華",
+      "出金速度が非常に速い",
+      "公平性が高い",
+    ],
+    cons: ["仮想通貨に不慣れな人にはハードルが高い", "法定通貨での入出金オプションが少ない"],
+    officialLink: "#" // 実際の公式サイトURLに置き換える
+  },
+  {
+    id: "kachiwin",
+    name: "勝win",
+    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
+    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    bonus: "最大$1000のウェルカムボーナス",
+    rating: 4.5,
+    description: "スポーツベットもカジノも楽しめる！日本市場に特化したサービスで、安心してプレイできる。",
+    longDescription:
+      "勝winは、カジノゲームとスポーツベットの両方を一つのプラットフォームで楽しめる総合型オンラインゲーミングサイトです。特に日本市場に力を入れており、日本人プレイヤーにとって使いやすいインターフェースと、親切な日本語サポートが特徴です。\n\nカジノゲームでは、人気プロバイダーのスロット、ライブカジノ、テーブルゲームが幅広く提供されており、定期的に新しいゲームが追加されます。また、スポーツベットでは、Jリーグやプロ野球を含む国内外の様々なスポーツイベントにベットすることができ、多様なベットオプションが用意されています。\n\nボーナスも充実しており、新規登録者向けのウェルカムボーナスはもちろん、フリースピンやキャッシュバック、リロードボーナスなど、プレイヤーが長く楽しめるようなプロモーションが豊富です。入出金方法も日本のユーザーに馴染み深いものが多く、スムーズな取引が可能です。\n\n安全性と信頼性も高く、正規のライセンスを取得して運営されています。何か問題があった場合でも、迅速に対応してくれる日本語サポートがあるため、初心者から経験者まで安心して利用できます。",
+    features: [
+      "カジノとスポーツベットの両方",
+      "日本市場向けサービス",
+      "幅広い入出金方法",
+      "豊富なボーナスプロモーション",
+      "日本語サポート充実",
+      "モバイル対応",
+      "高い安全性と信頼性",
+    ],
+    paymentMethods: [
+      { name: "クレジットカード", processing: "即時", withdrawal: "非対応" },
+      { name: "銀行振込", processing: "即時-1時間", withdrawal: "1-3営業日" },
+      { name: "エコペイズ", processing: "即時", withdrawal: "数時間-1日" },
+      { name: "スティックペイ", processing: "即時", withdrawal: "数時間-1日" },
+      { name: "仮想通貨", processing: "即時", withdrawal: "1時間以内" },
+    ],
+    games: [
+      { name: "スロット", count: "1,800+" },
+      { name: "テーブルゲーム", count: "80+" },
+      { name: "ライブカジノ", count: "120+" },
+      { name: "スポーツベット", count: "多種多様" },
+    ],
+    pros: [
+      "カジノとスポーツベットを両方楽しめる",
+      "日本人向けに最適化されたサービス",
+      "入出金方法が豊富で便利",
+      "質の高い日本語サポート",
+      "ウェルカムボーナスが魅力的",
+    ],
+    cons: ["一部の人気ゲームがない場合がある", "プロモーションの更新頻度がやや低い時がある"],
+    officialLink: "#" // 実際の公式サイトURLに置き換える
+  }
+];
+
+// このページは動的に生成されます
+export default function CasinoDetail({ params }: { params: { id: string } }) {
+  // URLのID (例: 'wonder', 'duelbits') に基づいて、上記のデータから該当するカジノを見つけます
+  const casino = casinoData.find((c) => c.id === params.id);
+
+  // もし該当するカジノが見つからなかった場合（例：存在しないIDがURLに来た場合）
+  if (!casino) {
+    // 実際には404ページにリダイレクトするか、エラーメッセージを表示します。
+    // 今回は単純にメッセージを表示します。
+    return (
+      <main className="pt-20 pb-20 bg-black min-h-screen flex items-center justify-center">
+        <div className="text-center text-white">
+          <h1 className="text-4xl font-bold mb-4">カジノが見つかりません</h1>
+          <p className="text-xl">指定されたカジノIDには情報がありません。</p>
+          <Link href="/casino-ranking" className="text-amber-400 mt-6 block hover:underline">
+            <ArrowLeft size={16} className="inline-block mr-1" />
+            カジノランキングに戻る
+          </Link>
+        </div>
+      </main>
+    );
   }
 
+  // カジノが見つかった場合は、そのカジノの詳細を表示します
   return (
     <main className="pt-20 pb-20 bg-black">
       <div className="relative overflow-hidden">
@@ -119,7 +225,8 @@ export default function CasinoDetail({ params }: { params: { id: string } }) {
                 <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl p-6 mb-8">
                   <h2 className="text-2xl font-bold text-white mb-4">カジノ情報</h2>
                   <div className="prose prose-invert max-w-none">
-                    {casino.longDescription.split("\n\n").map((paragraph, index) => (
+                    {/* longDescriptionを改行で分割して表示 */}
+                    {casino.longDescription.split('\n\n').map((paragraph, index) => (
                       <p key={index} className="text-gray-300 mb-4">
                         {paragraph}
                       </p>
@@ -209,7 +316,9 @@ export default function CasinoDetail({ params }: { params: { id: string } }) {
                       {casino.bonus}
                     </div>
                     <Link
-                      href="#"
+                      href={casino.officialLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="block bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-6 py-3 rounded-md transition-all transform hover:scale-105 w-full"
                     >
                       公式サイトへ
@@ -238,11 +347,12 @@ export default function CasinoDetail({ params }: { params: { id: string } }) {
                   <div>
                     <h3 className="text-xl font-bold text-white mb-3">関連記事</h3>
                     <ul className="space-y-3">
+                      {/* ここは、各カジノに関連する記事のリンクを動的に生成するように変更することもできます */}
                       {[
-                        "エルドアカジノの登録方法",
-                        "エルドアカジノの出金方法と注意点",
-                        "エルドアカジノのボーナス攻略法",
-                        "エルドアカジノのおすすめスロット5選",
+                        `${casino.name}の登録方法`,
+                        `${casino.name}の出金方法と注意点`,
+                        `${casino.name}のボーナス攻略法`,
+                        `${casino.name}のおすすめスロット5選`,
                       ].map((article, index) => (
                         <li key={index}>
                           <Link href="#" className="text-amber-400 hover:underline flex items-center">
