@@ -9,7 +9,7 @@ export default function CasinoDetails() {
       id: "wonder", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "ワンダーカジノ",
       category: "オンラインカジノ",
-      image: "/wondercasino.png?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/wondercasino_logo.png?height=400&width=600", // 実際の画像パスに置き換え
       description: "登録ボーナス$30！高速出金と豊富なゲームで初心者にも人気。",
     },
     {
@@ -23,7 +23,7 @@ export default function CasinoDetails() {
       id: "kachiwin", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "勝win",
       category: "オンラインカジノ",
-      image: "/katsu.png?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/katsu.jpg?height=400&width=600", // 実際の画像パスに置き換え
       description: "カジノもスポーツベットも楽しめる！日本人向けのサービスが充実。",
     },
   ]
