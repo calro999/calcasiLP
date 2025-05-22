@@ -42,7 +42,7 @@ export default function LatestNews() {
   const latestArticles = [
     {
       id: 4,
-      title: "エルドアカジノに新たなボーナスキャンペーンが登場！",
+      title: "ワンダーカジノのサイトがリニューアルしました！！",
       excerpt: "エルドアカジノで、期間限定の超お得なボーナスキャンペーンがスタート！初回入金ボーナスやキャッシュバックが大幅にアップし、既存プレイヤーにも嬉しい特典が満載です。",
       image: "/placeholder.svg", // 画像パスはplaceholder.svgを使用
       category: "ボーナス情報",
