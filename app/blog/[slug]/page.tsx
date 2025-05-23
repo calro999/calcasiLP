@@ -12,17 +12,14 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   if (!post) return notFound()
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-      <p className="text-sm text-gray-400 mb-6">{post.date}</p>
+    <main className="max-w-3xl mx-auto px-4 pt-24 pb-16">
+    <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+    <p className="text-sm text-gray-400 mb-6">{post.date}</p>
+        <article
+            className="prose prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
+</main>
 
-      {/* ✅ Markdownをきれいに表示 */}
-<article
-  className="prose prose-invert max-w-3xl mx-auto mt-8 text-white"
-  dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-/>
-
-
-    </main>
   )
 }

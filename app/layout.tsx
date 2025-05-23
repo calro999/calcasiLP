@@ -40,9 +40,11 @@ export default function RootLayout({
         
       </head>
       <body className={inter.className}>
+        <body className={`${inter.className} bg-black text-white`}>
         <Header />
         {children}
         <Footer />
+      </body>
       </body>
     </html>
   );

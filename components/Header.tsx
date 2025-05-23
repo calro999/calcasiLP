@@ -92,7 +92,7 @@ export default function Header() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="absolute top-full left-0 w-full bg-black md:hidden px-4 pb-4 pt-2 z-40"
+              className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 backdrop-blur shadow-md"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
