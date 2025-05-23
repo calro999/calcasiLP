@@ -13,12 +13,13 @@ export function getAllPosts() {
     const slug = fileName.replace(/\.md$/, "")
     const fullPath = path.join(postsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, "utf8")
-    const { data } = matter(fileContents)
+    const { data, content } = matter(fileContents)
 
     return {
       slug,
       title: data.title,
       date: data.date,
+      excerpt: content.trim().slice(0, 80) + "…" // ✅ 本文の冒頭だけ使って一覧に表示
     }
   })
 }
