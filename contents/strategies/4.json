@@ -1,11 +1,13 @@
 {
   "id": 4,
-  "title": "テスト記事 for Article Route (シンプル版)",
-  "excerpt": "これはテスト用の抜粋です。Articleルートの動作確認用。",
+  "title": "バカラのベッティング戦略3選：プレイヤー派 vs バンカー派",
+  "description": "シンプルだけど奥深いバカラの勝ち方を伝授！",
+  "publishedDate": "2025-05-04",
+  "author": "バカラ大好き田中",
+  "readTime": 5,
+  "category": "カードゲーム",
+  "difficulty": "中級",
+  "expectedValue": "中",
   "image": "/placeholder.svg",
-  "category": "テスト",
-  "date": "2025-01-01",
-  "readTime": "1分",
-  "author": "テスト太郎",
-  "content": "<p><b>これはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
+  "content": "<p>バカラは運だけでなく、資金管理や賭け方の選択も重要。この記事では、人気のベッティング戦略を3つ紹介し、それぞれのメリットと注意点を解説します。</p>"
 }

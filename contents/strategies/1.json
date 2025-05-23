@@ -1,11 +1,13 @@
 {
   "id": 1,
-  "title": "aaaテスト記事 for Article Route (シンプル版)",
-  "excerpt": "aaaaこれはテスト用の抜粋です。Articleルートの動作確認用。",
+  "title": "ブラックジャック必勝法：基本戦略チャートで勝率UP",
+  "description": "初心者でも勝率を上げられるブラックジャックの基本戦略を解説します。",
+  "publishedDate": "2025-05-01",
+  "author": "カジノ山田",
+  "readTime": 5,
+  "category": "カードゲーム",
+  "difficulty": "初級",
+  "expectedValue": "中",
   "image": "/placeholder.svg",
-  "category": "テスト",
-  "date": "2025-01-01",
-  "readTime": "1分",
-  "author": "テスト太郎",
-  "content": "<p><b>aaaこれはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
+  "content": "<p>ブラックジャックは運と戦略が絶妙に絡むゲームです。この記事では、基本戦略チャートの使い方や、ディーラーとの心理戦に勝つためのポイントをわかりやすく紹介します。</p>"
 }

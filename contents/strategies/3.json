@@ -1,11 +1,13 @@
 {
   "id": 3,
-  "title": "テスト記事 for Article Route (シンプル版)",
-  "excerpt": "これはテスト用の抜粋です。Articleルートの動作確認用。",
+  "title": "スロットで勝つ！ボラティリティの理解と機種選び",
+  "description": "スロット選びで勝敗は決まる！勝ちやすい機種の見極め方とは？",
+  "publishedDate": "2025-05-03",
+  "author": "スロマニア小林",
+  "readTime": 4,
+  "category": "スロット",
+  "difficulty": "初級",
+  "expectedValue": "低〜中",
   "image": "/placeholder.svg",
-  "category": "テスト",
-  "date": "2025-01-01",
-  "readTime": "1分",
-  "author": "テスト太郎",
-  "content": "<p><b>これはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
+  "content": "<p>スロットはただの運ゲーではありません。ボラティリティ（変動率）を理解することで、自分に合った勝ちやすいスロットを選べるようになります。</p>"
 }

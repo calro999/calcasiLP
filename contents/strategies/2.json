@@ -1,11 +1,13 @@
 {
   "id": 2,
-  "title": "テスト記事 for Article Route (シンプル版)",
-  "excerpt": "これはテスト用の抜粋です。Articleルートの動作確認用。",
+  "title": "ルーレット攻略：マーチンゲール法のリスクと活用法",
+  "description": "定番のベット戦略「マーチンゲール法」の仕組みと注意点を徹底解説。",
+  "publishedDate": "2025-05-02",
+  "author": "カジノ佐藤",
+  "readTime": 6,
+  "category": "テーブルゲーム",
+  "difficulty": "中級",
+  "expectedValue": "低",
   "image": "/placeholder.svg",
-  "category": "テスト",
-  "date": "2025-01-01",
-  "readTime": "1分",
-  "author": "テスト太郎",
-  "content": "<p><b>これはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
+  "content": "<p>マーチンゲール法は有名なベッティング戦略ですが、正しく使わないと破滅的な損失に繋がる危険も。本記事では、そのリスクと実践法、対策を紹介します。</p>"
 }
