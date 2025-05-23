@@ -11,8 +11,8 @@ const casinoData = [
   {
     id: "wonder",
     name: "ワンダーカジノ",
-    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
-    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    logo: "/wan.png?height=200&width=400", // 実際のロゴパスに
+    banner: "/wan.png?height=600&width=1200", // 実際のバナーパスに
     bonus: "登録ボーナス$30！初回入金100%ボーナス（最大$500）",
     rating: 4.8,
     description: "初心者にも優しい充実のサポートと、幅広いゲームラインナップが魅力のワンダーカジノ。登録ボーナスでお得に始めよう！",
@@ -48,13 +48,13 @@ const casinoData = [
       "VIPプログラムの特典",
     ],
     cons: ["一部ボーナスに高めの賭け条件がある場合", "人気が高くサポートが混み合う時間帯がある"],
-    officialLink: "#" // 実際の公式サイトURLに置き換える
+    officialLink: "https://tracker-pm2.casino-wonder.com/link?btag=96420424_437635" // 実際の公式サイトURLに置き換える
   },
   {
     id: "duelbits",
     name: "デュエルビッツ",
-    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
-    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    logo: "/duelbits_logo.png?height=200&width=400", // 実際のロゴパスに
+    banner: "/duelbits_logo.png?height=600&width=1200", // 実際のバナーパスに
     bonus: "最大$1000のウェルカムパッケージ",
     rating: 4.7,
     description: "仮想通貨に特化した次世代カジノ。独自のオリジナルゲームと充実したVIP特典が魅力！",
@@ -88,13 +88,141 @@ const casinoData = [
       "公平性が高い",
     ],
     cons: ["仮想通貨に不慣れな人にはハードルが高い", "法定通貨での入出金オプションが少ない"],
-    officialLink: "#" // 実際の公式サイトURLに置き換える
+    officialLink: "https://affiliates.duelbits.com/visit/?bta=35925&nci=5768" // 実際の公式サイトURLに置き換える
   },
+  {
+  "id": "k8",
+  "name": "K8カジノ",
+  "logo": "/k8_logo.png",
+  "banner": "/k8_logo.png",
+  "bonus": "初回入金100%ボーナス（最大$800）＋288回のフリースピン",
+  "rating": 4.7,
+  "description": "K8カジノは、豊富なゲームラインナップと高額ボーナスが魅力のオンラインカジノです。日本語サポートも充実しており、初心者から上級者まで安心してプレイできます。特にスロットゲームに力を入れており、旧式のパチスロ機種も楽しめます。",
+  "longDescription": "K8カジノは、2013年に設立されたオンラインカジノで、3,000種類以上のゲームを提供しています。特にスロットゲームが充実しており、旧式のパチスロ機種も楽しめます。初回入金ボーナスとして、最大$800の100%ボーナスと288回のフリースピンが用意されており、賭け条件は入金額＋ボーナス額の25倍です。日本語サポートも24時間対応しており、安心してプレイできます。",
+  "features": [
+    "3,000種類以上のゲーム",
+    "旧式のパチスロ機種が楽しめる",
+    "初回入金100%ボーナス（最大$800）",
+    "288回のフリースピン",
+    "24時間日本語サポート",
+    "モバイル対応",
+    "安全なキュラソーライセンス取得済み"
+  ],
+  "paymentMethods": [
+    { "name": "クレジットカード", "processing": "即時", "withdrawal": "非対応" },
+    { "name": "エコペイズ", "processing": "即時", "withdrawal": "1時間以内" },
+    { "name": "Vega Wallet", "processing": "即時", "withdrawal": "1時間以内" },
+    { "name": "銀行振込", "processing": "即時-1時間", "withdrawal": "1-3営業日" },
+    { "name": "仮想通貨", "processing": "即時", "withdrawal": "1時間以内" }
+  ],
+  "games": [
+    { "name": "スロット", "count": "2,500+" },
+    { "name": "テーブルゲーム", "count": "150+" },
+    { "name": "ライブカジノ", "count": "200+" },
+    { "name": "ジャックポット", "count": "80+" }
+  ],
+  "pros": [
+    "豊富なゲームラインナップ",
+    "高額な初回入金ボーナス",
+    "旧式のパチスロ機種が楽しめる",
+    "24時間日本語サポート",
+    "迅速な入出金処理"
+  ],
+  "cons": [
+    "一部ボーナスに高めの賭け条件がある場合",
+    "人気が高くサポートが混み合う時間帯がある"
+  ],
+  "officialLink": "https://k8.io/?invite=calron"
+},
+{
+  "id": "parimatch",
+  "name": "パリマッチカジノ",
+  "logo": "/parimatch_logo.png",
+  "banner": "/parimatch_logo.png",
+  "bonus": "初回入金150%ボーナス（最大$1,500）",
+  "rating": 4.6,
+  "description": "スポーツベットに強みを持つ世界的に有名なブックメーカー兼オンラインカジノ。多彩なスポーツイベントに賭けることができ、カジノゲームも充実。",
+  "longDescription": "パリマッチカジノは、スポーツベットに特化したオンラインカジノで、初回入金150%ボーナス（最大$1,500）を提供しています。多彩なスポーツイベントへのベットオプションと、豊富なカジノゲームが魅力です。日本語サポートも完備されており、安心して利用できます。",
+  "features": [
+    "スポーツベット強化",
+    "豊富なプロモーション",
+    "日本語サポート",
+    "多彩なカジノゲーム",
+    "迅速な入出金処理"
+  ],
+  "paymentMethods": [
+    { "name": "クレジットカード", "processing": "即時", "withdrawal": "1-3営業日" },
+    { "name": "エコペイズ", "processing": "即時", "withdrawal": "1時間以内" },
+    { "name": "仮想通貨", "processing": "即時", "withdrawal": "1時間以内" }
+  ],
+  "games": [
+    { "name": "スロット", "count": "2,000+" },
+    { "name": "テーブルゲーム", "count": "100+" },
+    { "name": "ライブカジノ", "count": "150+" },
+    { "name": "スポーツベット", "count": "多種多様" }
+  ],
+  "pros": [
+    "スポーツベットとカジノの両方を楽しめる",
+    "豊富なプロモーション",
+    "日本語サポート完備",
+    "迅速な入出金処理"
+  ],
+  "cons": [
+    "一部のプロモーションに高めの賭け条件がある場合",
+    "特定のゲームプロバイダーが未対応"
+  ],
+  "officialLink": "https://affcl.org/?serial=61314390&creative_id=4261"
+},
+
+{
+  "id": "stake",
+  "name": "Stakeカジノ",
+  "logo": "/stake_logo.png",
+  "banner": "/stake_logo.png",
+  "bonus": "初回入金200%ボーナス（最大$2,000）＋入金不要ボーナス$14",
+  "rating": 4.8,
+  "description": "Stakeカジノは、仮想通貨専門のオンラインカジノで、独自のオリジナルゲームと高い還元率が特徴です。入金不要ボーナスや高額な初回入金ボーナスが用意されており、VIPプログラムも充実しています。",
+  "longDescription": "Stakeカジノは、仮想通貨に特化したオンラインカジノで、ビットコイン、イーサリアム、ライトコインなど多様な仮想通貨に対応しています。初回入金ボーナスとして、最大$2,000の200%ボーナスが提供されており、さらに入金不要ボーナスとして$14が進呈されます。独自のオリジナルゲームや高い還元率、充実したVIPプログラムが魅力です。日本語サポートも提供されており、安心してプレイできます。",
+  "features": [
+    "仮想通貨に特化",
+    "独自のオリジナルゲームが豊富",
+    "初回入金200%ボーナス（最大$2,000）",
+    "入金不要ボーナス$14",
+    "高い還元率",
+    "充実したVIPプログラム",
+    "日本語サポート対応"
+  ],
+  "paymentMethods": [
+    { "name": "ビットコイン", "processing": "即時", "withdrawal": "10分以内" },
+    { "name": "イーサリアム", "processing": "即時", "withdrawal": "10分以内" },
+    { "name": "ライトコイン", "processing": "即時", "withdrawal": "10分以内" },
+    { "name": "テザー", "processing": "即時", "withdrawal": "10分以内" },
+    { "name": "Visa/Mastercard", "processing": "即時", "withdrawal": "非対応 (仮想通貨へ変換)" }
+  ],
+  "games": [
+    { "name": "オリジナルゲーム", "count": "10+" },
+    { "name": "スロット", "count": "2,000+" },
+    { "name": "ライブカジノ", "count": "180+" }
+  ],
+  "pros": [
+    "仮想通貨ユーザーに最適",
+    "独自の面白いオリジナルゲーム",
+    "VIPプログラムが豪華",
+    "出金速度が非常に速い",
+    "公平性が高い"
+  ],
+  "cons": [
+    "仮想通貨に不慣れな人にはハードルが高い",
+    "法定通貨での入出金オプションが少ない"
+  ],
+  "officialLink": "https://stake.com/?c=aLjELsQU&offer=calro200"
+},
+
   {
     id: "kachiwin",
     name: "勝win",
-    logo: "/placeholder.svg?height=200&width=400", // 実際のロゴパスに
-    banner: "/placeholder.svg?height=600&width=1200", // 実際のバナーパスに
+    logo: "/katsu.jpg?height=200&width=400", // 実際のロゴパスに
+    banner: "/katsu.jpg?height=600&width=1200", // 実際のバナーパスに
     bonus: "最大$1000のウェルカムボーナス",
     rating: 4.5,
     description: "スポーツベットもカジノも楽しめる！日本市場に特化したサービスで、安心してプレイできる。",
@@ -130,7 +258,7 @@ const casinoData = [
       "ウェルカムボーナスが魅力的",
     ],
     cons: ["一部の人気ゲームがない場合がある", "プロモーションの更新頻度がやや低い時がある"],
-    officialLink: "#" // 実際の公式サイトURLに置き換える
+    officialLink: "https://tracker.katsuwinaffiliates.ai/link?btag=90306436_414265" // 実際の公式サイトURLに置き換える
   }
 ];
 

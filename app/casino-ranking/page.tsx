@@ -16,7 +16,7 @@ export default function CasinoRanking() {
       rating: 4.9,
       description:
         "ワンダーカジノは、豊富なゲーム数と高額ボーナスが魅力のオンラインカジノです。日本語サポートも充実しており、初心者から上級者まで安心してプレイできます。特に出金スピードが業界トップクラスで、最短10分での出金が可能です。",
-      detailLink: "/casino-detail/wondercasino",
+      detailLink: "/casino-detail/wonder",
       officialLink: "https://tracker-pm2.casino-wonder.com/link?btag=96420424_437635"
     },
     {
@@ -30,7 +30,7 @@ export default function CasinoRanking() {
       description:
         "デュエルビッツは、仮想通貨に特化したゲーミフィケーション要素が豊富なカジノです。高いレーキバックとオリジナルゲームが人気で、スポーツベットも楽しめます。コミュニティも活発で、新しいゲーム体験を求める方におすすめです。",
       detailLink: "/casino-detail/duelbits",
-      officialLink: "#"
+      officialLink: "https://affiliates.duelbits.com/visit/?bta=35925&nci=5768"
     },
     {
       id: 3,
@@ -43,7 +43,7 @@ export default function CasinoRanking() {
       description:
         "K8は、高額な初回入金ボーナスと豊富なプロモーションが魅力の仮想通貨カジノです。スロット、ライブカジノ、スポーツベットなど幅広いゲームを提供しており、手厚いVIPプログラムも用意されています。",
       detailLink: "/casino-detail/k8",
-      officialLink: "#"
+      officialLink: "https://k8.io/?invite=calron"
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ export default function CasinoRanking() {
       description:
         "パリマッチは、特にスポーツベットに強みを持つ世界的に有名なブックメーカー兼オンラインカジノです。多彩なスポーツイベントに賭けることができ、カジノゲームも充実しています。新規ユーザー向けのボーナスも魅力的です。",
       detailLink: "/casino-detail/parimatch",
-      officialLink: "#"
+      officialLink: "https://affcl.org/?serial=61314390&creative_id=4261"
     },
     {
       id: 5,
@@ -69,7 +69,7 @@ export default function CasinoRanking() {
       description:
         "Stakeは、仮想通貨専門カジノの代表格であり、世界中で絶大な人気を誇ります。独自のオリジナルゲームと、ベット額に応じたレーキバックシステムが特徴です。ライブカジノやスポーツベットも充実しています。",
       detailLink: "/casino-detail/stake",
-      officialLink: "#"
+      officialLink: "stake.com/?c=aLjELsQU&offer=calro200"
     },
   ]
 
