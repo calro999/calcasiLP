@@ -1,13 +1,15 @@
-// app/article/[id]/page.tsx
+// /workspaces/calcasiLP/app/article/[id]/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-// import Header from '@/components/Header'; // Headerはlayout.tsxで呼び出すので、ここでは削除
-// import Footer from '@/components/Footer'; // Footerもlayout.tsxで呼び出すので、ここでは削除
+// HeaderやFooterはlayout.tsxで呼び出すのが一般的です
+// import Header from '@/components/Header';
+// import Footer from '@/components/Footer';
 import ScrollAnimation from '@/components/ScrollAnimation';
 
-import fs from 'fs/promises';
+import fs from 'fs/promises'; // fs/promises を使用
 import path from 'path';
+import { notFound } from 'next/navigation'; // next/navigationからnotFoundをインポート
 
 interface Article {
   id: number;
@@ -18,55 +20,67 @@ interface Article {
   date: string;
   readTime: string;
   author: string;
-  content: string;
+  content: string; // ここにHTML文字列が格納されることを想定
 }
 
+// すべての記事IDを取得するヘルパー関数
 async function getAllArticleIds(): Promise<string[]> {
   const articlesDir = path.join(process.cwd(), 'contents', 'articles');
-  const filenames = await fs.readdir(articlesDir);
-  return filenames.map(filename => path.parse(filename).name);
+  try {
+    const filenames = await fs.readdir(articlesDir);
+    return filenames.map(filename => path.parse(filename).name);
+  } catch (error) {
+    console.error(`Error reading directory ${articlesDir}:`, error);
+    // ディレクトリが存在しない、または読み取れない場合は空配列を返す
+    return [];
+  }
 }
 
+// 特定のIDの記事を取得するヘルパー関数
 async function getArticleById(id: string): Promise<Article | undefined> {
   const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);
   } catch (error) {
-    console.error(`Error reading article file for ID ${id}:`, error);
-    return undefined;
+    console.error(`Error reading or parsing article file for ID ${id} at ${filePath}:`, error);
+    return undefined; // エラー時は undefined を返す
   }
 }
 
+// 静的パスを生成する関数 (SSG用)
 export async function generateStaticParams() {
-  const ids = await getAllArticleIds();
-  return ids.map((id) => ({
-    id: id,
-  }));
+  // === TEMPORARY FIX: Force only ID '1' for troubleshooting ===
+  // Vercel でのビルドエラーが解決したら、以下の2行をコメントアウトし、
+  // 下の `const ids = await getAllArticleIds();` 以降の元のコードに戻してください。
+  console.log("Forcing generateStaticParams to return only article ID '1' for /article/[id] prerendering.");
+  return [{ id: '1' }];
+  // ==========================================================
+
+  // const ids = await getAllArticleIds();
+  // if (ids.length === 0) {
+  //   console.warn("No article IDs found for /article. Ensure 'contents/articles' directory and JSON files exist and are readable.");
+  //   // 記事が存在しない場合に備え、空の配列を返すか、既知のテストIDを返す
+  //   // 例えば、`1.json` が確実に存在する場合
+  //   return [{ id: '1' }];
+  // }
+  // return ids.map((id) => ({
+  //   id: id,
+  // }));
 }
 
+// 記事詳細ページコンポーネント
 export default async function ArticlePage({ params }: { params: { id: string } }) {
   const article = await getArticleById(params.id);
 
   if (!article) {
-    return (
-      <main className="pt-20 pb-20 bg-black min-h-screen flex flex-col items-center justify-center text-white">
-        {/* <Header /> */} {/* Headerはlayout.tsxで呼び出すので、ここでは削除 */}
-        <section className="text-center p-8">
-          <h2 className="text-3xl font-bold text-amber-300 mb-4">記事が見つかりませんでした</h2>
-          <p className="text-gray-400 mb-8">お探しの記事は存在しないか、削除された可能性があります。</p>
-          <Link href="/latest-news" className="text-blue-400 hover:underline">
-            最新情報一覧に戻る
-          </Link>
-        </section>
-        {/* <Footer /> */} {/* Footerもlayout.tsxで呼び出すので、ここでは削除 */}
-      </main>
-    );
+    // 記事が見つからない場合は Next.js の notFound ページを表示
+    notFound();
   }
 
   return (
     <main className="pt-20 pb-20 bg-black">
-      {/* <Header /> */} {/* Headerはlayout.tsxで呼び出すので、ここでは削除 */}
+      {/* <Header /> は layout.tsx で呼び出すのが一般的です */}
       <section className="bg-gray-900 py-16 px-4 md:px-8">
         <div className="container mx-auto max-w-4xl">
           <ScrollAnimation variant="fadeInUp" delay={0}>
@@ -100,12 +114,13 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                 </div>
               </div>
 
-              <div className="text-gray-300 text-lg leading-relaxed article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+              {/* `dangerouslySetInnerHTML` の形式は正しいです */}
+              <div className="prose prose-invert max-w-none text-gray-300" dangerouslySetInnerHTML={{ __html: article.content }} />
             </div>
           </ScrollAnimation>
         </div>
       </section>
-      {/* <Footer /> */} {/* Footerもlayout.tsxで呼び出すので、ここでは削除 */}
+      {/* <Footer /> は layout.tsx で呼び出すのが一般的です */}
     </main>
   );
 }
