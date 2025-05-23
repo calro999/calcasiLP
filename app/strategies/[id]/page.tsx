@@ -1,110 +1,99 @@
-// /workspaces/calcasiLP/app/article/[id]/page.tsx
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-// import Header from '@/components/Header'; // Headerはlayout.tsxで呼び出すので、ここでは削除
-// import Footer from '@/components/Footer'; // Footerもlayout.tsxで呼び出すので、ここでは削除
-import ScrollAnimation from '@/components/ScrollAnimation';
-
+// /workspaces/calcasiLP/app/strategies/[id]/page.tsx
 import fs from 'fs/promises';
 import path from 'path';
-import { notFound } from 'next/navigation'; // notFound をインポート
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import ScrollAnimation from '@/components/ScrollAnimation';
 
-interface Article {
+interface Strategy {
   id: number;
   title: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  date: string;
-  readTime: string;
+  description: string;
+  publishedDate: string;
   author: string;
-  content: string; // ここにHTML文字列が格納されることを想定
+  readTime: number;
+  category: string;
+  difficulty: string;
+  expectedValue: string;
+  image: string;
+  content: string; // HTML文字列
 }
 
-async function getAllArticleIds(): Promise<string[]> {
-  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
+// ID一覧取得（静的ルーティング用）
+async function getAllStrategyIds(): Promise<string[]> {
+  const dir = path.join(process.cwd(), 'contents', 'strategies');
   try {
-    const filenames = await fs.readdir(articlesDir);
+    const filenames = await fs.readdir(dir);
     return filenames.map(filename => path.parse(filename).name);
   } catch (error) {
-    // ディレクトリが存在しないか、読み取れない場合
-    console.warn(`Warning: 'contents/articles' directory not found or unreadable. Falling back to empty array for articles. Error: ${error}`);
+    console.error('Error reading strategies directory:', error);
     return [];
   }
 }
 
-async function getArticleById(id: string): Promise<Article | undefined> {
-  const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
+// IDで1記事取得
+async function getStrategyById(id: string): Promise<Strategy | undefined> {
+  const filePath = path.join(process.cwd(), 'contents', 'strategies', `${id}.json`);
   try {
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);
   } catch (error) {
-    console.error(`Error reading article file for ID ${id}:`, error);
+    console.error(`Error reading strategy ${id}:`, error);
     return undefined;
   }
 }
 
+// 静的パス生成（SSG）
 export async function generateStaticParams() {
-  const ids = await getAllArticleIds();
-  // idが取得できない場合は、少なくともデフォルトのID（例: '1'）を返すことでビルドを継続させる
-  // ただし、本番環境ではコンテンツの存在を保証すべき
-  if (ids.length === 0) {
-    console.warn("No article IDs found. Ensure 'contents/articles' directory and JSON files exist and are readable.");
-    // デバッグのため、強制的にID '1' を返すなど、具体的なテストIDを設定する
-    // もし /contents/articles/1.json が存在しないなら、ビルドは失敗する可能性があります。
-    // その場合は、この行をコメントアウトするか、実際に存在するIDに変更してください。
-    return [{ id: '1' }]; 
-  }
-  return ids.map((id) => ({
-    id: id,
-  }));
+  const ids = await getAllStrategyIds();
+  return ids.map((id) => ({ id }));
 }
 
-export default async function ArticlePage({ params }: { params: { id: string } }) {
-  const article = await getArticleById(params.id);
+// ページ本体
+export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
+  const strategy = await getStrategyById(params.id);
 
-  if (!article) {
-    notFound(); // 記事が見つからない場合はNext.jsの404ページを表示
+  if (!strategy) {
+    return notFound();
   }
 
   return (
-    <main className="pt-20 pb-20 bg-black">
+    <main className="pt-20 pb-20 bg-black text-white">
       <section className="bg-gray-900 py-16 px-4 md:px-8">
         <div className="container mx-auto max-w-4xl">
           <ScrollAnimation variant="fadeInUp" delay={0}>
             <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 md:p-8">
               <div className="mb-6">
-                <Link href="/latest-news" className="text-blue-400 hover:underline text-sm flex items-center mb-4">
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
-                  最新情報一覧に戻る
+                <Link href="/strategies" className="text-blue-400 hover:underline text-sm flex items-center mb-4">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                  </svg>
+                  攻略記事一覧に戻る
                 </Link>
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
-                  {article.category}
+                  {strategy.category}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  {article.title}
-                </h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{strategy.title}</h1>
                 <div className="flex items-center text-gray-500 text-sm mb-4">
-                  <span className="mr-4">公開日: {article.date}</span>
-                  <span className="mr-4">読了時間: {article.readTime}</span>
-                  <span>著者: {article.author}</span>
+                  <span className="mr-4">公開日: {strategy.publishedDate}</span>
+                  <span className="mr-4">読了時間: {strategy.readTime}分</span>
+                  <span>著者: {strategy.author}</span>
                 </div>
               </div>
 
               <div className="relative mb-6">
                 <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
                   <Image
-                    src={article.image}
-                    alt={article.title}
+                    src={strategy.image || '/placeholder.svg'}
+                    alt={strategy.title}
                     fill
                     className="object-cover"
                   />
                 </div>
               </div>
 
-              {/* `dangerouslySetInnerHTML` の形式を修正済みであることを確認 */}
-              <div className="text-gray-300 text-lg leading-relaxed article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+              <div className="prose prose-invert max-w-none text-gray-300" dangerouslySetInnerHTML={{ __html: strategy.content }} />
             </div>
           </ScrollAnimation>
         </div>
