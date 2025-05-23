@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap"  
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
@@ -48,10 +48,11 @@
     "framer-motion": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "^15.3.2", 
+    "next": "^15.3.2",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.4.4",
     "react": "^19",
-    "react-day-picker": "^9.7.0", 
+    "react-day-picker": "^9.7.0",
     "react-dom": "^19",
     "react-hook-form": "^7.54.1",
     "react-intersection-observer": "latest",
@@ -60,7 +61,7 @@
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.1.2", 
+    "vaul": "^1.1.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
