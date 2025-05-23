@@ -17,10 +17,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <p className="text-sm text-gray-400 mb-6">{post.date}</p>
 
       {/* ✅ Markdownをきれいに表示 */}
-      <article
-        className="prose prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-      />
+    <article
+  className="prose prose-invert max-w-3xl mx-auto mt-8 text-white"
+  dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+    />
+
     </main>
   )
 }

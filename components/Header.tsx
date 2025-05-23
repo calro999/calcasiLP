@@ -45,7 +45,7 @@ export default function Header() {
 
   return (
     <motion.header
-    className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-blur"
+    className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 backdrop-blur shadow-md"
     initial="initial"
     animate={scrolled ? "scrolled" : "initial"}
     variants={navbarVariants}
