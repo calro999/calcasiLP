@@ -1,3 +1,4 @@
+// /workspaces/calcasiLP/app/strategies/page.tsx
 import Image from "next/image"
 import Link from "next/link"
 import { BookOpen, TrendingUp, AlertTriangle, DollarSign, ArrowRight } from "lucide-react"
@@ -12,7 +13,7 @@ export default function Strategies() {
       title: "バカラの必勝法と攻略テクニック",
       description:
         "カジノの王様とも呼ばれるバカラで勝つための戦略とテクニックを紹介。初心者から上級者まで使える実践的な攻略法を解説します。",
-      icon: <TrendingUp className="w-10 h-10 text-amber-400" />,
+      iconName: "TrendingUp", // アイコンコンポーネントではなく、名前を文字列で渡す
       image: "/placeholder.svg?height=400&width=600",
       category: "テーブルゲーム",
       difficulty: "中級",
@@ -22,7 +23,7 @@ export default function Strategies() {
       title: "ブラックジャックのカードカウンティング入門",
       description:
         "ブラックジャックで勝率を上げるカードカウンティングの基本から応用まで。実践的な方法と注意点を詳しく解説します。",
-      icon: <BookOpen className="w-10 h-10 text-amber-400" />,
+      iconName: "BookOpen", // アイコンコンポーネントではなく、名前を文字列で渡す
       image: "/placeholder.svg?height=400&width=600",
       category: "テーブルゲーム",
       difficulty: "上級",
@@ -32,7 +33,7 @@ export default function Strategies() {
       title: "スロットで勝つための効果的な資金管理法",
       description:
         "スロットで長く楽しく遊ぶための資金管理術。ベット額の調整や勝利金の管理など、実践的なテクニックを紹介します。",
-      icon: <DollarSign className="w-10 h-10 text-amber-400" />,
+      iconName: "DollarSign", // アイコンコンポーネントではなく、名前を文字列で渡す
       image: "/placeholder.svg?height=400&width=600",
       category: "スロット",
       difficulty: "初級",
@@ -42,7 +43,7 @@ export default function Strategies() {
       title: "ルーレットのベッティングシステム比較",
       description:
         "マーチンゲール法やフィボナッチ法など、様々なルーレットのベッティングシステムを比較。それぞれのメリット・デメリットを解説します。",
-      icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
+      iconName: "AlertTriangle", // アイコンコンポーネントではなく、名前を文字列で渡す
       image: "/placeholder.svg?height=400&width=600",
       category: "テーブルゲーム",
       difficulty: "中級",
@@ -76,6 +77,18 @@ export default function Strategies() {
     },
   ]
 
+  // アイコン名を元にアイコンコンポーネントを返すヘルパー関数
+  const getIconComponent = (iconName: string, className: string) => {
+    switch (iconName) {
+      case "TrendingUp": return <TrendingUp className={className} />;
+      case "BookOpen": return <BookOpen className={className} />;
+      case "AlertTriangle": return <AlertTriangle className={className} />;
+      case "DollarSign": return <DollarSign className={className} />;
+      default: return null;
+    }
+  };
+
+
   return (
     <main className="pt-20 pb-20 bg-black">
       {/* ヒーローセクション */}
@@ -102,6 +115,7 @@ export default function Strategies() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             {strategies.map((strategy, index) => (
               <ScrollAnimation key={strategy.id} variant="fadeInUp" delay={index * 0.1}>
+                {/* ここを修正: /strategies/${strategy.id} へリンク */}
                 <Link href={`/strategies/${strategy.id}`} className="block h-full">
                   <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden h-full transition-all duration-300 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 hover:translate-y-[-5px]">
                     <div className="relative aspect-[16/9]">
@@ -122,7 +136,10 @@ export default function Strategies() {
                       </div>
                     </div>
                     <div className="p-6 flex flex-col">
-                      <div className="mb-4">{strategy.icon}</div>
+                      <div className="mb-4">
+                        {/* iconNameを使ってアイコンをレンダリング */}
+                        {getIconComponent(strategy.iconName, "w-10 h-10 text-amber-400")}
+                      </div>
                       <h3 className="text-xl font-bold text-white mb-3">{strategy.title}</h3>
                       <p className="text-gray-400 mb-4 flex-grow">{strategy.description}</p>
                       <span className="text-amber-400 flex items-center text-sm font-medium">
@@ -156,7 +173,7 @@ export default function Strategies() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white mb-2">{tip.title}</h3>
-                      <p className="text-gray-400">{tip.description}</p>
+                      <p className="text-gray-400}>{tip.description}</p>
                     </div>
                   </div>
                 ))}
