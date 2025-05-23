@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/_Header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script"; // ✅ GA用に追加
 
