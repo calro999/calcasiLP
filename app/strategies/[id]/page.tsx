@@ -1,13 +1,28 @@
 // /workspaces/calcasiLP/app/strategies/[id]/page.tsx
 import fs from 'fs';
 import path from 'path';
-import { notFound } from 'next/navigation';
+import { notFound } from 'next/navigation'; // next/navigationからnotFoundをインポート
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Calendar, User, Clock, Tag, TrendingUp, BarChart } from "lucide-react";
 import Shimmer from "@/components/animations/shimmer";
 import ScrollAnimation from "@/components/animations/scroll-animation";
 import Particles from "@/components/animations/particles";
+
+// インターフェースの定義 (JSONファイルの構造に合わせて調整してください)
+interface Strategy {
+  id: number;
+  title: string;
+  description: string;
+  publishedDate: string;
+  author: string;
+  readTime: number;
+  category: string;
+  difficulty: string; // 例: "初心者向け", "中級", "上級"
+  expectedValue: string; // 例: "+EV", "-EV"
+  image: string;
+  contentHtml: string; // ここにHTML文字列が格納されることを想定
+}
 
 // 動的なセグメントを生成するための関数 (SSGの場合)
 export async function generateStaticParams() {
@@ -18,8 +33,9 @@ export async function generateStaticParams() {
       id: filename.replace(/\.json$/, ''),
     }));
   } catch (error) {
-    console.error("Error reading strategies directory:", error);
-    return []; // ディレクトリがない場合は空の配列を返す
+    console.error("Error reading strategies directory for generateStaticParams:", error);
+    // エラー発生時やファイルが見つからない場合に備え、空配列を返すか、デバッグ用に特定のIDを返す
+    return [{ id: '1' }]; // 例: とりあえずID '1' をプリレンダリング対象にする
   }
 }
 
@@ -28,17 +44,18 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
   const { id } = params;
   const filePath = path.join(process.cwd(), 'contents/strategies', `${id}.json`);
 
-  let strategy;
+  let strategy: Strategy | undefined;
   try {
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    strategy = JSON.parse(fileContents);
+    strategy = JSON.parse(fileContents) as Strategy;
   } catch (error) {
+    console.error(`Error reading or parsing strategy file for ID ${id}:`, error);
     // ファイルが見つからないか、JSONパースエラーの場合は404ページを表示
-    notFound();
+    notFound(); // next/navigationのnotFoundを呼び出す
   }
 
   if (!strategy) {
-    notFound();
+    notFound(); // strategyがundefinedの場合も404
   }
 
   return (
@@ -86,42 +103,41 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
                 読了時間: {strategy.readTime || "N/A"}分
               </div>
               <div className="flex items-center">
-                <Tag size={20} className="mr-2 text-amber-400" />
-                カテゴリ: {strategy.category || "N/A"}
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-gray-300">
-              <div className="flex items-center">
-                <TrendingUp size={20} className="mr-2 text-amber-400" />
-                難易度: {strategy.difficulty || "N/A"}
-              </div>
-              <div className="flex items-center">
-                <BarChart size={20} className="mr-2 text-amber-400" />
-                期待値: {strategy.expectedValue || "N/A"}
-              </div>
-            </div>
+                    <Tag size={20} className="mr-2 text-amber-400" />
+                    カテゴリ: {strategy.category || "N/A"}
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-gray-300">
+                  <div className="flex items-center">
+                    <TrendingUp size={20} className="mr-2 text-amber-400" />
+                    難易度: {strategy.difficulty || "N/A"}
+                  </div>
+                  <div className="flex items-center">
+                    <BarChart size={20} className="mr-2 text-amber-400" />
+                    期待値: {strategy.expectedValue || "N/A"}
+                  </div>
+                </div>
 
+                <div className="prose prose-invert max-w-none text-gray-300">
+                  {/* ここに戦略の詳細コンテンツをレンダリングします */}
+                  {/* contentHtmlが空またはundefinedの場合の代替テキストも考慮 */}
+                  <div dangerouslySetInnerHTML={{ __html: strategy.contentHtml || `<p>${strategy.description}</p><p>ここに${strategy.title}の詳細コンテンツが入ります。</p>` }} />
+                </div>
+              </div>
+            </ScrollAnimation>
 
-            <div className="prose prose-invert max-w-none text-gray-300">
-              {/* ここに戦略の詳細コンテンツをレンダリングします */}
-              {/* Markdownなどを使用する場合は、別途ライブラリでのパースが必要です */}
-              <div dangerouslySetInnerHTML={{ __html: strategy.contentHtml || `<p>${strategy.description}</p><p>ここに${strategy.title}の詳細コンテンツが入ります。</p>` }} />
-            </div>
+            <ScrollAnimation variant="fadeInUp" delay={0.3}>
+              <div className="text-center mt-10">
+                <Link
+                  href="/strategies"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-amber-500 text-amber-500 rounded-full hover:bg-amber-500 hover:text-black transition-colors duration-300 shadow-lg hover:shadow-amber-500/30"
+                >
+                  <ChevronLeft size={20} className="mr-2" />
+                  戦略一覧に戻る
+                </Link>
+              </div>
+            </ScrollAnimation>
           </div>
-        </ScrollAnimation>
-
-        <ScrollAnimation variant="fadeInUp" delay={0.3}>
-          <div className="text-center mt-10">
-            <Link
-              href="/strategies"
-              className="inline-flex items-center justify-center px-6 py-3 border border-amber-500 text-amber-500 rounded-full hover:bg-amber-500 hover:text-black transition-colors duration-300 shadow-lg hover:shadow-amber-500/30"
-            >
-              <ChevronLeft size={20} className="mr-2" />
-              戦略一覧に戻る
-            </Link>
-          </div>
-        </ScrollAnimation>
-      </div>
-    </main>
-  );
-}
+        </main>
+      );
+    }
