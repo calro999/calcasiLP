@@ -20,6 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <html lang="ja" className="dark">
+      </html>
       <head>
         {/* ✅ Googleアナリティクスのスクリプト */}
         <Script
