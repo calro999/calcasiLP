@@ -45,12 +45,13 @@ export default function Header() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50"
-      initial="initial"
-      animate={scrolled ? "scrolled" : "initial"}
-      variants={navbarVariants}
-      transition={{ duration: 0.3 }}
-    >
+    className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-blur"
+    initial="initial"
+    animate={scrolled ? "scrolled" : "initial"}
+    variants={navbarVariants}
+    transition={{ duration: 0.3 }}
+>
+
       <div className="container mx-auto px-4 py-3 relative flex items-center justify-between">
         {/* ロゴ */}
         <Link href="/" className="flex items-center">
