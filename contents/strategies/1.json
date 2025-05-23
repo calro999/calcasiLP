@@ -1,12 +1,12 @@
 {
   "id": 1,
-  "title": "バカラの必勝法と攻略テクニック",
-  "description": "カジノの王様とも呼ばれるバカラで勝つための戦略とテクニックを紹介。初心者から上級者まで使える実践的な攻略法を解説します。",
+  "title": "テスト戦略",
+  "description": "これはテスト用の説明です。",
   "publishedDate": "2024-05-15",
-  "author": "カジノ太郎",
-  "readTime": 10,
-  "category": "テーブルゲーム",
-  "difficulty": "中級",
+  "author": "テスト",
+  "readTime": 1,
+  "category": "テスト",
+  "difficulty": "易しい",
   "image": "/placeholder.svg?height=800&width=1200",
-  "contentHtml": "<p>これは**テスト**コンテンツです。JSONからの読み込み成功！</p>"
+  "contentHtml": "<p>これは**Strategiesページ**のテストコンテンツです。表示されたら成功！</p>"
 }
