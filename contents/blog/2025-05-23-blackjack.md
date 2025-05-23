@@ -2,8 +2,7 @@
 title: "ブラックジャックの基本戦略"
 slug: "blackjack"
 date: "2025-05-23"
+thumbnail: "/thumbnails/blackjack.jpg"
 ---
 
 ブラックジャックは運と戦略が鍵となるカジノゲームです。
-
-この記事では、初心者が知っておくべき基本戦略を紹介します。
