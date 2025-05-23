@@ -71,6 +71,20 @@ export default function CasinoRanking() {
       detailLink: "/casino-detail/stake",
       officialLink: "stake.com/?c=aLjELsQU&offer=calro200"
     },
+ {
+  id: 6,
+  rank: 6,
+  name: "勝win",
+  logo: "/katsu.jpg", // 実際のロゴファイル名に合わせて調整してください
+  bonus: "最大$1000のウェルカムボーナス",
+  features: ["日本語特化", "カジノとスポーツベット両対応", "幅広い決済", "高い信頼性"],
+  rating: 4.4,
+  description:
+    "勝winは、カジノとスポーツベットの両方を1つのアカウントで楽しめる総合型プラットフォームです。日本語対応が非常に充実しており、安心して利用できるカジノとして人気です。スロット・ライブカジノ・テーブルゲームなどのカジノゲームはもちろん、Jリーグやプロ野球など日本向けスポーツイベントにも対応しています。決済手段も豊富で、使いやすさに定評があります。",
+  detailLink: "/casino-detail/kachiwin",
+  officialLink: "https://tracker.katsuwinaffiliates.ai/link?btag=90306436_414265" // 実際のURLに差し替えてください
+}
+
   ]
 
   return (

@@ -11,8 +11,8 @@ const casinoData = [
   {
     id: "wonder",
     name: "ワンダーカジノ",
-    logo: "/wan.png?height=200&width=400", // 実際のロゴパスに
-    banner: "/wan.png?height=600&width=1200", // 実際のバナーパスに
+    logo: "/wondercasino_logo.png?height=200&width=400", // 実際のロゴパスに
+    banner: "/wondercasino_logo.png?height=600&width=1200", // 実際のバナーパスに
     bonus: "登録ボーナス$30！初回入金100%ボーナス（最大$500）",
     rating: 4.8,
     description: "初心者にも優しい充実のサポートと、幅広いゲームラインナップが魅力のワンダーカジノ。登録ボーナスでお得に始めよう！",
