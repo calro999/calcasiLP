@@ -13,13 +13,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <main className="max-w-3xl mx-auto px-4 pt-24 pb-16">
-    <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-    <p className="text-sm text-gray-400 mb-6">{post.date}</p>
-        <article
-            className="prose prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-        />
-</main>
-
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      <p className="text-sm mb-6">{post.date}</p>
+      <article
+        className="prose prose-invert max-w-none"
+        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+      />
+    </main>
   )
 }
