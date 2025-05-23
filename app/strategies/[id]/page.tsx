@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Calendar, User, Clock, Tag } from "lucide-react";
-import Shimmer from "@/components/animations/shimmer"; // 必要に応じてパスを調整
-import ScrollAnimation from "@/components/animations/scroll-animation"; // 必要に応じてパスを調整
-import Particles from "@/components/animations/particles"; // 必要に応じてパスを調整
+import Shimmer from "@/components/animations/shimmer";
+import ScrollAnimation from "@/components/animations/scroll-animation";
+import Particles from "@/components/animations/particles";
 
 // 動的なセグメントを生成するための関数 (SSGの場合)
 export async function generateStaticParams() {
