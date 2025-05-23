@@ -96,7 +96,7 @@ export default function Footer() {
                 <li className="flex items-start group">
                   <Twitter size={20} className="text-amber-400 mr-3 mt-1 group-hover:scale-110 transition-transform" />
                   <Link
-                    href="https://twitter.com"
+                    href="https://x.com/Calro_kuzumaru"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 group-hover:text-amber-300 transition-colors"
@@ -145,7 +145,7 @@ export default function Footer() {
           </div>
           <div className="mt-6 text-center">
             <p className="text-gray-600 text-xs">
-              当サイトは20歳以上の方を対象としています。ギャンブルには中毒性があります。責任あるギャンブルを心がけましょう。
+              当サイトは20歳以上の方を対象としています。ギャンブルには中毒性があります。必ず居住国の法律に従ってください。責任あるギャンブルを心がけましょう。
             </p>
           </div>
         </div>

@@ -43,10 +43,10 @@ export default function Hero() {
           <ScrollAnimation variant="fadeIn" delay={0.6} duration={0.8}>
             <div className="flex justify-center mb-12">
               <Link
-                href="/latest-news"
+                href="/casino-ranking"
                 className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-8 py-4 rounded-md transition-all duration-300 shadow-lg shadow-amber-500/20 text-lg transform hover:scale-105 active:scale-95"
               >
-                今すぐプレイ
+                おすすめカジノランキング
               </Link>
             </div>
           </ScrollAnimation>

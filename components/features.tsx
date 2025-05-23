@@ -21,8 +21,8 @@ export default function Features() {
     },
     {
       icon: <Trophy size={28} className="text-amber-400" />,
-      title: "豪華な賞金",
-      description: "業界トップクラスの高額賞金と、定期的に開催される特別トーナメントをお楽しみいただけます。",
+      title: "VIPプログラム",
+      description: "遊ぶほどにランクが上がりお得になるVIPプログラム！。",
     },
     {
       icon: <Clock size={28} className="text-amber-400" />,
@@ -43,12 +43,12 @@ export default function Features() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                ゴールデンカジノ
+                厳選したカジノ
               </span>
-              の特徴
+              のみを紹介
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              他のカジノとは一線を画す、当カジノならではの魅力をご紹介します
+              魅力的なボーナスやプロモーションが盛り沢山
             </p>
           </div>
         </ScrollAnimation>
