@@ -2,11 +2,11 @@
   "id": 1,
   "title": "バカラの必勝法と攻略テクニック",
   "description": "カジノの王様とも呼ばれるバカラで勝つための戦略とテクニックを紹介。初心者から上級者まで使える実践的な攻略法を解説します。",
-  "publishedDate": "2024-05-15",  
-  "author": "カジノ太郎",        
+  "publishedDate": "2024-05-15",
+  "author": "カジノ太郎",
   "readTime": 10,
   "category": "テーブルゲーム",
   "difficulty": "中級",
   "image": "/placeholder.svg?height=800&width=1200",
-  "contentHtml": "<p>バカラはオンラインカジノで最も人気のあるゲームの一つです。...(中略)...</p>" 
+  "contentHtml": "<p>これはテストコンテンツです。JSONからの読み込みが成功しました！</p>"
 }
