@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: { params: { id: string } }
   const article = await getArticleById(params.id);
 
   if (!article) {
-    return notFound(); // ✅ ここが修正ポイント
+    return notFound(); // ✅ 修正済み：必ず return を付ける
   }
 
   return (
@@ -69,9 +69,7 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
                   {article.category}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  {article.title}
-                </h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
                 <div className="flex items-center text-gray-500 text-sm mb-4">
                   <span className="mr-4">公開日: {article.date}</span>
                   <span className="mr-4">読了時間: {article.readTime}</span>
@@ -90,7 +88,12 @@ export default async function ArticlePage({ params }: { params: { id: string } }
                 </div>
               </div>
 
-              <div className="prose prose-invert max-w-none text-gray-300" dangerouslySetInnerHTML={{ __html: article.content }} />
+              {article.content && (
+                <div
+                  className="prose prose-invert max-w-none text-gray-300"
+                  dangerouslySetInnerHTML={{ __html: article.content }}
+                />
+              )}
             </div>
           </ScrollAnimation>
         </div>
