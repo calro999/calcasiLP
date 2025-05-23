@@ -1,12 +1,11 @@
 {
   "id": 1,
-  "title": "テスト戦略",
-  "description": "これはテスト用の説明です。",
-  "publishedDate": "2024-05-15",
-  "author": "テスト",
-  "readTime": 1,
+  "title": "テスト記事 for Article Route (シンプル版)",
+  "excerpt": "これはテスト用の抜粋です。Articleルートの動作確認用。",
+  "image": "/placeholder.svg",
   "category": "テスト",
-  "difficulty": "易しい",
-  "image": "/placeholder.svg?height=800&width=1200",
-  "contentHtml": "<p>これは**Strategiesページ**のテストコンテンツです。表示されたら成功！</p>"
+  "date": "2025-01-01",
+  "readTime": "1分",
+  "author": "テスト太郎",
+  "content": "<p><b>これはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
 }

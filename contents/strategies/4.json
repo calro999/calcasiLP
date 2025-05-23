@@ -1,12 +1,11 @@
 {
   "id": 4,
-  "title": "バカラの必勝法と攻略テクニック",
-  "description": "カジノの王様とも呼ばれるバカラで勝つための戦略とテクニックを紹介。初心者から上級者まで使える実践的な攻略法を解説します。",
-  "publishedDate": "2024-05-15",
-  "author": "カジノ太郎",
-  "readTime": 10,
-  "category": "テーブルゲーム",
-  "difficulty": "中級",
-  "image": "/placeholder.svg?height=800&width=1200",
-  "contentHtml": "<p>これは**テスト**コンテンツです。JSONからの読み込み成功！</p>"
+  "title": "テスト記事 for Article Route (シンプル版)",
+  "excerpt": "これはテスト用の抜粋です。Articleルートの動作確認用。",
+  "image": "/placeholder.svg",
+  "category": "テスト",
+  "date": "2025-01-01",
+  "readTime": "1分",
+  "author": "テスト太郎",
+  "content": "<p><b>これはArticleページのテストコンテンツです。</b></p><p>もしこのメッセージが表示されたら、<b>`dangerouslySetInnerHTML` の問題は解決</b>です。</p>"
 }
