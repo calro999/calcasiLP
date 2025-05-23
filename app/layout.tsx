@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Script from "next/script"; // ✅ GA用に追加
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <html lang="ja" className="dark">
-      </html>
+    <html lang="ja" className="dark">
       <head>
-        {/* ✅ Googleアナリティクスのスクリプト */}
+        {/* ✅ Googleアナリティクス */}
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-D4M7BJXJWJ"
@@ -37,16 +35,13 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ Google Search Console 用（登録済みなら） */}
+        {/* ✅ Google Search Console */}
         <meta name="google-site-verification" content="DkCMrOjpxPVzY0T8G34bKQQDsDP9Biu83kk2wfz5hz4" />
-        
       </head>
-      <body className={inter.className}>
-        <body className={`${inter.className} bg-black text-white`}>
+      <body className={`${inter.className} bg-black text-white`}>
         <Header />
         {children}
         <Footer />
-      </body>
       </body>
     </html>
   );

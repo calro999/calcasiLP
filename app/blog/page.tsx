@@ -1,11 +1,12 @@
-import Link from "next/link"
-import { getAllPosts } from "@/lib/blog"
+// app/blog/page.tsx
+import Link from "next/link";
+import { getAllPosts } from "@/lib/blog";
 
 export default function BlogPage() {
-  const posts = getAllPosts()
+  const posts = getAllPosts();
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-12">
+    <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
       <h1 className="text-4xl font-bold mb-10 text-white">ブログ記事一覧</h1>
       <div className="flex flex-col gap-10">
         {posts.map((post) => (
@@ -24,5 +25,5 @@ export default function BlogPage() {
         ))}
       </div>
     </main>
-  )
+  );
 }
