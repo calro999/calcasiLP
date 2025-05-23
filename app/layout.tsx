@@ -1,9 +1,10 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css"; // グローバルCSSのインポート
-import Header from '@/components/Header'; // Headerをここでインポート
-import Footer from '@/components/Footer'; // Footerもここでインポート
+import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Script from "next/script"; // ✅ GA用に追加
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        {/* ✅ Googleアナリティクスのスクリプト */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-D4M7BJXJWJ"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-D4M7BJXJWJ');
+          `}
+        </Script>
+
+        {/* ✅ Google Search Console 用（登録済みなら） */}
+        <meta name="google-site-verification" content="DkCMrOjpxPVzY0T8G34bKQQDsDP9Biu83kk2wfz5hz4" />
+        
+      </head>
       <body className={inter.className}>
-        <Header /> {/* Headerをここで一度だけレンダリング */}
-        {children} {/* 各ページの内容 */}
-        <Footer /> {/* Footerをここで一度だけレンダリング */}
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );
