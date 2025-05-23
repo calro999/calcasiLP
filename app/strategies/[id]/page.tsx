@@ -1,143 +1,114 @@
-// /workspaces/calcasiLP/app/strategies/[id]/page.tsx
-import fs from 'fs';
-import path from 'path';
-import { notFound } from 'next/navigation'; // next/navigationからnotFoundをインポート
-import Image from "next/image";
-import Link from "next/link";
-import { ChevronLeft, Calendar, User, Clock, Tag, TrendingUp, BarChart } from "lucide-react";
-import Shimmer from "@/components/animations/shimmer";
-import ScrollAnimation from "@/components/animations/scroll-animation";
-import Particles from "@/components/animations/particles";
+// /workspaces/calcasiLP/app/article/[id]/page.tsx
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+// import Header from '@/components/Header'; // Headerはlayout.tsxで呼び出すので、ここでは削除
+// import Footer from '@/components/Footer'; // Footerもlayout.tsxで呼び出すので、ここでは削除
+import ScrollAnimation from '@/components/ScrollAnimation';
 
-// インターフェースの定義 (JSONファイルの構造に合わせて調整してください)
-interface Strategy {
+import fs from 'fs/promises';
+import path from 'path';
+import { notFound } from 'next/navigation'; // notFound をインポート
+
+interface Article {
   id: number;
   title: string;
-  description: string;
-  publishedDate: string;
-  author: string;
-  readTime: number;
-  category: string;
-  difficulty: string; // 例: "初心者向け", "中級", "上級"
-  expectedValue: string; // 例: "+EV", "-EV"
+  excerpt: string;
   image: string;
-  contentHtml: string; // ここにHTML文字列が格納されることを想定
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  content: string; // ここにHTML文字列が格納されることを想定
 }
 
-// 動的なセグメントを生成するための関数 (SSGの場合)
+async function getAllArticleIds(): Promise<string[]> {
+  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
+  try {
+    const filenames = await fs.readdir(articlesDir);
+    return filenames.map(filename => path.parse(filename).name);
+  } catch (error) {
+    // ディレクトリが存在しないか、読み取れない場合
+    console.warn(`Warning: 'contents/articles' directory not found or unreadable. Falling back to empty array for articles. Error: ${error}`);
+    return [];
+  }
+}
+
+async function getArticleById(id: string): Promise<Article | undefined> {
+  const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
+  try {
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileContents);
+  } catch (error) {
+    console.error(`Error reading article file for ID ${id}:`, error);
+    return undefined;
+  }
+}
+
 export async function generateStaticParams() {
-  const strategiesDirectory = path.join(process.cwd(), 'contents/strategies');
-  try {
-    const filenames = fs.readdirSync(strategiesDirectory);
-    return filenames.map(filename => ({
-      id: filename.replace(/\.json$/, ''),
-    }));
-  } catch (error) {
-    console.error("Error reading strategies directory for generateStaticParams:", error);
-    // エラー発生時やファイルが見つからない場合に備え、空配列を返すか、デバッグ用に特定のIDを返す
-    return [{ id: '1' }]; // 例: とりあえずID '1' をプリレンダリング対象にする
+  const ids = await getAllArticleIds();
+  // idが取得できない場合は、少なくともデフォルトのID（例: '1'）を返すことでビルドを継続させる
+  // ただし、本番環境ではコンテンツの存在を保証すべき
+  if (ids.length === 0) {
+    console.warn("No article IDs found. Ensure 'contents/articles' directory and JSON files exist and are readable.");
+    // デバッグのため、強制的にID '1' を返すなど、具体的なテストIDを設定する
+    // もし /contents/articles/1.json が存在しないなら、ビルドは失敗する可能性があります。
+    // その場合は、この行をコメントアウトするか、実際に存在するIDに変更してください。
+    return [{ id: '1' }]; 
   }
+  return ids.map((id) => ({
+    id: id,
+  }));
 }
 
-// 各戦略の詳細ページコンポーネント
-export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
-  const filePath = path.join(process.cwd(), 'contents/strategies', `${id}.json`);
+export default async function ArticlePage({ params }: { params: { id: string } }) {
+  const article = await getArticleById(params.id);
 
-  let strategy: Strategy | undefined;
-  try {
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    strategy = JSON.parse(fileContents) as Strategy;
-  } catch (error) {
-    console.error(`Error reading or parsing strategy file for ID ${id}:`, error);
-    // ファイルが見つからないか、JSONパースエラーの場合は404ページを表示
-    notFound(); // next/navigationのnotFoundを呼び出す
-  }
-
-  if (!strategy) {
-    notFound(); // strategyがundefinedの場合も404
+  if (!article) {
+    notFound(); // 記事が見つからない場合はNext.jsの404ページを表示
   }
 
   return (
-    <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
-      <Particles className="absolute inset-0 z-0" count={100} color="rgba(255, 215, 0, 0.2)" />
-      <div className="container mx-auto px-4 relative z-10">
-        <ScrollAnimation variant="fadeInDown">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              <Shimmer>
-                <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                  {strategy.title}
-                </span>
-              </Shimmer>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              {strategy.description}
-            </p>
-          </div>
-        </ScrollAnimation>
-
-        <ScrollAnimation variant="fadeInUp" delay={0.2}>
-          <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl p-6 md:p-8 mb-10 shadow-lg">
-            <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-6">
-              <Image
-                src={strategy.image || "/placeholder.svg"}
-                alt={strategy.title}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 text-gray-300">
-              <div className="flex items-center">
-                <Calendar size={20} className="mr-2 text-amber-400" />
-                公開日: {strategy.publishedDate || "N/A"}
-              </div>
-              <div className="flex items-center">
-                <User size={20} className="mr-2 text-amber-400" />
-                著者: {strategy.author || "N/A"}
-              </div>
-              <div className="flex items-center">
-                <Clock size={20} className="mr-2 text-amber-400" />
-                読了時間: {strategy.readTime || "N/A"}分
-              </div>
-              <div className="flex items-center">
-                    <Tag size={20} className="mr-2 text-amber-400" />
-                    カテゴリ: {strategy.category || "N/A"}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-gray-300">
-                  <div className="flex items-center">
-                    <TrendingUp size={20} className="mr-2 text-amber-400" />
-                    難易度: {strategy.difficulty || "N/A"}
-                  </div>
-                  <div className="flex items-center">
-                    <BarChart size={20} className="mr-2 text-amber-400" />
-                    期待値: {strategy.expectedValue || "N/A"}
-                  </div>
-                </div>
-
-                <div className="prose prose-invert max-w-none text-gray-300">
-                  {/* ここに戦略の詳細コンテンツをレンダリングします */}
-                  {/* contentHtmlが空またはundefinedの場合の代替テキストも考慮 */}
-                  <div dangerouslySetInnerHTML={{ __html: strategy.contentHtml || `<p>${strategy.description}</p><p>ここに${strategy.title}の詳細コンテンツが入ります。</p>` }} />
-                </div>
-              </div>
-            </ScrollAnimation>
-
-            <ScrollAnimation variant="fadeInUp" delay={0.3}>
-              <div className="text-center mt-10">
-                <Link
-                  href="/strategies"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-amber-500 text-amber-500 rounded-full hover:bg-amber-500 hover:text-black transition-colors duration-300 shadow-lg hover:shadow-amber-500/30"
-                >
-                  <ChevronLeft size={20} className="mr-2" />
-                  戦略一覧に戻る
+    <main className="pt-20 pb-20 bg-black">
+      <section className="bg-gray-900 py-16 px-4 md:px-8">
+        <div className="container mx-auto max-w-4xl">
+          <ScrollAnimation variant="fadeInUp" delay={0}>
+            <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 md:p-8">
+              <div className="mb-6">
+                <Link href="/latest-news" className="text-blue-400 hover:underline text-sm flex items-center mb-4">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
+                  最新情報一覧に戻る
                 </Link>
+                <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
+                  {article.category}
+                </span>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  {article.title}
+                </h1>
+                <div className="flex items-center text-gray-500 text-sm mb-4">
+                  <span className="mr-4">公開日: {article.date}</span>
+                  <span className="mr-4">読了時間: {article.readTime}</span>
+                  <span>著者: {article.author}</span>
+                </div>
               </div>
-            </ScrollAnimation>
-          </div>
-        </main>
-      );
-    }
+
+              <div className="relative mb-6">
+                <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* `dangerouslySetInnerHTML` の形式を修正済みであることを確認 */}
+              <div className="text-gray-300 text-lg leading-relaxed article-content" dangerouslySetInnerHTML={{ __html: article.content }} />
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+    </main>
+  );
+}
