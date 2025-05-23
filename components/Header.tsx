@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Shimmer from "./animations/shimmer"
 
-export default function Navbar() {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -102,6 +102,7 @@ export default function Navbar() {
             </Shimmer>
           </Link>
 
+          {/* PCナビゲーション */}
           <nav className="hidden md:flex items-center space-x-8">
             {[
               { name: "ホーム", path: "/" },
@@ -119,6 +120,7 @@ export default function Navbar() {
             ))}
           </nav>
 
+          {/* PC用 お問い合わせボタン */}
           <motion.div
             className="hidden md:block"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -135,11 +137,13 @@ export default function Navbar() {
             </Link>
           </motion.div>
 
+          {/* モバイル メニュー開閉ボタン */}
           <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
+        {/* モバイルメニュー本体 */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
