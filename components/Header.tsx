@@ -92,7 +92,7 @@ export default function Header() {
       variants={navbarVariants}
       transition={{ duration: 0.3 }}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-4 relative">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <Shimmer interval={5000}>
@@ -120,7 +120,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* PC用 お問い合わせボタン */}
+          {/* お問い合わせボタン（PC） */}
           <motion.div
             className="hidden md:block"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -137,8 +137,8 @@ export default function Header() {
             </Link>
           </motion.div>
 
-          {/* モバイル メニュー開閉ボタン */}
-          <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {/* ハンバーガーメニュー（スマホ） */}
+          <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -147,13 +147,13 @@ export default function Header() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="md:hidden pt-4 pb-2 overflow-hidden"
+              className="absolute top-full left-0 w-full bg-black md:hidden pt-4 pb-2 overflow-hidden z-40"
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
-              <nav className="flex flex-col space-y-4">
+              <nav className="flex flex-col space-y-4 px-4">
                 {[
                   { name: "ホーム", path: "/" },
                   { name: "最新情報", path: "/latest-news" },
