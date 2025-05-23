@@ -1,3 +1,4 @@
+// components/popular-games.tsx
 import Image from "next/image"
 import { Star } from "lucide-react"
 import ScrollAnimation from "./animations/scroll-animation"
@@ -7,45 +8,45 @@ export default function PopularGames() {
   const games = [
     {
       id: 1,
-      name: "ムーンプリンセス",
-      provider: "Play'n GO",
-      image: "/placeholder.svg?height=300&width=500",
+      name: "Sweet Bonanza",
+      provider: "Pragmatic Play",
+      image: "/sweet.png?height=300&width=500", // 実際の画像パスに置き換え
       rating: 5,
     },
     {
       id: 2,
-      name: "スターバースト",
-      provider: "NetEnt",
-      image: "/placeholder.svg?height=300&width=500",
+      name: "Hawaiian Dream",
+      provider: "win fast",
+      image: "/hawai.png?height=300&width=500", // 実際の画像パスに置き換え
       rating: 5,
     },
     {
       id: 3,
-      name: "ブックオブデッド",
-      provider: "Play'n GO",
-      image: "/placeholder.svg?height=300&width=500",
-      rating: 4,
+      name: "SAN QUENTIN",
+      provider: "Nolimit City",
+      image: "/san.png?height=300&width=500", // 実際の画像パスに置き換え
+      rating: 5, // 高レート設定
     },
     {
       id: 4,
-      name: "ハワイアンドリーム",
-      provider: "JTG",
-      image: "/placeholder.svg?height=300&width=500",
-      rating: 5,
+      name: "WANTED",
+      provider: "Hacksaw Gaming",
+      image: "/wan.png?height=300&width=500", // 実際の画像パスに置き換え
+      rating: 5, // 高レート設定
     },
     {
       id: 5,
-      name: "ゴンゾーズクエスト",
-      provider: "NetEnt",
-      image: "/placeholder.svg?height=300&width=500",
+      name: "Tom of MADNESS",
+      provider: "Play'n GO",
+      image: "/tom.png?height=300&width=500", // 実際の画像パスに置き換え
       rating: 4,
     },
     {
       id: 6,
-      name: "ボナンザ",
-      provider: "Big Time Gaming",
-      image: "/placeholder.svg?height=300&width=500",
-      rating: 5,
+      name: "OUT SOURCED", // このゲームは一般的なスロットプロバイダーでは見かけないため、プロバイダーは仮設定
+      provider: "Nolimit City", // 仮のプロバイダー名
+      image: "/out.png?height=300&width=500", // 実際の画像パスに置き換え
+      rating: 4,
     },
   ]
 
