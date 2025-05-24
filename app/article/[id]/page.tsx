@@ -35,13 +35,8 @@ async function getArticle(id: string): Promise<Article | null> {
   }
 }
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function Page({ params }: PageProps) {
+// ✅ 型を直接指定（PagePropsなどを使わない）
+export default async function Page({ params }: { params: { id: string } }) {
   const article = await getArticle(params.id);
 
   if (!article) return notFound();
