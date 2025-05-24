@@ -18,7 +18,7 @@ interface Article {
   content: string;
 }
 
-interface PageProps {
+interface Props {
   params: {
     id: string;
   };
@@ -30,23 +30,23 @@ async function getArticleById(id: string): Promise<Article | undefined> {
     const fileContents = await fs.readFile(filePath, 'utf8');
     return JSON.parse(fileContents);
   } catch (error) {
-    console.error(`Error reading or parsing article file for ID ${id} at ${filePath}:`, error);
+    console.error(`Error reading article for ID ${id}:`, error);
     return undefined;
   }
 }
 
 export async function generateStaticParams() {
-  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
-  const filenames = await fs.readdir(articlesDir);
-  return filenames.map(filename => ({ id: path.parse(filename).name }));
+  const dir = path.join(process.cwd(), 'contents', 'articles');
+  const filenames = await fs.readdir(dir);
+  return filenames.map((filename) => ({
+    id: path.parse(filename).name,
+  }));
 }
 
-export default async function ArticlePage({ params }: PageProps) {
+export default async function ArticlePage({ params }: Props) {
   const article = await getArticleById(params.id);
 
-  if (!article) {
-    return notFound();
-  }
+  if (!article) return notFound();
 
   return (
     <main className="pt-20 pb-20 bg-black">
@@ -83,12 +83,10 @@ export default async function ArticlePage({ params }: PageProps) {
                 </div>
               </div>
 
-              {article.content && (
-                <div
-                  className="prose prose-invert max-w-none text-gray-300"
-                  dangerouslySetInnerHTML={{ __html: article.content }}
-                />
-              )}
+              <div
+                className="prose prose-invert max-w-none text-gray-300"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
             </div>
           </ScrollAnimation>
         </div>
