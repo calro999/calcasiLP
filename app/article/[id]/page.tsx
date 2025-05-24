@@ -42,15 +42,22 @@ async function getArticleById(id: string): Promise<Article | undefined> {
 }
 
 export async function generateStaticParams() {
-  console.log("Forcing generateStaticParams to return only article ID '1' for /article/[id] prerendering.");
-  return [{ id: '1' }];
+  const ids = await getAllArticleIds();
+  return ids.map((id) => ({ id }));
 }
 
-export default async function ArticlePage({ params }: { params: { id: string } }) {
+// ✅ 型を明示的に指定（これがビルド通過の鍵）
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function ArticlePage({ params }: PageProps) {
   const article = await getArticleById(params.id);
 
   if (!article) {
-    return notFound(); // ✅ 修正済み：必ず return を付ける
+    return notFound();
   }
 
   return (
