@@ -1,3 +1,4 @@
+// /app/article/[id]/page.tsx
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,7 +36,7 @@ async function getArticle(id: string): Promise<Article | null> {
   }
 }
 
-// ✅ 型を直接指定（PagePropsなどを使わない）
+// ✅ 正しい型指定（明示的に { params: { id: string } } とする）
 export default async function Page({ params }: { params: { id: string } }) {
   const article = await getArticle(params.id);
 
@@ -52,27 +53,15 @@ export default async function Page({ params }: { params: { id: string } }) {
                   href="/latest-news"
                   className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                 >
-                  <svg
-                    className="w-4 h-4 mr-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    />
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                   </svg>
                   最新情報一覧に戻る
                 </Link>
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
                   {article.category}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  {article.title}
-                </h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{article.title}</h1>
                 <div className="flex items-center text-gray-500 text-sm mb-4">
                   <span className="mr-4">公開日: {article.date}</span>
                   <span className="mr-4">読了時間: {article.readTime}</span>
@@ -82,12 +71,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
               <div className="relative mb-6">
                 <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={article.image} alt={article.title} fill className="object-cover" />
                 </div>
               </div>
 
