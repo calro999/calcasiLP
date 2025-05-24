@@ -6,7 +6,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",                   // ← 追加
+    "paths": {                        // ← 追加
+      "@/*": ["./*"]
+    }
   },
-  "include": ["scripts", "types", "tailwind.config.ts"]
+  "include": ["scripts", "types", "tailwind.config.ts", "app", "components"]
 }
