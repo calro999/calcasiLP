@@ -1,7 +1,6 @@
-// next-sitemap.config.js
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://calcasi-lp.vercel.app', // ← 必ずこれ！
+  siteUrl: 'https://calcasi-lp.vercel.app',
   generateRobotsTxt: true,
-  generateIndexSitemap: false
+  sitemapSize: 7000,
 };
