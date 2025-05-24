@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, RefCallback } from "react"
 import { useInView } from "react-intersection-observer"
 
 interface TypingProps {
@@ -13,11 +13,8 @@ interface TypingProps {
 export default function Typing({ text, speed = 50, delay = 0, className = "" }: TypingProps) {
   const [displayText, setDisplayText] = useState("")
   const [isTypingComplete, setIsTypingComplete] = useState(false)
-  const typingRef = useRef<HTMLSpanElement>(null)
-  const { ref: inViewRef, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+  const typingRef = useRef<HTMLSpanElement | null>(null)
+  const [inViewRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   useEffect(() => {
     if (!inView) return
@@ -50,16 +47,15 @@ export default function Typing({ text, speed = 50, delay = 0, className = "" }: 
     }
   }, [inView, text, speed, delay])
 
-  // ref をまとめる関数
-  const combinedRef = (node: HTMLSpanElement | null) => {
-    const typingRef = useRef<HTMLSpanElement | null>(null) as React.MutableRefObject<HTMLSpanElement | null>
-
-    inViewRef(node)          // ✅ inViewに通知
+  // ✅ 複数の ref を安全にマージするユーティリティ
+  const setRefs: RefCallback<HTMLSpanElement> = (node) => {
+    typingRef.current = node
+    inViewRef(node)
   }
 
   return (
     <span
-      ref={combinedRef}
+      ref={setRefs}
       className={`${className} inline-block`}
       style={{
         position: "relative",
