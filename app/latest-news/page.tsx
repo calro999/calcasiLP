@@ -48,20 +48,19 @@ export default async function LatestNewsPage() {
             </h2>
           </ScrollAnimation>
 
-          <div className="mb-8">
+          <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4">
             <input
               type="text"
               placeholder="記事を検索..."
-              className="w-full px-4 py-2 rounded bg-white text-black"
+              className="w-full md:w-1/2 px-4 py-2 rounded bg-white text-black mb-4 md:mb-0"
             />
-          </div>
-
-          <div className="mb-12 flex gap-4 flex-wrap">
-            {[...new Set(allArticles.map(a => a.category))].map(category => (
-              <span key={category} className="px-3 py-1 bg-white text-black text-sm rounded-full">
-                {category}
-              </span>
-            ))}
+            <div className="flex gap-2 flex-wrap">
+              {[...new Set(allArticles.map(a => a.category))].map(category => (
+                <span key={category} className="px-3 py-1 bg-white text-black text-sm rounded-full">
+                  {category}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* 固定記事 */}
