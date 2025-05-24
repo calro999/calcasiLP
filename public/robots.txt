@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://calcasi-lp.vercel.app/sitemap.xml
+# Host
+Host: https://calcasi-lp.vercel.app
 
+# Sitemaps
+Sitemap: https://calcasi-lp.vercel.app/sitemap.xml
