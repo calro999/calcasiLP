@@ -17,11 +17,12 @@ interface Article {
   content: string;
 }
 
-interface Props {
+// Next.js App Router expects a type like this:
+type PageProps = {
   params: {
     id: string;
   };
-}
+};
 
 export async function generateStaticParams() {
   const dir = path.join(process.cwd(), 'contents', 'articles');
@@ -31,7 +32,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function Page({ params }: PageProps) {
   const filePath = path.join(
     process.cwd(),
     'contents',
