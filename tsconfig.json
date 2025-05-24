@@ -7,12 +7,22 @@
     "resolveJsonModule": true,
     "strict": true,
     "types": ["node"],
-    "jsx": "preserve", // ✅ JSXを使うため必要
+    "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",                      // ✅ 追加
+    "paths": {                           // ✅ 追加
+      "@/*": ["./*"]
+    }
   },
-  "include": ["app", "components", "scripts", "types", ".next/types/**/*.ts"],
+  "include": [
+    "app",
+    "components",
+    "scripts",
+    "types",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
