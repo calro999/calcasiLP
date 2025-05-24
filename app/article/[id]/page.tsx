@@ -1,10 +1,9 @@
-import React from 'react';
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import fs from 'fs/promises';
 import path from 'path';
-import { notFound } from 'next/navigation';
 
 interface Article {
   id: number;
@@ -18,11 +17,11 @@ interface Article {
   content: string;
 }
 
-interface Props {
+type PageProps = {
   params: {
     id: string;
   };
-}
+};
 
 async function getArticleById(id: string): Promise<Article | undefined> {
   const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
@@ -43,7 +42,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function ArticlePage({ params }: PageProps) {
   const article = await getArticleById(params.id);
 
   if (!article) return notFound();
