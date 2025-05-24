@@ -1,10 +1,18 @@
+// /components/animations/scroll-animation.tsx
 "use client"
 
 import { useEffect, type ReactNode } from "react"
-import { motion, useAnimation, type Variant } from "framer-motion"
+import { motion, useAnimation, type Target } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 
-type AnimationVariant = "fadeIn" | "fadeInUp" | "fadeInDown" | "fadeInLeft" | "fadeInRight" | "zoomIn" | "flip"
+type AnimationVariant =
+  | "fadeIn"
+  | "fadeInUp"
+  | "fadeInDown"
+  | "fadeInLeft"
+  | "fadeInRight"
+  | "zoomIn"
+  | "flip"
 
 interface ScrollAnimationProps {
   children: ReactNode
@@ -75,7 +83,7 @@ const variants = {
   },
 }
 
-const getInitialState = (variant: AnimationVariant): Variant => {
+const getInitialState = (variant: AnimationVariant): Target => {
   switch (variant) {
     case "fadeInUp":
       return { ...variants.hidden, y: 50 }
