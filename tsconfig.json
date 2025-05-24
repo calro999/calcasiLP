@@ -6,12 +6,41 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "jsx": "preserve",
-    "baseUrl": ".",                            // ← 追加
-    "paths": {                                 // ← 追加
-      "@/*": ["./*"]
-    }
+    "baseUrl": ".", // ← 追加
+    "paths": { // ← 追加
+      "@/*": [
+        "./*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["scripts", "types", "tailwind.config.ts", "app", "components"]
+  "include": [
+    "app",
+    "components",
+    "scripts",
+    "tailwind.config.ts",
+    "types",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
