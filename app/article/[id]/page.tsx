@@ -5,7 +5,6 @@ import ScrollAnimation from '@/components/ScrollAnimation';
 import fs from 'fs/promises';
 import path from 'path';
 
-// 型定義
 interface Article {
   id: number;
   title: string;
@@ -18,6 +17,12 @@ interface Article {
   content: string;
 }
 
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
 export async function generateStaticParams() {
   const dir = path.join(process.cwd(), 'contents', 'articles');
   const filenames = await fs.readdir(dir);
@@ -26,11 +31,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ArticlePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function ArticlePage({ params }: Props) {
   const filePath = path.join(
     process.cwd(),
     'contents',
