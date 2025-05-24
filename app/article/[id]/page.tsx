@@ -5,7 +5,6 @@ import ScrollAnimation from '@/components/ScrollAnimation';
 import fs from 'fs/promises';
 import path from 'path';
 
-// 記事の型
 interface Article {
   id: number;
   title: string;
@@ -18,19 +17,17 @@ interface Article {
   content: string;
 }
 
-// 静的パスの生成
 export async function generateStaticParams() {
   const dir = path.join(process.cwd(), 'contents', 'articles');
-  const filenames = await fs.readdir(dir);
-  return filenames.map((filename) => ({
-    id: path.parse(filename).name,
+  const files = await fs.readdir(dir);
+  return files.map(file => ({
+    id: path.parse(file).name,
   }));
 }
 
-// 記事の取得
 async function getArticle(id: string): Promise<Article | null> {
+  const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
   try {
-    const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
     const file = await fs.readFile(filePath, 'utf8');
     return JSON.parse(file);
   } catch {
@@ -38,8 +35,13 @@ async function getArticle(id: string): Promise<Article | null> {
   }
 }
 
-// メインページコンポーネント
-export default async function Page({ params }: { params: { id: string } }) {
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function Page({ params }: PageProps) {
   const article = await getArticle(params.id);
 
   if (!article) return notFound();
@@ -66,7 +68,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M15 19l-7-7 7-7"
-                    ></path>
+                    />
                   </svg>
                   最新情報一覧に戻る
                 </Link>
