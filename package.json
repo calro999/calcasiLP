@@ -46,7 +46,7 @@
     "date-fns": "4.1.0",
     "dotenv": "^16.5.0",
     "embla-carousel-react": "8.5.1",
-    "framer-motion": "latest",
+    "framer-motion": "^10.18.0",
     "googleapis": "^149.0.0",
     "gray-matter": "^4.0.3",
     "input-otp": "1.4.1",
