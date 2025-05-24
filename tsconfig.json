@@ -7,8 +7,9 @@
     "resolveJsonModule": true,
     "strict": true,
     "types": ["node"],
-    "baseUrl": ".",                   // ← 追加
-    "paths": {                        // ← 追加
+    "jsx": "preserve",
+    "baseUrl": ".",                            // ← 追加
+    "paths": {                                 // ← 追加
       "@/*": ["./*"]
     }
   },
