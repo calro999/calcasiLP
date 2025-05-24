@@ -1,4 +1,5 @@
 // /app/article/[id]/page.tsx
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,6 +19,12 @@ interface Article {
   content: string;
 }
 
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
 export async function generateStaticParams() {
   const dir = path.join(process.cwd(), 'contents', 'articles');
   const files = await fs.readdir(dir);
@@ -36,8 +43,7 @@ async function getArticle(id: string): Promise<Article | null> {
   }
 }
 
-// ✅ 正しい型指定（明示的に { params: { id: string } } とする）
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: PageProps) {
   const article = await getArticle(params.id);
 
   if (!article) return notFound();
@@ -49,10 +55,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <ScrollAnimation variant="fadeInUp" delay={0}>
             <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 md:p-8">
               <div className="mb-6">
-                <Link
-                  href="/latest-news"
-                  className="text-blue-400 hover:underline text-sm flex items-center mb-4"
-                >
+                <Link href="/latest-news" className="text-blue-400 hover:underline text-sm flex items-center mb-4">
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                   </svg>
@@ -71,7 +74,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
               <div className="relative mb-6">
                 <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
-                  <Image src={article.image} alt={article.title} fill className="object-cover" />
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
 

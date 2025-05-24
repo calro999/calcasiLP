@@ -12,10 +12,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "カジノ比較ならCalcasi！",
     description: "人気カジノの情報を分かりやすく紹介。あなたに合ったカジノを見つけよう！",
-    url: "https://calcasi-365ixzage-cs-projects-8939d59e.vercel.app/",
+    url: "https://calcasi-lp.vercel.app/",
     images: [
       {
-        url: "https://yourdomain.com/ogp.png", // ← 公開したOGP画像のURLに置き換えてね
+        url: "https://calcasi-lp.vercel.app/ogp.png", // ← 公開したOGP画像のURLに置き換えてね
         width: 1200,
         height: 630,
         alt: "Calcasi カジノ比較イメージ",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  metadataBase: new URL("https://calcasi-365ixzage-cs-projects-8939d59e.vercel.app"),
+  metadataBase: new URL("https://calcasi-lp.vercel.app/"),
 }
 
 export default function Home() {
