@@ -1,4 +1,3 @@
-// /workspaces/calcasiLP/app/article/[id]/page.tsx
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,15 +18,10 @@ interface Article {
   content: string;
 }
 
-async function getAllArticleIds(): Promise<string[]> {
-  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
-  try {
-    const filenames = await fs.readdir(articlesDir);
-    return filenames.map(filename => path.parse(filename).name);
-  } catch (error) {
-    console.error(`Error reading directory ${articlesDir}:`, error);
-    return [];
-  }
+interface PageProps {
+  params: {
+    id: string;
+  };
 }
 
 async function getArticleById(id: string): Promise<Article | undefined> {
@@ -42,16 +36,10 @@ async function getArticleById(id: string): Promise<Article | undefined> {
 }
 
 export async function generateStaticParams() {
-  const ids = await getAllArticleIds();
-  return ids.map((id) => ({ id }));
+  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
+  const filenames = await fs.readdir(articlesDir);
+  return filenames.map(filename => ({ id: path.parse(filename).name }));
 }
-
-// ✅ 型を明示的に指定（これがビルド通過の鍵）
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
 
 export default async function ArticlePage({ params }: PageProps) {
   const article = await getArticleById(params.id);
