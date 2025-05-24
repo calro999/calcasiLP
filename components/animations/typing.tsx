@@ -14,12 +14,11 @@ export default function Typing({ text, speed = 50, delay = 0, className = "" }: 
   const [displayText, setDisplayText] = useState("")
   const [isTypingComplete, setIsTypingComplete] = useState(false)
   const typingRef = useRef<HTMLSpanElement>(null)
-  const [ref, inView] = useInView({
+  const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
-  // 完全にリセットして新しいロジックで実装
   useEffect(() => {
     if (!inView) return
 
@@ -27,7 +26,6 @@ export default function Typing({ text, speed = 50, delay = 0, className = "" }: 
     let typingTimer: NodeJS.Timeout | null = null
 
     const startTyping = () => {
-      // 初期状態をクリア
       setDisplayText("")
       currentIndex = 0
 
@@ -42,25 +40,26 @@ export default function Typing({ text, speed = 50, delay = 0, className = "" }: 
         }
       }
 
-      // 遅延後にタイピングを開始
       setTimeout(typeNextChar, delay)
     }
 
     startTyping()
 
-    // クリーンアップ関数
     return () => {
       if (typingTimer) clearTimeout(typingTimer)
     }
   }, [inView, text, speed, delay])
 
+  // ref をまとめる関数
+  const combinedRef = (node: HTMLSpanElement | null) => {
+    const typingRef = useRef<HTMLSpanElement | null>(null) as React.MutableRefObject<HTMLSpanElement | null>
+
+    inViewRef(node)          // ✅ inViewに通知
+  }
+
   return (
     <span
-      ref={(node) => {
-        // 両方の参照を設定
-        typingRef.current = node
-        if (typeof ref === "function") ref(node)
-      }}
+      ref={combinedRef}
       className={`${className} inline-block`}
       style={{
         position: "relative",
