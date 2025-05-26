@@ -1,46 +1,39 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
 
-export type Article = {
-  id: string;
-  slug: string;
+type Article = {
+  id: number;
   title: string;
+  slug: string;
   excerpt: string;
+  category: string;
+  content: string;
   date: string;
   readTime: string;
   author: string;
-  category: string;
-  content: string;
   image: string;
 };
 
 export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
-  const dirPath = path.join(process.cwd(), "articles", locale);
-  const files = fs.readdirSync(dirPath);
+  const articlesDir = path.join(process.cwd(), "articles", locale);
 
-  const articles = files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => {
-      const filePath = path.join(dirPath, file);
-      const fileContent = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(fileContent);
+  // フォルダが存在しない場合は空配列を返す
+  if (!fs.existsSync(articlesDir)) return [];
 
-      const id = path.basename(file, ".md");
+  const fileNames = fs.readdirSync(articlesDir);
+  const articles: Article[] = [];
 
-      return {
-        id,
-        slug: `/${locale}/strategies/${id}`,
-        title: data.title || "",
-        excerpt: data.excerpt || "",
-        date: data.date || "",
-        readTime: data.readTime || "",
-        author: data.author || "",
-        category: data.category || "",
-        content,
-        image: data.image || "/placeholder.svg",
-      };
-    });
+  for (const fileName of fileNames) {
+    const filePath = path.join(articlesDir, fileName);
+    const fileContents = fs.readFileSync(filePath, "utf-8");
+
+    try {
+      const article: Article = JSON.parse(fileContents);
+      articles.push(article);
+    } catch (e) {
+      console.warn(`[getAllArticles] JSON parse error in ${fileName}`);
+    }
+  }
 
   return articles;
 }
