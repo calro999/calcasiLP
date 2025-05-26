@@ -1,4 +1,3 @@
-// /Users/calro/Downloads/calcasiLP/calcasiLP/app/ja/strategies/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +39,7 @@ export async function generateMetadata(
   };
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ id: string }[]> {
   const articles = await getAllArticles("ja");
   const strategies = articles.filter((a) => a.category === "strategies");
   return strategies.map((a) => ({ id: String(a.id) }));
