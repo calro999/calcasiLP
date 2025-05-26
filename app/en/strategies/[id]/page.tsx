@@ -6,10 +6,25 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { getAllArticles } from "@/lib/getAllArticles";
 import type { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const articles = await getAllArticles("en");
+type Article = {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  readTime: string;
+  category: string;
+  slug: string;
+  image: string;
+};
+
+export async function generateMetadata(
+  { params }: { params: { id: string } }
+): Promise<Metadata> {
+  const articles: Article[] = await getAllArticles("en");
   const article = articles.find(
-    (a) => a.category === "strategies" && String(a.id) === params.id
+    (a: Article) => a.category === "strategies" && String(a.id) === params.id
   );
 
   if (!article) {
@@ -38,20 +53,16 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-// ✅ `generateStaticParams` には `export const dynamicParams = false` を追加することで
-//    静的生成の明示が必要（これがビルドエラーを防ぎます）
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
-  const articles = await getAllArticles("en");
-  const strategies = articles.filter((a) => a.category === "strategies");
-  return strategies.map((a) => ({ id: String(a.id) }));
+  const articles: Article[] = await getAllArticles("en");
+  const strategies = articles.filter((a: Article) => a.category === "strategies");
+  return strategies.map((a: Article) => ({ id: String(a.id) }));
 }
 
 export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
-  const articles = await getAllArticles("en");
+  const articles: Article[] = await getAllArticles("en");
   const strategy = articles.find(
-    (a) => a.category === "strategies" && String(a.id) === params.id
+    (a: Article) => a.category === "strategies" && String(a.id) === params.id
   );
 
   if (!strategy) return notFound();
