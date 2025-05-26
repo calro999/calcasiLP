@@ -1,19 +1,12 @@
-// /next.config.js
-const path = require('path');
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: {
-    domains: ['your-domain.com'],
-  },
   i18n: {
-    locales: ['ja', 'en'],
-    defaultLocale: 'ja',
-    localeDetection: true,
+    locales: ["ja", "en"],
+    defaultLocale: "ja",
+    localeDetection: false, // ✅ ここを false にする（文字列ではなくリテラル false）
   },
-  webpack: (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname);
-    return config;
+  images: {
+    domains: ["calcasi-lp.vercel.app"],
   },
 };
 
