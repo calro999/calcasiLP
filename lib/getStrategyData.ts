@@ -23,3 +23,11 @@ export function getAllStrategies(): Strategy[] {
 
   return strategies
 }
+
+export function getStrategyById(id: string): Strategy | null {
+  const filePath = path.join(process.cwd(), "contents", "strategies", `${id}.json`)
+  if (!fs.existsSync(filePath)) return null
+
+  const fileContents = fs.readFileSync(filePath, "utf-8")
+  return JSON.parse(fileContents)
+}
