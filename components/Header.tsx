@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Shimmer from "./animations/shimmer";
@@ -10,7 +10,8 @@ import Shimmer from "./animations/shimmer";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { locale } = useRouter(); // ✅ ロケール取得
+  const params = useParams();
+  const locale = typeof params?.locale === "string" ? params.locale : "ja";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +55,6 @@ export default function Header() {
       transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto px-4 py-3 relative flex items-center justify-between">
-        {/* ロゴ */}
         <Link href={`/${locale}`} className="flex items-center">
           <Shimmer interval={5000}>
             <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
@@ -63,7 +63,6 @@ export default function Header() {
           </Shimmer>
         </Link>
 
-        {/* PCナビ */}
         <nav className="hidden md:flex items-center space-x-6">
           {menuItems.map((item) => (
             <Link
@@ -84,12 +83,10 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* モバイル：メニューボタン */}
         <button className="md:hidden text-white p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        {/* モバイルメニュー */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
