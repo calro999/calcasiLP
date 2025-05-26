@@ -1,39 +1,37 @@
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 type Article = {
-  id: number;
+  id: string;
   title: string;
-  slug: string;
   excerpt: string;
-  category: string;
   content: string;
   date: string;
-  readTime: string;
   author: string;
+  readTime: string;
+  category: string;
+  slug: string;
   image: string;
 };
 
 export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
-  const articlesDir = path.join(process.cwd(), "articles", locale);
+  try {
+    const articlesDir = path.join(process.cwd(), "articles", locale);
+    const fileNames = await fs.readdir(articlesDir);
+    const jsonFiles = fileNames.filter((file) => file.endsWith(".json"));
 
-  // フォルダが存在しない場合は空配列を返す
-  if (!fs.existsSync(articlesDir)) return [];
+    const articles = await Promise.all(
+      jsonFiles.map(async (fileName) => {
+        const filePath = path.join(articlesDir, fileName);
+        const fileContent = await fs.readFile(filePath, "utf-8");
+        const article = JSON.parse(fileContent);
+        return article as Article;
+      })
+    );
 
-  const fileNames = fs.readdirSync(articlesDir);
-  const articles: Article[] = [];
-
-  for (const fileName of fileNames) {
-    const filePath = path.join(articlesDir, fileName);
-    const fileContents = fs.readFileSync(filePath, "utf-8");
-
-    try {
-      const article: Article = JSON.parse(fileContents);
-      articles.push(article);
-    } catch (e) {
-      console.warn(`[getAllArticles] JSON parse error in ${fileName}`);
-    }
+    return articles;
+  } catch (error) {
+    console.error("記事読み込み中にエラー:", error);
+    return [];
   }
-
-  return articles;
 }
