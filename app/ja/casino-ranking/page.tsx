@@ -1,13 +1,13 @@
-"use client"
+// /app/ja/casino-ranking/page.tsx
 
 import Link from "next/link"
 import Image from "next/image"
+import { casinoData } from "@/lib/casinoData"
 import ScrollAnimation from "@/components/animations/scroll-animation"
 import Shimmer from "@/components/animations/shimmer"
 import Particles from "@/components/animations/particles"
-import { casinoData } from "@/lib/casinoData"
 
-export default function CasinoRanking() {
+export default function CasinoRankingPage() {
   return (
     <main className="pt-20 pb-20 bg-black">
       <div className="relative overflow-hidden py-20 bg-gradient-to-b from-black to-gray-900">
@@ -40,7 +40,7 @@ export default function CasinoRanking() {
                     </div>
 
                     <div className="md:col-span-3 flex items-center justify-center">
-                      <div className="relative w-[150px] h-36 md:w-[200px] md:h-48">
+                      <div className="relative w-[150px] h-36 md:w-[300px] md:h-64">
                         <Image
                           src={casino.logo || "/placeholder.svg"}
                           alt={casino.name}
@@ -63,20 +63,6 @@ export default function CasinoRanking() {
                           <span className="text-amber-400 font-bold">ボーナス: </span>
                           <span className="text-white">{casino.bonus}</span>
                         </div>
-
-                        {/* features があれば表示 */}
-                        {"features" in casino && Array.isArray((casino as any).features) && (
-                          <div className="mb-3 flex flex-wrap gap-2">
-                            {(casino as any).features.map((feature: string, i: number) => (
-                              <span
-                                key={i}
-                                className="bg-gray-700 text-gray-300 px-2 py-1 rounded-md text-sm"
-                              >
-                                {feature}
-                              </span>
-                            ))}
-                          </div>
-                        )}
 
                         <p className="text-gray-400 mb-4 line-clamp-2">{casino.description}</p>
 
