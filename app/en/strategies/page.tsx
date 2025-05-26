@@ -1,4 +1,4 @@
-// /app/strategies/page.tsx
+// /app/en/strategies/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
@@ -8,9 +8,7 @@ import Particles from "@/components/animations/particles";
 import { getAllArticles } from "@/lib/getAllArticles";
 
 export default async function StrategiesPage() {
-  const allArticles = await getAllArticles();
-
-  // strategiesカテゴリだけを抽出
+  const allArticles = await getAllArticles("en");
   const strategies = allArticles.filter(article => article.category === "strategies");
 
   return (
@@ -22,12 +20,12 @@ export default async function StrategiesPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <Shimmer>
                 <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                  攻略記事一覧
+                  Strategy Articles
                 </span>
               </Shimmer>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              カジノゲームで勝つための実践的な攻略法とテクニックを紹介します。
+              Discover practical strategies and techniques to win in casino games.
             </p>
           </div>
         </ScrollAnimation>
@@ -70,7 +68,7 @@ export default async function StrategiesPage() {
             ))
           ) : (
             <div className="col-span-full text-center text-gray-400 text-lg">
-              現在、攻略記事はありません。
+              No strategy articles available.
             </div>
           )}
         </div>

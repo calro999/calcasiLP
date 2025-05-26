@@ -1,30 +1,58 @@
-// /app/strategies/[id]/page.tsx
+// /app/en/strategies/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { getAllArticles } from "@/lib/getAllArticles";
+import type { Metadata } from "next";
 
-// 静的ルーティングのパラメータ生成
-export async function generateStaticParams() {
-  const articles = await getAllArticles();
-  const strategies = articles.filter((article) => article.category === "strategies");
-
-  return strategies.map((strategy) => ({
-    id: String(strategy.id),
-  }));
-}
-
-// ページ本体
-export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
-  const articles = await getAllArticles();
-  const strategy = articles.find(
-    (article) => article.category === "strategies" && String(article.id) === params.id
+export async function generateMetadata(
+  { params }: { params: { id: string } }
+): Promise<Metadata> {
+  const articles = await getAllArticles("en");
+  const article = articles.find(
+    (a) => a.category === "strategies" && String(a.id) === params.id
   );
 
-  if (!strategy) {
-    return notFound();
+  if (!article) {
+    return {
+      title: "Article Not Found",
+      description: "The requested strategy article does not exist.",
+    };
   }
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: `https://calcasi-lp.vercel.app/en/strategies/${article.id}`,
+      images: [
+        {
+          url: `https://calcasi-lp.vercel.app${article.image}`,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  const articles = await getAllArticles("en");
+  const strategies = articles.filter((a) => a.category === "strategies");
+  return strategies.map((a) => ({ id: String(a.id) }));
+}
+
+export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
+  const articles = await getAllArticles("en");
+  const strategy = articles.find(
+    (a) => a.category === "strategies" && String(a.id) === params.id
+  );
+
+  if (!strategy) return notFound();
 
   return (
     <main className="pt-20 pb-20 bg-black text-white">
@@ -34,7 +62,7 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
             <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 md:p-8">
               <div className="mb-6">
                 <Link
-                  href="/strategies"
+                  href="/en/strategies"
                   className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                 >
                   <svg
@@ -48,9 +76,9 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M15 19l-7-7 7-7"
-                    ></path>
+                    />
                   </svg>
-                  攻略記事一覧に戻る
+                  Back to strategy list
                 </Link>
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
                   {strategy.category}
@@ -59,9 +87,9 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
                   {strategy.title}
                 </h1>
                 <div className="flex items-center text-gray-500 text-sm mb-4">
-                  <span className="mr-4">公開日: {strategy.date}</span>
-                  <span className="mr-4">読了時間: {strategy.readTime}</span>
-                  <span>著者: {strategy.author}</span>
+                  <span className="mr-4">Published: {strategy.date}</span>
+                  <span className="mr-4">Read time: {strategy.readTime}</span>
+                  <span>Author: {strategy.author}</span>
                 </div>
               </div>
 

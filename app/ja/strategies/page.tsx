@@ -1,4 +1,4 @@
-// /app/strategies/page.tsx
+// /app/ja/strategies/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
@@ -8,9 +8,7 @@ import Particles from "@/components/animations/particles";
 import { getAllArticles } from "@/lib/getAllArticles";
 
 export default async function StrategiesPage() {
-  const allArticles = await getAllArticles();
-
-  // strategiesカテゴリだけを抽出
+  const allArticles = await getAllArticles("ja");
   const strategies = allArticles.filter(article => article.category === "strategies");
 
   return (

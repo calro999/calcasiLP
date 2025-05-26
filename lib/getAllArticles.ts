@@ -13,15 +13,21 @@ export type Article = {
   excerpt: string;
   content: string;
   slug: string;
+  locale: string;
 };
 
-const CATEGORIES = ["news", "entertainment", "sports", "economy", "column"];
+const CATEGORIES = ["strategies"]; // 必要に応じて増やす（例: casino-ranking 等）
+const LOCALES = ["ja", "en"]; // 多言語対応
 
-export async function getAllArticles(): Promise<Article[]> {
+export async function getAllArticles(locale: string): Promise<Article[]> {
+  if (!LOCALES.includes(locale)) {
+    throw new Error(`Unsupported locale: ${locale}`);
+  }
+
   const allArticles: Article[] = [];
 
   for (const category of CATEGORIES) {
-    const articlesDir = path.join(process.cwd(), "app", category, "articles");
+    const articlesDir = path.join(process.cwd(), "app", locale, category, "articles");
     if (!fs.existsSync(articlesDir)) continue;
 
     const files = fs.readdirSync(articlesDir).filter(file => file.endsWith(".json"));
@@ -34,7 +40,8 @@ export async function getAllArticles(): Promise<Article[]> {
       allArticles.push({
         ...json,
         category,
-        slug: `/article/${json.id}`, // 適宜修正可
+        locale,
+        slug: `/${locale}/${category}/${json.id}`,
       });
     }
   }
