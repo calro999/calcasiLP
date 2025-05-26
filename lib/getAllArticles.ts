@@ -1,20 +1,26 @@
 import fs from "fs/promises";
 import path from "path";
 
-export async function getAllArticles(locale: "ja" | "en") {
-  const dir = path.join(process.cwd(), "articles", locale);
+type Article = {
+  id: string | number;
+  title: string;
+  slug: string;
+  category: string;
+  content: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  author: string;
+  image: string;
+};
+
+export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
   try {
-    const files = await fs.readdir(dir);
-    const articles = await Promise.all(
-      files
-        .filter((file) => file.endsWith(".json"))
-        .map(async (file) => {
-          const content = await fs.readFile(path.join(dir, file), "utf-8");
-          return JSON.parse(content);
-        })
-    );
-    return articles;
+    const filePath = path.join(process.cwd(), "articles", `${locale}.json`);
+    const fileContents = await fs.readFile(filePath, "utf8");
+    return JSON.parse(fileContents) as Article[];
   } catch (err) {
-    return []; // フォルダが無い・空でもOKにする
+    // ファイルがない、JSONエラー、などすべて空配列で処理
+    return [];
   }
 }
