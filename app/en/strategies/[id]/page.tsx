@@ -6,9 +6,7 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { getAllArticles } from "@/lib/getAllArticles";
 import type { Metadata } from "next";
 
-export async function generateMetadata(
-  { params }: { params: { id: string } }
-): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const articles = await getAllArticles("en");
   const article = articles.find(
     (a) => a.category === "strategies" && String(a.id) === params.id
@@ -39,6 +37,10 @@ export async function generateMetadata(
     },
   };
 }
+
+// ✅ `generateStaticParams` には `export const dynamicParams = false` を追加することで
+//    静的生成の明示が必要（これがビルドエラーを防ぎます）
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const articles = await getAllArticles("en");
