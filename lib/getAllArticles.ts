@@ -1,53 +1,46 @@
-// /lib/getAllArticles.ts
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 
 export type Article = {
-  id: number;
+  id: string;
+  slug: string;
   title: string;
+  excerpt: string;
   date: string;
   readTime: string;
-  category: string;
   author: string;
-  image: string;
-  excerpt: string;
+  category: string;
   content: string;
-  slug: string;
-  locale: string;
+  image: string;
 };
 
-const CATEGORIES = ["strategies"]; // 必要に応じて増やす（例: casino-ranking 等）
-const LOCALES = ["ja", "en"]; // 多言語対応
+export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
+  const dirPath = path.join(process.cwd(), "articles", locale);
+  const files = fs.readdirSync(dirPath);
 
-export async function getAllArticles(locale: string): Promise<Article[]> {
-  if (!LOCALES.includes(locale)) {
-    throw new Error(`Unsupported locale: ${locale}`);
-  }
+  const articles = files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const filePath = path.join(dirPath, file);
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      const { data, content } = matter(fileContent);
 
-  const allArticles: Article[] = [];
+      const id = path.basename(file, ".md");
 
-  for (const category of CATEGORIES) {
-    const articlesDir = path.join(process.cwd(), "app", locale, category, "articles");
-    if (!fs.existsSync(articlesDir)) continue;
+      return {
+        id,
+        slug: `/${locale}/strategies/${id}`,
+        title: data.title || "",
+        excerpt: data.excerpt || "",
+        date: data.date || "",
+        readTime: data.readTime || "",
+        author: data.author || "",
+        category: data.category || "",
+        content,
+        image: data.image || "/placeholder.svg",
+      };
+    });
 
-    const files = fs.readdirSync(articlesDir).filter(file => file.endsWith(".json"));
-
-    for (const file of files) {
-      const filePath = path.join(articlesDir, file);
-      const raw = fs.readFileSync(filePath, "utf-8");
-      const json = JSON.parse(raw);
-
-      allArticles.push({
-        ...json,
-        category,
-        locale,
-        slug: `/${locale}/${category}/${json.id}`,
-      });
-    }
-  }
-
-  // 日付順で並べ替え（新しい順）
-  allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  return allArticles;
+  return articles;
 }
