@@ -1,101 +1,52 @@
 // /app/ja/casino-ranking/page.tsx
-import Link from "next/link";
-import Image from "next/image";
-import { Calendar, Clock } from "lucide-react";
-import ScrollAnimation from "@/components/animations/scroll-animation";
-import Shimmer from "@/components/animations/shimmer";
-import Particles from "@/components/animations/particles";
-import { getAllArticles } from "@/lib/getAllArticles";
 
-// Article 型を統一（id は string に変換）
-type Article = {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  author: string;
-  readTime: string;
-  category: string;
-  slug: string;
-  image: string;
-};
+import Link from "next/link"
+import Image from "next/image"
+import { Star } from "lucide-react"
+import { casinoData } from "@/lib/casinoData"
 
-export default async function CasinoRankingPage() {
-  const rawArticles = await getAllArticles("ja");
-
-  // id を string に変換して整合性確保
-  const allArticles: Article[] = rawArticles.map((a: any) => ({
-    ...a,
-    id: String(a.id),
-  }));
-
-  const rankings: Article[] = allArticles.filter(
-    (article: Article) => article.category === "casino-ranking"
-  );
-
+export default function CasinoRankingPage() {
   return (
-    <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
-      <Particles className="absolute inset-0 z-0" count={100} color="rgba(255, 215, 0, 0.2)" />
-      <div className="container mx-auto px-4 relative z-10">
-        <ScrollAnimation variant="fadeInDown">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              <Shimmer>
-                <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                  オンラインカジノランキング
-                </span>
-              </Shimmer>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              人気オンラインカジノを総合評価でランキング形式にまとめました。
-            </p>
-          </div>
-        </ScrollAnimation>
-
+    <main className="pt-20 pb-20 bg-black">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-bold text-white mb-8">オンラインカジノランキング</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {rankings.length > 0 ? (
-            rankings.map((article: Article, index: number) => (
-              <ScrollAnimation key={article.id} variant="fadeInUp" delay={index * 0.1}>
-                <Link href={`/casino-detail/${article.id}`} className="block h-full">
-                  <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/30 transition-shadow duration-300 flex flex-col h-full">
-                    <div className="relative aspect-[16/9] overflow-hidden">
-                      <Image
-                        src={article.image || "/placeholder.svg"}
-                        alt={article.title}
-                        fill
-                        className="object-cover transition-transform duration-300 hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    </div>
-                    <div className="p-6 flex flex-col flex-grow">
-                      <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-3">
-                        {article.category}
-                      </span>
-                      <h2 className="text-xl font-bold text-white mb-3 flex-grow">
-                        {article.title}
-                      </h2>
-                      <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                        {article.excerpt}
-                      </p>
-                      <div className="flex items-center text-gray-500 text-xs mt-auto">
-                        <Calendar size={16} className="mr-1" />
-                        <span className="mr-3">{article.date}</span>
-                        <Clock size={16} className="mr-1" />
-                        <span>{article.readTime}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </ScrollAnimation>
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-400 text-lg">
-              現在、ランキング記事はありません。
-            </div>
-          )}
+          {casinoData.map((casino) => (
+            <Link
+              key={casino.id}
+              href={`/casino-detail/${casino.id}`}
+              className="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition"
+            >
+              <div className="relative w-full h-32 bg-white rounded-lg mb-4">
+                <Image
+                  src={casino.logo}
+                  alt={`${casino.name}のロゴ`}
+                  fill
+                  className="object-contain p-4"
+                />
+              </div>
+              <h2 className="text-xl font-bold text-white mb-2">{casino.name}</h2>
+              <p className="text-gray-300 text-sm mb-2">{casino.description}</p>
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={16}
+                    className={`${
+                      i < Math.floor(casino.rating)
+                        ? "text-amber-400 fill-amber-400"
+                        : i < casino.rating
+                        ? "text-amber-400 fill-amber-400 opacity-50"
+                        : "text-gray-600"
+                    }`}
+                  />
+                ))}
+                <span className="ml-2 text-white text-sm font-bold">{casino.rating}/5.0</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </main>
-  );
+  )
 }
