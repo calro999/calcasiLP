@@ -17,7 +17,7 @@ export async function generateMetadata(
   if (!article) {
     return {
       title: "Article Not Found",
-      description: "The requested strategy article does not exist.",
+      description: "The specified article does not exist.",
     };
   }
 
@@ -78,7 +78,7 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  Back to strategy list
+                  Back to Strategy List
                 </Link>
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
                   {strategy.category}
