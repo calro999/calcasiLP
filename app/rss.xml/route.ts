@@ -1,52 +1,38 @@
-// /app/rss.xml/route.ts
 import { getAllArticles } from "@/lib/getAllArticles";
 import { NextResponse } from "next/server";
 
-const BASE_URL = "https://calcasi-lp.vercel.app";
-const LOCALES = ["ja", "en"];
-
-function escapeXml(str: string) {
-  return str.replace(/[<>&'"]/g, (char) => {
-    switch (char) {
-      case "<": return "&lt;";
-      case ">": return "&gt;";
-      case "&": return "&amp;";
-      case "'": return "&apos;";
-      case '"': return "&quot;";
-      default: return char;
-    }
-  });
-}
-
 export async function GET() {
-  let items: string[] = [];
+  const LOCALES = ["ja", "en"];
+  const items: string[] = [];
 
   for (const locale of LOCALES) {
-    const articles = await getAllArticles(locale);
+    const articles = await getAllArticles(locale as "ja" | "en");
     for (const article of articles) {
       items.push(`
         <item>
-          <title>${escapeXml(article.title)}</title>
-          <link>${BASE_URL}${article.slug}</link>
-          <guid>${BASE_URL}${article.slug}</guid>
-          <description>${escapeXml(article.excerpt)}</description>
+          <title>${article.title}</title>
+          <link>https://calcasi-lp.vercel.app${article.slug}</link>
+          <guid isPermaLink="true">https://calcasi-lp.vercel.app${article.slug}</guid>
           <pubDate>${new Date(article.date).toUTCString()}</pubDate>
+          <description><![CDATA[${article.excerpt}]]></description>
         </item>
       `);
     }
   }
 
-  const xml = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-  <channel>
-    <title>Calcasi Online Casino Articles</title>
-    <link>${BASE_URL}</link>
-    <description>Latest articles from Calcasi</description>
-    ${items.join("\n")}
-  </channel>
-</rss>`;
+  const xml = `
+    <rss version="2.0">
+      <channel>
+        <title>calcasiどっとこむ最新記事</title>
+        <link>https://calcasi-lp.vercel.app</link>
+        <description>カジノ攻略・ガイド・最新情報</description>
+        ${items.join("\n")}
+      </channel>
+    </rss>
+  `.trim();
 
   return new NextResponse(xml, {
+    status: 200,
     headers: {
       "Content-Type": "application/xml",
     },
