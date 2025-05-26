@@ -1,3 +1,4 @@
+// /app/ja/casino-ranking/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
@@ -6,6 +7,7 @@ import Shimmer from "@/components/animations/shimmer";
 import Particles from "@/components/animations/particles";
 import { getAllArticles } from "@/lib/getAllArticles";
 
+// Article 型を統一（id は string に変換）
 type Article = {
   id: string;
   title: string;
@@ -20,8 +22,17 @@ type Article = {
 };
 
 export default async function CasinoRankingPage() {
-  const allArticles: Article[] = await getAllArticles("ja");
-  const rankings: Article[] = allArticles.filter((article: Article) => article.category === "casino-ranking");
+  const rawArticles = await getAllArticles("ja");
+
+  // id を string に変換して整合性確保
+  const allArticles: Article[] = rawArticles.map((a: any) => ({
+    ...a,
+    id: String(a.id),
+  }));
+
+  const rankings: Article[] = allArticles.filter(
+    (article: Article) => article.category === "casino-ranking"
+  );
 
   return (
     <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
@@ -46,7 +57,7 @@ export default async function CasinoRankingPage() {
           {rankings.length > 0 ? (
             rankings.map((article: Article, index: number) => (
               <ScrollAnimation key={article.id} variant="fadeInUp" delay={index * 0.1}>
-                <Link href={article.slug} className="block h-full">
+                <Link href={`/casino-detail/${article.id}`} className="block h-full">
                   <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/30 transition-shadow duration-300 flex flex-col h-full">
                     <div className="relative aspect-[16/9] overflow-hidden">
                       <Image
@@ -55,7 +66,7 @@ export default async function CasinoRankingPage() {
                         fill
                         className="object-cover transition-transform duration-300 hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-3">
