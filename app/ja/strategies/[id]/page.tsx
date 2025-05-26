@@ -1,3 +1,4 @@
+// /app/ja/strategies/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,9 +6,24 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { getAllArticles } from "@/lib/getAllArticles";
 import type { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const articles = await getAllArticles("ja");
-  const article = articles.find((a) => a.category === "strategies" && String(a.id) === params.id);
+type Article = {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  readTime: string;
+  category: string;
+  slug: string;
+  image: string;
+};
+
+export async function generateMetadata(
+  { params }: { params: { id: string } }
+): Promise<Metadata> {
+  const articles: Article[] = await getAllArticles("ja");
+  const article = articles.find((a: Article) => a.category === "strategies" && String(a.id) === params.id);
 
   if (!article) {
     return {
@@ -36,18 +52,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 }
 
 export async function generateStaticParams() {
-  try {
-    const articles = await getAllArticles("ja");
-    const strategies = articles.filter((a) => a.category === "strategies");
-    return strategies.map((a) => ({ id: String(a.id) }));
-  } catch {
-    return [];
-  }
+  const articles: Article[] = await getAllArticles("ja");
+  const strategies = articles.filter((a: Article) => a.category === "strategies");
+  return strategies.map((a: Article) => ({ id: String(a.id) }));
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const articles = await getAllArticles("ja");
-  const strategy = articles.find((a) => a.category === "strategies" && String(a.id) === params.id);
+  const articles: Article[] = await getAllArticles("ja");
+  const strategy = articles.find((a: Article) => a.category === "strategies" && String(a.id) === params.id);
 
   if (!strategy) return notFound();
 
@@ -62,21 +74,34 @@ const Page = async ({ params }: { params: { id: string } }) => {
                   href="/ja/strategies"
                   className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                 >
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                  <svg
+                    className="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 19l-7-7 7-7"
+                    />
                   </svg>
                   攻略記事一覧に戻る
                 </Link>
                 <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-4">
                   {strategy.category}
                 </span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">{strategy.title}</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  {strategy.title}
+                </h1>
                 <div className="flex items-center text-gray-500 text-sm mb-4">
                   <span className="mr-4">公開日: {strategy.date}</span>
                   <span className="mr-4">読了時間: {strategy.readTime}</span>
                   <span>著者: {strategy.author}</span>
                 </div>
               </div>
+
               <div className="relative mb-6">
                 <div className="aspect-[16/9] relative rounded-lg overflow-hidden">
                   <Image
@@ -87,6 +112,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                   />
                 </div>
               </div>
+
               <div
                 className="prose prose-invert max-w-none text-gray-300"
                 dangerouslySetInnerHTML={{ __html: strategy.content }}
