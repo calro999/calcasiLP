@@ -1,57 +1,38 @@
 // /app/ja/strategies/page.tsx
-import Link from "next/link";
-import Image from "next/image";
-import { getAllArticles } from "@/lib/getAllArticles";
-import ScrollAnimation from "@/components/ScrollAnimation";
+import Link from "next/link"
+import Image from "next/image"
+import { getAllStrategies } from "@/lib/getStrategyData"
 
-type Article = {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  author: string;
-  readTime: string;
-  category: string;
-  slug: string;
-  image: string;
-};
-
-export default async function StrategiesPage() {
-  const allArticles: Article[] = await getAllArticles("ja");
-  const strategies: Article[] = allArticles.filter((article: Article) => article.category === "strategies");
+export default function StrategyListPage() {
+  const strategies = getAllStrategies()
 
   return (
-    <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
-      <section className="container mx-auto px-4 max-w-5xl">
-        <h1 className="text-4xl font-bold mb-8 text-center">攻略記事一覧</h1>
-        <div className="grid gap-6 md:grid-cols-2">
-          {strategies.map((article: Article) => (
-            <ScrollAnimation key={article.id} variant="fadeInUp" delay={0}>
-              <Link
-                href={`/ja/strategies/${article.id}`}
-                className="block bg-gray-800 rounded-lg overflow-hidden hover:shadow-2xl transition-shadow"
-              >
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={article.image || "/placeholder.svg"}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h2 className="text-xl font-bold mb-2">{article.title}</h2>
-                  <p className="text-gray-400 text-sm mb-2">{article.excerpt}</p>
-                  <p className="text-gray-500 text-xs">
-                    {article.date} ・ {article.readTime} ・ {article.author}
-                  </p>
-                </div>
-              </Link>
-            </ScrollAnimation>
+    <main className="pt-20 pb-20 bg-black min-h-screen">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-bold text-white mb-8">攻略記事一覧</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {strategies.map((strategy) => (
+            <Link
+              key={strategy.id}
+              href={`/ja/strategies/${strategy.id}`}
+              className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition"
+            >
+              <div className="relative w-full h-48">
+                <Image
+                  src={strategy.image}
+                  alt={strategy.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <h2 className="text-xl font-bold text-white mb-2">{strategy.title}</h2>
+                <p className="text-gray-300 text-sm line-clamp-3">{strategy.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
-      </section>
+      </div>
     </main>
-  );
+  )
 }
