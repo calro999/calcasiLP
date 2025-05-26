@@ -49,7 +49,7 @@ export async function generateStaticParams() {
 }
 
 // 🔹 ページ本体
-export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
+const StrategyDetailPage = async ({ params }: { params: { id: string } }) => {
   const articles = await getAllArticles("ja");
   const strategy = articles.find(
     (a) => a.category === "strategies" && String(a.id) === params.id
@@ -117,4 +117,6 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
       </section>
     </main>
   );
-}
+};
+
+export default StrategyDetailPage;
