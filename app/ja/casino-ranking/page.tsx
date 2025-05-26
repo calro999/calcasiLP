@@ -1,3 +1,5 @@
+// /app/ja/casino-ranking/page.tsx
+
 import Link from "next/link"
 import Image from "next/image"
 import { casinoData } from "@/lib/casinoData"
@@ -40,7 +42,7 @@ export default function CasinoRankingPage() {
                     <div className="md:col-span-3 flex items-center justify-center">
                       <div className="relative w-full h-24">
                         <Image
-                          src={casino.logo}
+                          src={casino.logo || "/placeholder.svg"}
                           alt={casino.name}
                           fill
                           className="object-contain"
@@ -63,11 +65,8 @@ export default function CasinoRankingPage() {
                         </div>
 
                         <div className="mb-3 flex flex-wrap gap-2">
-                          {casino.features.map((feature, i) => (
-                            <span
-                              key={i}
-                              className="bg-gray-700 text-gray-300 px-2 py-1 rounded-md text-sm"
-                            >
+                          {casino.features.map((feature: string, i: number) => (
+                            <span key={i} className="bg-gray-700 text-gray-300 px-2 py-1 rounded-md text-sm">
                               {feature}
                             </span>
                           ))}
@@ -83,8 +82,10 @@ export default function CasinoRankingPage() {
                             詳細を見る
                           </Link>
                           <Link
-                            href="#"
+                            href={casino.officialLink}
                             className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-2 rounded-md text-center transition-all transform hover:scale-105"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             公式サイトへ
                           </Link>
