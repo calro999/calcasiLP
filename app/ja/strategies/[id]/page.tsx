@@ -46,7 +46,7 @@ export async function generateStaticParams() {
   return strategies.map((a) => ({ id: String(a.id) }));
 }
 
-const StrategyDetailPage = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { id: string } }) => {
   const articles = await getAllArticles("ja");
   const strategy = articles.find(
     (a) => a.category === "strategies" && String(a.id) === params.id
@@ -116,4 +116,4 @@ const StrategyDetailPage = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default StrategyDetailPage;
+export default Page;
