@@ -19,7 +19,7 @@ type Article = {
 
 export default async function StrategiesPage() {
   const allArticles: Article[] = await getAllArticles("en");
-  const strategies = allArticles.filter((article: Article) => article.category === "strategies");
+  const strategies: Article[] = allArticles.filter((article: Article) => article.category === "strategies");
 
   return (
     <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
