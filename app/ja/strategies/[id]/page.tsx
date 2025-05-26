@@ -1,4 +1,4 @@
-// /app/ja/strategies/[id]/page.tsx
+// /Users/calro/Downloads/calcasiLP/calcasiLP/app/ja/strategies/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,7 +46,7 @@ export async function generateStaticParams() {
   return strategies.map((a) => ({ id: String(a.id) }));
 }
 
-const Page = async ({ params }: { params: { id: string } }) => {
+export default async function Page({ params }: { params: { id: string } }) {
   const articles = await getAllArticles("ja");
   const strategy = articles.find(
     (a) => a.category === "strategies" && String(a.id) === params.id
@@ -114,6 +114,4 @@ const Page = async ({ params }: { params: { id: string } }) => {
       </section>
     </main>
   );
-};
-
-export default Page;
+}
