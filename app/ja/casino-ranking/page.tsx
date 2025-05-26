@@ -1,4 +1,3 @@
-// /app/ja/casino-ranking/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
@@ -7,9 +6,22 @@ import Shimmer from "@/components/animations/shimmer";
 import Particles from "@/components/animations/particles";
 import { getAllArticles } from "@/lib/getAllArticles";
 
+type Article = {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  author: string;
+  readTime: string;
+  category: string;
+  slug: string;
+  image: string;
+};
+
 export default async function CasinoRankingPage() {
-  const allArticles = await getAllArticles("ja");
-  const rankings = allArticles.filter(article => article.category === "casino-ranking");
+  const allArticles: Article[] = await getAllArticles("ja");
+  const rankings: Article[] = allArticles.filter((article: Article) => article.category === "casino-ranking");
 
   return (
     <main className="pt-20 pb-20 bg-black text-white relative overflow-hidden">
@@ -32,7 +44,7 @@ export default async function CasinoRankingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {rankings.length > 0 ? (
-            rankings.map((article, index) => (
+            rankings.map((article: Article, index: number) => (
               <ScrollAnimation key={article.id} variant="fadeInUp" delay={index * 0.1}>
                 <Link href={article.slug} className="block h-full">
                   <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/30 transition-shadow duration-300 flex flex-col h-full">
