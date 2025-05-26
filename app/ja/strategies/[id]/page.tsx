@@ -6,7 +6,6 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 import { getAllArticles } from "@/lib/getAllArticles";
 import type { Metadata } from "next";
 
-// 🔹 SEOメタデータ生成
 export async function generateMetadata(
   { params }: { params: { id: string } }
 ): Promise<Metadata> {
@@ -41,14 +40,12 @@ export async function generateMetadata(
   };
 }
 
-// 🔹 静的ルーティング生成
 export async function generateStaticParams() {
   const articles = await getAllArticles("ja");
   const strategies = articles.filter((a) => a.category === "strategies");
   return strategies.map((a) => ({ id: String(a.id) }));
 }
 
-// 🔹 ページ本体
 const StrategyDetailPage = async ({ params }: { params: { id: string } }) => {
   const articles = await getAllArticles("ja");
   const strategy = articles.find(
