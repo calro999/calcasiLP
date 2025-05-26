@@ -1,13 +1,13 @@
-// /app/ja/casino-ranking/page.tsx
+"use client"
 
 import Link from "next/link"
 import Image from "next/image"
-import { casinoData } from "@/lib/casinoData"
 import ScrollAnimation from "@/components/animations/scroll-animation"
 import Shimmer from "@/components/animations/shimmer"
 import Particles from "@/components/animations/particles"
+import { casinoData } from "@/lib/casinoData"
 
-export default function CasinoRankingPage() {
+export default function CasinoRanking() {
   return (
     <main className="pt-20 pb-20 bg-black">
       <div className="relative overflow-hidden py-20 bg-gradient-to-b from-black to-gray-900">
@@ -40,7 +40,7 @@ export default function CasinoRankingPage() {
                     </div>
 
                     <div className="md:col-span-3 flex items-center justify-center">
-                      <div className="relative w-full h-24">
+                      <div className="relative w-[150px] h-36 md:w-[200px] md:h-48">
                         <Image
                           src={casino.logo || "/placeholder.svg"}
                           alt={casino.name}
@@ -64,13 +64,19 @@ export default function CasinoRankingPage() {
                           <span className="text-white">{casino.bonus}</span>
                         </div>
 
-                        <div className="mb-3 flex flex-wrap gap-2">
-                          {casino.features.map((feature: string, i: number) => (
-                            <span key={i} className="bg-gray-700 text-gray-300 px-2 py-1 rounded-md text-sm">
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
+                        {/* features があれば表示 */}
+                        {"features" in casino && Array.isArray((casino as any).features) && (
+                          <div className="mb-3 flex flex-wrap gap-2">
+                            {(casino as any).features.map((feature: string, i: number) => (
+                              <span
+                                key={i}
+                                className="bg-gray-700 text-gray-300 px-2 py-1 rounded-md text-sm"
+                              >
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        )}
 
                         <p className="text-gray-400 mb-4 line-clamp-2">{casino.description}</p>
 
@@ -83,9 +89,9 @@ export default function CasinoRankingPage() {
                           </Link>
                           <Link
                             href={casino.officialLink}
-                            className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-2 rounded-md text-center transition-all transform hover:scale-105"
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-2 rounded-md text-center transition-all transform hover:scale-105"
                           >
                             公式サイトへ
                           </Link>
