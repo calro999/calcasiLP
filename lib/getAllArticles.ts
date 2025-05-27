@@ -1,25 +1,31 @@
+// lib/getAllArticles.ts
+import fs from "fs";
 import path from "path";
-import fs from "fs/promises";
-import { Article } from "./types";
+import matter from "gray-matter";
+import { Article } from "@/types/article";
+
+const articlesDirectory = path.join(process.cwd(), "contents/articles");
 
 export async function getAllArticles(): Promise<Article[]> {
-  try {
-    const dir = path.join(process.cwd(), "contents", "articles");
-    const entries = await fs.readdir(dir, { withFileTypes: true });
+  const categories = fs.readdirSync(articlesDirectory);
+  const articles: Article[] = [];
 
-    const articles = await Promise.all(
-      entries
-        .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
-        .map(async (entry): Promise<Article> => {
-          const filePath = path.join(dir, entry.name);
-          const content = await fs.readFile(filePath, "utf8");
-          return JSON.parse(content) as Article;
-        })
-    );
+  for (const category of categories) {
+    const categoryPath = path.join(articlesDirectory, category);
+    const files = fs.readdirSync(categoryPath);
 
-    return articles.sort((a, b) => b.id - a.id);
-  } catch (error) {
-    console.error("[getAllArticles] エラー:", error);
-    return [];
+    for (const file of files) {
+      const filePath = path.join(categoryPath, file);
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const { data } = matter(fileContent);
+
+      articles.push({
+        ...(data as Article),
+        slug: `/${category}/${data.id}`,
+        category,
+      });
+    }
   }
+
+  return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
