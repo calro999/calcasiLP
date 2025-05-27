@@ -5,6 +5,14 @@ import { Strategy } from "./types";
 export async function getAllStrategies(lang: "ja" | "en"): Promise<Strategy[]> {
   try {
     const dir = path.join(process.cwd(), "contents", "strategies", lang);
+
+    // ✅ フォルダ存在チェック
+    const dirStat = await fs.stat(dir).catch(() => null);
+    if (!dirStat || !dirStat.isDirectory()) {
+      console.warn(`[getAllStrategies] フォルダが存在しません: ${dir}`);
+      return [];
+    }
+
     const files = await fs.readdir(dir);
 
     const strategies = await Promise.all(
