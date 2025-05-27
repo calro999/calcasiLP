@@ -39,10 +39,20 @@ export default async function StrategyDetailPage({ params }: Params) {
           <span>著者: {strategy.author}</span>
         </div>
 
-        <p className="text-lg text-gray-300">{strategy.excerpt}</p>
+        {/* excerpt を HTML として描画 */}
+        <div
+          className="prose prose-invert text-gray-300"
+          dangerouslySetInnerHTML={{ __html: `<p>${strategy.excerpt}</p>` }}
+        />
 
         <article
-          className="prose prose-invert max-w-none text-white [&_h2]:text-amber-300 [&_h3]:text-white [&_li]:marker:text-amber-400 [&_strong]:text-white [&_ul]:list-disc [&_ul]:pl-6"
+          className="prose prose-invert max-w-none text-white 
+                     [&_h2]:text-amber-300 
+                     [&_h3]:text-white 
+                     [&_li]:marker:text-amber-400 
+                     [&_strong]:text-white 
+                     [&_ul]:list-disc 
+                     [&_ul]:pl-6"
           dangerouslySetInnerHTML={{ __html: strategy.content }}
         />
       </div>
