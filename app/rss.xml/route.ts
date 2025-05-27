@@ -2,22 +2,19 @@ import { getAllArticles } from "@/lib/getAllArticles";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const LOCALES = ["ja", "en"];
+  const articles = await getAllArticles();
   const items: string[] = [];
 
-  for (const locale of LOCALES) {
-    const articles = await getAllArticles(locale as "ja" | "en");
-    for (const article of articles) {
-      items.push(`
-        <item>
-          <title>${article.title}</title>
-          <link>https://calcasi-lp.vercel.app${article.slug}</link>
-          <guid isPermaLink="true">https://calcasi-lp.vercel.app${article.slug}</guid>
-          <pubDate>${new Date(article.date).toUTCString()}</pubDate>
-          <description><![CDATA[${article.excerpt}]]></description>
-        </item>
-      `);
-    }
+  for (const article of articles) {
+    items.push(`
+      <item>
+        <title>${article.title}</title>
+        <link>https://calcasi-lp.vercel.app${article.slug}</link>
+        <guid isPermaLink="true">https://calcasi-lp.vercel.app${article.slug}</guid>
+        <pubDate>${new Date(article.date).toUTCString()}</pubDate>
+        <description><![CDATA[${article.excerpt}]]></description>
+      </item>
+    `);
   }
 
   const xml = `
