@@ -1,15 +1,9 @@
-// /app/[lang]/strategies/page.tsx
-
 import Link from "next/link";
 import Image from "next/image";
 import { getAllStrategies } from "@/lib/getAllStrategies";
 import { Strategy } from "@/lib/types";
 
-export default async function StrategyListPage({
-  params,
-}: {
-  params: { lang: "ja" | "en" };
-}) {
+export default async function StrategyListPage({ params }: { params: { lang: "ja" | "en" } }) {
   const strategies: Strategy[] = await getAllStrategies(params.lang);
 
   return (
@@ -33,9 +27,7 @@ export default async function StrategyListPage({
               </div>
               <div className="p-4">
                 <h2 className="text-xl font-bold text-white mb-2">{strategy.title}</h2>
-                <p className="text-gray-300 text-sm line-clamp-3">
-                  {strategy.excerpt}
-                </p>
+                <p className="text-gray-300 text-sm line-clamp-3">{strategy.excerpt}</p>
               </div>
             </Link>
           ))}

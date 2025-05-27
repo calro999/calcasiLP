@@ -1,8 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "contents/blog");
 
@@ -19,7 +17,7 @@ export function getAllPosts() {
       slug,
       title: data.title,
       date: data.date,
-      thumbnail: data.thumbnail || "/default-thumbnail.jpg", // ✅ ここ追加
+      thumbnail: data.thumbnail || "/default-thumbnail.jpg",
       excerpt: content.trim().slice(0, 80) + "…",
     };
   });
@@ -30,6 +28,8 @@ export async function getPostBySlug(slug: string) {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
+  const { remark } = await import("remark");
+  const { default: html } = await import("remark-html");
   const processedContent = await remark().use(html).process(content);
   const contentHtml = processedContent.toString();
 
@@ -37,7 +37,7 @@ export async function getPostBySlug(slug: string) {
     slug,
     title: data.title,
     date: data.date,
-    thumbnail: data.thumbnail || "/default-thumbnail.jpg", // ✅ 記事詳細でも使えるように
+    thumbnail: data.thumbnail || "/default-thumbnail.jpg",
     contentHtml,
   };
 }
