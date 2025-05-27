@@ -1,3 +1,4 @@
+// /app/[lang]/strategies/page.tsx
 import Link from "next/link";
 import Image from "next/image";
 import { getAllStrategies } from "@/lib/getAllStrategies";
@@ -18,12 +19,7 @@ export default async function StrategyListPage({ params }: { params: { lang: "ja
               className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition"
             >
               <div className="relative w-full h-48">
-                <Image
-                  src={strategy.image}
-                  alt={strategy.title}
-                  fill
-                  className="object-cover"
-                />
+                <Image src={strategy.image} alt={strategy.title} fill className="object-cover" />
               </div>
               <div className="p-4">
                 <h2 className="text-xl font-bold text-white mb-2">{strategy.title}</h2>
