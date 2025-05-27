@@ -42,7 +42,7 @@ export default async function StrategyDetailPage({ params }: Params) {
         <p className="text-lg text-gray-300">{strategy.excerpt}</p>
 
         <article
-          className="prose prose-invert max-w-none"
+          className="prose prose-invert max-w-none text-white [&_h2]:text-amber-300 [&_h3]:text-white [&_li]:marker:text-amber-400 [&_strong]:text-white [&_ul]:list-disc [&_ul]:pl-6"
           dangerouslySetInnerHTML={{ __html: strategy.content }}
         />
       </div>
