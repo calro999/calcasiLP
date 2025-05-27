@@ -1,11 +1,28 @@
 // /app/strategies/page.tsx
+
+import fs from "fs";
+import path from "path";
 import Link from "next/link";
 import Image from "next/image";
-import { getAllStrategies } from "@/lib/getAllStrategies";
 import { Strategy } from "@/lib/types";
 
 export default async function StrategyListPage() {
-  const strategies: Strategy[] = await getAllStrategies();
+  const strategiesDir = path.join(process.cwd(), "contents", "strategies");
+  const files = fs.readdirSync(strategiesDir);
+  const strategies: Strategy[] = [];
+
+  for (const file of files) {
+    const filePath = path.join(strategiesDir, file);
+
+    // ディレクトリはスキップ
+    if (fs.statSync(filePath).isDirectory()) continue;
+
+    const fileContents = fs.readFileSync(filePath, "utf-8");
+    const strategy: Strategy = JSON.parse(fileContents);
+    strategies.push(strategy);
+  }
+
+  strategies.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <main className="pt-20 pb-20 bg-black min-h-screen">
@@ -19,11 +36,20 @@ export default async function StrategyListPage() {
               className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition"
             >
               <div className="relative w-full h-48">
-                <Image src={strategy.image} alt={strategy.title} fill className="object-cover" />
+                <Image
+                  src={strategy.image}
+                  alt={strategy.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div className="p-4">
-                <h2 className="text-xl font-bold text-white mb-2">{strategy.title}</h2>
-                <p className="text-gray-300 text-sm line-clamp-3">{strategy.excerpt}</p>
+                <h2 className="text-xl font-bold text-white mb-2">
+                  {strategy.title}
+                </h2>
+                <p className="text-gray-300 text-sm line-clamp-3">
+                  {strategy.excerpt}
+                </p>
               </div>
             </Link>
           ))}
