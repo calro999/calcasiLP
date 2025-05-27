@@ -1,6 +1,4 @@
-// 多言語対応のための攻略記事データ構成を整備
-// 対応ファイル: /app/[lang]/strategies/[id]/page.tsx
-
+// /app/strategies/[id]/page.tsx
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
@@ -8,16 +6,15 @@ import { Strategy } from "@/lib/types";
 
 interface Params {
   params: {
-    lang: string;
     id: string;
   };
 }
 
 export default async function StrategyDetailPage({ params }: Params) {
-  const { lang, id } = params;
-  const filePath = path.join(process.cwd(), "contents/strategies", lang, `${id}.json`);
+  const { id } = params;
+  const filePath = path.join(process.cwd(), "contents/strategies", `${id}.json`);
 
-  if (!fs.existsSync(filePath)) notFound();
+  if (!fs.existsSync(filePath)) return notFound();
 
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const strategy: Strategy = JSON.parse(fileContents);
