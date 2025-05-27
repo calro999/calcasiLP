@@ -8,6 +8,7 @@ const nextConfig = {
   images: {
     domains: ["calcasi-lp.vercel.app"],
   },
+  // output: "export" はここには絶対に含めない
 };
 
 module.exports = nextConfig;

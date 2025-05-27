@@ -5,10 +5,10 @@ import Image from "next/image";
 import { getAllStrategies } from "@/lib/getAllStrategies";
 import { Strategy } from "@/lib/types";
 
-// ✅ generateStaticParams を一時的にコメントアウトしました
-// export async function generateStaticParams() {
-//   return [{ lang: "ja" }, { lang: "en" }];
-// }
+// generateStaticParams を元に戻します
+export async function generateStaticParams() {
+  return [{ lang: "ja" }, { lang: "en" }];
+}
 
 export default async function StrategyListPage({ params }: { params: { lang: "ja" | "en" } }) {
   const strategies: Strategy[] = await getAllStrategies(params.lang);
@@ -21,7 +21,7 @@ export default async function StrategyListPage({ params }: { params: { lang: "ja
           {strategies.map((strategy) => (
             <Link
               key={strategy.id}
-              href={`/${params.lang}/strategies/${strategy.id}`}
+              href={`/<span class="math-inline">\{params\.lang\}/strategies/</span>{strategy.id}`}
               className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition"
             >
               <div className="relative w-full h-48">
