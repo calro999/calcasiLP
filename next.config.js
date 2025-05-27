@@ -1,14 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: {
-    locales: ["ja", "en"],
-    defaultLocale: "ja",
-    localeDetection: false,
-  },
   images: {
     domains: ["calcasi-lp.vercel.app"],
   },
-  // output: "export" はここには絶対に含めない
+  // ✅ i18n 完全削除済み
 };
 
 module.exports = nextConfig;

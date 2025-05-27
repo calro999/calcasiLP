@@ -1,8 +1,8 @@
+// components/Header.tsx
 "use client"
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Shimmer from "./animations/shimmer";
@@ -10,8 +10,6 @@ import Shimmer from "./animations/shimmer";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const params = useParams();
-  const locale = typeof params?.locale === "string" ? params.locale : "ja";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +40,8 @@ export default function Header() {
     { name: "ホーム", path: "/" },
     { name: "最新情報", path: "/latest-news" },
     { name: "初心者ガイド", path: "/beginners-guide" },
-    { name: "攻略法", path: "/[lang]/strategies" },
-    { name: "カジノランキング", path: "/[lang]/casino-ranking" },
+    { name: "攻略法", path: "/strategies" },
+    { name: "カジノランキング", path: "/casino-ranking" },
   ];
 
   return (
@@ -55,7 +53,7 @@ export default function Header() {
       transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto px-4 py-3 relative flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Shimmer interval={5000}>
             <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
               calcasiどっとこむ
@@ -67,7 +65,7 @@ export default function Header() {
           {menuItems.map((item) => (
             <Link
               key={item.name}
-              href={`/${locale}${item.path}`}
+              href={item.path}
               className="text-white text-sm md:text-base hover:text-amber-300 transition-colors"
             >
               {item.name}
@@ -100,7 +98,7 @@ export default function Header() {
                 {menuItems.map((item) => (
                   <Link
                     key={item.name}
-                    href={`/${locale}${item.path}`}
+                    href={item.path}
                     className="text-white text-sm hover:text-amber-300 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >

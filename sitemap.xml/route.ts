@@ -1,9 +1,7 @@
-// /app/sitemap.xml/route.ts
 import { getAllArticles } from "@/lib/getAllArticles";
 import { NextResponse } from "next/server";
 
 const BASE_URL = "https://calcasi-lp.vercel.app";
-const LOCALES = ["ja", "en"];
 
 const STATIC_PATHS = [
   "", // /
@@ -13,60 +11,27 @@ const STATIC_PATHS = [
   "/latest-news",
 ];
 
-// ヘルパー：全ロケールでのURLを返す
-function generateHreflangLinks(path: string): string {
-  return LOCALES.map((locale) => {
-    const prefix = locale === "ja" ? "" : `/${locale}`;
-    return `<xhtml:link rel="alternate" hreflang="${locale}" href="${BASE_URL}${prefix}${path}" />`;
-  }).join("\n");
-}
-
 export async function GET() {
   let urls: string[] = [];
 
-  // 🔹 静的ページのURLとhreflang対応
+  // 🔹 静的ページのURL
   for (const path of STATIC_PATHS) {
     const loc = `${BASE_URL}${path}`;
     urls.push(`
       <url>
         <loc>${loc}</loc>
-        ${generateHreflangLinks(path)}
         <changefreq>weekly</changefreq>
       </url>
     `);
   }
 
-  // 🔹 動的記事（IDベース）を処理
-  const allArticles: { [slug: string]: { [locale: string]: any } } = {};
-
-  for (const locale of LOCALES) {
-    const articles = await getAllArticles(locale);
-    for (const article of articles) {
-      const key = `${article.category}/${article.id}`;
-      if (!allArticles[key]) {
-        allArticles[key] = {};
-      }
-      allArticles[key][locale] = article;
-    }
-  }
-
-  // 🔹 各記事グループごとに <url> 要素を生成（多言語対応）
-  for (const key in allArticles) {
-    const articleGroup = allArticles[key];
-    const defaultArticle = articleGroup["ja"] || Object.values(articleGroup)[0];
-    const loc = `${BASE_URL}${defaultArticle.slug}`;
-
-    const hreflangs = Object.entries(articleGroup)
-      .map(([locale, article]) => {
-        return `<xhtml:link rel="alternate" hreflang="${locale}" href="${BASE_URL}${article.slug}" />`;
-      })
-      .join("\n");
-
+  // 🔹 記事を処理
+  const articles = await getAllArticles();
+  for (const article of articles) {
     urls.push(`
       <url>
-        <loc>${loc}</loc>
-        ${hreflangs}
-        <lastmod>${defaultArticle.date}</lastmod>
+        <loc>${BASE_URL}${article.slug}</loc>
+        <lastmod>${article.date}</lastmod>
         <changefreq>monthly</changefreq>
       </url>
     `);
@@ -75,8 +40,7 @@ export async function GET() {
   // 🔹 XML生成
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${urls.join("\n")}
 </urlset>`;
 
