@@ -1,36 +1,26 @@
-import path from "path";
 import fs from "fs/promises";
-import type { Article } from "@/lib/types";
+import path from "path";
+import { Article } from "./types";
 
-/**
- * 多言語対応記事一覧取得関数
- * @param lang - 'ja' または 'en'
- * @returns Article配列
- */
 export async function getAllArticles(lang: "ja" | "en"): Promise<Article[]> {
-  const dirPath = path.join(process.cwd(), "contents", "articles", lang);
-
-  let files: string[];
+  const articlesDir = path.join(process.cwd(), "contents", "articles", lang);
+  let filenames: string[];
 
   try {
-    files = await fs.readdir(dirPath);
+    const dirEntries = await fs.readdir(articlesDir, { withFileTypes: true });
+    filenames = dirEntries
+      .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
+      .map((entry) => entry.name);
   } catch (error) {
-    console.warn(`[getAllArticles] フォルダが見つかりません: ${dirPath}`);
-    return []; // フォルダがない場合は空配列
+    console.warn(`[getAllArticles] フォルダが見つかりません: ${articlesDir}`);
+    return []; // 空でもOK
   }
 
-  const jsonFiles = files.filter((file) => file.endsWith(".json"));
-
-  if (jsonFiles.length === 0) return [];
-
-  const articlesPromises = jsonFiles.map(async (filename) => {
-    const filePath = path.join(dirPath, filename);
+  const articlesPromises = filenames.map(async (filename) => {
+    const filePath = path.join(articlesDir, filename);
     const fileContents = await fs.readFile(filePath, "utf8");
     const article: Article = JSON.parse(fileContents);
-    return {
-      ...article,
-      slug: `/article/${article.id}`, // slugを追加して他の機能と連携
-    };
+    return article;
   });
 
   const articles = await Promise.all(articlesPromises);
