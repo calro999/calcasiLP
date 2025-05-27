@@ -1,4 +1,3 @@
-// /app/strategies/page.tsx
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,12 +73,16 @@ export default async function StrategyListPage() {
                   <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-3">
                     {strategy.category}
                   </span>
-                  <h3 className="text-xl font-bold text-white mb-3 flex-grow">
+
+                  <h3 className="text-xl font-bold text-white mb-2">
                     {strategy.title}
                   </h3>
+
+                  {/* ✅ ここで excerpt を表示 */}
                   <p className="text-gray-400 text-sm mb-4 line-clamp-3">
                     {strategy.excerpt}
                   </p>
+
                   <div className="flex justify-between items-center text-gray-500 text-sm mt-auto">
                     <span>公開日: {strategy.date}</span>
                     <span>読了時間: {strategy.readTime}</span>
