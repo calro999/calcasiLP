@@ -1,12 +1,14 @@
+// /app/[lang]/strategies/page.tsx
+
 import Link from "next/link";
 import Image from "next/image";
 import { getAllStrategies } from "@/lib/getAllStrategies";
 import { Strategy } from "@/lib/types";
 
-// ✅ これを追加（ja / en に対応）
-export async function generateStaticParams() {
-  return [{ lang: "ja" }, { lang: "en" }];
-}
+// ✅ generateStaticParams を一時的にコメントアウトしました
+// export async function generateStaticParams() {
+//   return [{ lang: "ja" }, { lang: "en" }];
+// }
 
 export default async function StrategyListPage({ params }: { params: { lang: "ja" | "en" } }) {
   const strategies: Strategy[] = await getAllStrategies(params.lang);
