@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   const menuItems = [
-    { name: "ホーム", path: "/[lang]" },
+    { name: "ホーム", path: "/" },
     { name: "最新情報", path: "/latest-news" },
     { name: "初心者ガイド", path: "/beginners-guide" },
     { name: "攻略法", path: "/[lang]/strategies" },
