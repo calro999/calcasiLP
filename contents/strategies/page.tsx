@@ -1,7 +1,8 @@
-import DiceGame from "@/components/DiceGame";
+import DiceGame from "@/components/DiceGame"; 
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
+import React from "react";
 
 export default function Page({ params }: { params: { id: string } }) {
   const filePath = path.join(process.cwd(), `contents/strategies/${params.id}.json`);

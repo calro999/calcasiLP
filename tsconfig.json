@@ -6,25 +6,21 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "baseUrl": ".", // ✅ 追加
-    "paths": { // ✅ 追加
-      "@/*": [
-        "./*"
-      ]
+    "baseUrl": ".", // ✅ プロジェクトルート基準
+    "paths": {
+      "@/*": ["*"],
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/app/*": ["app/*"],
+      "@/contents/*": ["contents/*"]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "isolatedModules": true,
     "plugins": [
       {
@@ -35,12 +31,11 @@
   "include": [
     "app",
     "components",
-    "lib", 
+    "lib",
+    "contents",
     "scripts",
     "types",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]  
+  "exclude": ["node_modules"]
 }

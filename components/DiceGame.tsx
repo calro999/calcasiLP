@@ -17,6 +17,7 @@ export default function DiceGame() {
     addHistory,
     updateBetAmount,
     betAmount,
+    resetHistory,
   } = useGameStore();
 
   const [target, setTarget] = useState(49.5);
@@ -26,115 +27,96 @@ export default function DiceGame() {
   const [payout, setPayout] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
 
+  const winChance = isUnder ? target : 100 - target;
+  const multiplier = +(100 / winChance).toFixed(2);
+
   const play = async () => {
     const rollResult = await rollDice({ clientSeed, serverSeed, nonce });
     const winFlag = isUnder ? rollResult < target : rollResult > target;
-    const winChance = isUnder ? target : 100 - target;
-    const payoutAmount = winFlag ? +(betAmount * (100 / winChance)).toFixed(2) : 0;
+    const payoutAmount = winFlag ? +(betAmount * multiplier).toFixed(2) : 0;
     const newBalance = balance + payoutAmount - betAmount;
 
     updateBalance(newBalance);
     setResult(rollResult);
     setWin(winFlag);
     setPayout(payoutAmount);
-    addHistory({
-      result: rollResult,
-      win: winFlag,
-      payout: payoutAmount,
-      betAmount,
-      nonce,
-    });
+    addHistory({ result: rollResult, win: winFlag, payout: payoutAmount, betAmount, nonce });
 
-    // 次回のベット額を自動調整
     let nextBet = betAmount;
-    if (winFlag) {
-      nextBet = +(betAmount * (1 + autoSettings.onWin / 100)).toFixed(2);
-    } else {
-      nextBet = +(betAmount * (1 + autoSettings.onLose / 100)).toFixed(2);
-    }
+    nextBet = winFlag
+      ? +(betAmount * (1 + autoSettings.onWin / 100)).toFixed(2)
+      : +(betAmount * (1 + autoSettings.onLose / 100)).toFixed(2);
     updateBetAmount(nextBet);
     incrementNonce();
   };
 
-  // 自動ベット処理
   useEffect(() => {
     if (autoPlay && autoSettings.maxBets > 0) {
       if (history.length >= autoSettings.maxBets || balance <= 0) {
         setAutoPlay(false);
         return;
       }
-
-      const timer = setTimeout(() => {
-        play();
-      }, autoSettings.delay);
-
+      const timer = setTimeout(() => play(), autoSettings.delay);
       return () => clearTimeout(timer);
     }
   }, [autoPlay, history]);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white text-black rounded-xl shadow mt-8">
-      <h2 className="text-2xl font-bold mb-4">🎲 Stake風ダイスゲーム</h2>
+    <div className="max-w-md mx-auto p-4 bg-black text-yellow-300 rounded-xl shadow-xl mt-8">
+      <h2 className="text-2xl font-bold mb-4 text-yellow-400">🎲 カスタムダイスゲーム</h2>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label className="block">
           <span>💰 ベット額</span>
-          <input
-            type="number"
-            value={betAmount}
-            onChange={(e) => updateBetAmount(+e.target.value)}
-            className="w-full border p-2 rounded"
-          />
+          <input type="number" value={betAmount} onChange={e => updateBetAmount(+e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
         </label>
 
         <label className="block">
           <span>🎯 ターゲット（0〜100）</span>
-          <input
-            type="number"
-            value={target}
-            onChange={(e) => setTarget(+e.target.value)}
-            className="w-full border p-2 rounded"
-          />
+          <input type="number" value={target} onChange={e => setTarget(+e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
         </label>
 
         <label className="block">
           <span>🔑 クライアントシード</span>
-          <input
-            type="text"
-            value={clientSeed}
-            onChange={(e) => setClientSeed(e.target.value)}
-            className="w-full border p-2 rounded"
-          />
+          <input type="text" value={clientSeed} onChange={e => setClientSeed(e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
         </label>
 
-        <button
-          onClick={() => setIsUnder(!isUnder)}
-          className="w-full p-2 bg-blue-500 text-white rounded"
-        >
-          BET ON {isUnder ? "UNDER" : "OVER"}
-        </button>
+        <p className="text-sm">勝率：{winChance.toFixed(2)}% ／ 倍率：x{multiplier}</p>
 
-        <button
-          onClick={play}
-          className="w-full p-2 bg-green-600 text-white rounded"
-        >
-          ROLL
-        </button>
+        <div className="flex gap-2">
+          <button onClick={() => setIsUnder(!isUnder)} className="flex-1 p-2 bg-yellow-500 text-black rounded">
+            BET ON {isUnder ? "UNDER" : "OVER"}
+          </button>
+          <button onClick={play} className="flex-1 p-2 bg-green-500 text-black rounded">
+            ROLL
+          </button>
+        </div>
 
-        <button
-          onClick={() => setAutoPlay(!autoPlay)}
-          className="w-full p-2 bg-purple-500 text-white rounded"
-        >
-          {autoPlay ? "STOP" : "START"} AUTO BET
-        </button>
+        <div className="flex gap-2">
+          <button onClick={() => setAutoPlay(!autoPlay)} className="flex-1 p-2 bg-purple-500 text-white rounded">
+            {autoPlay ? "STOP" : "START"} AUTO BET
+          </button>
+          <button onClick={resetHistory} className="flex-1 p-2 bg-red-600 text-white rounded">
+            履歴リセット
+          </button>
+        </div>
 
-        <p className="mt-2 text-sm text-gray-600">Balance: ${balance.toFixed(2)}</p>
+        <p className="text-sm">残高：${balance.toFixed(2)}</p>
 
         {result !== null && (
-          <div className="mt-4 text-center">
-            <p>🎲 Result: {result.toFixed(2)}</p>
-            <p>{win ? "🎉 You Win!" : "😢 You Lose"}</p>
-            <p>Payout: ${payout.toFixed(2)}</p>
+          <div className="mt-4">
+            <p>🎲 出目: {result.toFixed(2)}</p>
+            <div className="relative h-4 w-full bg-yellow-100 rounded">
+              <div
+                className={`absolute top-0 h-4 rounded ${win ? 'bg-green-500' : 'bg-red-500'}`}
+                style={{ left: `${(result / 100) * 100}%`, width: '2px' }}
+              />
+              <div
+                className="absolute top-0 h-4 bg-yellow-400 opacity-50"
+                style={{ width: `${target}%` }}
+              />
+            </div>
+            <p className="text-sm mt-2">{win ? "🎉 勝利！" : "😢 敗北…"} 配当: ${payout.toFixed(2)}</p>
           </div>
         )}
       </div>

@@ -10,10 +10,10 @@ type HistoryEntry = {
 };
 
 type AutoSettings = {
-  onWin: number;   // 勝利時に何％増やすか（例：10）
-  onLose: number;  // 敗北時に何％増やすか（例：100）
-  maxBets: number; // 自動ベット最大回数
-  delay: number;   // 自動ベット間隔（ms）
+  onWin: number;
+  onLose: number;
+  maxBets: number;
+  delay: number;
 };
 
 type GameState = {
@@ -30,9 +30,9 @@ type GameState = {
   setClientSeed: (value: string) => void;
   incrementNonce: () => void;
   addHistory: (entry: HistoryEntry) => void;
+  resetHistory: () => void; // ✅ 追加
 };
 
-// Zustandストアの作成
 export const useGameStore = create<GameState>((set) => ({
   balance: 1000,
   betAmount: 10,
@@ -55,4 +55,5 @@ export const useGameStore = create<GameState>((set) => ({
     set((state) => ({
       history: [...state.history, entry].slice(-10),
     })),
+  resetHistory: () => set({ history: [] }), // ✅ 実装
 }));
