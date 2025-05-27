@@ -1,17 +1,6 @@
 import fs from "fs/promises"
 import path from "path"
-
-export interface Article {
-  id: number
-  title: string
-  excerpt: string
-  image: string
-  category: string
-  date: string
-  readTime: string
-  author: string
-  content: string
-}
+import { Article } from "@/lib/types" // ← ②で説明する型定義
 
 export async function getAllArticles(lang: string): Promise<Article[]> {
   const articlesDir = path.join(process.cwd(), "contents", "articles", lang)
@@ -27,10 +16,13 @@ export async function getAllArticles(lang: string): Promise<Article[]> {
   const articlesPromises = filenames.map(async (filename) => {
     const filePath = path.join(articlesDir, filename)
     const fileContents = await fs.readFile(filePath, "utf8")
-    const article: Article = JSON.parse(fileContents)
-    return article
+    const article = JSON.parse(fileContents)
+    return {
+      ...article,
+      slug: `/article/${article.id}`, // ← 必須：記事URL用
+    }
   })
 
   const articles = await Promise.all(articlesPromises)
-  return articles.sort((a, b) => b.id - a.id) // ID降順で並べる（新しい記事が先）
+  return articles.sort((a, b) => b.id - a.id)
 }
