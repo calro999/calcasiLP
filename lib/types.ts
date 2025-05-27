@@ -36,3 +36,17 @@ export interface Casino {
   officialLink: string;
   features: string[];
 }
+
+export interface Strategy {
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  content: string;
+  includeDiceGame?: boolean; // ← これを追加！
+}
+

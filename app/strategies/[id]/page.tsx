@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { Strategy } from "@/lib/types";
+import DiceGame from "@/components/DiceGame"; // 🎲 追加
 
 interface Params {
   params: {
@@ -38,7 +39,6 @@ export default async function StrategyDetailPage({ params }: Params) {
           <span>著者: {strategy.author}</span>
         </div>
 
-        {/* ✅ excerpt をプレーンテキストとして表示 */}
         <p className="text-lg text-gray-300">{strategy.excerpt}</p>
 
         <article
@@ -51,6 +51,14 @@ export default async function StrategyDetailPage({ params }: Params) {
                      [&_ul]:pl-6"
           dangerouslySetInnerHTML={{ __html: strategy.content }}
         />
+
+        {/* ✅ includeDiceGame フラグが true の場合にゲームを表示 */}
+        {strategy.includeDiceGame && (
+          <div className="mt-12 border-t border-gray-700 pt-8">
+            <h2 className="text-2xl font-semibold mb-4 text-amber-300">🎲 実際にプレイしてみよう</h2>
+            <DiceGame />
+          </div>
+        )}
       </div>
     </main>
   );
