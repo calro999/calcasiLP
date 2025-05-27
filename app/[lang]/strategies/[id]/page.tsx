@@ -1,18 +1,31 @@
-// /app/ja/strategies/[id]/page.tsx
-import { Strategy } from "@/lib/types"
-import fs from "fs"
-import path from "path"
+// 多言語対応のための攻略記事データ構成を整備
+// 対応ファイル: /app/[lang]/strategies/[id]/page.tsx
 
-export default async function StrategyDetailPage({ params }: { params: { id: string } }) {
-  const filePath = path.join(process.cwd(), "contents/strategies", `${params.id}.json`)
-  const fileContents = fs.readFileSync(filePath, "utf-8")
-  const strategy: Strategy = JSON.parse(fileContents)
+import fs from "fs";
+import path from "path";
+import { notFound } from "next/navigation";
+import { Strategy } from "@/lib/types";
+
+interface Params {
+  params: {
+    lang: string;
+    id: string;
+  };
+}
+
+export default async function StrategyDetailPage({ params }: Params) {
+  const { lang, id } = params;
+  const filePath = path.join(process.cwd(), "contents/strategies", lang, `${id}.json`);
+
+  if (!fs.existsSync(filePath)) notFound();
+
+  const fileContents = fs.readFileSync(filePath, "utf-8");
+  const strategy: Strategy = JSON.parse(fileContents);
 
   return (
     <main className="pt-20 pb-20 bg-black text-white">
       <div className="max-w-4xl mx-auto px-4 space-y-6">
         <div className="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-xl border border-gray-700">
-          {/* Tailwindの aspect-ratio plugin を使って 16:9 比率に */}
           <img
             src={strategy.image}
             alt={strategy.title}
@@ -37,5 +50,5 @@ export default async function StrategyDetailPage({ params }: { params: { id: str
         />
       </div>
     </main>
-  )
+  );
 }
