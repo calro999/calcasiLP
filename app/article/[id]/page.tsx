@@ -1,11 +1,11 @@
 // /app/article/[id]/page.tsx
 
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import ScrollAnimation from '@/components/ScrollAnimation';
-import fs from 'fs/promises';
-import path from 'path';
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import ScrollAnimation from "@/components/ScrollAnimation";
+import fs from "fs/promises";
+import path from "path";
 
 interface Article {
   id: number;
@@ -22,21 +22,14 @@ interface Article {
 type PageProps = {
   params: {
     id: string;
+    lang?: "ja" | "en"; // 今後のため拡張
   };
 };
 
-export async function generateStaticParams() {
-  const dir = path.join(process.cwd(), 'contents', 'articles');
-  const files = await fs.readdir(dir);
-  return files.map(file => ({
-    id: path.parse(file).name,
-  }));
-}
-
-async function getArticle(id: string): Promise<Article | null> {
-  const filePath = path.join(process.cwd(), 'contents', 'articles', `${id}.json`);
+async function getArticle(id: string, lang: "ja" | "en" = "ja"): Promise<Article | null> {
+  const filePath = path.join(process.cwd(), "contents", "articles", lang, `${id}.json`);
   try {
-    const file = await fs.readFile(filePath, 'utf8');
+    const file = await fs.readFile(filePath, "utf8");
     return JSON.parse(file);
   } catch {
     return null;
@@ -44,7 +37,7 @@ async function getArticle(id: string): Promise<Article | null> {
 }
 
 export default async function Page({ params }: PageProps) {
-  const article = await getArticle(params.id);
+  const article = await getArticle(params.id, "ja"); // ✅ 固定でも仮対応OK
 
   if (!article) return notFound();
 
@@ -55,7 +48,10 @@ export default async function Page({ params }: PageProps) {
           <ScrollAnimation variant="fadeInUp" delay={0}>
             <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 md:p-8">
               <div className="mb-6">
-                <Link href="/latest-news" className="text-blue-400 hover:underline text-sm flex items-center mb-4">
+                <Link
+                  href="/latest-news"
+                  className="text-blue-400 hover:underline text-sm flex items-center mb-4"
+                >
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                   </svg>
