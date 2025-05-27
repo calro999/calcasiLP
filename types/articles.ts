@@ -1,11 +1,13 @@
-// types/article.ts
+// types/articles.ts
 export interface Article {
-    id: string;
-    title: string;
-    date: string;
-    excerpt: string;
-    image: string;
-    category: string;
-    slug: string;
-  }
-  
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  content?: string;
+  slug?: string;
+}

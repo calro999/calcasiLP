@@ -18,7 +18,7 @@ export default async function LangHome({
 }: {
   params: { lang: "ja" | "en" };
 }) {
-  const articles = await getAllArticles(params.lang);
+  const articles = await getAllArticles();
   return (
     <main>
       <Hero />

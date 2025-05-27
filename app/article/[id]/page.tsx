@@ -1,4 +1,4 @@
-// /app/article/[id]/page.tsx
+// app/article/[id]/page.tsx
 
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -22,22 +22,29 @@ interface Article {
 type PageProps = {
   params: {
     id: string;
-    lang?: "ja" | "en"; // 今後のため拡張
   };
 };
 
-async function getArticle(id: string, lang: "ja" | "en" = "ja"): Promise<Article | null> {
-  const filePath = path.join(process.cwd(), "contents", "articles", lang, `${id}.json`);
-  try {
-    const file = await fs.readFile(filePath, "utf8");
-    return JSON.parse(file);
-  } catch {
-    return null;
+async function getArticleById(id: string): Promise<Article | null> {
+  const baseDir = path.join(process.cwd(), "contents", "articles");
+  const categories = await fs.readdir(baseDir);
+
+  for (const category of categories) {
+    const filePath = path.join(baseDir, category, `${id}.json`);
+    try {
+      const file = await fs.readFile(filePath, "utf8");
+      const article: Article = JSON.parse(file);
+      return { ...article, category };
+    } catch {
+      continue;
+    }
   }
+
+  return null;
 }
 
 export default async function Page({ params }: PageProps) {
-  const article = await getArticle(params.id, "ja"); // ✅ 固定でも仮対応OK
+  const article = await getArticleById(params.id);
 
   if (!article) return notFound();
 

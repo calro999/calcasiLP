@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Article } from "@/types/article";
+import { Article } from "../types/articles"; // ← 修正ここ
 
 const articlesDirectory = path.join(process.cwd(), "contents/articles");
 
