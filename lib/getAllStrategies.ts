@@ -11,10 +11,9 @@ export async function getAllStrategies(): Promise<Strategy[]> {
 
   for (const file of files) {
     const filePath = path.join(strategiesDir, file);
-    const stat = fs.statSync(filePath);
 
     // ディレクトリはスキップ
-    if (stat.isDirectory()) continue;
+    if (fs.statSync(filePath).isDirectory()) continue;
 
     const fileContents = fs.readFileSync(filePath, "utf-8");
     const strategy: Strategy = JSON.parse(fileContents);
