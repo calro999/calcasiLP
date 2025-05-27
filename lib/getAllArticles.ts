@@ -1,45 +1,36 @@
-import fs from "fs";
-import path from "path";
+import fs from "fs/promises"
+import path from "path"
 
-export type Article = {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  author: string;
-  readTime: string;
-  category: string;
-  slug: string;
-  image: string;
-};
+export interface Article {
+  id: number
+  title: string
+  excerpt: string
+  image: string
+  category: string
+  date: string
+  readTime: string
+  author: string
+  content: string
+}
 
-// localeごとのコンテンツ格納ディレクトリ
-const CONTENT_DIR_MAP: Record<string, string> = {
-  ja: "contents/strategies",
-  en: "contents/strategies",
-};
-
-export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
-  const dirPath = path.join(process.cwd(), CONTENT_DIR_MAP[locale]);
+export async function getAllArticles(lang: string): Promise<Article[]> {
+  const articlesDir = path.join(process.cwd(), "contents", "articles", lang)
+  let filenames: string[]
 
   try {
-    const files = fs.readdirSync(dirPath);
-    const articles: Article[] = files
-      .filter(file => file.endsWith(".json"))
-      .map(file => {
-        const filePath = path.join(dirPath, file);
-        const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-        return {
-          ...data,
-          id: String(data.id), // IDをstringに変換
-          slug: `/${locale}/strategies/${data.id}`
-        };
-      });
-
-    return articles;
+    filenames = await fs.readdir(articlesDir)
   } catch (err) {
-    console.warn(`記事の取得に失敗しました: ${err}`);
-    return [];
+    console.error(`[getAllArticles] フォルダが見つかりません: ${articlesDir}`)
+    return []
   }
+
+  const articlesPromises = filenames.map(async (filename) => {
+    const filePath = path.join(articlesDir, filename)
+    const fileContents = await fs.readFile(filePath, "utf8")
+    const article: Article = JSON.parse(fileContents)
+    return article
+  })
+
+  const articles = await Promise.all(articlesPromises)
+  return articles.sort((a, b) => b.id - a.id) // ID降順で並べる（新しい記事が先）
 }
