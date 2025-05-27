@@ -1,4 +1,3 @@
-// /app/strategies/[id]/page.tsx
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
@@ -39,11 +38,8 @@ export default async function StrategyDetailPage({ params }: Params) {
           <span>著者: {strategy.author}</span>
         </div>
 
-        {/* excerpt を HTML として描画 */}
-        <div
-          className="prose prose-invert text-gray-300"
-          dangerouslySetInnerHTML={{ __html: `<p>${strategy.excerpt}</p>` }}
-        />
+        {/* ✅ excerpt をプレーンテキストとして表示 */}
+        <p className="text-lg text-gray-300">{strategy.excerpt}</p>
 
         <article
           className="prose prose-invert max-w-none text-white 
