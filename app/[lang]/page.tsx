@@ -1,10 +1,11 @@
-import React from "react";
-import { Metadata } from "next";
-import Hero from "@/components/hero";
-import Features from "@/components/features";
-import CasinoDetails from "@/components/casino-details";
-import PopularGames from "@/components/popular-games";
-import CTA from "@/components/cta";
+import React from "react"
+import { Metadata } from "next"
+import Hero from "@/components/hero"
+import Features from "@/components/features"
+import CasinoDetails from "@/components/casino-details"
+import PopularGames from "@/components/popular-games"
+import CTA from "@/components/cta"
+import { getAllArticles } from "@/lib/getAllArticles"
 
 export const metadata: Metadata = {
   title: "カジノ比較ならCalcasi！",
@@ -27,9 +28,11 @@ export const metadata: Metadata = {
     follow: true,
   },
   metadataBase: new URL("https://calcasi-lp.vercel.app/"),
-};
+}
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: { lang: "ja" | "en" } }) {
+  const articles = await getAllArticles(params.lang)
+
   return (
     <main>
       <Hero />
@@ -38,5 +41,5 @@ export default async function HomePage() {
       <PopularGames />
       <CTA />
     </main>
-  );
+  )
 }
