@@ -39,11 +39,11 @@ export default function Header() {
   };
 
   const menuItems = [
-    { name: "ホーム", path: "/" },
+    { name: "ホーム", path: "/page.tsx" },
     { name: "最新情報", path: "/latest-news" },
     { name: "初心者ガイド", path: "/beginners-guide" },
-    { name: "攻略法", path: "/strategies" },
-    { name: "カジノランキング", path: "/casino-ranking" },
+    { name: "攻略法", path: "/[lang]/strategies/page.tsx" },
+    { name: "カジノランキング", path: "/[lang]/casino-ranking" },
   ];
 
   return (
