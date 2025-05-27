@@ -4,6 +4,10 @@ import Image from "next/image";
 import { getAllStrategies } from "@/lib/getAllStrategies";
 import { Strategy } from "@/lib/types";
 
+export async function generateStaticParams() {
+  return [{ lang: "ja" }, { lang: "en" }];
+}
+
 export default async function StrategyListPage({ params }: { params: { lang: "ja" | "en" } }) {
   const strategies: Strategy[] = await getAllStrategies(params.lang);
 
