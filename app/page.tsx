@@ -8,7 +8,6 @@ import PopularGames from "@/components/popular-games";
 import CTA from "@/components/cta";
 import { getAllArticles } from "@/lib/getAllArticles";
 
-// ① ここに SEO 情報を追加します
 export const metadata: Metadata = {
   title: "カジノ比較ならCalcasi！",
   description: "Calcasiは、人気オンラインカジノのランキング・ゲーム紹介・初心者ガイドを提供するカジノ比較サイトです。",
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const articles = await getAllArticles("ja"); // ✅ 引数追加（locale必須）
+  const articles = await getAllArticles("ja"); // 日本語版トップでは ja を指定
 
   return (
     <main>

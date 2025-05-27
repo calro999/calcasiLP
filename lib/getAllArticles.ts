@@ -1,29 +1,30 @@
-import fs from "fs/promises"
+import { Article } from "@/lib/types"
 import path from "path"
-import { Article } from "./types"
+import fs from "fs"
+import fsp from "fs/promises"
 
-export async function getAllArticles(lang: "ja" | "en"): Promise<Article[]> {
-  const articlesDir = path.join(process.cwd(), "contents", "articles", lang)
+export async function getAllArticles(locale: "ja" | "en"): Promise<Article[]> {
+  const articlesDir = path.join(process.cwd(), "contents", "articles", locale)
 
-  let filenames: string[] = []
   try {
-    const entries = await fs.readdir(articlesDir, { withFileTypes: true })
-    filenames = entries
-      .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
-      .map((entry) => entry.name)
+    const entries = await fsp.readdir(articlesDir, { withFileTypes: true })
+
+    const files = entries.filter((entry) => entry.isFile()).map((entry) => entry.name)
+
+    const articlePromises = files.map(async (filename) => {
+      const filePath = path.join(articlesDir, filename)
+      const fileContents = await fsp.readFile(filePath, "utf8")
+      const article = JSON.parse(fileContents)
+      return {
+        ...article,
+        slug: `/article/${article.id}`,
+      }
+    })
+
+    const articles = await Promise.all(articlePromises)
+    return articles.sort((a, b) => b.id - a.id)
   } catch (error) {
-    console.warn(`[getAllArticles] フォルダが見つからないか、空です: ${articlesDir}`)
+    console.warn(`[getAllArticles] フォルダが見つかりません: ${articlesDir}`)
     return []
   }
-
-  const articles = await Promise.all(
-    filenames.map(async (filename) => {
-      const filePath = path.join(articlesDir, filename)
-      const fileContents = await fs.readFile(filePath, "utf8")
-      const article: Article = JSON.parse(fileContents)
-      return article
-    })
-  )
-
-  return articles.sort((a, b) => b.id - a.id)
 }

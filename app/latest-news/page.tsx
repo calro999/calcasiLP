@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import ScrollAnimation from '@/components/ScrollAnimation';
-import fs from 'fs/promises';
-import path from 'path';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import ScrollAnimation from "@/components/ScrollAnimation";
+import fs from "fs/promises";
+import path from "path";
 
 interface Article {
   id: number;
@@ -17,13 +17,24 @@ interface Article {
   content: string;
 }
 
-async function getArticles(): Promise<Article[]> {
-  const articlesDir = path.join(process.cwd(), 'contents', 'articles');
-  const filenames = await fs.readdir(articlesDir);
+async function getArticles(lang: "ja" | "en" = "ja"): Promise<Article[]> {
+  const articlesDir = path.join(process.cwd(), "contents", "articles", lang);
+
+  let entries;
+  try {
+    entries = await fs.readdir(articlesDir, { withFileTypes: true });
+  } catch (err) {
+    console.warn(`[getArticles] フォルダが見つかりません: ${articlesDir}`);
+    return [];
+  }
+
+  const filenames = entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
+    .map((entry) => entry.name);
 
   const articlesPromises = filenames.map(async (filename) => {
     const filePath = path.join(articlesDir, filename);
-    const fileContents = await fs.readFile(filePath, 'utf8');
+    const fileContents = await fs.readFile(filePath, "utf8");
     const article = JSON.parse(fileContents);
     return article;
   });
@@ -33,7 +44,7 @@ async function getArticles(): Promise<Article[]> {
 }
 
 export default async function LatestNewsPage() {
-  const allArticles = await getArticles();
+  const allArticles = await getArticles("ja"); // 言語固定。将来は動的対応可
 
   const fixedArticles = allArticles.filter(article => article.id >= 1 && article.id <= 6);
   const otherArticles = allArticles.filter(article => article.id > 6);
@@ -138,7 +149,6 @@ export default async function LatestNewsPage() {
             <button className="px-4 py-2 bg-white text-black rounded hover:bg-gray-300">前のページ</button>
             <button className="px-4 py-2 bg-white text-black rounded hover:bg-gray-300">次のページ</button>
           </div>
-
         </div>
       </section>
     </main>
