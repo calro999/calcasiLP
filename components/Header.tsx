@@ -42,7 +42,7 @@ export default function Header() {
     { name: "ホーム", path: "/page.tsx" },
     { name: "最新情報", path: "/latest-news" },
     { name: "初心者ガイド", path: "/beginners-guide" },
-    { name: "攻略法", path: "/[lang]/strategies/page.tsx" },
+    { name: "攻略法", path: "/[lang]/strategies" },
     { name: "カジノランキング", path: "/[lang]/casino-ranking" },
   ];
 
