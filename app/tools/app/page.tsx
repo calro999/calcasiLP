@@ -1,12 +1,11 @@
-// app/tools/app/page.tsx
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Slider } from "@/components/ui/slider"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "../../../components/ui/button"
+import { Input } from "../../../components/ui/input"
+import { Slider } from "../../../components/ui/slider"
+import { Card, CardContent } from "../../../components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs"
 import { RotateCcw, Zap } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from "recharts"
 
@@ -157,7 +156,7 @@ export default function StakeDiceGame() {
                     key={i}
                     className={`px-2 py-1 rounded text-xs font-medium ${
                       isRollOver ? (roll > rollUnder[0] ? "bg-green-500" : "bg-red-500")
-                                 : (roll < rollUnder[0] ? "bg-green-500" : "bg-red-500")
+                               : (roll < rollUnder[0] ? "bg-green-500" : "bg-red-500")
                     }`}
                   >
                     {roll.toFixed(2)}
