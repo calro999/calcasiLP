@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Slider } from "@/components/ui/slider"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "./components/ui/button"
+import { Input } from "./components/ui/input"
+import { Slider } from "./components/ui/slider"
+import { Card, CardContent } from "./components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs"
 import { TrendingUp, RotateCcw, X, ChevronDown, Zap } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from "recharts"
 
