@@ -67,7 +67,7 @@ export default async function StrategyDetailPage({ params }: Params) {
       {/* DiceGame コンポーネントのセクション - 条件付きで表示 */}
       {strategy.includeDiceGame && (
         // DiceGame の幅を最大 1600px に設定し、中央寄せにする
-        <div className="mt-12 border-t border-gray-700 pt-8 max-w-[1600px] mx-auto px-4">
+        <div className="mt-12 border-t border-gray-700 pt-8 max-w-[1400px] mx-auto px-4">
           {/* 見出しはDiceGameのコンテナ幅（1600px）に合わせるため、max-w-4xl mx-auto px-4 は削除済み */}
           <h2 className="text-2xl font-semibold mb-4 text-amber-300">🎲 実際にプレイしてみよう</h2>
           <DiceGame />
