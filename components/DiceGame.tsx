@@ -17,7 +17,6 @@ export default function DiceGame() {
     addHistory,
     updateBetAmount,
     betAmount,
-    resetHistory,
   } = useGameStore();
 
   const [target, setTarget] = useState(49.5);
@@ -60,6 +59,10 @@ export default function DiceGame() {
       return () => clearTimeout(timer);
     }
   }, [autoPlay, history]);
+
+  const resetHistory = () => {
+    location.reload();
+  };
 
   return (
     <div className="max-w-md mx-auto p-4 bg-black text-yellow-300 rounded-xl shadow-xl mt-8">
@@ -108,15 +111,30 @@ export default function DiceGame() {
             <p>🎲 出目: {result.toFixed(2)}</p>
             <div className="relative h-4 w-full bg-yellow-100 rounded">
               <div
-                className={`absolute top-0 h-4 rounded ${win ? 'bg-green-500' : 'bg-red-500'}`}
-                style={{ left: `${(result / 100) * 100}%`, width: '2px' }}
-              />
-              <div
                 className="absolute top-0 h-4 bg-yellow-400 opacity-50"
                 style={{ width: `${target}%` }}
               />
+              <div
+                className={`absolute top-0 h-4 rounded ${win ? 'bg-green-500' : 'bg-red-500'}`}
+                style={{ left: `${result}%`, width: '2px' }}
+              />
             </div>
             <p className="text-sm mt-2">{win ? "🎉 勝利！" : "😢 敗北…"} 配当: ${payout.toFixed(2)}</p>
+          </div>
+        )}
+
+        {history.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-2 text-yellow-400">📜 ロール履歴</h3>
+            <ul className="text-sm space-y-1 max-h-48 overflow-y-auto pr-1">
+              {history.slice().reverse().map((entry, index) => (
+                <li key={index} className="flex justify-between border-b border-yellow-700 pb-1">
+                  <span>🎲 {entry.result.toFixed(2)}</span>
+                  <span>{entry.win ? '✅ WIN' : '❌ LOSE'}</span>
+                  <span>${entry.payout.toFixed(2)}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
