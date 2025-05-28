@@ -259,13 +259,20 @@ export default function StakeDiceGame() {
           </div>
         </div>
 
-        {/* Banner Area */}
-        <div className="p-4 border-t border-slate-700">
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded p-3 text-center">
-            <div className="text-sm font-medium text-white">🎯 特別キャンペーン</div>
-            <div className="text-xs text-slate-200 mt-1">今すぐ参加して特典をゲット！</div>
-          </div>
-        </div>
+{/* Banner Area */}
+<div className="p-4 border-t border-slate-700">
+  <a href="https://k8.io/?invite=calron"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded p-3 text-center">
+      <div className="text-sm font-medium text-white">🎯 k8で</div>
+      <div className="text-xs text-slate-200 mt-1">実際にプレイ！</div>
+    </div>
+  </a>
+</div>
+
       </div>
 
       {/* Main Content */}
