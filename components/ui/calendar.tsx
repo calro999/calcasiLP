@@ -1,10 +1,12 @@
-// app/tools/components/ui/calendar.tsx
+// components/ui/calendar.tsx
 "use client"
 
 import * as React from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import "react-day-picker/dist/style.css"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -52,10 +54,15 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
+      components={{
+        IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+        IconRight: () => <ChevronRight className="h-4 w-4" />,
+      }}
       {...props}
     />
   )
 }
+
 Calendar.displayName = "Calendar"
 
 export { Calendar }
