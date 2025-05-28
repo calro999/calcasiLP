@@ -1,9 +1,7 @@
-// Stakeダイス完全再現：履歴・自動ベット・チャート付き
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { rollDice } from "@/lib/roll";
 import { useGameStore } from "@/lib/store";
-import coinSound from "@/assets/roll.mp3";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -84,7 +82,7 @@ export default function StakeDiceFull() {
 
   return (
     <div className="grid grid-cols-3 gap-4 bg-[#0e1a24] text-white p-6 rounded-lg">
-      <audio ref={audioRef} src={coinSound} preload="auto" />
+      <audio ref={audioRef} src="/assets/roll.mp3" preload="auto" />
 
       {/* 統計 + チャート */}
       <div className="bg-[#14212e] p-4 rounded space-y-4 text-sm">
