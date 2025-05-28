@@ -12,12 +12,15 @@ interface Params {
 
 export default async function StrategyDetailPage({ params }: Params) {
   const { id } = params;
+  // `process.cwd()` を使用して、プロジェクトのルートディレクトリを基準にパスを構築
   const filePath = path.join(process.cwd(), "contents/strategies", `${id}.json`);
 
+  // ファイルが存在しない場合は404ページを表示
   if (!fs.existsSync(filePath)) {
     return notFound();
   }
 
+  // ファイルの内容を読み込み、JSONとしてパース
   const fileContents = fs.readFileSync(filePath, "utf-8");
   const strategy: Strategy = JSON.parse(fileContents);
 
@@ -63,9 +66,9 @@ export default async function StrategyDetailPage({ params }: Params) {
 
       {/* DiceGame コンポーネントのセクション - 条件付きで表示 */}
       {strategy.includeDiceGame && (
-        // ここを max-w-[800px] と mx-auto に変更
-        <div className="mt-12 border-t border-gray-700 pt-8 max-w-[800px] mx-auto px-4">
-          {/* 見出しはDiceGameのコンテナ幅に合わせるため、max-w-4xl mx-auto px-4 を削除 */}
+        // DiceGame の幅を最大 1600px に設定し、中央寄せにする
+        <div className="mt-12 border-t border-gray-700 pt-8 max-w-[1600px] mx-auto px-4">
+          {/* 見出しはDiceGameのコンテナ幅（1600px）に合わせるため、max-w-4xl mx-auto px-4 は削除済み */}
           <h2 className="text-2xl font-semibold mb-4 text-amber-300">🎲 実際にプレイしてみよう</h2>
           <DiceGame />
         </div>
