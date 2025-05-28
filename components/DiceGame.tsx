@@ -1,9 +1,13 @@
+// これはステーク風の完全なUI設計をもとにしたDiceゲームコンポーネントの基本構成です。
+// 実際の動きや横スライダーなどはTailwind + useSpring or framer-motionで再現できます。
+// まずはレイアウトと機能ブロックを模倣したベースUI構造を設計します。
+
 "use client";
 import { useState, useEffect } from "react";
 import { rollDice } from "@/lib/roll";
 import { useGameStore } from "@/lib/store";
 
-export default function DiceGame() {
+export default function StakeStyleDiceGame() {
   const {
     balance,
     updateBalance,
@@ -19,15 +23,15 @@ export default function DiceGame() {
     betAmount,
   } = useGameStore();
 
-  const [target, setTarget] = useState(49.5);
-  const [isUnder, setIsUnder] = useState(true);
+  const [target, setTarget] = useState(50.5);
+  const [isUnder, setIsUnder] = useState(false);
   const [result, setResult] = useState<number | null>(null);
   const [win, setWin] = useState<boolean | null>(null);
   const [payout, setPayout] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
 
   const winChance = isUnder ? target : 100 - target;
-  const multiplier = +(100 / winChance).toFixed(2);
+  const multiplier = +(100 / winChance).toFixed(4);
 
   const play = async () => {
     const rollResult = await rollDice({ clientSeed, serverSeed, nonce });
@@ -40,103 +44,85 @@ export default function DiceGame() {
     setWin(winFlag);
     setPayout(payoutAmount);
     addHistory({ result: rollResult, win: winFlag, payout: payoutAmount, betAmount, nonce });
-
-    let nextBet = betAmount;
-    nextBet = winFlag
-      ? +(betAmount * (1 + autoSettings.onWin / 100)).toFixed(2)
-      : +(betAmount * (1 + autoSettings.onLose / 100)).toFixed(2);
-    updateBetAmount(nextBet);
     incrementNonce();
   };
 
   useEffect(() => {
-    if (autoPlay && autoSettings.maxBets > 0) {
-      if (history.length >= autoSettings.maxBets || balance <= 0) {
-        setAutoPlay(false);
-        return;
-      }
+    if (autoPlay) {
       const timer = setTimeout(() => play(), autoSettings.delay);
       return () => clearTimeout(timer);
     }
-  }, [autoPlay, history]);
-
-  const resetHistory = () => {
-    location.reload();
-  };
+  }, [autoPlay, result]);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-black text-yellow-300 rounded-xl shadow-xl mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-yellow-400">🎲 カスタムダイスゲーム</h2>
-
-      <div className="space-y-3">
-        <label className="block">
-          <span>💰 ベット額</span>
-          <input type="number" value={betAmount} onChange={e => updateBetAmount(+e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
-        </label>
-
-        <label className="block">
-          <span>🎯 ターゲット（0〜100）</span>
-          <input type="number" value={target} onChange={e => setTarget(+e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
-        </label>
-
-        <label className="block">
-          <span>🔑 クライアントシード</span>
-          <input type="text" value={clientSeed} onChange={e => setClientSeed(e.target.value)} className="w-full bg-black border border-yellow-400 p-2 rounded text-yellow-200" />
-        </label>
-
-        <p className="text-sm">勝率：{winChance.toFixed(2)}% ／ 倍率：x{multiplier}</p>
-
-        <div className="flex gap-2">
-          <button onClick={() => setIsUnder(!isUnder)} className="flex-1 p-2 bg-yellow-500 text-black rounded">
-            BET ON {isUnder ? "UNDER" : "OVER"}
-          </button>
-          <button onClick={play} className="flex-1 p-2 bg-green-500 text-black rounded">
-            ROLL
-          </button>
+    <div className="grid grid-cols-3 gap-4 bg-[#0e1a24] text-white p-6 rounded-xl shadow-lg">
+      {/* 左カラム：ライブ統計 */}
+      <div className="bg-[#14212e] p-4 rounded-lg space-y-4">
+        <h2 className="font-bold text-lg">📊 ライブ統計</h2>
+        <div className="text-sm space-y-1">
+          <p>利益: ${history.reduce((acc, h) => acc + h.payout - h.betAmount, 0).toFixed(2)}</p>
+          <p>勝ち: {history.filter(h => h.win).length}</p>
+          <p>負け: {history.filter(h => !h.win).length}</p>
+          <p>ベット額: ${history.reduce((acc, h) => acc + h.betAmount, 0).toFixed(2)}</p>
         </div>
+      </div>
 
-        <div className="flex gap-2">
-          <button onClick={() => setAutoPlay(!autoPlay)} className="flex-1 p-2 bg-purple-500 text-white rounded">
-            {autoPlay ? "STOP" : "START"} AUTO BET
-          </button>
-          <button onClick={resetHistory} className="flex-1 p-2 bg-red-600 text-white rounded">
-            履歴リセット
-          </button>
-        </div>
+      {/* 中央：ベット設定 */}
+      <div className="col-span-2 bg-[#1a2b3c] p-6 rounded-lg">
+        <h2 className="font-bold text-xl mb-4">🎲 ダイスベット</h2>
+        <div className="space-y-2">
+          <label className="block">
+            <span>💰 ベット額</span>
+            <input type="number" value={betAmount} onChange={e => updateBetAmount(+e.target.value)} className="w-full bg-[#0e1a24] border border-gray-600 p-2 rounded text-white" />
+          </label>
 
-        <p className="text-sm">残高：${balance.toFixed(2)}</p>
+          <label className="block">
+            <span>🎯 ターゲット</span>
+            <input type="range" min={1} max={99} step={0.1} value={target} onChange={e => setTarget(+e.target.value)} className="w-full" />
+            <p className="text-xs mt-1">🎯 {target.toFixed(2)} ／ 勝率: {winChance.toFixed(2)}% ／ 倍率: x{multiplier}</p>
+          </label>
 
-        {result !== null && (
+          <div className="flex gap-4 mt-4">
+            <button onClick={() => setIsUnder(!isUnder)} className="flex-1 p-2 bg-blue-600 rounded">
+              ロール {isUnder ? "アンダー" : "オーバー"}
+            </button>
+            <button onClick={play} className="flex-1 p-2 bg-green-600 rounded">
+              ROLL
+            </button>
+          </div>
+
           <div className="mt-4">
-            <p>🎲 出目: {result.toFixed(2)}</p>
-            <div className="relative h-4 w-full bg-yellow-100 rounded">
+            <h3 className="font-semibold">結果バー</h3>
+            <div className="relative w-full h-4 bg-gray-700 rounded">
               <div
-                className="absolute top-0 h-4 bg-yellow-400 opacity-50"
+                className="absolute top-0 h-4 bg-green-500"
                 style={{ width: `${target}%` }}
               />
-              <div
-                className={`absolute top-0 h-4 rounded ${win ? 'bg-green-500' : 'bg-red-500'}`}
-                style={{ left: `${result}%`, width: '2px' }}
-              />
+              {result !== null && (
+                <div
+                  className="absolute top-0 h-4 w-1 bg-red-500"
+                  style={{ left: `${result}%` }}
+                />
+              )}
             </div>
-            <p className="text-sm mt-2">{win ? "🎉 勝利！" : "😢 敗北…"} 配当: ${payout.toFixed(2)}</p>
+            {result !== null && (
+              <p className="mt-2">出目: {result.toFixed(2)} ／ {win ? "🎉 勝利" : "😢 敗北"}</p>
+            )}
           </div>
-        )}
 
-        {history.length > 0 && (
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-2 text-yellow-400">📜 ロール履歴</h3>
-            <ul className="text-sm space-y-1 max-h-48 overflow-y-auto pr-1">
-              {history.slice().reverse().map((entry, index) => (
-                <li key={index} className="flex justify-between border-b border-yellow-700 pb-1">
-                  <span>🎲 {entry.result.toFixed(2)}</span>
-                  <span>{entry.win ? '✅ WIN' : '❌ LOSE'}</span>
+          <div className="mt-4">
+            <h3 className="font-semibold">📜 ベット履歴</h3>
+            <ul className="text-sm space-y-1 max-h-32 overflow-y-auto">
+              {history.slice().reverse().map((entry, i) => (
+                <li key={i} className="flex justify-between text-xs">
+                  <span>{entry.result.toFixed(2)}</span>
+                  <span>{entry.win ? "✅" : "❌"}</span>
                   <span>${entry.payout.toFixed(2)}</span>
                 </li>
               ))}
             </ul>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
