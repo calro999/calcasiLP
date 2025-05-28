@@ -1,4 +1,4 @@
-// Stakeダイス完全再現：履歴・自動ベット・チャート付き＋SVGダイス演出
+// Stakeダイス完全再現：履歴・自動ベット・チャート付き＋SVGダイス演出＋条件分岐＋統計強化
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { rollDice } from "@/lib/roll";
@@ -39,15 +39,23 @@ export default function StakeDiceFull() {
   const [instant, setInstant] = useState(false);
   const [betCount, setBetCount] = useState(0);
   const [rollsLeft, setRollsLeft] = useState(Infinity);
+  const [profitLimit, setProfitLimit] = useState<number | null>(null);
+  const [lossLimit, setLossLimit] = useState<number | null>(null);
+  const [audio] = useState<HTMLAudioElement | null>(() =>
+    typeof window !== "undefined" ? new Audio("/assets/roll.mp3") : null
+  );
 
   const winChance = isUnder ? target : 100 - target;
   const multiplier = +(100 / winChance).toFixed(4);
 
   const diceRef = useRef<SVGRectElement | null>(null);
 
+  const totalProfit = history.reduce((a, h) => a + h.payout - h.betAmount, 0);
+
   const play = async () => {
     if (rolling || balance < betAmount) return;
     setRolling(true);
+    audio?.play();
 
     const rollResult = await rollDice({ clientSeed, serverSeed, nonce });
     const winFlag = isUnder ? rollResult < target : rollResult > target;
@@ -71,11 +79,18 @@ export default function StakeDiceFull() {
 
   useEffect(() => {
     if (autoPlay && betCount < rollsLeft) {
+      if (
+        (profitLimit !== null && totalProfit >= profitLimit) ||
+        (lossLimit !== null && totalProfit <= -lossLimit)
+      ) {
+        setAutoPlay(false);
+        return;
+      }
       const timer = setTimeout(() => play(), instant ? 100 : 1000);
       return () => clearTimeout(timer);
     }
     if (betCount >= rollsLeft) setAutoPlay(false);
-  }, [autoPlay, result]);
+  }, [autoPlay, result, totalProfit]);
 
   const chartData = {
     labels: history.map((_, i) => i + 1),
@@ -106,7 +121,7 @@ export default function StakeDiceFull() {
         {/* 統計 */}
         <div className="bg-[#1e293b] p-4 rounded-xl space-y-4 col-span-1">
           <h2 className="text-xl font-bold">📊 ライブ統計</h2>
-          <p>利益: ${(history.reduce((a, h) => a + h.payout - h.betAmount, 0)).toFixed(2)}</p>
+          <p>利益: ${totalProfit.toFixed(2)}</p>
           <p>勝ち: {history.filter(h => h.win).length}</p>
           <p>負け: {history.filter(h => !h.win).length}</p>
           <p>ベット: ${(history.reduce((a, h) => a + h.betAmount, 0)).toFixed(2)}</p>
@@ -129,6 +144,14 @@ export default function StakeDiceFull() {
             <label>
               クライアントシード
               <input type="text" value={clientSeed} onChange={e => setClientSeed(e.target.value)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
+            </label>
+            <label>
+              利益上限（停止）
+              <input type="number" onChange={e => setProfitLimit(+e.target.value || null)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
+            </label>
+            <label>
+              損失上限（停止）
+              <input type="number" onChange={e => setLossLimit(+e.target.value || null)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
             </label>
           </div>
 
