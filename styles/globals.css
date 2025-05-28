@@ -4,6 +4,10 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  /* bodyにもスクロールバーの基本スタイルを適用すると、全体のスクロールバーもカスタムされます */
+  /* スクロールバーの背景色を本体の背景色に合わせるとより自然に見えます */
+  scrollbar-color: #4a5568 #0f172a; /* thumb color track color */
+  scrollbar-width: thin;
 }
 
 @layer utilities {
@@ -11,6 +15,31 @@ body {
     text-wrap: balance;
   }
 }
+
+/* カスタムスクロールバーのスタイル */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* スクロールバーの幅 */
+  height: 8px; /* 水平スクロールバーの高さ */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a; /* トラックの背景色 (操作パネルの背景色) */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* サムの色 (グレー系) */
+  border-radius: 10px;
+  border: 2px solid #0f172a; /* サムのボーダー (トラックの色に合わせる) */
+}
+
+/* Firefoxの場合のスクロールバーの色を調整 */
+/* (bodyに適用されたものと似た色をここで設定) */
+.custom-scrollbar {
+  scrollbar-color: #4a5568 #0f172a;
+  scrollbar-width: thin;
+}
+
 
 @layer base {
   :root {

@@ -105,7 +105,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("@tailwindcss/typography"), // ✅ 追加
+    require("@tailwindcss/typography"),
   ],
 } satisfies Config
 
