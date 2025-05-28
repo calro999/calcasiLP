@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import 'app/tools/styles/globals.css'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'v0 App',
@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja">
-      <body className="bg-background text-foreground">{children}</body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   )
 }
