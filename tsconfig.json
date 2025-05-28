@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "baseUrl": ".", // ✅ プロジェクトルート基準
+    "baseUrl": ".",
     "paths": {
       "@/*": ["*"],
       "@/components/*": ["components/*"],
