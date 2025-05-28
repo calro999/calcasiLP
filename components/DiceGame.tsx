@@ -1,9 +1,8 @@
-// Stakeダイス完全再現：履歴・自動ベット・チャート付き
+// Stakeダイス完全再現：履歴・自動ベット・チャート付き＋SVGダイス演出
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { rollDice } from "@/lib/roll";
 import { useGameStore } from "@/lib/store";
-import coinSound from "@/public/assets/roll.mp3";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -44,12 +43,11 @@ export default function StakeDiceFull() {
   const winChance = isUnder ? target : 100 - target;
   const multiplier = +(100 / winChance).toFixed(4);
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const diceRef = useRef<SVGRectElement | null>(null);
 
   const play = async () => {
     if (rolling || balance < betAmount) return;
     setRolling(true);
-    if (!instant) audioRef.current?.play();
 
     const rollResult = await rollDice({ clientSeed, serverSeed, nonce });
     const winFlag = isUnder ? rollResult < target : rollResult > target;
@@ -62,7 +60,12 @@ export default function StakeDiceFull() {
     setPayout(payoutAmount);
     addHistory({ result: rollResult, win: winFlag, payout: payoutAmount, betAmount, nonce });
     incrementNonce();
-    setBetCount(prev => prev + 1);
+    setBetCount((prev) => prev + 1);
+
+    if (diceRef.current) {
+      diceRef.current.setAttribute("x", `${rollResult}%`);
+    }
+
     setTimeout(() => setRolling(false), instant ? 100 : 800);
   };
 
@@ -99,8 +102,6 @@ export default function StakeDiceFull() {
 
   return (
     <div className="w-full max-w-[1600px] mx-auto p-4 text-white">
-      <audio ref={audioRef} src={coinSound} preload="auto" />
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* 統計 */}
         <div className="bg-[#1e293b] p-4 rounded-xl space-y-4">
@@ -150,15 +151,10 @@ export default function StakeDiceFull() {
             </button>
           </div>
 
-          <div className="relative w-full h-6 bg-gray-600 rounded overflow-hidden">
-            <div className="absolute top-0 left-0 h-full bg-green-500" style={{ width: `${target}%` }} />
-            {result !== null && (
-              <div
-                className={`absolute top-0 h-full w-1 ${win ? "bg-blue-300" : "bg-red-500"}`}
-                style={{ left: `${result}%` }}
-              />
-            )}
-          </div>
+          <svg className="w-full h-8 bg-gray-700 rounded" viewBox="0 0 100 10">
+            <rect y="3" width={target} height="4" fill="green" />
+            {result !== null && <rect ref={diceRef} y="1" width="2" height="8" fill={win ? "#3b82f6" : "#ef4444"} />}
+          </svg>
 
           {result !== null && (
             <p className="text-sm mt-2">
