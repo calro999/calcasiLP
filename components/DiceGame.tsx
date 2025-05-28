@@ -160,7 +160,7 @@ export default function StakeDiceFull() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto py-8 px-4 text-white font-sans">
+    <div className="w-full mx-auto py-8 px-4 text-white font-sans">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full">
         {/* 統計 */}
         <div className="bg-[#1a202c] p-6 rounded-xl shadow-lg flex flex-col">
