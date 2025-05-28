@@ -63,7 +63,7 @@ export default function StakeDiceFull() {
     setBetCount((prev) => prev + 1);
 
     if (diceRef.current) {
-      diceRef.current.setAttribute("x", `${rollResult}%`);
+      diceRef.current.setAttribute("x", `${rollResult}`);
     }
 
     setTimeout(() => setRolling(false), instant ? 100 : 800);
@@ -91,8 +91,8 @@ export default function StakeDiceFull() {
           const { chart } = ctx;
           const { ctx: context, chartArea } = chart;
           const gradient = context.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-          gradient.addColorStop(0, "rgba(255,0,0,0.3)");
-          gradient.addColorStop(1, "rgba(34,197,94,0.3)");
+          gradient.addColorStop(0.5, "rgba(255,0,0,0.5)");
+          gradient.addColorStop(0.51, "rgba(34,197,94,0.5)");
           return gradient;
         },
         tension: 0.3,
@@ -101,23 +101,23 @@ export default function StakeDiceFull() {
   };
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto p-4 text-white">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div className="w-full max-w-screen-xl mx-auto p-4 text-white aspect-video">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-full">
         {/* 統計 */}
-        <div className="bg-[#1e293b] p-4 rounded-xl space-y-4">
+        <div className="bg-[#1e293b] p-4 rounded-xl space-y-4 col-span-1">
           <h2 className="text-xl font-bold">📊 ライブ統計</h2>
           <p>利益: ${(history.reduce((a, h) => a + h.payout - h.betAmount, 0)).toFixed(2)}</p>
           <p>勝ち: {history.filter(h => h.win).length}</p>
           <p>負け: {history.filter(h => !h.win).length}</p>
           <p>ベット: ${(history.reduce((a, h) => a + h.betAmount, 0)).toFixed(2)}</p>
-          <Line data={chartData} height={250} />
+          <Line data={chartData} height={200} />
         </div>
 
-        {/* 操作パネル */}
-        <div className="lg:col-span-2 bg-[#0f172a] p-6 rounded-xl space-y-6">
+        {/* 操作＋表示 */}
+        <div className="bg-[#0f172a] p-6 rounded-xl space-y-4 col-span-3">
           <h2 className="text-xl font-bold">🎯 ダイスベット</h2>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <label>
               ベット額
               <input type="number" value={betAmount} onChange={e => updateBetAmount(+e.target.value)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
@@ -125,6 +125,10 @@ export default function StakeDiceFull() {
             <label>
               ベット数（自動）
               <input type="number" value={rollsLeft === Infinity ? 0 : rollsLeft} onChange={e => setRollsLeft(+e.target.value || Infinity)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
+            </label>
+            <label>
+              クライアントシード
+              <input type="text" value={clientSeed} onChange={e => setClientSeed(e.target.value)} className="w-full bg-black text-white p-2 rounded border border-gray-500" />
             </label>
           </div>
 
@@ -151,7 +155,7 @@ export default function StakeDiceFull() {
             </button>
           </div>
 
-          <svg className="w-full h-8 bg-gray-700 rounded" viewBox="0 0 100 10">
+          <svg className="w-full h-10 bg-gray-700 rounded" viewBox="0 0 100 10">
             <rect y="3" width={target} height="4" fill="green" />
             {result !== null && <rect ref={diceRef} y="1" width="2" height="8" fill={win ? "#3b82f6" : "#ef4444"} />}
           </svg>
