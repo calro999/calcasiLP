@@ -37,5 +37,9 @@
     "types",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "paths": {
+  "@dice/*": ["components/dice/*"],
+  "@lib/dice/*": ["lib/dice/*"]
+  }
 }
