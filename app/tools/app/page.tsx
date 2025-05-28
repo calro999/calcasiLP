@@ -26,34 +26,15 @@ export default function StakeDiceGame() {
   const [rollCounter, setRollCounter] = useState(0)
 
   const targetValue = isRollOver ? 100 - rollUnder[0] : rollUnder[0]
-  const multiplier = (100 / targetValue).toFixed(4)
-  const winChance = targetValue.toFixed(4)
-
-  const resetStats = () => {
-    setProfit(0)
-    setTotalBetAmount(0)
-    setWins(0)
-    setLosses(0)
-    setRecentResults([])
-    setLastResult(null)
-    setCurrentRoll(0)
-    setHasRolled(false)
-    setRollCounter(0)
-  }
-
-  const resetBalance = () => setBalance(1000)
-
-  const toggleRollMode = () => setIsRollOver(!isRollOver)
 
   const animateRoll = (finalRoll: number) => {
     setIsRolling(true)
     setAnimatedRoll(0)
-
     const duration = isTurboMode ? 80 : 400
     const steps = isTurboMode ? 6 : 30
     const stepDuration = duration / steps
-
     let currentStep = 0
+
     const animate = () => {
       if (currentStep < steps) {
         const randomRoll = Math.random() * 100
@@ -73,7 +54,6 @@ export default function StakeDiceGame() {
 
   const rollDice = () => {
     if (isRolling) return
-
     const betValue = Number.parseFloat(betAmount) || 0
     if (betValue > balance) {
       alert("残高が不足しています")
@@ -123,6 +103,8 @@ export default function StakeDiceGame() {
     setIsPlaying(true)
     setIsAutoMode(true)
     setRollCounter(0)
+    setLastResult(null)
+    setHasRolled(false)
   }
 
   const stopAutoPlay = () => {
@@ -130,9 +112,8 @@ export default function StakeDiceGame() {
     setIsAutoMode(false)
   }
 
-  const toggleTurboMode = () => {
-    setIsTurboMode(!isTurboMode)
-  }
+  const resetBalance = () => setBalance(1000)
+  const toggleTurboMode = () => setIsTurboMode(!isTurboMode)
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-4 space-y-6">
