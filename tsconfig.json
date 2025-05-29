@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "ES2020", // ルートの既存設定を優先
+    "module": "NodeNext", // ルートの既存設定を優先
+    "moduleResolution": "NodeNext", // ルートの既存設定を優先
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
@@ -12,13 +12,26 @@
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": ".", // この設定により、`paths`のパスがプロジェクトルートからの相対パスとして解決されます
     "paths": {
-      "@/*": ["*"],
-      "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"],
-      "@/app/*": ["app/*"],
-      "@/contents/*": ["contents/*"]
+      // ルートの既存設定を維持
+      "@/*": ["./*"], // Next.jsの`@`エイリアスは通常、`*`ではなく`./*`とします
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/app/*": ["./app/*"],
+      "@/contents/*": ["./contents/*"],
+
+      // ここから、/app/tools/tsconfig.json からの統合部分
+      // `@/tools/` は `/app/tools/` ディレクトリを指します。
+      // これにより、sidebar.tsx内のインポートや、他のツール関連のファイルが解決されます。
+      "@/tools/*": ["./app/tools/*"],
+
+      // `@dice/*` と `@lib/dice/*` は、もしcomponents/diceやlib/diceがapp/tools内にあるなら、
+      // `@/tools/components/dice/*` や `@/tools/lib/dice/*` に変更を検討してください。
+      // もしプロジェクトルートの`components`や`lib`の下にあるなら現状維持でOKです。
+      // ここでは、一旦元のルート設定として残しておきます。
+      "@dice/*": ["./components/dice/*"],
+      "@lib/dice/*": ["./lib/dice/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "isolatedModules": true,
@@ -36,10 +49,8 @@
     "scripts",
     "types",
     ".next/types/**/*.ts"
+    // ここに`app/tools`配下のTypeScriptファイルを確実に含めるため、`app/tools`を追加
+    // または `**/*.ts`, `**/*.tsx` が既に広範囲をカバーしているため、明示的に追加しなくても良い場合があります
   ],
-  "exclude": ["node_modules"],
-  "paths": {
-  "@dice/*": ["components/dice/*"],
-  "@lib/dice/*": ["lib/dice/*"]
-  }
+  "exclude": ["node_modules"]
 }
