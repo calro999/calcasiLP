@@ -92,3 +92,53 @@
     transform: rotateY(180deg);
   }
 }
+
+/* 例: global.css または他のCSSファイル */
+
+/* モバイル時のSidebarの幅を調整 */
+@media (max-width: 767px) { /* useIsMobileフックのブレークポイントに合わせる */
+  /* SheetContentの幅が合わない場合など */
+  [data-sidebar="sidebar"][data-mobile="true"] {
+    width: var(--sidebar-width-mobile); /* 18rem */
+    /* または直接指定 */
+    /* width: 18rem !important; */
+  }
+
+  /* SidebarWrapper全体の調整 */
+  .group\/sidebar-wrapper {
+    /* ここに修正を加えました */
+    width: 100%; /* モバイルでは幅いっぱいに広げる */
+    height: 100%; /* 高さも親要素いっぱいに広げる */
+    /* 必要に応じてflex-directionなどを調整 - レイアウト崩れに応じて追加してください */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+  }
+}
+
+/* collapse状態のsidebar（アイコンモードなど）の幅調整 */
+@media (min-width: 768px) { /* PCビューでの調整 */
+  [data-sidebar="sidebar-wrapper"][data-state="collapsed"] [data-sidebar="sidebar"] {
+    /* アイコンモード時の幅を調整 */
+    width: var(--sidebar-width-icon); /* 3rem */
+  }
+}
+
+/* その他、Sidebar内のコンテンツのpaddingやgapなどの調整 */
+[data-sidebar="header"],
+[data-sidebar="footer"],
+[data-sidebar="group"] {
+  /* モバイルでpaddingが広すぎる・狭すぎるなどの場合に調整 */
+  @media (max-width: 767px) {
+    padding: 0.5rem; /* 例 */
+  }
+}
+
+/* SidebarMenuButtonのサイズ調整 */
+[data-sidebar="menu-button"] {
+  @media (max-width: 767px) {
+    /* モバイルでボタンが大きすぎる・小さすぎるなどの場合に調整 */
+    height: 2.5rem; /* 例: h-10相当 */
+    padding: 0.5rem;
+  }
+}
