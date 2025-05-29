@@ -1,6 +1,9 @@
+// Path: /Users/calro/Downloads/calcasiLP/calcasiLP/app/tools/app/tools/page.tsx
+
 "use client"
 
 import { useState, useEffect } from "react"
+// パスは現在の構造のままで維持します
 import { Button } from "./components/ui/button"
 import { Input } from "./components/ui/input"
 import { Slider } from "./components/ui/slider"
@@ -175,9 +178,12 @@ export default function StakeDiceGame() {
   }, [isPlaying, isAutoMode, isRolling, rollUnder, betAmount, isTurboMode, balance])
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white flex">
+    // ここがメインのレイアウトコンテナです
+    // PCではサイドバーとメインコンテンツが横並び、モバイルではサイドバーが隠れてメインコンテンツが縦並びになるように調整
+    <div className="min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row">
       {/* Left Sidebar */}
-      <div className="w-72 bg-slate-800 border-r border-slate-700 flex flex-col">
+      {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
+      <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
         <div className="flex items-center justify-between p-4 border-b border-slate-700">
           <div className="flex items-center gap-2">
             <TrendingUp className="w-4 h-4" />
@@ -259,27 +265,27 @@ export default function StakeDiceGame() {
           </div>
         </div>
 
-{/* Banner Area */}
-<div className="p-4 border-t border-slate-700">
-  <a href="https://k8.io/?invite=calron"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block"
-  >
-    <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded p-3 text-center">
-      <div className="text-sm font-medium text-white">🎯 k8で</div>
-      <div className="text-xs text-slate-200 mt-1">実際にプレイ！</div>
-    </div>
-  </a>
-</div>
-
+        {/* Banner Area */}
+        <div className="p-4 border-t border-slate-700">
+          <a href="https://k8.io/?invite=calron"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded p-3 text-center">
+              <div className="text-sm font-medium text-white">🎯 k8で</div>
+              <div className="text-xs text-slate-200 mt-1">実際にプレイ！</div>
+            </div>
+          </a>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-slate-900">
+      <div className="flex-1 bg-slate-900 flex flex-col">
         {/* Top Bar with Balance */}
-        <div className="p-4 border-b border-slate-700 flex justify-between items-center">
-          <div className="flex-1">
+        {/* モバイルで要素が折り返し、バランス表示が適切になるように調整 */}
+        <div className="p-4 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex-1 w-full sm:w-auto mb-4 sm:mb-0"> {/* モバイルで幅いっぱい、PCで自動幅。下マージン調整 */}
             <div className="text-sm text-slate-300 mb-2">最近の結果</div>
             <div className="flex flex-wrap gap-2">
               {recentResults.length > 0 ? (
@@ -302,9 +308,9 @@ export default function StakeDiceGame() {
             </div>
           </div>
 
-          {/* Balance Display - 固定幅 */}
-          <div className="bg-slate-800 rounded-lg p-4 border border-slate-600 w-48 flex-shrink-0">
-            <div className="flex items-center gap-3">
+          {/* Balance Display - モバイルでは幅いっぱいに、PCでは固定幅 */}
+          <div className="bg-slate-800 rounded-lg p-4 border border-slate-600 w-full sm:w-48 flex-shrink-0">
+            <div className="flex items-center justify-between"> {/* モバイルで両端寄せ */}
               <div>
                 <div className="text-sm text-slate-300">残高</div>
                 <div className={`text-xl font-bold ${balance >= 0 ? "text-green-400" : "text-red-400"}`}>
@@ -323,27 +329,29 @@ export default function StakeDiceGame() {
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Core Game UI - モバイル時に全体を縮小・中央寄せするラッパー */}
+        {/* w-full max-w-6xl mx-auto でモバイルでも中央寄せに */}
+        <div className="p-4 sm:p-6 flex-1 flex justify-center items-start"> {/* パディングをモバイルで調整 */}
+          <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"> {/* ギャップも調整 */}
             {/* Control Panel */}
             <Card className="bg-slate-800 border-slate-700">
               <CardContent className="p-0">
                 <Tabs defaultValue="manual" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 bg-slate-700 rounded-none">
-                    <TabsTrigger value="manual" className="data-[state=active]:bg-slate-600 rounded-none text-white">
+                    <TabsTrigger value="manual" className="data-[state=active]:bg-slate-600 rounded-none text-white text-sm sm:text-base"> {/* テキストサイズ調整 */}
                       手動
                     </TabsTrigger>
-                    <TabsTrigger value="auto" className="data-[state=active]:bg-slate-600 rounded-none text-white">
+                    <TabsTrigger value="auto" className="data-[state=active]:bg-slate-600 rounded-none text-white text-sm sm:text-base"> {/* テキストサイズ調整 */}
                       自動
                     </TabsTrigger>
                   </TabsList>
 
-                  <div className="p-4">
-                    {/* 自動モードの高さに合わせて固定 */}
-                    <div className="h-96">
-                      <TabsContent value="manual" className="space-y-4 mt-0">
+                  <div className="p-4 sm:p-4"> {/* パディング調整 */}
+                    {/* 自動モードの高さに合わせて固定 - モバイルでは高さを固定しない */}
+                    <div className="h-auto sm:h-96"> {/* モバイルでh-autoに */}
+                      <TabsContent value="manual" className="space-y-3 sm:space-y-4 mt-0"> {/* スペース調整 */}
                         <div>
-                          <div className="flex justify-between items-center mb-2">
+                          <div className="flex justify-between items-center mb-1 sm:mb-2"> {/* マージン調整 */}
                             <label className="text-sm text-slate-300">ベット額</label>
                             <span className="text-xs text-slate-400">0.00000000 TRX</span>
                           </div>
@@ -351,7 +359,7 @@ export default function StakeDiceGame() {
                             <Input
                               value={betAmount}
                               onChange={(e) => setBetAmount(e.target.value)}
-                              className="bg-slate-700 border-slate-600 pr-16 text-white"
+                              className="bg-slate-700 border-slate-600 pr-16 text-white h-9 sm:h-10" // 高さ調整
                               placeholder="0.00"
                             />
                             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
