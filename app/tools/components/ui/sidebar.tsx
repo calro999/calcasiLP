@@ -1,4 +1,5 @@
 // Path: /Users/calro/Downloads/calcasiLP/calcasiLP/app/tools/components/ui/sidebar.tsx
+
 "use client"
 
 import * as React from "react"
@@ -6,31 +7,19 @@ import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
 
-// ここを修正しました: "@/app/tools/" -> "@/tools/"
-// Path: /Users/calro/Downloads/calcasiLP/calcasiLP/app/tools/components/ui/sidebar.tsx
+// ここを修正します
+// 元: import { useIsMobile } from "@/app/tools/hooks/use-mobile"
+import { useIsMobile } from "@/tools/hooks/use-mobile" // <- ここが重要！
 
-// 修正前: import { useIsMobile } from "@/app/tools/hooks/use-mobile"
-import { useIsMobile } from "@/tools/hooks/use-mobile"
+// 元: import { cn } from "@/app/tools/lib/utils"
+import { cn } from "@/tools/lib/utils" // <- ここが重要！
 
-// 修正前: import { cn } from "@/app/tools/lib/utils"
-import { cn } from "@/tools/lib/utils"
-
-// 修正前: import { Button } from "@/app/tools/components/ui/button"
-import { Button } from "@/tools/components/ui/button"
-
-// 修正前: import { Input } from "@/app/tools/components/ui/input"
+// 元: import { Button } from "@/app/tools/components/ui/button"
+import { Button } from "@/tools/components/ui/button" // <- ここが重要！
 import { Input } from "@/tools/components/ui/input"
-
-// 修正前: import { Separator } from "@/app/tools/components/ui/separator"
 import { Separator } from "@/tools/components/ui/separator"
-
-// 修正前: import { Sheet, SheetContent } from "@/app/tools/components/ui/sheet"
 import { Sheet, SheetContent } from "@/tools/components/ui/sheet"
-
-// 修正前: import { Skeleton } from "@/app/tools/components/ui/skeleton"
 import { Skeleton } from "@/tools/components/ui/skeleton"
-
-// 修正前: import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/app/tools/components/ui/tooltip"
 import {
   Tooltip,
   TooltipContent,
