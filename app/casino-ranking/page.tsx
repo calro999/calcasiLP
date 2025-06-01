@@ -1,5 +1,5 @@
 // /app/[lang]/casino-ranking/page.tsx
-'use client'; 
+'use client'; // <-- この行が必須です
 
 import Link from "next/link";
 import Image from "next/image";
@@ -31,15 +31,13 @@ export default async function CasinoRankingPage({ params }: { params: { lang: "j
     <main className="pt-20 pb-20 bg-black min-h-screen">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-white mb-8">カジノランキング</h1>
-        {/* コンテナ全体をmotion.divでラップし、アニメーションバリアントを適用 */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden" // ページの読み込み時にhidden状態から開始
           animate="show"   // show状態へアニメーション
         >
-          {casinos.map((casino, index) => ( // ★ここを修正：第二引数に index を追加
-            // 各カジノアイテムをmotion.divでラップし、アイテムのアニメーションバリアントを適用
+          {casinos.map((casino, index) => ( // index を取得
             <motion.div
               key={casino.id}
               variants={itemVariants}
@@ -52,11 +50,10 @@ export default async function CasinoRankingPage({ params }: { params: { lang: "j
                   <Image src={casino.banner} alt={casino.name} fill className="object-cover" />
                 </div>
                 <div className="p-4">
-                  {/* ★ここから追加：ランキング番号の表示 */}
+                  {/* ランキング番号の表示 */}
                   <div className="text-3xl font-extrabold text-amber-400 mb-2">
                     {index + 1}位
                   </div>
-                  {/* ★ここまで追加 */}
                   <h2 className="text-xl font-bold text-white mb-2">{casino.name}</h2>
                   <p className="text-gray-300 text-sm line-clamp-3">{casino.description}</p>
                 </div>
