@@ -31,7 +31,7 @@ export default async function LangHome({
       {/* 🔽 外部サイトの埋め込み（iframe） */}
       <div className="w-full mt-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-4">外部コンテンツ</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>
           <iframe
             src="https://yt-calro.netlify.app/"
             width="1200"
