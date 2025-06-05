@@ -19,6 +19,7 @@ export default async function LangHome({
   params: { lang: "ja" | "en" };
 }) {
   const articles = await getAllArticles();
+
   return (
     <main>
       <Hero />
@@ -26,6 +27,20 @@ export default async function LangHome({
       <CasinoDetails />
       <PopularGames />
       <CTA />
+
+      {/* 🔽 外部サイトの埋め込み（iframe） */}
+      <div className="w-full mt-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-4">外部コンテンツ</h2>
+          <iframe
+            src="https://yt-calro.netlify.app/"
+            width="100%"
+            height="800"
+            allow="fullscreen"
+            className="w-full border-2 border-gray-700 rounded-xl"
+          />
+        </div>
+      </div>
     </main>
   );
 }
