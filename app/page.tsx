@@ -34,7 +34,7 @@ export default async function LangHome({
           <h2 className="text-2xl font-bold text-white mb-4">外部コンテンツ</h2>
           <iframe
             src="https://yt-calro.netlify.app/"
-            width="100%"
+            width="120%"
             height="800"
             allow="fullscreen"
             className="w-full border-2 border-gray-700 rounded-xl"
