@@ -1,4 +1,3 @@
-// /lib/getStrategyData.ts
 import fs from "fs";
 import path from "path";
 
@@ -12,6 +11,7 @@ export type Strategy = {
   readTime: string;
   author: string;
   content: string;
+  slug?: string; // ← 追加
 };
 
 export function getAllStrategies(): Strategy[] {
@@ -24,7 +24,11 @@ export function getAllStrategies(): Strategy[] {
       const filePath = path.join(strategiesDir, file);
       const fileContents = fs.readFileSync(filePath, "utf-8");
       const strategy: Strategy = JSON.parse(fileContents);
-      return strategy;
+      const id = path.parse(file).name; // ファイル名から ID を取得
+      return {
+        ...strategy,
+        slug: `/strategies/${id}`,
+      };
     });
 
   return strategies;

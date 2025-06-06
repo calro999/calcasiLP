@@ -1,4 +1,5 @@
 import { getAllArticles } from "@/lib/getAllArticles";
+import { getAllStrategies } from "@/lib/getStrategyData";
 import { NextResponse } from "next/server";
 
 const BASE_URL = "https://calcasi-lp.vercel.app";
@@ -14,7 +15,7 @@ const STATIC_PATHS = [
 export async function GET() {
   let urls: string[] = [];
 
-  // 🔹 静的ページのURL
+  // 🔹 静的ページ
   for (const path of STATIC_PATHS) {
     const loc = `${BASE_URL}${path}`;
     urls.push(`
@@ -25,7 +26,7 @@ export async function GET() {
     `);
   }
 
-  // 🔹 記事を処理
+  // 🔹 記事ページ（Markdown）
   const articles = await getAllArticles();
   for (const article of articles) {
     urls.push(`
@@ -37,7 +38,18 @@ export async function GET() {
     `);
   }
 
-  // 🔹 XML生成
+  // 🔹 戦略ページ（JSON）
+  const strategies = getAllStrategies();
+  for (const strategy of strategies) {
+    urls.push(`
+      <url>
+        <loc>${BASE_URL}${strategy.slug}</loc>
+        <lastmod>${strategy.date}</lastmod>
+        <changefreq>monthly</changefreq>
+      </url>
+    `);
+  }
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
