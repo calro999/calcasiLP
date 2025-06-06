@@ -1,65 +1,43 @@
-// /app/sitemap/route.ts
 import { getAllArticles } from "@/lib/getAllArticles";
 import { getAllStrategies } from "@/lib/getStrategyData";
 import { NextResponse } from "next/server";
 
 const BASE_URL = "https://calcasi-lp.vercel.app";
 
-const STATIC_PATHS = [
-  "", // /
-  "/strategies",
-  "/casino-ranking",
-  "/beginners-guide",
-  "/latest-news",
-];
-
 export async function GET() {
-  let urls: string[] = [];
+  const urls: string[] = [];
 
-  // 🔹 静的ページ
-  for (const path of STATIC_PATHS) {
-    const loc = `${BASE_URL}${path}`;
-    urls.push(`
-      <url>
-        <loc>${loc}</loc>
-        <changefreq>weekly</changefreq>
-      </url>
-    `);
+  const staticPaths = [
+    "", "/strategies", "/casino-ranking", "/beginners-guide", "/latest-news",
+  ];
+
+  for (const path of staticPaths) {
+    urls.push(`<url><loc>${BASE_URL}${path}</loc><changefreq>weekly</changefreq></url>`);
   }
 
-  // 🔹 記事ページ（Markdown）
   const articles = await getAllArticles();
-  for (const article of articles) {
-    urls.push(`
-      <url>
-        <loc>${BASE_URL}${article.slug}</loc>
-        <lastmod>${article.date}</lastmod>
-        <changefreq>monthly</changefreq>
-      </url>
-    `);
+  for (const a of articles) {
+    if (a.slug && a.date) {
+      urls.push(`<url><loc>${BASE_URL}${a.slug}</loc><lastmod>${a.date}</lastmod><changefreq>monthly</changefreq></url>`);
+    }
   }
 
-  // 🔹 戦略ページ（JSON）
   const strategies = getAllStrategies();
-  for (const strategy of strategies) {
-    urls.push(`
-      <url>
-        <loc>${BASE_URL}${strategy.slug}</loc>
-        <lastmod>${strategy.date}</lastmod>
-        <changefreq>monthly</changefreq>
-      </url>
-    `);
+  for (const s of strategies) {
+    if (s.slug && s.date) {
+      urls.push(`<url><loc>${BASE_URL}${s.slug}</loc><lastmod>${s.date}</lastmod><changefreq>monthly</changefreq></url>`);
+    }
   }
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${urls.join("\n")}
+${urls.join("\n")}
 </urlset>`;
 
-  return new NextResponse(xml, {
+  return new NextResponse(body, {
     headers: {
-      "Content-Type": "application/xml",
+      "Content-Type": "application/xml; charset=utf-8",
     },
   });
 }

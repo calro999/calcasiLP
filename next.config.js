@@ -7,7 +7,7 @@ const nextConfig = {
     return [
       {
         source: "/sitemap.xml",
-        destination: "/sitemap", // App Router の /app/sitemap/route.ts に対応
+        destination: "/sitemap", // /app/sitemap/route.ts
       },
     ];
   },
