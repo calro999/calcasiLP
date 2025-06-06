@@ -12,8 +12,18 @@ async function generateSitemap() {
 
   // 🔹 静的ページ
   const staticPaths = [
-    "", "/strategies", "/casino-ranking", "/beginners-guide", "/latest-news"
+    "", // /
+    "/strategies",
+    "/casino-ranking",
+    "/beginners-guide",
+    "/latest-news",
+    "/tools",
+    "/blog",
+    "/terms",
+    "/privacy",
+    "/faq"
   ];
+
   for (const path of staticPaths) {
     urls.push(
       `<url><loc>${BASE_URL}${path}</loc><changefreq>daily</changefreq><priority>0.7</priority></url>`
@@ -41,7 +51,7 @@ async function generateSitemap() {
     }
   }
 
-  // 🔹 カジノ詳細ページ（casinoData）
+  // 🔹 カジノ詳細（casinoData）
   const casinos = await getAllCasinos("ja");
   for (const casino of casinos) {
     const slug = `/casino-${casino.id}`;
@@ -50,7 +60,7 @@ async function generateSitemap() {
     );
   }
 
-  // 🔹 XML出力（Google用の namespace 追加済）
+  // 🔹 XML 全体出力
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
