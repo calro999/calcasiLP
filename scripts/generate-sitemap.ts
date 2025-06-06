@@ -32,6 +32,12 @@ async function generateSitemap() {
       urls.push(`<url><loc>${BASE_URL}${strategy.slug}</loc><lastmod>${strategy.date}</lastmod><changefreq>monthly</changefreq></url>`);
     }
   }
+  // 戦略記事に slug がない場合、自動で生成
+for (const strategy of strategies) {
+  const slug = strategy.slug || `/strategies/${strategy.id}`;
+  urls.push(`<url><loc>${BASE_URL}${slug}</loc><lastmod>${strategy.date}</lastmod><changefreq>monthly</changefreq></url>`);
+}
+
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
