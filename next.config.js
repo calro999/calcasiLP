@@ -3,19 +3,14 @@ const nextConfig = {
   images: {
     domains: ["calcasi-lp.vercel.app"],
   },
-  // ✅ i18n 完全削除済み
-};
-// next.config.js
-module.exports = {
   async rewrites() {
     return [
       {
         source: "/sitemap.xml",
-        destination: "/sitemap", // 実際のroute.tsの場所
+        destination: "/sitemap", // App Router の /app/sitemap/route.ts に対応
       },
     ];
   },
 };
-
 
 module.exports = nextConfig;

@@ -1,3 +1,4 @@
+// /app/sitemap/route.ts
 import { getAllArticles } from "@/lib/getAllArticles";
 import { getAllStrategies } from "@/lib/getStrategyData";
 import { NextResponse } from "next/server";
