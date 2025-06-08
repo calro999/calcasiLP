@@ -179,37 +179,31 @@ export default function StakeDiceGame() {
   }, [isPlaying, isAutoMode, isRolling, rollUnder, betAmount, isTurboMode, balance])
     // ここがメインのレイアウトコンテナです
     // PCではサイドバーとメインコンテンツが横並び、モバイルではサイドバーが隠れてメインコンテンツが縦並びになるように調整
-  const [scale, setScale] = useState(1);
+ // ✅ 既存のコードをこのように書き換えてください
+const [scale, setScale] = useState(1);
 
-  useEffect(() => {
+useEffect(() => {
   const handleResize = () => {
     const isMobile = window.innerWidth < 768;
-    setScale(isMobile ? 0.72 : 1); // 👈 モバイル時に縮小
+    setScale(isMobile ? 0.72 : 1); // モバイル時だけ縮小
   };
 
-  handleResize(); // 初期実行
-
+  handleResize(); // 初期化
   window.addEventListener("resize", handleResize);
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
+  return () => window.removeEventListener("resize", handleResize);
 }, []);
 
-
-  return (
-    <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <div className="w-full flex justify-center overflow-x-hidden">
-        <div
-          style={{
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-            width: scale < 1 ? `${100 / scale}%` : "100%",
-          }}
-          className="min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row"
-        >     
+return (
+  <>
+    <div className="w-full flex justify-center overflow-x-hidden">
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: scale < 1 ? `${100 / scale}%` : "100%",
+        }}
+  >
+        <div className="min-h-screen bg-slate-900 text-white flex flex-row">
        {/* Left Sidebar */}
        {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
@@ -638,6 +632,7 @@ export default function StakeDiceGame() {
           </div>
         </div>
       </div>
+    </div>
     </div>
     </div>
     </>
