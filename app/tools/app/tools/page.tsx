@@ -182,13 +182,14 @@ export default function StakeDiceGame() {
   return (
     <>
       <Head>
-        {/* PC幅で縮小表示させるため強制固定は不要 */}
+        {/* モバイルでもPCと同じ幅で表示しつつ、縮小表示にする */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      {/* モバイルでもPCと同じ見た目にした上で全体を縮小 */}
-      <div className="w-full min-h-screen bg-slate-900 text-white flex justify-center items-start overflow-x-auto">
-        <div className="min-w-[1024px] max-w-[1024px] origin-top-left scale-[0.85] sm:scale-100">
+      {/* 外枠：PCと同じ幅を中央寄せし、モバイル時に縮小 */}
+      <div className="w-full min-h-screen bg-slate-900 text-white flex justify-center overflow-x-auto">
+        <div className="min-w-[1024px] max-w-[1024px] scale-100 sm:scale-100 md:scale-100 lg:scale-100 xl:scale-100 2xl:scale-100 origin-top-left 
+        mobile:scale-[0.85] mobile:min-w-[1024px]">
       {/* Left Sidebar */}
       {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
