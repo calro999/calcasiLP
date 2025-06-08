@@ -182,9 +182,19 @@ export default function StakeDiceGame() {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
+  const handleResize = () => {
     const isMobile = window.innerWidth < 768;
-    setScale(isMobile ? 0.85 : 1);
-  }, []);
+    setScale(isMobile ? 0.72 : 1); // 👈 モバイル時に縮小
+  };
+
+  handleResize(); // 初期実行
+
+  window.addEventListener("resize", handleResize);
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
 
   return (
     <>
