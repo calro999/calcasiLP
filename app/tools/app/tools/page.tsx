@@ -178,13 +178,22 @@ export default function StakeDiceGame() {
     return () => clearInterval(interval)
   }, [isPlaying, isAutoMode, isRolling, rollUnder, betAmount, isTurboMode, balance])
 
-  return (
-    <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-      </Head>
+return (
+  <>
+    <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    </Head>
 
-      <div className="w-[100vw] h-[100vh] overflow-hidden flex flex-row">
+    <div className="w-full flex justify-center overflow-x-hidden">
+      <div
+        className="min-h-screen bg-slate-900 text-white flex flex-row w-[768px] max-w-full"
+        style={{
+          transform: 'scale(1)',
+          transformOrigin: 'top left',
+        }}
+      >
+        <div className="fixed inset-0 z-[-1] scale-[0.8] origin-top-left lg:scale-100 lg:relative lg:z-auto">
+
         {/* Left Sidebar */}
         <div className="w-[288px] min-w-[288px] bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
           <div className="flex items-center justify-between p-4 border-b border-slate-700">
@@ -615,6 +624,8 @@ export default function StakeDiceGame() {
         </div>
       </div>
     </div>
-    </>
+    </div>
+    </div>
+  </>
   )
 }
