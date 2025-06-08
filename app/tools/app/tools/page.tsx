@@ -11,7 +11,7 @@ import { Card, CardContent } from "./components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs"
 import { TrendingUp, RotateCcw, X, ChevronDown, Zap } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from "recharts"
-import Head from "next/head" //
+import Head from "next/head";
 
 interface GameResult {
   id: number
@@ -181,11 +181,11 @@ export default function StakeDiceGame() {
     // PCではサイドバーとメインコンテンツが横並び、モバイルではサイドバーが隠れてメインコンテンツが縦並びになるように調整
   return (
     <>
-    <Head>
-      <meta name="viewport" content="width=1024" />
-    </Head>
-
-    <div className="min-w-[1024px] max-w-[1024px] mx-auto min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row">
+      <Head>
+        <meta name="viewport" content="width=1024" />
+      </Head>
+      <div className="w-full flex justify-center overflow-x-hidden">
+        <div className="origin-top-left scale-[0.85] sm:scale-100 min-w-[1024px] max-w-[1024px] mx-auto min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row">
       {/* Left Sidebar */}
       {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
@@ -615,6 +615,7 @@ export default function StakeDiceGame() {
         </div>
       </div>
     </div>
-  </>    
+    </div>
+    </>   
   )
 }
