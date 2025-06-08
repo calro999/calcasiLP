@@ -114,8 +114,11 @@ export default function StakeDiceGame() {
       return
     }
 
-    const roll = generateFairRoll()
-    const won = isRollOver ? roll > rollUnder[0] : roll < rollUnder[0]
+    const rawRoll = generateFairRoll()
+    const roll = parseFloat(rawRoll.toFixed(4))
+    const threshold = parseFloat(rollUnder[0].toFixed(4))
+
+    const won = isRollOver ? roll > (100 - threshold) : roll < threshold
     const profitChange = won ? betValue * (100 / targetValue - 1) : -betValue
 
     animateRoll(roll)
