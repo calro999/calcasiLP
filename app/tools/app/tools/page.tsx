@@ -99,6 +99,12 @@ export default function StakeDiceGame() {
     animate()
   }
 
+  const generateFairRoll = () => {
+    const array = new Uint32Array(1)
+    window.crypto.getRandomValues(array)
+    return (array[0] / 0xffffffff) * 100
+  }
+
   const rollDice = () => {
     if (isRolling) return
 
@@ -108,7 +114,7 @@ export default function StakeDiceGame() {
       return
     }
 
-    const roll = Math.random() * 100
+    const roll = generateFairRoll()
     const won = isRollOver ? roll > rollUnder[0] : roll < rollUnder[0]
     const profitChange = won ? betValue * (100 / targetValue - 1) : -betValue
 
@@ -118,8 +124,18 @@ export default function StakeDiceGame() {
     setTimeout(() => {
       if (won) {
         setWins((prev) => prev + 1)
+        const winIncrease = parseFloat(winOnIncrease)
+        if (winIncrease > 0) {
+          const newBet = (betValue * (1 + winIncrease / 100)).toFixed(2)
+          setBetAmount(newBet)
+        }
       } else {
         setLosses((prev) => prev + 1)
+        const lossIncrease = parseFloat(lossOnIncrease)
+        if (lossIncrease > 0) {
+          const newBet = (betValue * (1 + lossIncrease / 100)).toFixed(2)
+          setBetAmount(newBet)
+        }
       }
 
       const newProfit = profit + profitChange
@@ -129,7 +145,6 @@ export default function StakeDiceGame() {
       setTotalBetAmount((prev) => prev + betValue)
       setLastResult({ won, roll })
 
-      // グラフデータを更新
       setGraphData((prev) => {
         const newData = [...prev, { game: prev.length, profit: newProfit }]
         return newData.slice(-50)
@@ -167,7 +182,7 @@ export default function StakeDiceGame() {
     setIsTurboMode(!isTurboMode)
   }
 
-useEffect(() => {
+  useEffect(() => {
     let interval: NodeJS.Timeout
     if (isPlaying && isAutoMode && !isRolling) {
       const intervalTime = isTurboMode ? 120 : 600
