@@ -179,10 +179,13 @@ export default function StakeDiceGame() {
   }, [isPlaying, isAutoMode, isRolling, rollUnder, betAmount, isTurboMode, balance])
     // ここがメインのレイアウトコンテナです
     // PCではサイドバーとメインコンテンツが横並び、モバイルではサイドバーが隠れてメインコンテンツが縦並びになるように調整
-  return (
+   return (
     <>
       <Head>
-        <meta name="viewport" content="width=1024" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <div className="w-full flex justify-center overflow-x-hidden">
         <div className="origin-top-left scale-[0.85] sm:scale-100 min-w-[1024px] max-w-[1024px] mx-auto min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row">
