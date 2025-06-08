@@ -356,7 +356,8 @@ export default function StakeDiceGame() {
         {/* Core Game UI - モバイル時に全体を縮小・中央寄せするラッパー */}
         {/* w-full max-w-6xl mx-auto でモバイルでも中央寄せに */}
         <div className="p-4 sm:p-6 flex-1 flex justify-center items-start"> {/* パディングをモバイルで調整 */}
-          <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"> {/* ギャップも調整 */}
+        <div className="w-full max-w-[1000px] grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+
             {/* Control Panel */}
             <Card className="bg-slate-800 border-slate-700">
               <CardContent className="p-0">
