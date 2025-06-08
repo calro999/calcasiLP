@@ -179,21 +179,29 @@ export default function StakeDiceGame() {
   }, [isPlaying, isAutoMode, isRolling, rollUnder, betAmount, isTurboMode, balance])
     // ここがメインのレイアウトコンテナです
     // PCではサイドバーとメインコンテンツが横並び、モバイルではサイドバーが隠れてメインコンテンツが縦並びになるように調整
-   return (
-    <>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
+  const [scale, setScale] = useState(1);
 
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    setScale(isMobile ? 0.85 : 1);
+  }, []);
+
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <div className="w-full flex justify-center overflow-x-hidden">
         <div
-          className="min-w-[1024px] max-w-[1024px] mx-auto min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row"
           style={{
-            transform: typeof window !== "undefined" && window.innerWidth < 768 ? "scale(0.85)" : "scale(1.0)",
+            transform: `scale(${scale})`,
             transformOrigin: "top left",
+            width: scale < 1 ? `${100 / scale}%` : "100%",
           }}
-        >      {/* Left Sidebar */}
-      {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
+          className="min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row"
+        >     
+       {/* Left Sidebar */}
+       {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
         <div className="flex items-center justify-between p-4 border-b border-slate-700">
           <div className="flex items-center gap-2">
@@ -622,6 +630,6 @@ export default function StakeDiceGame() {
       </div>
     </div>
     </div>
-    </>   
+    </>
   )
 }
