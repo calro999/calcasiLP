@@ -188,8 +188,8 @@ export default function StakeDiceGame() {
 
       {/* 外枠：PCと同じ幅を中央寄せし、モバイル時に縮小 */}
       <div className="w-full min-h-screen bg-slate-900 text-white flex justify-center overflow-x-auto">
-        <div className="min-w-[1024px] max-w-[1024px] scale-100 sm:scale-100 md:scale-100 lg:scale-100 xl:scale-100 2xl:scale-100 origin-top-left 
-        mobile:scale-[0.85] mobile:min-w-[1024px]">
+      <div className="min-w-[320px] w-full max-w-[1024px] mx-auto min-h-screen bg-slate-900 text-white flex flex-col lg:flex-row mobile:scale-[0.85] sm:scale-100">
+
       {/* Left Sidebar */}
       {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
