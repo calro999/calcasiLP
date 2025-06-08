@@ -203,8 +203,8 @@ export default function StakeDiceGame() {
             transformOrigin: "top left",
             width: scale < 1 ? `${100 / scale}%` : "100%",
           }}
+          className="min-h-screen bg-slate-900 text-white flex flex-row"
         >
-          <div className="min-h-screen bg-slate-900 text-white flex flex-row">
        {/* Left Sidebar */}
        {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
       <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
@@ -634,7 +634,6 @@ export default function StakeDiceGame() {
           </div>
         </div>
       </div>
-    </div>
     </div>
     </div>
     </>
