@@ -167,7 +167,7 @@ export default function StakeDiceGame() {
     setIsTurboMode(!isTurboMode)
   }
 
-  useEffect(() => {
+useEffect(() => {
     let interval: NodeJS.Timeout
     if (isPlaying && isAutoMode && !isRolling) {
       const intervalTime = isTurboMode ? 120 : 600
@@ -185,7 +185,7 @@ export default function StakeDiceGame() {
       </Head>
 
       <div className="w-full flex justify-center overflow-x-hidden">
-        <div className="min-h-screen bg-slate-900 text-white flex flex-row w-full max-w-[1600px] scale-[0.8] md:scale-100 origin-top-left">
+        <div className="min-h-screen bg-slate-900 text-white flex flex-row w-full max-w-[1600px] md:scale-100 md:max-w-full scale-[0.75] origin-top-left">
 
         {/* Left Sidebar */}
         <div className="w-[288px] min-w-[288px] bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
