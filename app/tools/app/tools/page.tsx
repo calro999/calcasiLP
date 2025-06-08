@@ -181,8 +181,10 @@ export default function StakeDiceGame() {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </Head>
+
+
       <div className="w-full flex justify-center overflow-x-hidden">
         <div className="min-h-screen bg-slate-900 text-white flex flex-row w-full">
        {/* Left Sidebar */}
