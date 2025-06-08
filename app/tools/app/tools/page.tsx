@@ -181,17 +181,15 @@ export default function StakeDiceGame() {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       </Head>
 
+      <div className="w-[100vw] h-[100vh] overflow-hidden flex flex-row">
+        {/* Left Sidebar */}
+        <div className="w-[288px] min-w-[288px] bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
+          <div className="flex items-center justify-between p-4 border-b border-slate-700">
+            <div className="flex items-center gap-2">
 
-      <div className="w-full flex justify-center overflow-x-hidden">
-        <div className="min-h-screen bg-slate-900 text-white flex flex-row w-full">
-       {/* Left Sidebar */}
-       {/* モバイルでは hidden で非表示にし、lg（PC）以上で flex で表示 */}
-      <div className="hidden lg:flex w-72 bg-slate-800 border-r border-slate-700 flex-col flex-shrink-0">
-        <div className="flex items-center justify-between p-4 border-b border-slate-700">
-          <div className="flex items-center gap-2">
             <TrendingUp className="w-4 h-4" />
             <span className="font-medium text-white">ライブ統計</span>
           </div>
@@ -616,7 +614,6 @@ export default function StakeDiceGame() {
           </div>
         </div>
       </div>
-    </div>
     </div>
     </>
   )
