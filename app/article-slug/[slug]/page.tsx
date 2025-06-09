@@ -1,9 +1,7 @@
-// app/article-slug/[slug]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import ScrollAnimation from "@/components/ScrollAnimation"; // なければ削除可
+import ScrollAnimation from "@/components/ScrollAnimation"; // なければ削除OK
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +22,25 @@ type WPPost = {
 
 export default async function Page({ params }: PageProps) {
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const apiUrl = process.env.NEXT_PUBLIC_WP_API_URL;
 
-    const res = await fetch(`${apiUrl}?slug=${params.slug}`, {
+    if (!baseUrl || !apiUrl) {
+      console.error("Missing environment variables.");
+      return notFound();
+    }
+
+    const res = await fetch(`${baseUrl}${apiUrl}?slug=${params.slug}`, {
       cache: "no-store",
     });
 
-    if (!res.ok) return notFound();
+    if (!res.ok) {
+      console.error("API response not OK:", res.status);
+      return notFound();
+    }
 
     const posts = await res.json();
+
     if (!Array.isArray(posts) || posts.length === 0) return notFound();
 
     const post: WPPost = posts[0];
@@ -49,8 +57,18 @@ export default async function Page({ params }: PageProps) {
                     href="/latest-news"
                     className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                   >
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                    <svg
+                      className="w-4 h-4 mr-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M15 19l-7-7 7-7"
+                      />
                     </svg>
                     最新情報一覧に戻る
                   </Link>
