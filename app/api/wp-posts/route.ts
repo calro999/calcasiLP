@@ -1,35 +1,26 @@
-export const dynamic = "force-dynamic";
+// app/api/wp-posts/route.ts
+import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug");
 
   if (!slug) {
-    return new Response(JSON.stringify({ error: "Missing slug" }), { status: 400 });
+    return NextResponse.json({ error: "Missing slug parameter" }, { status: 400 });
   }
 
+  const wpApiUrl = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}`;
+
   try {
-    const wpRes = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}`, {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-        "Accept": "application/json",
-      },
-    });
+    const wpRes = await fetch(wpApiUrl, { cache: "no-store" });
 
     if (!wpRes.ok) {
-      return new Response(JSON.stringify({ error: "Failed to fetch from WordPress", status: wpRes.status }), {
-        status: wpRes.status,
-      });
+      return NextResponse.json({ error: "WordPress fetch failed" }, { status: wpRes.status });
     }
 
     const data = await wpRes.json();
-    return new Response(JSON.stringify(data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (err) {
-    return new Response(JSON.stringify({ error: "Fetch failed", details: err }), {
-      status: 500,
-    });
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to fetch WordPress data" }, { status: 500 });
   }
 }
