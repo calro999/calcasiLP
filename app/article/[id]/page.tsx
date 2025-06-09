@@ -1,5 +1,3 @@
-// app/article/[id]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,7 +23,7 @@ type PageProps = {
   };
 };
 
-async function getArticleById(id: string): Promise<Article | null> {
+async function getLocalArticleById(id: string): Promise<Article | null> {
   const baseDir = path.join(process.cwd(), "contents", "articles");
   const categories = await fs.readdir(baseDir);
 
@@ -43,8 +41,38 @@ async function getArticleById(id: string): Promise<Article | null> {
   return null;
 }
 
+async function getWordPressArticleById(id: string): Promise<Article | null> {
+  try {
+    const res = await fetch(`https://yourname.epizy.com/wp-json/wp/v2/posts/${id}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return null;
+    const post = await res.json();
+
+    return {
+      id: post.id,
+      title: post.title.rendered,
+      excerpt: post.excerpt?.rendered || "",
+      image: "/no-image.jpg", // 画像がない場合の仮画像
+      category: post.categories?.[0]?.name || "WordPress",
+      date: new Date(post.date).toLocaleDateString("ja-JP"),
+      readTime: "約3分",
+      author: post.author || "WordPress",
+      content: post.content.rendered,
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
 export default async function Page({ params }: PageProps) {
-  const article = await getArticleById(params.id);
+  const id = parseInt(params.id, 10);
+
+  const article =
+    id <= 11
+      ? await getLocalArticleById(params.id)
+      : await getWordPressArticleById(params.id);
 
   if (!article) return notFound();
 
