@@ -1,26 +1,19 @@
-// app/api/wp-posts/route.ts
+// /app/api/wp-posts/route.ts
+export const dynamic = "force-dynamic";
 
-import { NextResponse } from "next/server";
-
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
 
   if (!slug) {
-    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
+    return new Response("Missing slug", { status: 400 });
   }
 
-  try {
-    const wpRes = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const wpRes = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}`);
+  const data = await wpRes.json();
 
-    const data = await wpRes.json();
-    return NextResponse.json(data);
-  } catch (err) {
-    console.error("WP fetch error:", err);
-    return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
-  }
+  return new Response(JSON.stringify(data), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
