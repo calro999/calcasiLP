@@ -25,3 +25,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+NEXT_PUBLIC_SITE_URL=https://calcasi-lp.vercel.app
