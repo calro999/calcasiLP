@@ -25,11 +25,14 @@ type WPPost = {
 export default async function Page({ params }: PageProps) {
   try {
     const res = await fetch(
-      `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${params.slug}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/wp-posts?slug=${params.slug}`,
       { cache: "no-store" }
     );
 
-    if (!res.ok) return notFound();
+    if (!res.ok) {
+      console.error("Failed to fetch from proxy:", res.status);
+      return notFound();
+    }
 
     const posts = await res.json();
     if (!Array.isArray(posts) || posts.length === 0) return notFound();
