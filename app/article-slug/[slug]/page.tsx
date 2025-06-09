@@ -1,4 +1,12 @@
-// app/article-slug/[slug]/page.tsx
+// ファイル構成（例）
+// calcasiLP/
+// └── app/
+//     └── article-slug/
+//         └── [slug]/
+//             └── page.tsx
+
+// /app/article-slug/[slug]/page.tsx
+
 export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
