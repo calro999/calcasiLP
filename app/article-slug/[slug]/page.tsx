@@ -1,11 +1,4 @@
-// ファイル構成（例）
-// calcasiLP/
-// └── app/
-//     └── article-slug/
-//         └── [slug]/
-//             └── page.tsx
-
-// /app/article-slug/[slug]/page.tsx
+// app/article-slug/[slug]/page.tsx
 
 export const dynamic = "force-dynamic";
 
@@ -30,20 +23,23 @@ type WPPost = {
 };
 
 export default async function Page({ params }: PageProps) {
+  const slug = decodeURIComponent(params.slug); // ここでslugを安全に展開
+
   try {
     const res = await fetch(
-      `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${params.slug}`,
+      `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}`,
       { cache: "no-store" }
     );
 
     if (!res.ok) {
-      console.error("WordPress API fetch failed:", res.status);
+      console.error("❌ WordPress API fetch failed:", res.status);
       return notFound();
     }
 
     const posts = await res.json();
 
     if (!Array.isArray(posts) || posts.length === 0) {
+      console.error("❌ No posts found for slug:", slug);
       return notFound();
     }
 
@@ -62,12 +58,7 @@ export default async function Page({ params }: PageProps) {
                     className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                   >
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 19l-7-7 7-7"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
                     最新情報一覧に戻る
                   </Link>
@@ -106,7 +97,7 @@ export default async function Page({ params }: PageProps) {
       </main>
     );
   } catch (error) {
-    console.error("Unexpected error:", error);
+    console.error("❌ Unexpected error:", error);
     return notFound();
   }
 }
