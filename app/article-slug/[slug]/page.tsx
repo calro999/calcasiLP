@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import ScrollAnimation from "@/components/ScrollAnimation"; // ※なければ削除OK
+import ScrollAnimation from "@/components/ScrollAnimation"; // なければ削除可
 
 export const dynamic = "force-dynamic";
 
@@ -24,15 +24,13 @@ type WPPost = {
 
 export default async function Page({ params }: PageProps) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/wp-posts?slug=${params.slug}`,
-      { cache: "no-store" }
-    );
+    const apiUrl = process.env.NEXT_PUBLIC_WP_API_URL;
 
-    if (!res.ok) {
-      console.error("Failed to fetch from proxy:", res.status);
-      return notFound();
-    }
+    const res = await fetch(`${apiUrl}?slug=${params.slug}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return notFound();
 
     const posts = await res.json();
     if (!Array.isArray(posts) || posts.length === 0) return notFound();
@@ -52,12 +50,7 @@ export default async function Page({ params }: PageProps) {
                     className="text-blue-400 hover:underline text-sm flex items-center mb-4"
                   >
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 19l-7-7 7-7"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
                     </svg>
                     最新情報一覧に戻る
                   </Link>
