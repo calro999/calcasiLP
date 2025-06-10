@@ -36,15 +36,20 @@ async function getWpArticle(id: number): Promise<Article | null> {
     const res = await fetch(url, { cache: "no-store" });
 
     console.log("WP記事フェッチ:", url, "status:", res.status);
-    if (!res.ok) return null;
+
+    const contentType = res.headers.get("content-type") || "";
+    if (!res.ok || !contentType.includes("application/json")) {
+      console.error("Invalid response from WP API:", contentType);
+      return null;
+    }
 
     const posts = await res.json();
-    if (!posts || posts.length === 0) return null;
+    if (!Array.isArray(posts) || posts.length === 0) return null;
 
     const post = posts[0];
 
     return {
-      id: id,
+      id,
       title: post.title.rendered,
       content: post.content.rendered,
       image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
