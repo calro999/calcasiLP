@@ -1,5 +1,18 @@
 {
-  "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
-  ]
+  "routes": [
+    {
+      "src": "/sitemap.xml",
+      "dest": "/app/sitemap.xml",
+      "headers": {
+        "Content-Type": "application/xml"
+      },
+      "methods": ["GET"],
+      "continue": true
+    }
+  ],
+  "edge": {
+    "functions": {
+      "sitemap.xml": false
+    }
+  }
 }
