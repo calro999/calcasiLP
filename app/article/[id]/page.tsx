@@ -55,23 +55,18 @@ async function getWpArticle(id: number): Promise<Article | null> {
   }
 }
 
-
-
 interface Props {
   params: { id: string };
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const id = parseInt(params.id);
-  let article: Article | null = null;
+  // 固定値でテスト
+  const article = await getWpArticle(1010);
 
-  if (id >= 1000) {
-    article = await getWpArticle(id);
-  } else {
-    article = await getLocalArticle(id);
+  if (!article) {
+    console.error("記事が見つかりません");
+    notFound();
   }
-
-  if (!article) notFound();
 
   return (
     <main className="pt-20 pb-20 bg-black">
