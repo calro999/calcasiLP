@@ -8,7 +8,7 @@ const BASE_URL = "https://calcasi-lp.vercel.app";
 export async function GET() {
   const urls: string[] = [];
 
-  // 🔹 静的パス（全ページ）
+  // 🔹 静的ページ
   const staticPaths = [
     "", "/strategies", "/casino-ranking", "/beginners-guide", "/latest-news",
     "/tools", "/blog", "/terms", "/privacy", "/faq"
@@ -20,7 +20,7 @@ export async function GET() {
     );
   }
 
-  // 🔹 記事（Markdown or CMS）
+  // 🔹 記事一覧
   const articles = await getAllArticles();
   for (const a of articles) {
     if (a.slug && a.date) {
@@ -30,7 +30,7 @@ export async function GET() {
     }
   }
 
-  // 🔹 ストラテジー記事（JSONなど）
+  // 🔹 ストラテジー記事
   const strategies = getAllStrategies();
   for (const s of strategies) {
     if (s.slug && s.date) {
@@ -40,7 +40,7 @@ export async function GET() {
     }
   }
 
-  // 🔹 カジノ詳細ページ
+  // 🔹 カジノ詳細
   const casinos = await getAllCasinos("ja");
   for (const c of casinos) {
     const slug = `/casino-${c.id}`;
@@ -49,7 +49,7 @@ export async function GET() {
     );
   }
 
-  // 🔹 XML生成
+  // 🔹 XML組み立て
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -57,8 +57,11 @@ ${urls.join("\n")}
 </urlset>`;
 
   return new NextResponse(body, {
+    status: 200,
     headers: {
-      "Content-Type": "application/xml; charset=utf-8",
+      // Google Search Console 互換性重視
+      "Content-Type": "application/xml",
+      "Cache-Control": "public, max-age=0, must-revalidate",
     },
   });
 }
