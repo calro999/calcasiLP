@@ -34,7 +34,7 @@ async function getWpArticle(id: number): Promise<Article | null> {
 
     const contentType = res.headers.get("content-type") || "";
     if (!res.ok || !contentType.includes("application/json")) {
-      console.warn("Unexpected response from WP API:", await res.text());
+      console.warn("[getWpArticle] Unexpected response:", await res.text());
       return null;
     }
 
@@ -51,7 +51,7 @@ async function getWpArticle(id: number): Promise<Article | null> {
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
   } catch (err) {
-    console.error("getWpArticle error:", err);
+    console.error("[getWpArticle] Failed to fetch or parse:", err);
     return null;
   }
 }
