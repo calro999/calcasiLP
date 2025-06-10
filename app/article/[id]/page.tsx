@@ -34,7 +34,7 @@ async function getWpArticle(id: number): Promise<Article | null> {
 
     const contentType = res.headers.get("content-type") || "";
     if (!res.ok || !contentType.includes("application/json")) {
-      console.warn("WordPress API returned unexpected content:", await res.text());
+      console.warn("Unexpected response from WP API:", await res.text());
       return null;
     }
 
