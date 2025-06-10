@@ -31,22 +31,20 @@ async function getLocalArticle(id: number): Promise<Article | null> {
 
 async function getWpArticle(id: number): Promise<Article | null> {
   try {
-    const slug = id.toString(); // 例: ID 1010 → slug "10"
-    const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}&_embed`, {
-      cache: "no-store",
-    });
+    const slug = (id - 1000).toString();
+    const url = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}&_embed`;
+    const res = await fetch(url, { cache: "no-store" });
 
-    console.log("Fetching WP article with slug:", slug, "Status:", res.status);
-
+    console.log("WP記事フェッチ:", url, "status:", res.status);
     if (!res.ok) return null;
 
     const posts = await res.json();
-    if (!Array.isArray(posts) || posts.length === 0) return null;
+    if (!posts || posts.length === 0) return null;
 
     const post = posts[0];
 
     return {
-      id: post.id + 1000,
+      id: id,
       title: post.title.rendered,
       content: post.content.rendered,
       image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
@@ -60,7 +58,6 @@ async function getWpArticle(id: number): Promise<Article | null> {
     return null;
   }
 }
-
 
 interface Props {
   params: { id: string };
