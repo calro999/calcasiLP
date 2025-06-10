@@ -105,8 +105,9 @@ async function generateSitemap() {
 ${urls.join("\n")}
 </urlset>`;
 
-  fs.writeFileSync(path.join(process.cwd(), "public", "sitemap.xml"), xml, "utf-8");
-  console.log("✅ sitemap.xml（画像付き）を public/ に生成しました。");
+fs.writeFileSync(path.join(process.cwd(), "public", "sitemap-fixed.xml"), xml, "utf-8");
+console.log("✅ sitemap-fixed.xml を public/ に生成しました。");
+
 }
 
 // 🔹 XMLエスケープ（タグ内文字対策）
