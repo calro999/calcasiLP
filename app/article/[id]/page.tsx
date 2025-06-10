@@ -21,23 +21,21 @@ async function getLocalArticle(id: number): Promise<Article | null> {
   const filePath = path.join(process.cwd(), "contents", "articles", lang, `${id}.json`);
   try {
     const fileContents = await fs.readFile(filePath, "utf8");
+    console.log("✅ Local article loaded:", filePath);
     return JSON.parse(fileContents);
-  } catch {
+  } catch (e) {
+    console.error("❌ Local article not found:", filePath);
     return null;
   }
 }
 
 async function getWpArticle(id: number): Promise<Article | null> {
+  const wpId = id - 1000;
+  const url = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${wpId}?_embed`;
   try {
-    const wpId = id - 1000;
-    const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${wpId}?_embed`, {
-      cache: "no-store",
-    });
-
-    console.log("Fetching WP article:", wpId, "Status:", res.status);
-
+    const res = await fetch(url, { cache: "no-store" });
+    console.log("🔍 Fetching WP article:", url, "Status:", res.status);
     if (!res.ok) return null;
-
     const post = await res.json();
     return {
       id: post.id + 1000,
@@ -50,7 +48,7 @@ async function getWpArticle(id: number): Promise<Article | null> {
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
   } catch (err) {
-    console.error("WP記事取得エラー:", err);
+    console.error("❌ WP記事取得エラー:", err);
     return null;
   }
 }
@@ -60,11 +58,19 @@ interface Props {
 }
 
 export default async function ArticlePage({ params }: Props) {
-  // 固定値でテスト
-  const article = await getWpArticle(1010);
+  const id = parseInt(params.id);
+  console.log("🔢 Parsed ID:", id);
+
+  let article: Article | null = null;
+
+  if (id >= 1000) {
+    article = await getWpArticle(id);
+  } else {
+    article = await getLocalArticle(id);
+  }
 
   if (!article) {
-    console.error("記事が見つかりません");
+    console.error("❌ Article not found:", id);
     notFound();
   }
 
