@@ -32,9 +32,10 @@ async function getWpArticle(id: number): Promise<Article | null> {
       cache: "no-store",
     });
 
+    // HTML応答が返ってきた場合に備えて、Content-Typeを確認
     const contentType = res.headers.get("content-type") || "";
     if (!res.ok || !contentType.includes("application/json")) {
-      console.warn(`[getWpArticle] Unexpected content-type or status: ${res.status}, ${contentType}`);
+      console.warn(`[getWpArticle] Unexpected response: ${res.status}, content-type: ${contentType}`);
       return null;
     }
 
@@ -55,7 +56,6 @@ async function getWpArticle(id: number): Promise<Article | null> {
     return null;
   }
 }
-
 
 
 interface Props {
