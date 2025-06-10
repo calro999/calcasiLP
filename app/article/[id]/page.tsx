@@ -31,8 +31,15 @@ async function getWpArticle(id: number): Promise<Article | null> {
     const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${id - 1000}?_embed`, {
       cache: "no-store",
     });
-    if (!res.ok) return null;
+
+    const contentType = res.headers.get("content-type") || "";
+    if (!res.ok || !contentType.includes("application/json")) {
+      console.warn("WordPress API returned unexpected content:", await res.text());
+      return null;
+    }
+
     const post = await res.json();
+
     return {
       id: post.id + 1000,
       title: post.title.rendered,
@@ -43,10 +50,12 @@ async function getWpArticle(id: number): Promise<Article | null> {
       readTime: "約5分",
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
-  } catch {
+  } catch (err) {
+    console.error("getWpArticle error:", err);
     return null;
   }
 }
+
 
 interface Props {
   params: { id: string };
