@@ -28,19 +28,16 @@ async function getLocalArticle(id: number): Promise<Article | null> {
 
 async function getWpArticle(id: number): Promise<Article | null> {
   try {
-    const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${id - 1000}?_embed`, {
+    const wpId = id - 1000;
+    const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${wpId}?_embed`, {
       cache: "no-store",
     });
 
-    // HTML応答が返ってきた場合に備えて、Content-Typeを確認
-    const contentType = res.headers.get("content-type") || "";
-    if (!res.ok || !contentType.includes("application/json")) {
-      console.warn(`[getWpArticle] Unexpected response: ${res.status}, content-type: ${contentType}`);
-      return null;
-    }
+    console.log("Fetching WP article:", wpId, "Status:", res.status);
+
+    if (!res.ok) return null;
 
     const post = await res.json();
-
     return {
       id: post.id + 1000,
       title: post.title.rendered,
@@ -52,10 +49,11 @@ async function getWpArticle(id: number): Promise<Article | null> {
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
   } catch (err) {
-    console.error("[getWpArticle] Failed to fetch or parse:", err);
+    console.error("WP記事取得エラー:", err);
     return null;
   }
 }
+
 
 
 interface Props {
