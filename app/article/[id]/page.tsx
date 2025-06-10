@@ -31,7 +31,7 @@ async function getLocalArticle(id: number): Promise<Article | null> {
 
 async function getWpArticle(id: number): Promise<Article | null> {
   try {
-    const slug = (id - 1000).toString();
+    const slug = `news-${id - 1000}`;
     const url = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}&_embed`;
     const res = await fetch(url, { cache: "no-store" });
 
@@ -39,7 +39,7 @@ async function getWpArticle(id: number): Promise<Article | null> {
 
     const contentType = res.headers.get("content-type") || "";
     if (!res.ok || !contentType.includes("application/json")) {
-      console.error("Invalid response from WP API:", contentType);
+      console.error("Invalid WP API response:", contentType);
       return null;
     }
 
