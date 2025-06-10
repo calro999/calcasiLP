@@ -29,12 +29,29 @@ async function generateSitemap() {
     );
   }
 
-  // 🔹 Markdown / CMS 記事
+  // 🔹 Markdown / CMS 記事（画像付き対応）
   const articles = await getAllArticles();
   for (const article of articles) {
     if (article.slug && article.date) {
+      let imageTag = "";
+      if (article.image) {
+        const imageUrl = article.image.startsWith("http")
+          ? article.image
+          : `${BASE_URL}${article.image}`;
+        imageTag = `
+  <image:image>
+    <image:loc>${imageUrl}</image:loc>
+    <image:title>${escapeXml(article.title || "")}</image:title>
+  </image:image>`;
+      }
+
       urls.push(
-        `<url><loc>${BASE_URL}${article.slug}</loc><lastmod>${article.date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`
+        `<url>
+  <loc>${BASE_URL}${article.slug}</loc>
+  <lastmod>${article.date}</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>${imageTag}
+</url>`
       );
     }
   }
@@ -44,31 +61,62 @@ async function generateSitemap() {
   for (const strategy of strategies) {
     const slug = strategy.slug || `/strategies/${strategy.id}`;
     if (slug && strategy.date) {
+      let imageTag = "";
+      if (strategy.image) {
+        const imageUrl = strategy.image.startsWith("http")
+          ? strategy.image
+          : `${BASE_URL}${strategy.image}`;
+        imageTag = `
+  <image:image>
+    <image:loc>${imageUrl}</image:loc>
+    <image:title>${escapeXml(strategy.title || "")}</image:title>
+  </image:image>`;
+      }
+
       urls.push(
-        `<url><loc>${BASE_URL}${slug}</loc><lastmod>${strategy.date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`
+        `<url>
+  <loc>${BASE_URL}${slug}</loc>
+  <lastmod>${strategy.date}</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.7</priority>${imageTag}
+</url>`
       );
     }
   }
 
-  // 🔹 カジノ詳細ページ
+  // 🔹 カジノ詳細ページ（画像なし）
   const casinos = await getAllCasinos("ja");
   for (const casino of casinos) {
     const slug = `/casino-${casino.id}`;
     urls.push(
-      `<url><loc>${BASE_URL}${slug}</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>`
+      `<url>
+  <loc>${BASE_URL}${slug}</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.6</priority>
+</url>`
     );
   }
 
-  // 🔹 XML 全体生成
+  // 🔹 XML 全体生成（画像用 xmlns を追加）
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset 
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.join("\n")}
 </urlset>`;
 
-  // 🔹 public/sitemap.xml に出力
   fs.writeFileSync(path.join(process.cwd(), "public", "sitemap.xml"), xml, "utf-8");
-  console.log("✅ sitemap.xml を public/ に生成しました。");
+  console.log("✅ sitemap.xml（画像付き）を public/ に生成しました。");
+}
+
+// 🔹 XMLエスケープ（タグ内文字対策）
+function escapeXml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 generateSitemap();
