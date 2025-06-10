@@ -30,13 +30,21 @@ async function getLocalArticle(id: number): Promise<Article | null> {
 }
 
 async function getWpArticle(id: number): Promise<Article | null> {
-  const wpId = id - 1000;
-  const url = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts/${wpId}?_embed`;
   try {
-    const res = await fetch(url, { cache: "no-store" });
-    console.log("🔍 Fetching WP article:", url, "Status:", res.status);
+    const slug = id.toString(); // 例: ID 1010 → slug "10"
+    const res = await fetch(`https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}&_embed`, {
+      cache: "no-store",
+    });
+
+    console.log("Fetching WP article with slug:", slug, "Status:", res.status);
+
     if (!res.ok) return null;
-    const post = await res.json();
+
+    const posts = await res.json();
+    if (!Array.isArray(posts) || posts.length === 0) return null;
+
+    const post = posts[0];
+
     return {
       id: post.id + 1000,
       title: post.title.rendered,
@@ -48,10 +56,11 @@ async function getWpArticle(id: number): Promise<Article | null> {
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
   } catch (err) {
-    console.error("❌ WP記事取得エラー:", err);
+    console.error("WP記事取得エラー:", err);
     return null;
   }
 }
+
 
 interface Props {
   params: { id: string };
