@@ -33,12 +33,13 @@ export default function CasinoDetail({ params }: { params: { id: string } }) {
 
         <div className="flex flex-col md:flex-row gap-8">
           <div className="flex-shrink-0 w-full md:w-1/3">
-            <div className="relative w-full h-48 bg-white rounded-xl overflow-hidden">
+            <div className="bg-white rounded-xl overflow-hidden p-4">
               <Image
                 src={casino.logo}
                 alt={`${casino.name}のロゴ`}
-                fill
-                className="object-contain p-4"
+                width={300}
+                height={150}
+                className="object-contain w-full h-auto mx-auto"
               />
             </div>
             <div className="mt-4">
