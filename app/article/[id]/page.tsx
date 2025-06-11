@@ -34,38 +34,29 @@ async function getWpArticle(id: number): Promise<Article | null> {
   const slug = `news-${wpId}`;
   const baseUrl = "https://calacasi-lp.ct.ws/wp-json/wp/v2/posts";
 
-  try {
-    // ① slug で取得
-    const slugRes = await fetch(`${baseUrl}?slug=${slug}&_embed`, { cache: "no-store" });
-    console.log("Fetching by slug:", slug, "Status:", slugRes.status);
+  async function safeFetchJson(url: string): Promise<any | null> {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      const text = await res.text();
 
-    if (slugRes.ok) {
-      const slugData = await slugRes.json();
-
-      // 正常に記事が返ってきたら（配列のはず）
-      if (Array.isArray(slugData) && slugData.length > 0) {
-        const post = slugData[0];
-        return {
-          id: post.id + 1000,
-          title: post.title.rendered,
-          content: post.content.rendered,
-          image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
-          category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "WordPress",
-          date: post.date,
-          readTime: "約5分",
-          author: post._embedded?.["author"]?.[0]?.name || "WordPress",
-        };
+      if (!res.ok || text.startsWith("<")) {
+        console.warn(`不正な応答（HTMLや失敗）: ${url}`);
+        return null;
       }
+
+      return JSON.parse(text);
+    } catch (err) {
+      console.error("safeFetchJson エラー:", err);
+      return null;
     }
+  }
 
-    // ② slug で失敗 → IDで直接取得
-    const idRes = await fetch(`${baseUrl}/${wpId}?_embed`, { cache: "no-store" });
-    console.log("Fallback fetch by ID:", wpId, "Status:", idRes.status);
+  // slug 試行
+  const slugUrl = `${baseUrl}?slug=${slug}&_embed`;
+  const slugData = await safeFetchJson(slugUrl);
 
-    if (!idRes.ok) return null;
-
-    const post = await idRes.json();
-
+  if (Array.isArray(slugData) && slugData.length > 0) {
+    const post = slugData[0];
     return {
       id: post.id + 1000,
       title: post.title.rendered,
@@ -76,11 +67,28 @@ async function getWpArticle(id: number): Promise<Article | null> {
       readTime: "約5分",
       author: post._embedded?.["author"]?.[0]?.name || "WordPress",
     };
-  } catch (err) {
-    console.error("WP記事取得エラー:", err);
-    return null;
   }
+
+  // ID fallback
+  const idUrl = `${baseUrl}/${wpId}?_embed`;
+  const post = await safeFetchJson(idUrl);
+
+  if (post && post.id) {
+    return {
+      id: post.id + 1000,
+      title: post.title.rendered,
+      content: post.content.rendered,
+      image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
+      category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "WordPress",
+      date: post.date,
+      readTime: "約5分",
+      author: post._embedded?.["author"]?.[0]?.name || "WordPress",
+    };
+  }
+
+  return null;
 }
+
 
 interface Props {
   params: { id: string };
