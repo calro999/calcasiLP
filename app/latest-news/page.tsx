@@ -30,37 +30,14 @@ async function getLocalArticles(): Promise<Article[]> {
           return JSON.parse(data);
         })
     );
-    return articles;
-  } catch {
-    return [];
-  }
-}
-
-async function getWpArticles(): Promise<Article[]> {
-  try {
-    const res = await fetch("https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?_embed&per_page=20", {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return [];
-    const posts = await res.json();
-    return posts.map((post: any) => ({
-      id: post.id + 1000,
-      title: post.title.rendered,
-      excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, ""),
-      image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
-      category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "WordPress",
-      date: post.date,
-      readTime: "約5分",
-      author: post._embedded?.["author"]?.[0]?.name || "WordPress",
-    }));
+    return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch {
     return [];
   }
 }
 
 export default async function LatestNewsPage() {
-  const [local, wp] = await Promise.all([getLocalArticles(), getWpArticles()]);
-  const allArticles = [...local, ...wp].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const articles = await getLocalArticles();
 
   return (
     <main className="pt-20 pb-20 bg-black">
@@ -76,7 +53,7 @@ export default async function LatestNewsPage() {
               className="w-full md:w-1/2 px-4 py-2 rounded bg-white text-black mb-4 md:mb-0"
             />
             <div className="flex gap-2 flex-wrap">
-              {[...new Set(allArticles.map(a => a.category))].map(category => (
+              {[...new Set(articles.map(a => a.category))].map(category => (
                 <span key={category} className="px-3 py-1 bg-white text-black text-sm rounded-full">
                   {category}
                 </span>
@@ -86,7 +63,7 @@ export default async function LatestNewsPage() {
 
           {/* 記事グリッド */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {allArticles.map((article) => (
+            {articles.map((article) => (
               <Link href={`/article/${article.id}`} key={article.id} className="block">
                 <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
                   <div className="relative aspect-[16/9]">
