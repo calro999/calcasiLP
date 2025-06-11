@@ -30,26 +30,44 @@ async function getLocalArticle(id: number): Promise<Article | null> {
 }
 
 async function getWpArticle(id: number): Promise<Article | null> {
+  const wpId = id - 1000;
+  const slug = `news-${wpId}`;
+  const baseUrl = "https://calacasi-lp.ct.ws/wp-json/wp/v2/posts";
+
   try {
-    const slug = `news-${id - 1000}`;
-    const url = `https://calacasi-lp.ct.ws/wp-json/wp/v2/posts?slug=${slug}&_embed`;
-    const res = await fetch(url, { cache: "no-store" });
+    // ① slug で取得
+    const slugRes = await fetch(`${baseUrl}?slug=${slug}&_embed`, { cache: "no-store" });
+    console.log("Fetching by slug:", slug, "Status:", slugRes.status);
 
-    console.log("WP記事フェッチ:", url, "status:", res.status);
+    if (slugRes.ok) {
+      const slugData = await slugRes.json();
 
-    const contentType = res.headers.get("content-type") || "";
-    if (!res.ok || !contentType.includes("application/json")) {
-      console.error("Invalid WP API response:", contentType);
-      return null;
+      // 正常に記事が返ってきたら（配列のはず）
+      if (Array.isArray(slugData) && slugData.length > 0) {
+        const post = slugData[0];
+        return {
+          id: post.id + 1000,
+          title: post.title.rendered,
+          content: post.content.rendered,
+          image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
+          category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "WordPress",
+          date: post.date,
+          readTime: "約5分",
+          author: post._embedded?.["author"]?.[0]?.name || "WordPress",
+        };
+      }
     }
 
-    const posts = await res.json();
-    if (!Array.isArray(posts) || posts.length === 0) return null;
+    // ② slug で失敗 → IDで直接取得
+    const idRes = await fetch(`${baseUrl}/${wpId}?_embed`, { cache: "no-store" });
+    console.log("Fallback fetch by ID:", wpId, "Status:", idRes.status);
 
-    const post = posts[0];
+    if (!idRes.ok) return null;
+
+    const post = await idRes.json();
 
     return {
-      id,
+      id: post.id + 1000,
       title: post.title.rendered,
       content: post.content.rendered,
       image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/no-image.jpg",
