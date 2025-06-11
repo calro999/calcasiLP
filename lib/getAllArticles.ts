@@ -11,6 +11,7 @@ export interface Article {
   image: string;
   excerpt: string;
   content?: string;
+  slug: string;
 }
 
 export async function getAllArticles(lang: string = "ja"): Promise<Article[]> {
@@ -22,8 +23,11 @@ export async function getAllArticles(lang: string = "ja"): Promise<Article[]> {
       files
         .filter((file) => file.endsWith(".json"))
         .map(async (file) => {
-          const data = await fs.readFile(path.join(dir, file), "utf8");
-          return JSON.parse(data) as Article;
+          const data = JSON.parse(await fs.readFile(path.join(dir, file), "utf8"));
+          return {
+            ...data,
+            slug: `/article/${data.id}`,
+          };
         })
     );
 
