@@ -126,9 +126,5 @@
       "from-amber-500",
       "to-amber-700"
     ]
-  },
-  "cta": {
-    "text": "今すぐ1xBetに登録してボーナスを受け取る",
-    "buttonClass": "bg-amber-400 text-black font-bold py-4 px-8 rounded-lg shadow-md hover:bg-amber-300 hover:scale-105 transition-transform duration-300 text-lg"
   }
 }
