@@ -1,5 +1,5 @@
 {
-  "id": 12,
+  "id": 13,
   "title": "【2025年最新】1xBet完全ガイド｜登録方法・ボーナス・入出金・違法性まで徹底解説",
   "date": "2025-06-11",
   "readTime": "15分",
@@ -118,131 +118,14 @@
       }
     ]
   },
-  "sidebar": {
-    "popularArticles": [
-      {
-        "title": "人気記事のタイトル 1",
-        "date": "2025-06-11"
-      },
-      {
-        "title": "人気記事のタイトル 2",
-        "date": "2025-06-12"
-      },
-      {
-        "title": "人気記事のタイトル 3",
-        "date": "2025-06-13"
-      },
-      {
-        "title": "人気記事のタイトル 4",
-        "date": "2025-06-14"
-      },
-      {
-        "title": "人気記事のタイトル 5",
-        "date": "2025-06-15"
-      }
-    ],
-    "categories": [
-      "ブックメーカー比較",
-      "オンラインカジノ",
-      "ボーナス情報",
-      "攻略法",
-      "初心者ガイド"
+  "banner": {
+    "title": "1xBet 最大78,000円ボーナス",
+    "subtitle": "プロモコード: CALRO777",
+    "buttonText": "今すぐ登録",
+    "gradientColors": [
+      "from-amber-500",
+      "to-amber-700"
     ]
-  },
-  "relatedArticles": [
-    {
-      "title": "関連記事のタイトル 1",
-      "description": "記事の概要説明が入ります..."
-    },
-    {
-      "title": "関連記事のタイトル 2",
-      "description": "記事の概要説明が入ります..."
-    },
-    {
-      "title": "関連記事のタイトル 3",
-      "description": "記事の概要説明が入ります..."
-    },
-    {
-      "title": "関連記事のタイトル 4",
-      "description": "記事の概要説明が入ります..."
-    }
-  ],
-  "footer": {
-    "siteInfo": [
-      {
-        "label": "会社概要",
-        "href": "#"
-      },
-      {
-        "label": "プライバシーポリシー",
-        "href": "#"
-      },
-      {
-        "label": "利用規約",
-        "href": "#"
-      }
-    ],
-    "content": [
-      {
-        "label": "カジノレビュー",
-        "href": "#"
-      },
-      {
-        "label": "ボーナス比較",
-        "href": "#"
-      },
-      {
-        "label": "攻略ガイド",
-        "href": "#"
-      }
-    ],
-    "support": [
-      {
-        "label": "お問い合わせ",
-        "href": "#"
-      },
-      {
-        "label": "よくある質問",
-        "href": "#"
-      },
-      {
-        "label": "責任あるゲーミング",
-        "href": "#"
-      }
-    ],
-    "disclaimer": "18歳未満の方はご利用いただけません。ギャンブルは適度に楽しみましょう。",
-    "copyright": "© 2025 カジノ情報サイト. All rights reserved."
-  },
-  "banners": {
-    "vertical": {
-      "title": "1xBet",
-      "subtitle": "最大78,000円",
-      "description": "初回入金ボーナス",
-      "buttonText": "今すぐ登録",
-      "gradientColors": [
-        "from-amber-500",
-        "to-amber-700"
-      ]
-    },
-    "horizontal": {
-      "title": "1xBet 最大78,000円ボーナス",
-      "subtitle": "プロモコード: CALRO777",
-      "buttonText": "登録する",
-      "gradientColors": [
-        "from-amber-500",
-        "to-amber-700"
-      ]
-    },
-    "special": {
-      "title": "限定オファー",
-      "subtitle": "CALRO777",
-      "description": "プロモコード使用で",
-      "buttonText": "特別ボーナス",
-      "gradientColors": [
-        "from-green-500",
-        "to-green-700"
-      ]
-    }
   },
   "cta": {
     "text": "今すぐ1xBetに登録してボーナスを受け取る",
