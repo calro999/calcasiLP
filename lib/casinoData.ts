@@ -2,15 +2,15 @@
 
 export const casinoData = [
   {
-    id: "wonder",
+    id: "1xbet",
     rank: 1,
-    name: "ワンダーカジノ",
-    logo: "/wondercasino_logo.png",
-    banner: "/wondercasino_logo.png",
-    bonus: "登録ボーナス$30！初回入金100%ボーナス（最大$500）",
+    name: "1xBET",
+    logo: "/1xbet.JPG",
+    banner: "/1xbet.JPG",
+    bonus: "特大入金ボーナス",
     rating: 4.8,
-    description: "初心者にも優しい充実のサポートと、幅広いゲームラインナップが魅力のワンダーカジノ。登録ボーナスでお得に始めよう！",
-    officialLink: "https://tracker-pm2.casino-wonder.com/link?btag=96420424_437635",
+    description: "老舗のスポーツベット特化サイト。スロットも充実。登録ボーナスでお得に始めよう！",
+    officialLink: "https://affpa.top/L?tag=d_4455915m_1236c_&site=4455915&ad=1236",
     features: ["日本語サポート", "豊富なゲーム数", "高速出金"]
   },
   {

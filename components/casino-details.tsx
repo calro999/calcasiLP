@@ -6,11 +6,11 @@ import ScrollAnimation from "./animations/scroll-animation"
 export default function CasinoDetails() {
   const casinos = [
     {
-      id: "wonder", // app/casino-detail/[id]/page.tsx のIDと一致させる
-      name: "ワンダーカジノ",
+      id: "1xbet", // app/casino-detail/[id]/page.tsx のIDと一致させる
+      name: "1xBET",
       category: "オンラインカジノ",
-      image: "/wondercasino_logo.png?height=400&width=600", // 実際の画像パスに置き換え
-      description: "登録ボーナス$30！高速出金と豊富なゲームで初心者にも人気。",
+      image: "/1xbet.JPG?height=400&width=600", // 実際の画像パスに置き換え
+      description: "老舗のスポーツベット特化カジノ",
     },
     {
       id: "duelbits", // app/casino-detail/[id]/page.tsx のIDと一致させる
