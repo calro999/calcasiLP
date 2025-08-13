@@ -9,7 +9,7 @@ export default function CasinoDetails() {
       id: "1xbet", // app/casino-detail/[id]/page.tsx のIDと一致させる
       name: "1xBET",
       category: "オンラインカジノ",
-      image: "/1xbet.JPG?height=400&width=600", // 実際の画像パスに置き換え
+      image: "/1xbet_top.jpg?height=400&width=600", // 実際の画像パスに置き換え
       description: "老舗のスポーツベット特化カジノ",
     },
     {
