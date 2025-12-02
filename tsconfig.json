@@ -18,13 +18,13 @@
       "@/*": ["./*"], // Next.jsの`@`エイリアスは通常、`*`ではなく`./*`とします
       "@/components/*": ["./components/*"],
       "@/lib/*": ["./lib/*"],
-      "@/app/*": ["./app/*"],
+      "@/app/*": [".next/app/*"],
       "@/contents/*": ["./contents/*"],
 
       // ここから、/app/tools/tsconfig.json からの統合部分
       // `@/tools/` は `/app/tools/` ディレクトリを指します。
       // これにより、sidebar.tsx内のインポートや、他のツール関連のファイルが解決されます。
-      "@/tools/*": ["./app/tools/*"],
+      "@/tools/*": [".next/app/tools/*"],
 
       // `@dice/*` と `@lib/dice/*` は、もしcomponents/diceやlib/diceがapp/tools内にあるなら、
       // `@/tools/components/dice/*` や `@/tools/lib/dice/*` に変更を検討してください。
@@ -43,6 +43,7 @@
   },
   "include": [
     "app",
+    ".next/app",
     "components",
     "lib",
     "contents",

@@ -9,23 +9,23 @@ import { PanelLeft } from "lucide-react"
 
 // ここを修正します
 // 元: import { useIsMobile } from "@/tools/hooks/use-mobile"
-import { useIsMobile } from "@/tools/hooks/use-mobile" // <- ここが重要！
+import { useIsMobile } from "@/app/tools/hooks/use-mobile" // <- ここが重要！
 
 // 元: import { cn } from "@/tools/lib/utils"
-import { cn } from "@/tools/lib/utils" // <- ここが重要！
+import { cn } from "@/app/tools/lib/utils" // <- ここが重要！
 
 // 元: import { Button } from "@/tools/components/ui/button"
-import { Button } from "@/tools/components/ui/button" // <- ここが重要！
-import { Input } from "@/tools/components/ui/input"
-import { Separator } from "@/tools/components/ui/separator"
-import { Sheet, SheetContent } from "@/tools/components/ui/sheet"
-import { Skeleton } from "@/tools/components/ui/skeleton"
+import { Button } from "@/app/tools/components/ui/button" // <- ここが重要！
+import { Input } from "@/app/tools/components/ui/input"
+import { Separator } from "@/app/tools/components/ui/separator"
+import { Sheet, SheetContent } from "@/app/tools/components/ui/sheet"
+import { Skeleton } from "@/app/tools/components/ui/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/tools/components/ui/tooltip"
+} from "@/app/tools/components/ui/tooltip"
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

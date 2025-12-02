@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import fs from "fs/promises";
 import path from "path";
-import DiceGame from "@/tools/app/tools/page"; // DiceGame のトップコンポーネント
+import DiceGame from "@/app/tools/app/tools/page"; // DiceGame のトップコンポーネント
 import { Strategy } from "@/lib/types";
 
 interface Params {

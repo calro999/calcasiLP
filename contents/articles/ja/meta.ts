@@ -1,5 +1,4 @@
-import Article13 from "./13.mdx";
-import Article14 from "./14.mdx";
+import Article14 from "/14.mdx";
 
 interface ArticleMapItem {
   id: number;
