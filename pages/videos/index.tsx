@@ -19,46 +19,49 @@ export default function VideosPage() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-black text-white px-4 sm:px-8 py-10 font-sans">
-      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-14 neon-title">
+    <div className="video-page-bg min-h-screen w-full text-white px-4 sm:px-6 py-10 font-sans">
+      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-12 neon-title">
         動画ギャラリー
       </h1>
 
       <style>{`
-        body {
+        html, body, #__next {
           background-color: #000 !important;
         }
         .neon-title {
           color: #00eaff;
-          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 24px #00eaff;
+          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff;
         }
         .neon-card {
-          border: 1px solid rgba(0, 255, 255, 0.4);
-          box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          border: 1px solid rgba(0,255,255,0.3);
+          box-shadow: 0 0 10px rgba(0,255,255,0.25);
+          transition: 0.25s ease;
         }
         .neon-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 0 18px rgba(0, 255, 255, 0.6);
+          box-shadow: 0 0 16px rgba(0,255,255,0.5);
         }
+        /* YouTube っぽいサイズ (16:9) */
         .video-frame {
           width: 100%;
-          max-width: 1280px;
+          max-width: 960px; /* PCではゆったりしたYouTubeサイズ */
           margin: 0 auto;
           aspect-ratio: 16 / 9;
+          border-radius: 12px;
           background: #111;
-          border-radius: 14px;
           overflow: hidden;
+        }
+        @media (max-width: 768px) {
+          .video-frame {
+            max-width: 100%; /* スマホでは画面にフィット */
+            border-radius: 10px;
+          }
         }
       `}</style>
 
-      <div className="space-y-14 max-w-5xl mx-auto">
+      <div className="space-y-12 max-w-4xl mx-auto">
         {videos.map((video) => (
-          <div
-            key={video.id}
-            className="neon-card rounded-2xl p-6 sm:p-8 bg-black/70 backdrop-blur-md"
-          >
-            <h2 className="text-2xl sm:text-3xl font-semibold mb-5 text-cyan-300">
+          <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/70">
+            <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-cyan-300">
               {video.title}
             </h2>
 
@@ -67,8 +70,6 @@ export default function VideosPage() {
                 src={video.url}
                 controls
                 playsInline
-                width="1920"
-                height="1080"
                 className="w-full h-full object-cover"
               />
             </div>
