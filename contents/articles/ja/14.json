@@ -1,0 +1,11 @@
+{
+  "id": 14,
+  "title": "仮記事MDXテスト",
+  "date": "2025-12-02",
+  "readTime": "5分",
+  "category": "テスト",
+  "author": "テスト太郎",
+  "image": "/placeholder.jpg",
+  "excerpt": "これはMDX化の仮記事です。",
+  "path": "contents/articles/ja/14.mdx"
+}
