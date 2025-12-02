@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "title": "サンプル動画 1",
-    "url": "https://xxxx.supabase.co/storage/v1/object/public/videos/sample1.mp4"
+    "title": "テスト",
+    "url": "https://jlkxndnxexethyahecbu.supabase.co/storage/v1/object/public/videos/tran.mp4"
   },
   {
     "id": 2,
-    "title": "サンプル動画 2",
-    "url": "https://xxxx.supabase.co/storage/v1/object/public/videos/sample2.mp4"
+    "title": "テスト 2",
+    "url": "https://jlkxndnxexethyahecbu.supabase.co/storage/v1/object/public/videos/tran.mp4"
   }
 ]
