@@ -1,39 +1,39 @@
 {
   "compilerOptions": {
-    "target": "ES2020", // ルートの既存設定を優先
-    "module": "NodeNext", // ルートの既存設定を優先
-    "moduleResolution": "NodeNext", // ルートの既存設定を優先
+    "target": "ES2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "jsx": "preserve",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "strict": true,
-    "types": ["node"],
-    "jsx": "preserve",
-    "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "baseUrl": ".", // この設定により、`paths`のパスがプロジェクトルートからの相対パスとして解決されます
+    "baseUrl": ".",
     "paths": {
-      // ルートの既存設定を維持
-      "@/*": ["./*"], // Next.jsの`@`エイリアスは通常、`*`ではなく`./*`とします
-      "@/components/*": ["./components/*"],
-      "@/lib/*": ["./lib/*"],
-      "@/app/*": [".next/app/*"],
-      "@/contents/*": ["./contents/*"],
-
-      // ここから、/app/tools/tsconfig.json からの統合部分
-      // `@/tools/` は `/app/tools/` ディレクトリを指します。
-      // これにより、sidebar.tsx内のインポートや、他のツール関連のファイルが解決されます。
-      "@/tools/*": [".next/app/tools/*"],
-
-      // `@dice/*` と `@lib/dice/*` は、もしcomponents/diceやlib/diceがapp/tools内にあるなら、
-      // `@/tools/components/dice/*` や `@/tools/lib/dice/*` に変更を検討してください。
-      // もしプロジェクトルートの`components`や`lib`の下にあるなら現状維持でOKです。
-      // ここでは、一旦元のルート設定として残しておきます。
-      "@dice/*": ["./components/dice/*"],
-      "@lib/dice/*": ["./lib/dice/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/contents/*": [
+        "contents/*"
+      ]
     },
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
     "isolatedModules": true,
     "plugins": [
       {
@@ -43,15 +43,13 @@
   },
   "include": [
     "app",
-    ".next/app",
     "components",
     "lib",
     "contents",
-    "scripts",
     "types",
     ".next/types/**/*.ts"
-    // ここに`app/tools`配下のTypeScriptファイルを確実に含めるため、`app/tools`を追加
-    // または `**/*.ts`, `**/*.tsx` が既に広範囲をカバーしているため、明示的に追加しなくても良い場合があります
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
