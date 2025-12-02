@@ -39,7 +39,7 @@ export default function Header() {
   const menuItems = [
     { name: "ホーム", path: "/" },
     { name: "最新情報", path: "/latest-news" },
-    { name: "プレイ動画", path: "/pages/videos/index.tsx" },
+    { name: "プレイ動画", path: "/videos" },
     { name: "初心者ガイド", path: "/beginners-guide" },
     { name: "攻略法", path: "/strategies" },
     { name: "カジノランキング", path: "/casino-ranking" },
