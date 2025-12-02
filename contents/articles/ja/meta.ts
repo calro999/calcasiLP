@@ -14,16 +14,3 @@ interface ArticleMapItem {
 interface ArticleMap {
   [key: string]: ArticleMapItem;
 }
-
-export const articles: ArticleMap = {
-  "14": {
-    id: 14,
-    title: "仮記事MDXテスト",
-    date: "2025-12-02",
-    readTime: "5分",
-    category: "テスト",
-    author: "テスト太郎",
-    image: "/placeholder.jpg",
-    component: Article14,
-  },
-};
