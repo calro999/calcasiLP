@@ -41,7 +41,7 @@ export default function VideosPage() {
       </div>
 
       {/* CSS ---------------------------- */}
-      <style jsx>{`
+      <style>{`
         .page {
           background: #000;
           min-height: 100vh;
