@@ -1,0 +1,2 @@
+declare module 'next-mdx-remote';
+declare module 'next-mdx-remote/serialize';

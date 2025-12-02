@@ -2,13 +2,14 @@ export const dynamic = "force-dynamic";
 import React from "react";
 import fs from "fs/promises";
 import path from "path";
-import parse from "html-react-parser";
 import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 
 interface Article {
   id: number;
   title: string;
-  content: string;
+  path: string;
   image: string;
   category: string;
   date: string;
@@ -39,6 +40,11 @@ export default async function ArticlePage({ params }: Props) {
     return notFound();
   }
 
+  // MDXファイルを読み込む
+  const mdxPath = path.join(process.cwd(), article.path);
+  const mdxSource = await fs.readFile(mdxPath, "utf8");
+  const mdxContent = await serialize(mdxSource);
+
   return (
     <main className="pt-20 pb-20 bg-black">
       <article className="max-w-3xl mx-auto px-4">
@@ -49,13 +55,11 @@ export default async function ArticlePage({ params }: Props) {
           <span>著者: {article.author}</span>
         </div>
         {article.image && (
-          <img
-            src={article.image}
-            alt={article.title}
-            className="w-full h-auto rounded-lg mb-6"
-          />
+          <img src={article.image} alt={article.title} className="w-full h-auto rounded-lg mb-6" />
         )}
-        <div className="prose prose-invert max-w-none">{parse(article.content)}</div>
+        <div className="prose prose-invert max-w-none">
+          <MDXRemote {...mdxContent} />
+        </div>
       </article>
     </main>
   );
