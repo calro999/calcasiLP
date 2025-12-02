@@ -1,38 +1,79 @@
-// app/article/[id]/page.tsx
 export const dynamic = "force-dynamic";
 
 import React from "react";
+import fs from "fs/promises";
+import path from "path";
 import { notFound } from "next/navigation";
-import { articles } from "@/contents/articles/ja/meta";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+// 記事JSONの型
+interface Article {
+  id: number;
+  title: string;
+  content?: string;   // ← JSON用
+  path?: string;      // ← MDX用
+  image: string;
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+}
+
+// JSON記事を読む
+async function getLocalArticle(id: number): Promise<Article | null> {
+  const lang = "ja";
+  const filePath = path.join(
+    process.cwd(),
+    "contents",
+    "articles",
+    lang,
+    `${id}.json`
+  );
+
+  try {
+    const fileContents = await fs.readFile(filePath, "utf8");
+    return JSON.parse(fileContents);
+  } catch {
+    return null;
+  }
+}
 
 interface Props {
   params: { id: string };
 }
-interface ArticleMapItem {
-  id: number;
-  title: string;
-  date: string;
-  readTime: string;
-  category: string;
-  author: string;
-  image: string;
-  component: any; // or React.ComponentType
-}
 
-export default function ArticlePage({ params }: Props) {
-  const idStr = params.id; // URL の id は文字列
-  const article: ArticleMapItem | undefined = articles[idStr];
+export default async function ArticlePage({ params }: Props) {
+  const id = parseInt(params.id);
+  const article = await getLocalArticle(id);
 
-  if (!article) {
-    return notFound();
+  if (!article) return notFound();
+
+  let body = null;
+
+  // 🔵 MDX 記事の場合
+  if (article.path) {
+    const mdxFile = path.join(process.cwd(), article.path);
+    const mdxContent = await fs.readFile(mdxFile, "utf8");
+    body = <MDXRemote source={mdxContent} />;
   }
 
-  const ArticleComponent = article.component;
+  // 🟢 JSON記事の場合
+  if (article.content) {
+    body = (
+      <div
+        className="prose prose-invert max-w-none"
+        dangerouslySetInnerHTML={{ __html: article.content }}
+      />
+    );
+  }
 
   return (
     <main className="pt-20 pb-20 bg-black">
       <article className="max-w-3xl mx-auto px-4">
-        <h1 className="text-4xl font-bold text-amber-300 mb-4">{article.title}</h1>
+        <h1 className="text-4xl font-bold text-amber-300 mb-4">
+          {article.title}
+        </h1>
+
         <div className="text-gray-400 text-sm mb-6">
           <span className="mr-4">公開日: {article.date}</span>
           <span className="mr-4">カテゴリ: {article.category}</span>
@@ -40,7 +81,6 @@ export default function ArticlePage({ params }: Props) {
         </div>
 
         {article.image && (
-          // Next.js Image を使うなら width/height が必要。ここではシンプルに img を使用しています
           <img
             src={article.image}
             alt={article.title}
@@ -48,10 +88,7 @@ export default function ArticlePage({ params }: Props) {
           />
         )}
 
-        <div className="prose prose-invert max-w-none">
-          {/* MDXコンポーネントを直接レンダリング */}
-          <ArticleComponent />
-        </div>
+        {body}
       </article>
     </main>
   );
