@@ -73,7 +73,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="https://x.com/Calro_kuzumaru"
+            href="https://x.com/Calro_shorts"
             target="_blank"
             rel="noopener noreferrer"
             className="ml-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-1.5 rounded-md text-sm md:text-base transition-all duration-300 shadow-lg shadow-amber-500/20"
