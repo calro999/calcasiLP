@@ -33,7 +33,7 @@ export default async function LangHome({
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>
           <iframe
-            src="https://yt-calro.netlify.app/"
+            src="https://calcasi-lp.vercel.app/videos"
             width="1200"
             height="800"
             allow="fullscreen"
