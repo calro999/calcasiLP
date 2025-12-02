@@ -19,63 +19,87 @@ export default function VideosPage() {
   }, []);
 
   return (
-    <div className="video-page-bg min-h-screen w-full text-white px-4 sm:px-6 py-10 font-sans">
-      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-12 neon-title">
-        動画ギャラリー
-      </h1>
+    <div className="page">
+      <h1 className="title">動画ギャラリー</h1>
 
-      <style>{`
-        html, body, #__next {
-          background-color: #000 !important;
-        }
-        .neon-title {
-          color: #00eaff;
-          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff;
-        }
-        .neon-card {
-          border: 1px solid rgba(0,255,255,0.3);
-          box-shadow: 0 0 10px rgba(0,255,255,0.25);
-          transition: 0.25s ease;
-        }
-        .neon-card:hover {
-          box-shadow: 0 0 16px rgba(0,255,255,0.5);
-        }
-        /* YouTube っぽいサイズ (16:9) */
-        .video-frame {
-          width: 100%;
-          max-width: 960px; /* PCではゆったりしたYouTubeサイズ */
-          margin: 0 auto;
-          aspect-ratio: 16 / 9;
-          border-radius: 12px;
-          background: #111;
-          overflow: hidden;
-        }
-        @media (max-width: 768px) {
-          .video-frame {
-            max-width: 100%; /* スマホでは画面にフィット */
-            border-radius: 10px;
-          }
-        }
-      `}</style>
-
-      <div className="space-y-12 max-w-4xl mx-auto">
+      <div className="videos">
         {videos.map((video) => (
-          <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/70">
-            <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-cyan-300">
-              {video.title}
-            </h2>
+          <div key={video.id} className="videoWrapper">
+            <h2 className="videoTitle">{video.title}</h2>
 
-            <div className="video-frame">
+            {/* ★ これがメイン動画プレイヤー ★ */}
+            <div className="playerArea">
               <video
                 src={video.url}
                 controls
                 playsInline
-                className="w-full h-full object-cover"
+                preload="metadata"
               />
             </div>
           </div>
         ))}
       </div>
+
+      {/* CSS ---------------------------- */}
+      <style jsx>{`
+        .page {
+          background: #000;
+          min-height: 100vh;
+          padding: 40px 20px;
+        }
+
+        .title {
+          text-align: center;
+          color: #67e8f9;
+          font-size: 32px;
+          margin-bottom: 40px;
+          text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
+        }
+
+        .videos {
+          display: flex;
+          flex-direction: column;
+          gap: 70px;
+          align-items: center;
+        }
+
+        .videoWrapper {
+          width: 100%;
+          max-width: 900px;
+        }
+
+        .videoTitle {
+          color: #fff;
+          margin-bottom: 12px;
+          font-size: 20px;
+        }
+
+        .playerArea {
+          width: 100%;
+          background: #1c1c1c;
+          border-radius: 12px;
+          padding: 0;
+          overflow: hidden;
+          border: 2px solid #00eaff;
+          box-shadow: 0 0 20px #00eaff55;
+        }
+
+        .playerArea video {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 16/9;
+          display: block;
+        }
+
+        @media (max-width: 600px) {
+          .title {
+            font-size: 26px;
+          }
+          .videoTitle {
+            font-size: 18px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
