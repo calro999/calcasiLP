@@ -6,12 +6,11 @@ import path from "path";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-// 記事JSONの型
 interface Article {
   id: number;
   title: string;
-  content?: string;   // ← JSON用
-  path?: string;      // ← MDX用
+  content?: string; // JSON記事
+  path?: string; // MDX記事
   image: string;
   category: string;
   date: string;
@@ -20,19 +19,18 @@ interface Article {
 }
 
 // JSON記事を読む
-async function getLocalArticle(id: number): Promise<Article | null> {
-  const lang = "ja";
+async function getJsonArticle(id: number): Promise<Article | null> {
   const filePath = path.join(
     process.cwd(),
     "contents",
     "articles",
-    lang,
+    "ja",
     `${id}.json`
   );
 
   try {
-    const fileContents = await fs.readFile(filePath, "utf8");
-    return JSON.parse(fileContents);
+    const data = await fs.readFile(filePath, "utf8");
+    return JSON.parse(data);
   } catch {
     return null;
   }
@@ -44,17 +42,22 @@ interface Props {
 
 export default async function ArticlePage({ params }: Props) {
   const id = parseInt(params.id);
-  const article = await getLocalArticle(id);
 
+  // JSON読み込み
+  const article = await getJsonArticle(id);
   if (!article) return notFound();
 
   let body = null;
 
-  // 🔵 MDX 記事の場合
+  // 🔵 MDX記事の場合
   if (article.path) {
-    const mdxFile = path.join(process.cwd(), article.path);
-    const mdxContent = await fs.readFile(mdxFile, "utf8");
-    body = <MDXRemote source={mdxContent} />;
+    const mdxFullPath = path.join(process.cwd(), article.path);
+    const mdxText = await fs.readFile(mdxFullPath, "utf8");
+    body = (
+      <div className="prose prose-invert max-w-none">
+        <MDXRemote source={mdxText} />
+      </div>
+    );
   }
 
   // 🟢 JSON記事の場合
