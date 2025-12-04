@@ -56,19 +56,38 @@ export default function VideosPage() {
       </h1>
 
       {/*
-        ===== ページ専用の最強CSS =====
-        !important を追加し、外部CSSの影響を排除
+        ===== ページ専用の最強CSS（layout, styleを強制適用） =====
       */}
       <style>{`
+        /* タイトルの中央寄せとスタイルを強制 */
         .neon-title {
           color: #00eaff !important;
           text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff !important;
+          text-align: center !important; /* 中央寄せを強制 */
         }
+        /* Boxのスタイルを強制 */
         .box {
           border: 1px solid rgba(0,255,255,0.3) !important;
           box-shadow: 0 0 12px rgba(0,255,255,0.25) !important;
           border-radius: 14px !important;
           background: #111 !important;
+        }
+
+        /*
+          7:3 レイアウトを強制するカスタムグリッド
+          Tailwindの grid/col-span クラスを外し、このCSSで制御
+        */
+        .video-item-row {
+          display: grid !important;
+          grid-template-columns: 1fr !important; /* モバイルデフォルト（縦積み） */
+          gap: 2.5rem !important; /* gap-10 */
+        }
+
+        /* 768px (mdブレークポイント) 以上で7:3のグリッドを適用 */
+        @media (min-width: 768px) {
+          .video-item-row {
+            grid-template-columns: 7fr 3fr !important; /* 70% と 30% の比率を強制 */
+          }
         }
       `}</style>
 
@@ -76,22 +95,21 @@ export default function VideosPage() {
         {videos.map((video) => (
           <div
             key={video.id}
-            className="grid grid-cols-1 md:grid-cols-12 gap-10"
+            // Taildwind gridを外し、カスタムCSSクラスを適用
+            className="video-item-row"
           >
 
-            {/*
-              ===== 左：大きい動画枠 (7:3の「7」部分 - md:col-span-8) =====
-            */}
-            <div className="md:col-span-8 box p-4">
+            {/* ===== 左：大きい動画枠 (70%) ===== */}
+            {/* レイアウトに関するTailwindクラスを全て削除 */}
+            <div className="box p-4">
               <div className="w-full aspect-video bg-black rounded-lg overflow-hidden">
                 {renderVideo(video.url)}
               </div>
             </div>
 
-            {/*
-              ===== 右：詳細欄 (7:3の「3」部分 - md:col-span-4) =====
-            */}
-            <div className="md:col-span-4 box p-6 flex flex-col justify-between">
+            {/* ===== 右：詳細欄 (30%) ===== */}
+            {/* レイアウトに関するTailwindクラスを全て削除 */}
+            <div className="box p-6 flex flex-col justify-between">
               <div>
                 <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
                   {video.title}
