@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 interface VideoItem {
   id: number;
   title: string;
-  url: string; // YouTube URL / ID / mp4 OK
+  url: string;
   description?: string;
-  banner?: {
-    image: string;
-    link: string;
-  };
+  bannerImage?: string;
+  bannerLink?: string;
 }
 
 export default function VideosPage() {
@@ -23,112 +21,95 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
-  function getPlayer(videoUrl: string, title: string) {
-    if (videoUrl.endsWith(".mp4")) {
+  const renderVideo = (url: string) => {
+    const ytMatch = url.match(
+      /(youtu\.be\/|youtube\.com\/watch\?v=)([A-Za-z0-9_\-]+)/
+    );
+    if (ytMatch) {
+      const videoId = ytMatch[2];
       return (
-        <video
-          src={videoUrl}
-          controls
-          playsInline
-          className="w-full h-full object-cover rounded-xl"
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}`}
+          className="w-full h-full"
+          style={{ border: 0 }}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         />
       );
     }
 
-    let videoId = videoUrl;
-    if (videoUrl.includes("youtu.be/")) videoId = videoUrl.split("youtu.be/")[1];
-    else if (videoUrl.includes("watch?v=")) videoId = videoUrl.split("watch?v=")[1];
-    else if (videoUrl.includes("embed/")) videoId = videoUrl.split("embed/")[1];
-    if (videoId.includes("?")) videoId = videoId.split("?")[0];
-
     return (
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}`}
-        title={title}
-        className="w-full h-full object-cover rounded-xl"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+      <video
+        src={url}
+        controls
+        playsInline
+        className="w-full h-full object-cover"
+      />
     );
-  }
+  };
 
   return (
-    <div className="bg-black min-h-screen w-full text-white px-6 py-12 font-sans">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-14 neon-title w-full">
-          動画ギャラリー
-        </h1>
-      </div>
+    <div className="min-h-screen bg-black text-white px-4 py-10 font-sans">
+      {/* ===== タイトル ===== */}
+      <h1 className="text-center text-4xl sm:text-5xl font-bold mb-12 neon-title">
+        動画ギャラリー
+      </h1>
 
       <style>{`
-        html, body, #__next { background-color:#000 !important; }
         .neon-title {
-          color:#00eaff;
-          text-shadow:0 0 6px #00eaff,0 0 12px #00eaff,0 0 20px #00eaff;
+          color: #00eaff;
+          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff;
         }
-        .neon-card {
-          border:1px solid rgba(0,255,255,0.3);
-          box-shadow:0 0 10px rgba(0,255,255,0.25);
-          transition:0.25s ease;
-        }
-        .neon-card:hover {
-          box-shadow:0 0 16px rgba(0,255,255,0.5);
-        }
-        .player-frame {
-          aspect-ratio:16 / 9;
-          background:#111;
-          border-radius:12px;
-          overflow:hidden;
-          width:100%;
-          max-width:900px;
-          margin-left:auto;
-          margin-right:auto;
-        }
-        .detail-box {
-          background:#0a0a0a;
-          border-radius:12px;
-          padding:20px;
-          border:1px solid rgba(0,255,255,0.25);
-          box-shadow:0 0 12px rgba(0,255,255,0.25);
-          max-width:500px;
-          margin-left:auto;
-          margin-right:auto;
+        .neon-box {
+          border: 1px solid rgba(0,255,255,0.3);
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          border-radius: 12px;
+          background: rgba(20,20,20,0.8);
         }
       `}</style>
 
-      <div className="space-y-20 max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-16">
         {videos.map((video) => (
-          <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/60">
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start justify-center">
-
-              <div className="player-frame">
-                {getPlayer(video.url, video.title)}
+          <div
+            key={video.id}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-10"
+          >
+            {/* ===== 左側：動画（7/12） ===== */}
+            <div className="lg:col-span-7 neon-box p-4">
+              <div className="w-full aspect-video rounded-lg overflow-hidden bg-black">
+                {renderVideo(video.url)}
               </div>
+            </div>
 
-              <div className="detail-box">
-                <h2 className="text-2xl font-semibold text-cyan-300 mb-4 text-center">
+            {/* ===== 右側：詳細欄（3/12） ===== */}
+            <div className="lg:col-span-5 neon-box p-6 flex flex-col justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold mb-3 text-cyan-300">
                   {video.title}
                 </h2>
 
-                <div
-                  className="text-gray-200 text-base leading-relaxed mb-6"
-                  dangerouslySetInnerHTML={{ __html: video.description || "" }}
-                />
+                <p className="text-gray-300 whitespace-pre-line mb-6">
+                  {video.description || "説明文は登録されていません。"}
+                </p>
 
-                {video.banner && (
-                  <div className="text-center mt-6">
-                    <a href={video.banner.link} target="_blank" rel="noopener noreferrer">
+                {/* バナー */}
+                {video.bannerImage && (
+                  <div className="text-center mt-4">
+                    <a
+                      href={video.bannerLink || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <img
-                        src={video.banner.image}
+                        src={video.bannerImage}
                         alt="banner"
-                        className="mx-auto w-full max-w-xs rounded-lg hover:opacity-80 transition"
+                        className="mx-auto rounded-lg neon-box"
+                        style={{ maxHeight: "160px", objectFit: "contain" }}
                       />
                     </a>
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         ))}

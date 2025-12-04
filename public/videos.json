@@ -1,17 +1,18 @@
 [
   {
     "id": 1,
-    "title": "テスト動画",
-    "url": "UzNcMdSjIto",
-    "description": "これはテスト用の説明文です。<br>リンクも使えます。<a href='https://google.com'>Google</a>",
-    "banner": {
-      "image": "/banner001.png",
-      "link": "https://example.com"
-    }
+    "title": "テスト",
+    "url": "https://youtu.be/UzNcMdSjIto",
+    "description": "これはテスト用の説明文です。",
+    "bannerImage": "/banners/banner01.png",
+    "bannerLink": "https://google.com"
   },
   {
     "id": 2,
     "title": "テスト 2",
-    "url": "https://jlkxndnxexethyahecbu.supabase.co/storage/v1/object/public/videos/tran.mp4"
+    "url": "https://xxxx.supabase.co/storage/v1/.../tran.mp4",
+    "description": "Supabase の動画テストです。",
+    "bannerImage": "/banners/banner02.png",
+    "bannerLink": "https://yahoo.co.jp"
   }
 ]
