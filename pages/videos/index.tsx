@@ -4,9 +4,9 @@ interface VideoItem {
   id: number;
   title: string;
   url: string;
-  description?: string;
-  bannerImage?: string;
-  bannerLink?: string;
+  description?: string; // 新規追加
+  bannerImage?: string; // 新規追加
+  bannerLink?: string;  // 新規追加
 }
 
 export default function VideosPage() {
@@ -14,6 +14,7 @@ export default function VideosPage() {
 
   useEffect(() => {
     async function loadVideos() {
+      // videos.json のデータ構造が変更されているため、fetch処理はそのまま
       const res = await fetch("/videos.json");
       const data: VideoItem[] = await res.json();
       setVideos(data);
@@ -21,6 +22,7 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
+  // YouTube埋め込み機能はそのまま維持
   const renderVideo = (url: string) => {
     const ytMatch = url.match(
       /(youtu\.be\/|youtube\.com\/watch\?v=)([A-Za-z0-9_\-]+)/
@@ -48,81 +50,30 @@ export default function VideosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10">
+    <div className="page">
+      <h1 className="title">動画ギャラリー</h1>
 
-      {/* ===== タイトル（中央寄せ） ===== */}
-      <h1 className="text-center text-4xl sm:text-5xl font-bold mb-12 neon-title">
-        動画ギャラリー
-      </h1>
-
-      {/*
-        ===== ページ専用の最強CSS（layout, styleを強制適用） =====
-      */}
-      <style>{`
-        /* タイトルの中央寄せとスタイルを強制 */
-        .neon-title {
-          color: #00eaff !important;
-          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff !important;
-          text-align: center !important; /* 中央寄せを強制 */
-        }
-        /* Boxのスタイルを強制 */
-        .box {
-          border: 1px solid rgba(0,255,255,0.3) !important;
-          box-shadow: 0 0 12px rgba(0,255,255,0.25) !important;
-          border-radius: 14px !important;
-          background: #111 !important;
-        }
-
-        /*
-          7:3 レイアウトを強制するカスタムグリッド
-          Tailwindの grid/col-span クラスを外し、このCSSで制御
-        */
-        .video-item-row {
-          display: grid !important;
-          grid-template-columns: 1fr !important; /* モバイルデフォルト（縦積み） */
-          gap: 2.5rem !important; /* gap-10 */
-        }
-
-        /* 768px (mdブレークポイント) 以上で7:3のグリッドを適用 */
-        @media (min-width: 768px) {
-          .video-item-row {
-            grid-template-columns: 7fr 3fr !important; /* 70% と 30% の比率を強制 */
-          }
-        }
-      `}</style>
-
-      <div className="max-w-7xl mx-auto space-y-20">
+      <div className="videos">
         {videos.map((video) => (
-          <div
-            key={video.id}
-            // Taildwind gridを外し、カスタムCSSクラスを適用
-            className="video-item-row"
-          >
+          <div key={video.id} className="video-item-row">
 
-            {/* ===== 左：大きい動画枠 (70%) ===== */}
-            {/* レイアウトに関するTailwindクラスを全て削除 */}
-            <div className="box p-4">
-              <div className="w-full aspect-video bg-black rounded-lg overflow-hidden">
+            {/* ===== 左：動画 (70%) ===== */}
+            <div className="video-player-area">
+              <div className="player-box">
                 {renderVideo(video.url)}
               </div>
             </div>
 
             {/* ===== 右：詳細欄 (30%) ===== */}
-            {/* レイアウトに関するTailwindクラスを全て削除 */}
-            <div className="box p-6 flex flex-col justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
-                  {video.title}
-                </h2>
-
-                <p className="text-gray-300 whitespace-pre-line mb-6">
-                  {video.description || "説明文はありません。"}
-                </p>
-              </div>
+            <div className="detail-area">
+              <h2 className="videoTitle">{video.title}</h2>
+              <p className="description">
+                {video.description || "説明文はありません。"}
+              </p>
 
               {/* ===== バナー ===== */}
               {video.bannerImage && (
-                <div className="mt-6 text-center">
+                <div className="banner-wrapper">
                   <a
                     href={video.bannerLink || "#"}
                     target="_blank"
@@ -131,21 +82,138 @@ export default function VideosPage() {
                     <img
                       src={video.bannerImage}
                       alt="banner"
-                      className="mx-auto rounded-lg"
-                      style={{
-                        maxHeight: "160px",
-                        maxWidth: "100%",
-                        objectFit: "contain",
-                      }}
+                      className="banner-image"
                     />
                   </a>
                 </div>
               )}
             </div>
-
           </div>
         ))}
       </div>
+
+      {/* CSS ---------------------------- */}
+      {/* ⚠️ Next.jsやReactプロジェクトの場合、<style jsx>や<style>の使い方は環境により異なります。 */}
+      {/* 確実性を高めるため、今回はコンポーネント内の<style>タグにネイティブCSSを記述します。 */}
+      <style>{`
+        /* ページ全体 */
+        .page {
+          background: #000;
+          min-height: 100vh;
+          padding: 40px 20px;
+        }
+
+        /* タイトル（中央揃えを強制） */
+        .title {
+          text-align: center !important; /* 中央揃えを強制 */
+          color: #67e8f9;
+          font-size: 32px;
+          margin-bottom: 40px;
+          text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
+        }
+
+        /* 動画リストコンテナ */
+        .videos {
+          display: flex;
+          flex-direction: column;
+          gap: 70px;
+          align-items: center; /* 各動画行を中央寄せ */
+          max-width: 1200px; /* 最大幅を設定 */
+          margin: 0 auto;
+        }
+
+        /* 各動画アイテムの行コンテナ */
+        .video-item-row {
+          display: flex; /* Flexboxで横並びを基本とする */
+          flex-direction: column; /* モバイルでは縦積み */
+          width: 100%;
+          max-width: 1000px; /* 行の最大幅 */
+          gap: 30px; /* 動画と詳細の間の隙間 */
+
+          /* ネオンボックススタイルを適用 */
+          border: 1px solid rgba(0,255,255,0.3);
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          border-radius: 14px;
+          background: #111;
+          padding: 20px;
+        }
+
+        /* 動画プレイヤーエリア（左側 70%） */
+        .video-player-area {
+          flex: 1 1 100%; /* モバイルでは100%幅 */
+        }
+
+        /* 詳細エリア（右側 30%） */
+        .detail-area {
+          flex: 1 1 100%; /* モバイルでは100%幅 */
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between; /* バナーを下に寄せる */
+          color: #fff;
+        }
+
+        /* 動画タイトル */
+        .videoTitle {
+          color: #fff;
+          margin-bottom: 12px;
+          font-size: 20px;
+          color: #67e8f9; /* ネオン色に統一 */
+        }
+        
+        /* 動画説明文 */
+        .description {
+          color: #aaa;
+          margin-bottom: 15px;
+        }
+
+        /* 動画ボックス */
+        .player-box {
+          width: 100%;
+          aspect-ratio: 16/9;
+          background: #000;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        /* バナー */
+        .banner-wrapper {
+          margin-top: 15px;
+          text-align: center;
+        }
+        .banner-image {
+          max-height: 120px;
+          max-width: 100%;
+          object-fit: contain;
+          border-radius: 8px;
+        }
+
+
+        /* ===== 768px以上での横並び（7:3比率）適用 ===== */
+        @media (min-width: 768px) {
+          .video-item-row {
+            flex-direction: row; /* 横並び */
+            padding: 30px; /* パディングを少し増やす */
+          }
+          .video-player-area {
+            flex: 7; /* 70% */
+          }
+          .detail-area {
+            flex: 3; /* 30% */
+          }
+          .title {
+            font-size: 40px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .title {
+            font-size: 26px;
+          }
+          .videoTitle {
+            font-size: 18px;
+          }
+        }
+      `}</style>
     </div>
   );
 }
