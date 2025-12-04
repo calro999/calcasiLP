@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 interface VideoItem {
   id: number;
   title: string;
-  url: string; // YouTube URL / ID / mp4 すべて対応
+  url: string; // YouTube URL / ID / mp4 OK
+  description?: string;
+  banner?: {
+    image: string;
+    link: string;
+  };
 }
 
 export default function VideosPage() {
@@ -18,41 +23,29 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
-  // ★ YouTube の URL でも ID でも mp4 でも自動判定して返す関数
   function getPlayer(videoUrl: string, title: string) {
-    // mp4 判定 → <video>
     if (videoUrl.endsWith(".mp4")) {
       return (
         <video
           src={videoUrl}
           controls
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-xl"
         />
       );
     }
 
-    // Youtube URL → ID を抽出
     let videoId = videoUrl;
-
-    if (videoUrl.includes("youtu.be/")) {
-      videoId = videoUrl.split("youtu.be/")[1];
-    } else if (videoUrl.includes("watch?v=")) {
-      videoId = videoUrl.split("watch?v=")[1];
-    } else if (videoUrl.includes("youtube.com/embed/")) {
-      videoId = videoUrl.split("embed/")[1];
-    }
-
-    // ID にパラメータ（?si=xxx）が含まれていたら除去
-    if (videoId.includes("?")) {
-      videoId = videoId.split("?")[0];
-    }
+    if (videoUrl.includes("youtu.be/")) videoId = videoUrl.split("youtu.be/")[1];
+    else if (videoUrl.includes("watch?v=")) videoId = videoUrl.split("watch?v=")[1];
+    else if (videoUrl.includes("embed/")) videoId = videoUrl.split("embed/")[1];
+    if (videoId.includes("?")) videoId = videoId.split("?")[0];
 
     return (
       <iframe
         src={`https://www.youtube.com/embed/${videoId}`}
         title={title}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover rounded-xl"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
@@ -60,54 +53,75 @@ export default function VideosPage() {
   }
 
   return (
-    <div className="bg-black min-h-screen w-full text-white px-4 sm:px-6 py-10 font-sans">
-      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-12 neon-title">
+    <div className="bg-black min-h-screen w-full text-white px-6 py-12 font-sans">
+      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-14 neon-title">
         動画ギャラリー
       </h1>
 
       <style>{`
-        html, body, #__next {
-          background-color: #000 !important;
-        }
+        html, body, #__next { background-color:#000 !important; }
         .neon-title {
-          color: #00eaff;
-          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff;
+          color:#00eaff;
+          text-shadow:0 0 6px #00eaff,0 0 12px #00eaff,0 0 20px #00eaff;
         }
         .neon-card {
-          border: 1px solid rgba(0,255,255,0.3);
-          box-shadow: 0 0 10px rgba(0,255,255,0.25);
-          transition: 0.25s ease;
+          border:1px solid rgba(0,255,255,0.3);
+          box-shadow:0 0 10px rgba(0,255,255,0.25);
+          transition:0.25s ease;
         }
         .neon-card:hover {
-          box-shadow: 0 0 16px rgba(0,255,255,0.5);
+          box-shadow:0 0 16px rgba(0,255,255,0.5);
         }
-        /* ★ プレイヤー：大きく、YouTubeっぽく */
-        .video-frame {
-          width: 100%;
-          max-width: 1100px; 
-          margin: 0 auto;
-          aspect-ratio: 16 / 9;
-          border-radius: 12px;
-          background: #111;
-          overflow: hidden;
+        .player-frame {
+          aspect-ratio:16 / 9;
+          background:#111;
+          border-radius:12px;
+          overflow:hidden;
+          width:100%;
+          max-width:900px;
         }
-        @media (max-width: 768px) {
-          .video-frame {
-            max-width: 100%;
-            border-radius: 10px;
-          }
+        .detail-box {
+          background:#0a0a0a;
+          border-radius:12px;
+          padding:20px;
+          border:1px solid rgba(0,255,255,0.25);
+          box-shadow:0 0 12px rgba(0,255,255,0.25);
+          max-width:500px;
         }
       `}</style>
 
-      <div className="space-y-16 max-w-4xl mx-auto">
+      <div className="space-y-20 max-w-7xl mx-auto">
         {videos.map((video) => (
-          <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/70">
-            <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-cyan-300 text-center">
-              {video.title}
-            </h2>
+          <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/60">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-            <div className="video-frame">
-              {getPlayer(video.url, video.title)}
+              <div className="player-frame mx-auto">
+                {getPlayer(video.url, video.title)}
+              </div>
+
+              <div className="detail-box mx-auto">
+                <h2 className="text-2xl font-semibold text-cyan-300 mb-4 text-center">
+                  {video.title}
+                </h2>
+
+                <div
+                  className="text-gray-200 text-base leading-relaxed mb-6"
+                  dangerouslySetInnerHTML={{ __html: video.description || "" }}
+                />
+
+                {video.banner && (
+                  <div className="text-center mt-6">
+                    <a href={video.banner.link} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={video.banner.image}
+                        alt="banner"
+                        className="mx-auto w-full max-w-xs rounded-lg hover:opacity-80 transition"
+                      />
+                    </a>
+                  </div>
+                )}
+              </div>
+
             </div>
           </div>
         ))}
