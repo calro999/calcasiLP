@@ -1,8 +1,13 @@
 [
   {
     "id": 1,
-    "title": "テスト",
-    "url": "UzNcMdSjIto"
+    "title": "テスト動画",
+    "url": "UzNcMdSjIto",
+    "description": "これはテスト用の説明文です。<br>リンクも使えます。<a href='https://google.com'>Google</a>",
+    "banner": {
+      "image": "/banner001.png",
+      "link": "https://example.com"
+    }
   },
   {
     "id": 2,
