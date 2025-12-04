@@ -172,6 +172,8 @@ export default function VideosPage() {
           margin-bottom: 15px;
           /* 修正点2: 横並びを解消するため、display: block; を強制 */
           display: block;
+          /* 🌟 修正点: 改行文字(\n)を有効にする */
+          white-space: pre-wrap;
         }
 
         /* 修正点1: プレイヤーの外枠 */
