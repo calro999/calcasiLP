@@ -55,17 +55,20 @@ export default function VideosPage() {
         動画ギャラリー
       </h1>
 
-      {/* ===== スタイル（変更なし） ===== */}
+      {/*
+        ===== ページ専用の最強CSS =====
+        !important を追加し、外部CSSの影響を排除
+      */}
       <style>{`
         .neon-title {
-          color: #00eaff;
-          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff;
+          color: #00eaff !important;
+          text-shadow: 0 0 6px #00eaff, 0 0 12px #00eaff, 0 0 20px #00eaff !important;
         }
         .box {
-          border: 1px solid rgba(0,255,255,0.3);
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
-          border-radius: 14px;
-          background: #111;
+          border: 1px solid rgba(0,255,255,0.3) !important;
+          box-shadow: 0 0 12px rgba(0,255,255,0.25) !important;
+          border-radius: 14px !important;
+          background: #111 !important;
         }
       `}</style>
 
@@ -77,8 +80,7 @@ export default function VideosPage() {
           >
 
             {/*
-              ===== 左：大きい動画枠 (7:3の「7」部分 - 12分割の8/12) =====
-              md:col-span-7 を md:col-span-8 に変更
+              ===== 左：大きい動画枠 (7:3の「7」部分 - md:col-span-8) =====
             */}
             <div className="md:col-span-8 box p-4">
               <div className="w-full aspect-video bg-black rounded-lg overflow-hidden">
@@ -87,8 +89,7 @@ export default function VideosPage() {
             </div>
 
             {/*
-              ===== 右：詳細欄 (7:3の「3」部分 - 12分割の4/12) =====
-              md:col-span-5 を md:col-span-4 に変更
+              ===== 右：詳細欄 (7:3の「3」部分 - md:col-span-4) =====
             */}
             <div className="md:col-span-4 box p-6 flex flex-col justify-between">
               <div>
@@ -101,7 +102,7 @@ export default function VideosPage() {
                 </p>
               </div>
 
-              {/* ===== バナー（詳細欄の下部に配置） ===== */}
+              {/* ===== バナー ===== */}
               {video.bannerImage && (
                 <div className="mt-6 text-center">
                   <a
