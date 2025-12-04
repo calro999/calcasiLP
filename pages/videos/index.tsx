@@ -54,9 +54,11 @@ export default function VideosPage() {
 
   return (
     <div className="bg-black min-h-screen w-full text-white px-6 py-12 font-sans">
-      <h1 className="text-4xl sm:text-5xl font-bold text-center mb-14 neon-title">
-        動画ギャラリー
-      </h1>
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-14 neon-title w-full">
+          動画ギャラリー
+        </h1>
+      </div>
 
       <style>{`
         html, body, #__next { background-color:#000 !important; }
@@ -79,6 +81,8 @@ export default function VideosPage() {
           overflow:hidden;
           width:100%;
           max-width:900px;
+          margin-left:auto;
+          margin-right:auto;
         }
         .detail-box {
           background:#0a0a0a;
@@ -87,19 +91,22 @@ export default function VideosPage() {
           border:1px solid rgba(0,255,255,0.25);
           box-shadow:0 0 12px rgba(0,255,255,0.25);
           max-width:500px;
+          margin-left:auto;
+          margin-right:auto;
         }
       `}</style>
 
       <div className="space-y-20 max-w-7xl mx-auto">
         {videos.map((video) => (
           <div key={video.id} className="neon-card rounded-2xl p-6 bg-black/60">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-              <div className="player-frame mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start justify-center">
+
+              <div className="player-frame">
                 {getPlayer(video.url, video.title)}
               </div>
 
-              <div className="detail-box mx-auto">
+              <div className="detail-box">
                 <h2 className="text-2xl font-semibold text-cyan-300 mb-4 text-center">
                   {video.title}
                 </h2>
