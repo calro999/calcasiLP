@@ -50,11 +50,12 @@ export default function VideosPage() {
   return (
     <div className="min-h-screen bg-black text-white px-4 py-10">
 
-      {/* ===== タイトル（中央） ===== */}
+      {/* ===== タイトル（中央寄せ） ===== */}
       <h1 className="text-center text-4xl sm:text-5xl font-bold mb-12 neon-title">
         動画ギャラリー
       </h1>
 
+      {/* ===== スタイル（変更なし） ===== */}
       <style>{`
         .neon-title {
           color: #00eaff;
@@ -75,15 +76,21 @@ export default function VideosPage() {
             className="grid grid-cols-1 md:grid-cols-12 gap-10"
           >
 
-            {/* ===== 左：大きい動画枠 ===== */}
-            <div className="md:col-span-7 box p-4">
+            {/*
+              ===== 左：大きい動画枠 (7:3の「7」部分 - 12分割の8/12) =====
+              md:col-span-7 を md:col-span-8 に変更
+            */}
+            <div className="md:col-span-8 box p-4">
               <div className="w-full aspect-video bg-black rounded-lg overflow-hidden">
                 {renderVideo(video.url)}
               </div>
             </div>
 
-            {/* ===== 右：詳細欄 ===== */}
-            <div className="md:col-span-5 box p-6 flex flex-col justify-between">
+            {/*
+              ===== 右：詳細欄 (7:3の「3」部分 - 12分割の4/12) =====
+              md:col-span-5 を md:col-span-4 に変更
+            */}
+            <div className="md:col-span-4 box p-6 flex flex-col justify-between">
               <div>
                 <h2 className="text-2xl font-semibold mb-4 text-cyan-300">
                   {video.title}
@@ -94,7 +101,7 @@ export default function VideosPage() {
                 </p>
               </div>
 
-              {/* ===== バナー ===== */}
+              {/* ===== バナー（詳細欄の下部に配置） ===== */}
               {video.bannerImage && (
                 <div className="mt-6 text-center">
                   <a
