@@ -6,25 +6,25 @@ import ScrollAnimation from "./animations/scroll-animation"
 export default function CasinoDetails() {
   const casinos = [
     {
-      id: "1xbet", // app/casino-detail/[id]/page.tsx のIDと一致させる
-      name: "1xBET",
+      id: "goldenpanda",
+      name: "ゴールデンパンダ",
       category: "オンラインカジノ",
-      image: "/1xbet_top.jpg?height=400&width=600", // 実際の画像パスに置き換え
-      description: "老舗のスポーツベット特化カジノ",
+      image: "/goldenpanda_top.jpg", 
+      description: "爆発力の高いスロットと太っ腹なボーナスで人気急上昇中の最新オンラインカジノ。",
     },
     {
-      id: "duelbits", // app/casino-detail/[id]/page.tsx のIDと一致させる
-      name: "デュエルビッツ",
+      id: "k8",
+      name: "K8",
       category: "オンラインカジノ",
-      image: "/duelbits_logo.png?height=400&width=600", // 実際の画像パスに置き換え
-      description: "仮想通貨特化！独自のオリジナルゲームと豪華VIP特典が魅力の次世代カジノ。",
+      image: "/k8_logo.png",
+      description: "世界的に有名なハイローラー御用達サイト。スポーツ・ライブカジノの品質が圧倒的。",
     },
     {
-      id: "kachiwin", // app/casino-detail/[id]/page.tsx のIDと一致させる
-      name: "勝win",
+      id: "stake",
+      name: "Stake",
       category: "オンラインカジノ",
-      image: "/katsu.jpg?height=400&width=600", // 実際の画像パスに置き換え
-      description: "カジノもスポーツベットも楽しめる！日本人向けのサービスが充実。",
+      image: "/stake_logo.png",
+      description: "仮想通貨ユーザーから絶大な支持を集めるカジノ。高速出金と独自ゲームが魅力。",
     },
   ]
 
