@@ -208,8 +208,10 @@ export default function VideosPage() {
           margin-bottom: 30px;
         }
 
+        /* ★ ここだけ拡大 ★ */
         .tweet-center iframe {
-          width: 550px;
+          width: 700px;
+          max-width: 100%;
           border: none;
         }
 
