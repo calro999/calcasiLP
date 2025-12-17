@@ -27,10 +27,9 @@ export default function VideosPage() {
     );
 
     if (ytMatch) {
-      const videoId = ytMatch[2];
       return (
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}`}
+          src={`https://www.youtube.com/embed/${ytMatch[2]}`}
           style={{ width: "100%", height: "100%", border: 0 }}
           allowFullScreen
         />
@@ -51,30 +50,26 @@ export default function VideosPage() {
     <div className="page">
       <h1 className="title">動画ギャラリー</h1>
 
-      {/* ===== 動画一覧 ===== */}
+      {/* ===== 動画 ===== */}
       <div className="videos">
         {videos.map((video) => (
           <div key={video.id} className="video-item-row">
-            {/* 左：動画 */}
             <div className="video-player-area">
               <div className="player-box">
                 {renderVideo(video.url)}
               </div>
             </div>
 
-            {/* 右：詳細 */}
             <div className="detail-area">
               <div>
                 <h2 className="videoTitle">{video.title}</h2>
-                <p className="description">
-                  {video.description || "説明文はありません。"}
-                </p>
+                <p className="description">{video.description}</p>
               </div>
 
               {video.bannerImage && (
                 <div className="banner-wrapper">
                   <a
-                    href={video.bannerLink || "#"}
+                    href={video.bannerLink}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -91,41 +86,37 @@ export default function VideosPage() {
         ))}
       </div>
 
-      {/* ===== X 個別ポスト（スクロール） ===== */}
+      {/* ===== X 投稿 ===== */}
       <div className="twitter-section">
         <h2 className="twitter-title">最新のX投稿</h2>
 
         <div className="twitter-scroll-box">
-          <iframe
-            src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
-            width="100%"
-            height="520"
-            style={{ border: "none", marginBottom: "24px" }}
-            loading="lazy"
-          />
+          <div className="tweet-center">
+            <iframe
+              src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
+              loading="lazy"
+            />
+          </div>
 
-          <iframe
-            src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
-            width="100%"
-            height="520"
-            style={{ border: "none" }}
-            loading="lazy"
-          />
+          <div className="tweet-center">
+            <iframe
+              src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
+              loading="lazy"
+            />
+          </div>
         </div>
 
-        <div className="twitter-link">
-          <a
-            href="https://x.com/calro_shorts"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Xで全ての投稿を見る →
-          </a>
-        </div>
+        <a
+          href="https://x.com/calro_shorts"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="twitter-button"
+        >
+          Xで全ての投稿を見る →
+        </a>
       </div>
 
       <style>{`
-        /* ===== ページ全体 ===== */
         .page {
           background: #000;
           min-height: 100vh;
@@ -135,58 +126,43 @@ export default function VideosPage() {
         .title {
           text-align: center;
           color: #67e8f9;
-          font-size: 32px;
+          font-size: 36px;
           margin-bottom: 40px;
-          text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
+          text-shadow: 0 0 12px #00eaff;
         }
 
-        /* ===== 動画一覧 ===== */
+        /* ===== 動画 ===== */
         .videos {
+          max-width: 1200px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
           gap: 70px;
-          align-items: center;
-          max-width: 1200px;
-          margin: 0 auto;
         }
 
         .video-item-row {
           display: flex;
           flex-direction: column;
-          width: 100%;
-          max-width: 1000px;
           gap: 30px;
-          border: 1px solid rgba(0,255,255,0.3);
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          padding: 24px;
           border-radius: 14px;
           background: #111;
-          padding: 20px;
-        }
-
-        .video-player-area {
-          flex: 1;
-        }
-
-        .detail-area {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          color: #fff;
+          border: 1px solid rgba(0,255,255,0.3);
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
         }
 
         .player-box {
           width: 100%;
           aspect-ratio: 16 / 9;
           background: #000;
-          border-radius: 8px;
+          border-radius: 10px;
           overflow: hidden;
         }
 
         .videoTitle {
           color: #67e8f9;
           font-size: 20px;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
 
         .description {
@@ -195,18 +171,16 @@ export default function VideosPage() {
         }
 
         .banner-wrapper {
-          margin-top: 15px;
+          margin-top: 16px;
           text-align: center;
         }
 
         .banner-image {
           max-height: 120px;
-          max-width: 100%;
-          object-fit: contain;
           border-radius: 8px;
         }
 
-        /* ===== X 投稿 ===== */
+        /* ===== X ===== */
         .twitter-section {
           max-width: 1000px;
           margin: 120px auto 0;
@@ -220,28 +194,47 @@ export default function VideosPage() {
         }
 
         .twitter-scroll-box {
-          height: 600px;
+          height: 620px;
           overflow-y: auto;
-          border-radius: 14px;
           background: #111;
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
-          padding: 16px;
+          border-radius: 16px;
+          padding: 24px;
+          box-shadow: 0 0 14px rgba(0,255,255,0.3);
         }
 
-        .twitter-link {
-          margin-top: 14px;
+        .tweet-center {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 30px;
         }
 
-        .twitter-link a {
-          color: #67e8f9;
+        .tweet-center iframe {
+          width: 550px;
+          border: none;
+        }
+
+        .twitter-button {
+          display: inline-block;
+          margin-top: 24px;
+          padding: 12px 28px;
+          font-size: 16px;
+          color: #000;
+          background: #67e8f9;
+          border-radius: 999px;
           text-decoration: none;
+          font-weight: bold;
+          box-shadow: 0 0 12px rgba(103,232,249,0.9);
+          transition: 0.2s ease;
         }
 
-        /* ===== PC横並び ===== */
+        .twitter-button:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(103,232,249,1);
+        }
+
         @media (min-width: 768px) {
           .video-item-row {
             flex-direction: row;
-            padding: 30px;
           }
 
           .video-player-area {
@@ -251,10 +244,6 @@ export default function VideosPage() {
           .detail-area {
             flex: 3;
             padding-left: 20px;
-          }
-
-          .title {
-            font-size: 40px;
           }
         }
       `}</style>
