@@ -21,12 +21,20 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
-  // X(Twitter)ウィジェット読み込み
+  // ===== X(Twitter) widgets 読み込み & 再描画 =====
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    document.body.appendChild(script);
+    const scriptId = "twitter-wjs";
+
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://platform.twitter.com/widgets.js";
+      script.async = true;
+      document.body.appendChild(script);
+    } else {
+      // @ts-ignore
+      window.twttr?.widgets?.load();
+    }
   }, []);
 
   const renderVideo = (url: string) => {
@@ -95,17 +103,19 @@ export default function VideosPage() {
         ))}
       </div>
 
-      {/* ===== X(Twitter) タイムライン ===== */}
+      {/* ===== X(Twitter) セクション ===== */}
       <div className="twitter-section">
         <h2 className="twitter-title">最新のX投稿</h2>
 
-        <div className="twitter-wrapper">
+        <div className="twitter-scroll-box">
           <a
             className="twitter-timeline"
-            data-theme="dark"
-            data-height="600"
-            data-chrome="noheader nofooter transparent"
             href="https://x.com/calro_shorts"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-theme="dark"
+            data-chrome="noheader nofooter transparent"
+            data-tweet-limit="20"
           >
             Tweets by calro_shorts
           </a>
@@ -192,7 +202,7 @@ export default function VideosPage() {
           border-radius: 8px;
         }
 
-        /* ===== Twitter ===== */
+        /* ===== X(Twitter) ===== */
         .twitter-section {
           max-width: 1000px;
           margin: 120px auto 0;
@@ -205,12 +215,19 @@ export default function VideosPage() {
           margin-bottom: 20px;
         }
 
-        .twitter-wrapper {
+        /* 🔥 投稿をスクロールさせる箱 */
+        .twitter-scroll-box {
+          height: 600px;
+          overflow-y: auto;
           border-radius: 14px;
-          overflow: hidden;
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
           background: #111;
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
           padding: 10px;
+        }
+
+        /* iframe の高さ保証 */
+        .twitter-scroll-box iframe {
+          min-height: 600px;
         }
 
         @media (min-width: 768px) {
