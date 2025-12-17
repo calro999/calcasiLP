@@ -25,12 +25,13 @@ export default function VideosPage() {
     const ytMatch = url.match(
       /(youtu\.be\/|youtube\.com\/watch\?v=)([A-Za-z0-9_\-]+)/
     );
+
     if (ytMatch) {
       const videoId = ytMatch[2];
       return (
         <iframe
           src={`https://www.youtube.com/embed/${videoId}`}
-          style={{ border: 0, width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", border: 0 }}
           allowFullScreen
         />
       );
@@ -55,7 +56,9 @@ export default function VideosPage() {
           <div key={video.id} className="video-item-row">
             {/* 左：動画 */}
             <div className="video-player-area">
-              <div className="player-box">{renderVideo(video.url)}</div>
+              <div className="player-box">
+                {renderVideo(video.url)}
+              </div>
             </div>
 
             {/* 右：詳細 */}
@@ -87,36 +90,24 @@ export default function VideosPage() {
         ))}
       </div>
 
-      {/* ===== X 投稿（確実に動く iframe 方式） ===== */}
-      <div className="twitter-section">
-        <h2 className="twitter-title">最新のX投稿</h2>
-
-        <div className="twitter-scroll-box">
-          <iframe
-            src="https://platform.twitter.com/embed/Tweet.html?screenName=calro_shorts"
-            width="100%"
-            height="600"
-            style={{ border: "none" }}
-            loading="lazy"
-          />
-        </div>
-
-        <div className="twitter-link">
-          <a
-            href="https://x.com/calro_shorts"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Xで全ての投稿を見る →
-          </a>
-        </div>
+      {/* ===== X ボタン ===== */}
+      <div className="x-button-section">
+        <a
+          href="https://x.com/calro_shorts"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="x-button"
+        >
+          Xはこちら
+        </a>
       </div>
 
       <style>{`
+        /* ===== ページ全体 ===== */
         .page {
           background: #000;
           min-height: 100vh;
-          padding: 40px 20px;
+          padding: 40px 20px 80px;
         }
 
         .title {
@@ -124,9 +115,10 @@ export default function VideosPage() {
           color: #67e8f9;
           font-size: 32px;
           margin-bottom: 40px;
-          text-shadow: 0 0 10px #00eaff;
+          text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
         }
 
+        /* ===== 動画一覧 ===== */
         .videos {
           display: flex;
           flex-direction: column;
@@ -150,11 +142,11 @@ export default function VideosPage() {
         }
 
         .video-player-area {
-          flex: 7;
+          flex: 1;
         }
 
         .detail-area {
-          flex: 3;
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -188,45 +180,52 @@ export default function VideosPage() {
         .banner-image {
           max-height: 120px;
           max-width: 100%;
+          object-fit: contain;
           border-radius: 8px;
         }
 
-        /* ===== X ===== */
-        .twitter-section {
-          max-width: 1000px;
-          margin: 120px auto 0;
+        /* ===== X ボタン ===== */
+        .x-button-section {
+          margin-top: 120px;
           text-align: center;
         }
 
-        .twitter-title {
-          color: #67e8f9;
-          font-size: 28px;
-          margin-bottom: 20px;
-        }
-
-        .twitter-scroll-box {
-          height: 600px;
-          overflow-y: auto;
-          border-radius: 14px;
-          background: #111;
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
-        }
-
-        .twitter-link {
-          margin-top: 12px;
-        }
-
-        .twitter-link a {
-          color: #67e8f9;
+        .x-button {
+          display: inline-block;
+          padding: 16px 36px;
+          font-size: 18px;
+          font-weight: bold;
+          color: #fff;
+          background: linear-gradient(135deg, #1da1f2, #0d8ddb);
+          border-radius: 999px;
           text-decoration: none;
+          box-shadow: 0 0 15px rgba(29,161,242,0.6);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
+        .x-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 0 25px rgba(29,161,242,0.9);
+        }
+
+        /* ===== 横並び（PC） ===== */
         @media (min-width: 768px) {
           .video-item-row {
             flex-direction: row;
+            padding: 30px;
           }
+
+          .video-player-area {
+            flex: 7;
+          }
+
           .detail-area {
+            flex: 3;
             padding-left: 20px;
+          }
+
+          .title {
+            font-size: 40px;
           }
         }
       `}</style>
