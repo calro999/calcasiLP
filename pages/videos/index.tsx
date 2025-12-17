@@ -194,31 +194,33 @@ export default function VideosPage() {
         }
 
         .twitter-scroll-box {
-          height: 620px;
+          height: 800px;
           overflow-y: auto;
           background: #111;
           border-radius: 16px;
-          padding: 24px;
+          padding: 32px 0;
           box-shadow: 0 0 14px rgba(0,255,255,0.3);
         }
 
+        /* ★ 完全中央揃え */
         .tweet-center {
           display: flex;
           justify-content: center;
-          margin-bottom: 30px;
+          margin-bottom: 40px;
         }
 
-        /* ★ ここだけ拡大 ★ */
+        /* ★ 縦長・大型化 */
         .tweet-center iframe {
-          width: 700px;
+          width: 720px;
+          height: 900px;
           max-width: 100%;
           border: none;
         }
 
         .twitter-button {
           display: inline-block;
-          margin-top: 24px;
-          padding: 12px 28px;
+          margin-top: 28px;
+          padding: 14px 32px;
           font-size: 16px;
           color: #000;
           background: #67e8f9;
