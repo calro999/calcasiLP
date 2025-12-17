@@ -51,6 +51,7 @@ export default function VideosPage() {
     <div className="page">
       <h1 className="title">動画ギャラリー</h1>
 
+      {/* ===== 動画一覧 ===== */}
       <div className="videos">
         {videos.map((video) => (
           <div key={video.id} className="video-item-row">
@@ -90,16 +91,37 @@ export default function VideosPage() {
         ))}
       </div>
 
-      {/* ===== X ボタン ===== */}
-      <div className="x-button-section">
-        <a
-          href="https://x.com/calro_shorts"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="x-button"
-        >
-          Xはこちら
-        </a>
+      {/* ===== X 個別ポスト（スクロール） ===== */}
+      <div className="twitter-section">
+        <h2 className="twitter-title">最新のX投稿</h2>
+
+        <div className="twitter-scroll-box">
+          <iframe
+            src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
+            width="100%"
+            height="520"
+            style={{ border: "none", marginBottom: "24px" }}
+            loading="lazy"
+          />
+
+          <iframe
+            src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
+            width="100%"
+            height="520"
+            style={{ border: "none" }}
+            loading="lazy"
+          />
+        </div>
+
+        <div className="twitter-link">
+          <a
+            href="https://x.com/calro_shorts"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Xで全ての投稿を見る →
+          </a>
+        </div>
       </div>
 
       <style>{`
@@ -184,31 +206,38 @@ export default function VideosPage() {
           border-radius: 8px;
         }
 
-        /* ===== X ボタン ===== */
-        .x-button-section {
-          margin-top: 120px;
+        /* ===== X 投稿 ===== */
+        .twitter-section {
+          max-width: 1000px;
+          margin: 120px auto 0;
           text-align: center;
         }
 
-        .x-button {
-          display: inline-block;
-          padding: 16px 36px;
-          font-size: 18px;
-          font-weight: bold;
-          color: #fff;
-          background: linear-gradient(135deg, #1da1f2, #0d8ddb);
-          border-radius: 999px;
+        .twitter-title {
+          color: #67e8f9;
+          font-size: 28px;
+          margin-bottom: 20px;
+        }
+
+        .twitter-scroll-box {
+          height: 600px;
+          overflow-y: auto;
+          border-radius: 14px;
+          background: #111;
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          padding: 16px;
+        }
+
+        .twitter-link {
+          margin-top: 14px;
+        }
+
+        .twitter-link a {
+          color: #67e8f9;
           text-decoration: none;
-          box-shadow: 0 0 15px rgba(29,161,242,0.6);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .x-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 0 25px rgba(29,161,242,0.9);
-        }
-
-        /* ===== 横並び（PC） ===== */
+        /* ===== PC横並び ===== */
         @media (min-width: 768px) {
           .video-item-row {
             flex-direction: row;
