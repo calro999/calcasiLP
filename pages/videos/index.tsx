@@ -21,6 +21,14 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
+  // X(Twitter)ウィジェット読み込み
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   const renderVideo = (url: string) => {
     const ytMatch = url.match(
       /(youtu\.be\/|youtube\.com\/watch\?v=)([A-Za-z0-9_\-]+)/
@@ -30,8 +38,7 @@ export default function VideosPage() {
       return (
         <iframe
           src={`https://www.youtube.com/embed/${videoId}`}
-          // 修正点1: 枠（.player-box）全体に合わせるためのスタイルを適用
-          style={{ border: 0, width: '100%', height: '100%' }}
+          style={{ border: 0, width: "100%", height: "100%" }}
           allowFullScreen
         />
       );
@@ -42,8 +49,7 @@ export default function VideosPage() {
         src={url}
         controls
         playsInline
-        // 修正点1: 枠（.player-box）全体に合わせるためのスタイルを適用
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     );
   };
@@ -55,26 +61,20 @@ export default function VideosPage() {
       <div className="videos">
         {videos.map((video) => (
           <div key={video.id} className="video-item-row">
-
-            {/* ===== 左：動画 (70%) ===== */}
+            {/* 左：動画 */}
             <div className="video-player-area">
-              <div className="player-box">
-                {renderVideo(video.url)}
-              </div>
+              <div className="player-box">{renderVideo(video.url)}</div>
             </div>
 
-            {/* ===== 右：詳細欄 (30%) ===== */}
+            {/* 右：詳細 */}
             <div className="detail-area">
-              
-              {/* 修正点2: タイトルと詳細文を縦に並べるためのコンテナ */}
-              <div className="details-text-wrapper"> 
+              <div className="details-text-wrapper">
                 <h2 className="videoTitle">{video.title}</h2>
                 <p className="description">
                   {video.description || "説明文はありません。"}
                 </p>
               </div>
 
-              {/* ===== バナー ===== */}
               {video.bannerImage && (
                 <div className="banner-wrapper">
                   <a
@@ -95,24 +95,38 @@ export default function VideosPage() {
         ))}
       </div>
 
+      {/* ===== X(Twitter) タイムライン ===== */}
+      <div className="twitter-section">
+        <h2 className="twitter-title">最新のX投稿</h2>
+
+        <div className="twitter-wrapper">
+          <a
+            className="twitter-timeline"
+            data-theme="dark"
+            data-height="600"
+            data-chrome="noheader nofooter transparent"
+            href="https://x.com/calro_shorts"
+          >
+            Tweets by calro_shorts
+          </a>
+        </div>
+      </div>
+
       <style>{`
-        /* ページ全体 */
         .page {
           background: #000;
           min-height: 100vh;
           padding: 40px 20px;
         }
 
-        /* タイトル（中央揃えを強制） */
         .title {
-          text-align: center !important;
+          text-align: center;
           color: #67e8f9;
           font-size: 32px;
           margin-bottom: 40px;
           text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
         }
 
-        /* 動画リストコンテナ */
         .videos {
           display: flex;
           flex-direction: column;
@@ -122,15 +136,12 @@ export default function VideosPage() {
           margin: 0 auto;
         }
 
-        /* 各動画アイテムの行コンテナ */
         .video-item-row {
           display: flex;
           flex-direction: column;
           width: 100%;
           max-width: 1000px;
           gap: 30px;
-
-          /* ネオンボックススタイル */
           border: 1px solid rgba(0,255,255,0.3);
           box-shadow: 0 0 12px rgba(0,255,255,0.25);
           border-radius: 14px;
@@ -138,60 +149,42 @@ export default function VideosPage() {
           padding: 20px;
         }
 
-        /* 動画プレイヤーエリア（左側 70%） */
         .video-player-area {
-          flex: 1 1 100%;
+          flex: 1;
         }
 
-        /* 詳細エリア（右側 30%） */
         .detail-area {
-          flex: 1 1 100%;
+          flex: 1;
           display: flex;
           flex-direction: column;
-          justify-content: space-between; /* バナーを下に寄せる */
+          justify-content: space-between;
           color: #fff;
         }
 
-        /* 修正点2: 詳細エリア内のテキストコンテナ */
-        .details-text-wrapper {
-          /* ここでは特にFlexboxなどは使わず、通常の縦並びにする */
-        }
-
-        /* 動画タイトル */
         .videoTitle {
-          color: #fff;
-          margin-bottom: 12px;
-          font-size: 20px;
           color: #67e8f9;
-          display: block; /* 念のためブロック要素であることを保証 */
+          font-size: 20px;
+          margin-bottom: 12px;
         }
-        
-        /* 動画説明文 */
+
         .description {
           color: #aaa;
-          margin-bottom: 15px;
-          /* 修正点2: 横並びを解消するため、display: block; を強制 */
-          display: block;
-          /* 🌟 修正点: 改行文字(\n)を有効にする */
           white-space: pre-wrap;
         }
 
-        /* 修正点1: プレイヤーの外枠 */
         .player-box {
           width: 100%;
-          /* 動画プレイヤーに合わせるため、ここでは aspect-ratio を定義 */
-          aspect-ratio: 16/9; 
+          aspect-ratio: 16 / 9;
           background: #000;
           border-radius: 8px;
           overflow: hidden;
-          position: relative; /* 内部要素の位置決めの基準 */
         }
 
-        /* バナー */
         .banner-wrapper {
           margin-top: 15px;
           text-align: center;
         }
+
         .banner-image {
           max-height: 120px;
           max-width: 100%;
@@ -199,32 +192,40 @@ export default function VideosPage() {
           border-radius: 8px;
         }
 
+        /* ===== Twitter ===== */
+        .twitter-section {
+          max-width: 1000px;
+          margin: 120px auto 0;
+          text-align: center;
+        }
 
-        /* ===== 768px以上での横並び（7:3比率）適用 ===== */
+        .twitter-title {
+          color: #67e8f9;
+          font-size: 28px;
+          margin-bottom: 20px;
+        }
+
+        .twitter-wrapper {
+          border-radius: 14px;
+          overflow: hidden;
+          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          background: #111;
+          padding: 10px;
+        }
+
         @media (min-width: 768px) {
           .video-item-row {
             flex-direction: row;
-            padding: 30px;
           }
           .video-player-area {
             flex: 7;
           }
           .detail-area {
             flex: 3;
-            /* 画面が広い場合、詳細欄のパディングを調整して文字を見やすくする */
-            padding-left: 20px; 
+            padding-left: 20px;
           }
           .title {
             font-size: 40px;
-          }
-        }
-
-        @media (max-width: 600px) {
-          .title {
-            font-size: 26px;
-          }
-          .videoTitle {
-            font-size: 18px;
           }
         }
       `}</style>
