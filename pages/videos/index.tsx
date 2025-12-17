@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 
 interface VideoItem {
   id: number;
@@ -11,6 +13,7 @@ interface VideoItem {
 
 export default function VideosPage() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
+  const twitterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function loadVideos() {
@@ -21,19 +24,27 @@ export default function VideosPage() {
     loadVideos();
   }, []);
 
-  // ===== X(Twitter) widgets 読み込み & 再描画 =====
+  // ===== X(Twitter) 正式な再描画処理 =====
   useEffect(() => {
     const scriptId = "twitter-wjs";
+
+    const loadTimeline = () => {
+      // @ts-ignore
+      if (window.twttr && twitterRef.current) {
+        // @ts-ignore
+        window.twttr.widgets.load(twitterRef.current);
+      }
+    };
 
     if (!document.getElementById(scriptId)) {
       const script = document.createElement("script");
       script.id = scriptId;
       script.src = "https://platform.twitter.com/widgets.js";
       script.async = true;
+      script.onload = loadTimeline;
       document.body.appendChild(script);
     } else {
-      // @ts-ignore
-      window.twttr?.widgets?.load();
+      loadTimeline();
     }
   }, []);
 
@@ -69,14 +80,12 @@ export default function VideosPage() {
       <div className="videos">
         {videos.map((video) => (
           <div key={video.id} className="video-item-row">
-            {/* 左：動画 */}
             <div className="video-player-area">
               <div className="player-box">{renderVideo(video.url)}</div>
             </div>
 
-            {/* 右：詳細 */}
             <div className="detail-area">
-              <div className="details-text-wrapper">
+              <div>
                 <h2 className="videoTitle">{video.title}</h2>
                 <p className="description">
                   {video.description || "説明文はありません。"}
@@ -103,11 +112,11 @@ export default function VideosPage() {
         ))}
       </div>
 
-      {/* ===== X(Twitter) セクション ===== */}
+      {/* ===== X(Twitter) ===== */}
       <div className="twitter-section">
         <h2 className="twitter-title">最新のX投稿</h2>
 
-        <div className="twitter-scroll-box">
+        <div className="twitter-scroll-box" ref={twitterRef}>
           <a
             className="twitter-timeline"
             href="https://x.com/calro_shorts"
@@ -134,14 +143,12 @@ export default function VideosPage() {
           color: #67e8f9;
           font-size: 32px;
           margin-bottom: 40px;
-          text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
         }
 
         .videos {
           display: flex;
           flex-direction: column;
           gap: 70px;
-          align-items: center;
           max-width: 1200px;
           margin: 0 auto;
         }
@@ -149,45 +156,27 @@ export default function VideosPage() {
         .video-item-row {
           display: flex;
           flex-direction: column;
-          width: 100%;
-          max-width: 1000px;
           gap: 30px;
-          border: 1px solid rgba(0,255,255,0.3);
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
-          border-radius: 14px;
           background: #111;
+          border-radius: 14px;
           padding: 20px;
         }
 
-        .video-player-area {
-          flex: 1;
-        }
-
-        .detail-area {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          color: #fff;
+        .player-box {
+          aspect-ratio: 16 / 9;
+          background: #000;
+          border-radius: 8px;
+          overflow: hidden;
         }
 
         .videoTitle {
           color: #67e8f9;
-          font-size: 20px;
-          margin-bottom: 12px;
+          margin-bottom: 10px;
         }
 
         .description {
           color: #aaa;
           white-space: pre-wrap;
-        }
-
-        .player-box {
-          width: 100%;
-          aspect-ratio: 16 / 9;
-          background: #000;
-          border-radius: 8px;
-          overflow: hidden;
         }
 
         .banner-wrapper {
@@ -196,13 +185,11 @@ export default function VideosPage() {
         }
 
         .banner-image {
-          max-height: 120px;
           max-width: 100%;
-          object-fit: contain;
+          max-height: 120px;
           border-radius: 8px;
         }
 
-        /* ===== X(Twitter) ===== */
         .twitter-section {
           max-width: 1000px;
           margin: 120px auto 0;
@@ -215,17 +202,14 @@ export default function VideosPage() {
           margin-bottom: 20px;
         }
 
-        /* 🔥 投稿をスクロールさせる箱 */
         .twitter-scroll-box {
           height: 600px;
           overflow-y: auto;
-          border-radius: 14px;
           background: #111;
-          box-shadow: 0 0 12px rgba(0,255,255,0.25);
+          border-radius: 14px;
           padding: 10px;
         }
 
-        /* iframe の高さ保証 */
         .twitter-scroll-box iframe {
           min-height: 600px;
         }
@@ -233,16 +217,6 @@ export default function VideosPage() {
         @media (min-width: 768px) {
           .video-item-row {
             flex-direction: row;
-          }
-          .video-player-area {
-            flex: 7;
-          }
-          .detail-area {
-            flex: 3;
-            padding-left: 20px;
-          }
-          .title {
-            font-size: 40px;
           }
         }
       `}</style>
