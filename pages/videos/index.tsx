@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 interface VideoItem {
   id: number;
@@ -48,6 +49,21 @@ export default function VideosPage() {
 
   return (
     <div className="page">
+      <Head>
+        <title>【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック</title>
+        <meta
+          name="description"
+          content="最新のカジノ動画をまとめた動画ギャラリーです。1xBetやワンダーカジノ、デュエルビッツなどのプレイ動画や攻略情報を日本語で分かりやすく紹介しています。"
+        />
+        <meta name="keywords" content="カジノ動画, 1xBet, ワンダーカジノ, デュエルビッツ, オンラインカジノ, 日本語解説" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック" />
+        <meta property="og:description" content="最新のカジノ動画をまとめた動画ギャラリーです。1xBetやワンダーカジノ、デュエルビッツなどのプレイ動画や攻略情報を日本語で分かりやすく紹介しています。" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://calcasi-lp.vercel.app/videos" />
+        <meta property="og:image" content="/images/videos-og-image.jpg" />
+      </Head>
+
       <h1 className="title">動画ギャラリー</h1>
 
       {/* ===== 動画 ===== */}
@@ -55,9 +71,7 @@ export default function VideosPage() {
         {videos.map((video) => (
           <div key={video.id} className="video-item-row">
             <div className="video-player-area">
-              <div className="player-box">
-                {renderVideo(video.url)}
-              </div>
+              <div className="player-box">{renderVideo(video.url)}</div>
             </div>
 
             <div className="detail-area">
@@ -175,8 +189,9 @@ export default function VideosPage() {
           text-align: center;
         }
 
+        /* ★ バナーサイズを5〜10%大型化 */
         .banner-image {
-          max-height: 120px;
+          max-height: 132px; /* 元120pxの10%増し */
           border-radius: 8px;
         }
 
