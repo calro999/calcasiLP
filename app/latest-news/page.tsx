@@ -3,6 +3,19 @@ import fs from "fs/promises";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next"; // メタデータ型を追加
+
+// メタデータの追加
+export const metadata: Metadata = {
+  title: "最新オンラインカジノニュース・お得なボーナス情報一覧",
+  description: "2025年最新のオンラインカジノ入金不要ボーナス、新着カジノレビュー、攻略法など、プレイヤーに役立つ最新情報を随時更新中。",
+  openGraph: {
+    title: "最新オンラインカジノニュース一覧 | 2025年最新版",
+    description: "お得な入金不要ボーナスや最新カジノのリリース情報をチェック！",
+    url: "https://calcasi-lp.vercel.app/latest-news",
+    type: "website",
+  },
+};
 
 interface Article {
   id: number;
@@ -30,7 +43,8 @@ async function getLocalArticles(): Promise<Article[]> {
           return JSON.parse(data);
         })
     );
-    return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    // ★ ここを修正：日付ではなく、IDの降順（大きい順）でソート
+    return articles.sort((a, b) => b.id - a.id);
   } catch {
     return [];
   }
@@ -45,7 +59,7 @@ export default async function LatestNewsPage() {
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
 
-          {/* 検索バーとカテゴリフィルター */}
+          {/* カテゴリフィルター（重複削除して表示） */}
           <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4">
             <input
               type="text"
@@ -61,14 +75,14 @@ export default async function LatestNewsPage() {
             </div>
           </div>
 
-          {/* 記事グリッド */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <Link href={`/article/${article.id}`} key={article.id} className="block">
                 <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
                   <div className="relative aspect-[16/9]">
+                    {/* 画像のプレースホルダー対応 */}
                     <Image
-                      src={article.image}
+                      src={article.image || "/default-og.jpg"}
                       alt={article.title}
                       fill
                       className="object-cover"
@@ -81,10 +95,10 @@ export default async function LatestNewsPage() {
                     <h3 className="text-xl font-bold text-white mb-3 flex-grow">
                       {article.title}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3">{article.excerpt}</p>
+                    <p className="text-gray-300 text-sm mb-4 line-clamp-3">{article.excerpt}</p>
                     <div className="flex justify-between items-center text-gray-500 text-sm mt-auto">
                       <span>公開日: {article.date}</span>
-                      <span>読了時間: {article.readTime}</span>
+                      <span>読了: {article.readTime}</span>
                     </div>
                   </div>
                 </div>
