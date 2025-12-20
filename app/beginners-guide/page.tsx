@@ -1,10 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Metadata } from "next" // 追加
+import { Metadata } from "next"
 import { BookOpen, CheckCircle, HelpCircle, AlertTriangle, ArrowRight } from "lucide-react"
 import ScrollAnimation from "@/components/animations/scroll-animation"
 import Shimmer from "@/components/animations/shimmer"
 import Particles from "@/components/animations/particles"
+
+// ★ キャッシュを強制的に排除し、常に最新の状態でサーバーがHTMLを生成する設定
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // ★ メタデータ（タブタイトルと説明文）を追加
 export const metadata: Metadata = {
@@ -20,7 +24,7 @@ export default function BeginnersGuide() {
       description:
         "オンラインカジノの基本的な仕組みや、実際のカジノとの違いについて解説します。初心者が知っておくべき基礎知識を紹介します。",
       icon: <BookOpen className="w-10 h-10 text-amber-400" />,
-      image: "/slot.png?height=400&width=600",
+      image: "/slot.png",
       href: "/beginners-guide/basics", 
     },
     {
@@ -29,7 +33,7 @@ export default function BeginnersGuide() {
       description:
         "信頼できるオンラインカジノを見分けるポイントや、ライセンスの重要性について解説します。安全にプレイするための選び方を紹介します。",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
-      image: "/tate.png?height=400&width=600",
+      image: "/tate.png",
       href: "/beginners-guide/safety", 
     },
     {
@@ -38,7 +42,7 @@ export default function BeginnersGuide() {
       description:
         "オンラインカジノのアカウント登録方法や、入金・出金の手順について詳しく解説します。初めての方でも安心して始められます。",
       icon: <HelpCircle className="w-10 h-10 text-amber-400" />,
-      image: "/touroku.png?height=400&width=600",
+      image: "/touroku.png",
       href: "/beginners-guide/registration", 
     },
     {
@@ -47,7 +51,7 @@ export default function BeginnersGuide() {
       description:
         "各種ボーナスの種類や効果的な活用方法、出金条件などの注意点について解説します。お得にプレイするためのコツを紹介します。",
       icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
-      image: "/kin.png?height=400&width=600",
+      image: "/kin.png",
       href: "/beginners-guide/bonuses", 
     },
   ]
@@ -81,7 +85,7 @@ export default function BeginnersGuide() {
   ]
 
   return (
-    <main className="pt-20 pb-20 bg-black">
+    <main className="pt-20 pb-20 bg-black min-h-screen">
       {/* ヒーローセクション */}
       <div className="relative overflow-hidden py-20 bg-gradient-to-b from-black to-gray-900">
         <Particles className="absolute inset-0" count={100} color="rgba(255, 215, 0, 0.3)" />
@@ -111,7 +115,7 @@ export default function BeginnersGuide() {
                     <div className="grid grid-cols-1 md:grid-cols-3 h-full">
                       <div className="relative md:col-span-1 min-h-[200px] md:min-h-full">
                         <Image
-                          src={guide.image || "/placeholder.svg"}
+                          src={guide.image}
                           alt={guide.title}
                           fill
                           className="object-cover h-full"
