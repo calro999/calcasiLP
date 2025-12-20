@@ -19,7 +19,7 @@ interface StrategyData {
   metaTitle?: string;
   metaDescription?: string;
   ogImage?: string;
-  ogUrl?: string;
+  ogUrl?: string; // ← ここに設定したURLがSNSのリンク先になります
 }
 
 interface ParamsProps {
@@ -29,8 +29,8 @@ interface ParamsProps {
 }
 
 /**
- * 動的メタデータの生成
- * JSON内のOGP/SEOデータを優先的に使用し、SNS共有を最適化します
+ * 動적メタデータの生成
+ * JSONに記述された ogUrl をSNS共有時のリンク先として優先的に使用します
  */
 export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
   const { id } = params;
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
     const fileContents = await fs.readFile(filePath, "utf-8");
     const strategy: StrategyData = JSON.parse(fileContents);
     
-    // JSONにogUrlがない場合のフォールバックURL
+    // JSONに ogUrl が設定されていればそれを使い、なければ標準のURLを生成
     const finalUrl = strategy.ogUrl || `https://calcasi.com/strategies/${id}`;
 
     return {
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
         description: strategy.excerpt,
         images: [strategy.ogImage || strategy.image],
         type: "article",
-        url: finalUrl,
+        url: finalUrl, // ✅ ここで ogUrl を指定することでSNSリンク先が変わります
       },
       twitter: {
         card: "summary_large_image",
@@ -91,7 +91,7 @@ export default async function StrategyDetailPage({ params }: ParamsProps) {
           />
         </div>
 
-        {/* 記事情報 */}
+        {/* 記事タイトルエリア */}
         <div className="space-y-4">
           <div className="flex items-center">
              <span className="px-3 py-1 bg-amber-500 text-black text-xs font-black rounded-md">
@@ -109,14 +109,14 @@ export default async function StrategyDetailPage({ params }: ParamsProps) {
           </div>
         </div>
 
-        {/* 要約 */}
+        {/* リード文 */}
         <div className="bg-gray-900/40 p-6 rounded-xl border-l-4 border-amber-500">
           <p className="text-lg text-gray-200 leading-relaxed italic">
             {strategy.excerpt}
           </p>
         </div>
 
-        {/* 本文 (Tailwind Typography) */}
+        {/* 記事本文 */}
         <article
           className="prose prose-invert max-w-none 
                      prose-h2:text-amber-300 prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-amber-500/20 prose-h2:pb-2
@@ -130,7 +130,7 @@ export default async function StrategyDetailPage({ params }: ParamsProps) {
         />
       </div>
 
-      {/* ✅ ダイスゲーム連携：JSONの includeDiceGame: true の時のみ表示 */}
+      {/* ダイスゲーム (includeDiceGame: true の時のみ) */}
       {strategy.includeDiceGame && (
         <div className="mt-20 border-t border-gray-800 pt-16 max-w-[1400px] mx-auto px-4">
           <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-3xl border border-amber-500/20">
