@@ -12,14 +12,13 @@ export const metadata: Metadata = {
 
 interface Article {
   id: number;
-  slug?: string; // slugを追加
   title: string;
   excerpt: string;
   image: string;
   category: string;
   date: string;
   readTime: string;
-  author: string;
+  ogUrl?: string; // JSON内のogUrlを使用
 }
 
 async function getLocalArticles(): Promise<Article[]> {
@@ -33,12 +32,9 @@ async function getLocalArticles(): Promise<Article[]> {
         .filter((f) => f.endsWith(".json"))
         .map(async (file) => {
           const data = await fs.readFile(path.join(dir, file), "utf8");
-          const json = JSON.parse(data);
-          // ファイル名（拡張子抜き）をslugとして利用する、またはJSON内のslugを優先
-          return { ...json, slug: json.slug || file.replace(".json", "") };
+          return JSON.parse(data);
         })
     );
-    
     return articles.sort((a, b) => Number(b.id) - Number(a.id));
   } catch (error) {
     console.error("記事の取得に失敗しました:", error);
@@ -56,34 +52,42 @@ export default async function LatestNewsPage() {
           <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              /* ★修正箇所：IDではなくslug（またはファイル名）をリンクに使う */
-              <Link href={`/article/${article.slug || article.id}`} key={article.id} className="group">
-                <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    <Image
-                      src={article.image || "/default-og.jpg"}
-                      alt={article.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <span className="inline-block px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase rounded mb-3 self-start">
-                      {article.category}
-                    </span>
-                    <h3 className="text-xl font-bold text-white mb-3 flex-grow group-hover:text-amber-300 transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
-                    <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
-                      <span>公開日: {article.date}</span>
-                      <span>{article.readTime}</span>
+            {articles.map((article) => {
+              // ★ ここが重要：ogUrlの末尾を抽出。
+              // 例: ".../article/golden-panda" なら "golden-panda" になる。
+              // もし ogUrl が ".../article/13" なら "13" になる。
+              const urlSlug = article.ogUrl 
+                ? article.ogUrl.split('/').pop() 
+                : article.id.toString();
+
+              return (
+                <Link href={`/article/${urlSlug}`} key={article.id} className="group">
+                  <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      <Image
+                        src={article.image || "/default-og.jpg"}
+                        alt={article.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-6 flex flex-col flex-grow">
+                      <span className="inline-block px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase rounded mb-3 self-start">
+                        {article.category}
+                      </span>
+                      <h3 className="text-xl font-bold text-white mb-3 flex-grow group-hover:text-amber-300 transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
+                      <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
+                        <span>公開日: {article.date}</span>
+                        <span>{article.readTime}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
