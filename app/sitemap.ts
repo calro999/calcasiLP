@@ -5,7 +5,7 @@ import path from 'path'
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 function getSitemapEntries(folderPath: string, routePrefix: string) {
-  // contents フォルダの絶対パスを取得
+  // process.cwd() を使い、確実に contents フォルダを指す
   const fullPath = path.join(process.cwd(), 'contents', folderPath)
   
   if (!fs.existsSync(fullPath)) {
@@ -19,27 +19,29 @@ function getSitemapEntries(folderPath: string, routePrefix: string) {
     const filePath = path.join(fullPath, file)
     const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     
-    // 【修正ポイント】
-    // ogUrlから取るのではなく、URLの末尾（スラッグ）を明示的に指定、
-    // もしくはファイル名やIDから生成するように統一する
-    let slug = ""
-    if (content.ogUrl) {
-      // 例: "https://.../article/stake" -> "stake"
-      slug = content.ogUrl.split('/').pop() || content.id.toString()
-    } else {
-      slug = content.id.toString()
-    }
+    // 【スラッグ解決】ogUrlの末尾を文字列スラッグとして使用
+    const slug = content.ogUrl 
+      ? content.ogUrl.split('/').filter(Boolean).pop().toLowerCase() 
+      : content.id.toString()
 
-    return {
+    const entry: any = {
       url: `${BASE_URL}/${routePrefix}/${slug}`,
       lastModified: new Date(content.date || "2025-12-20"),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8
+      changeFrequency: 'weekly',
+      priority: 0.8,
     }
+
+    // 【画像追加】Googleのサイトマップ拡張形式に対応
+    if (content.image) {
+      entry.images = [`${BASE_URL}${content.image}`]
+    }
+
+    return entry
   })
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // 'articles/ja' のように階層が深くても、フルパスで取得
   const strategyEntries = getSitemapEntries('strategies', 'strategies')
   const articleEntries = getSitemapEntries('articles/ja', 'article')
 
