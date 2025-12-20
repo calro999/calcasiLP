@@ -94,10 +94,18 @@ export default function VideosPage() {
           <h2 className="twitter-title">最新のX投稿</h2>
           <div className="twitter-scroll-box">
             <div className="tweet-center">
-              <iframe src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668" loading="lazy" />
+              <iframe
+                src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
+                loading="lazy"
+                className="x-iframe"
+              />
             </div>
             <div className="tweet-center">
-              <iframe src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056" loading="lazy" />
+              <iframe
+                src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
+                loading="lazy"
+                className="x-iframe"
+              />
             </div>
           </div>
           <a href="https://x.com/calro_shorts" target="_blank" rel="noopener noreferrer" className="twitter-button">
@@ -109,67 +117,99 @@ export default function VideosPage() {
       <Footer />
 
       <style dangerouslySetInnerHTML={{ __html: `
-        /* --- ヘッダー・レイアウトの強制補正 --- */
-        header {
-          display: block !important;
-          width: 100% !important;
+        /* --- ページ全体のベース --- */
+        .page-root {
+          background-color: #000 !important;
+          min-height: 100vh;
+          color: #fff;
+          font-family: sans-serif;
         }
-        
-        /* 共通Headerコンポーネント内のコンテナを強制的に横並びにする */
+
+        /* --- ヘッダー強制修正 --- */
+        header {
+          background-color: rgba(0, 0, 0, 0.95) !important;
+          backdrop-filter: blur(8px) !important;
+          border-bottom: 1px solid rgba(255, 215, 0, 0.2) !important;
+          position: fixed !important;
+          top: 0; left: 0; right: 0; z-index: 100;
+          height: auto !important;
+          padding: 12px 0 !important;
+        }
         header .container {
           display: flex !important;
           justify-content: space-between !important;
           align-items: center !important;
           max-width: 1200px !important;
           margin: 0 auto !important;
-          padding: 10px 20px !important;
+          padding: 0 20px !important;
         }
-
         header nav {
           display: flex !important;
-          gap: 20px !important;
+          align-items: center !important;
+          gap: 24px !important;
+        }
+        header a {
+          color: #fff !important;
+          text-decoration: none !important;
+          font-size: 15px !important;
         }
 
-        /* モバイルメニューボタンの調整 */
-        header button {
-          display: none !important; /* デスクトップでは隠す */
+        /* --- フッター強制修正 --- */
+        footer {
+          background-color: #0a0a0a !important;
+          padding: 60px 20px !important;
+          border-top: 1px solid #1e293b !important;
+          margin-top: 100px !important;
         }
-        @media (max-width: 768px) {
-          header nav { display: none !important; }
-          header button { display: block !important; }
+        footer .container {
+          display: flex !important;
+          flex-direction: row !important;
+          flex-wrap: wrap !important;
+          justify-content: space-between !important;
+          max-width: 1200px !important;
+          margin: 0 auto !important;
+          gap: 40px !important;
+        }
+        footer .container > div {
+          flex: 1 !important;
+          min-width: 200px !important;
+        }
+        footer h3, footer h4 {
+          color: #fbbf24 !important;
+          margin-bottom: 20px !important;
+        }
+        footer ul {
+          list-style: none !important;
+          padding: 0 !important;
+        }
+        footer li {
+          margin-bottom: 10px !important;
+        }
+        footer a {
+          color: #94a3b8 !important;
+          text-decoration: none !important;
         }
 
-        /* --- ページ全体のスタイル --- */
-        .page-root {
-          background: #000;
-          min-height: 100vh;
-          font-family: 'Inter', sans-serif;
-          color: #fff;
-        }
-
+        /* --- メインコンテンツ --- */
         .content-area {
           padding: 140px 20px 80px;
           max-width: 1300px;
           margin: 0 auto;
         }
-
         .title {
           text-align: center;
           color: #67e8f9;
-          font-size: 36px;
+          font-size: clamp(24px, 5vw, 36px);
           margin-bottom: 60px;
           text-shadow: 0 0 12px #00eaff;
           font-weight: 900;
         }
 
         .videos {
-          max-width: 1200px;
-          margin: 0 auto;
           display: flex;
           flex-direction: column;
           gap: 70px;
         }
-
         .video-item-row {
           display: flex;
           flex-direction: column;
@@ -178,9 +218,7 @@ export default function VideosPage() {
           border-radius: 14px;
           background: #111;
           border: 1px solid rgba(0, 255, 255, 0.3);
-          box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
         }
-
         .player-box {
           width: 100%;
           aspect-ratio: 16 / 9;
@@ -188,41 +226,26 @@ export default function VideosPage() {
           border-radius: 10px;
           overflow: hidden;
         }
+        .videoTitle { color: #67e8f9; font-size: 22px; margin-bottom: 12px; }
+        .description { color: #cbd5e1; line-height: 1.6; font-size: 14px; }
+        .banner-image { max-height: 132px; border-radius: 8px; }
 
-        .videoTitle {
-          color: #67e8f9;
-          font-size: 22px;
-          margin-bottom: 12px;
-          font-weight: bold;
-        }
-
-        .description {
-          color: #cbd5e1;
-          white-space: pre-wrap;
-          line-height: 1.6;
-        }
-
-        .banner-image {
-          max-height: 132px;
-          border-radius: 8px;
-        }
-
-        /* X セクション */
-        .twitter-section {
-          max-width: 1000px;
-          margin: 120px auto 0;
-          text-align: center;
-        }
-
+        /* --- X(Twitter)修正 --- */
+        .twitter-section { margin: 120px auto 0; text-align: center; }
         .twitter-scroll-box {
           height: 800px;
           overflow-y: auto;
           background: #0a0a0a;
           border-radius: 16px;
           padding: 32px 0;
-          border: 1px solid rgba(103, 232, 249, 0.2);
+          border: 1px solid rgba(103,232,249,0.2);
         }
-
+        .x-iframe {
+          width: 550px !important; /* Xの標準サイズに固定 */
+          height: 800px !important;
+          max-width: 100% !important;
+          border: none !important;
+        }
         .twitter-button {
           display: inline-block;
           margin-top: 35px;
@@ -230,14 +253,19 @@ export default function VideosPage() {
           background: #67e8f9;
           border-radius: 999px;
           color: #000;
-          text-decoration: none;
           font-weight: bold;
+          text-decoration: none;
         }
 
+        /* --- レスポンシブ --- */
         @media (min-width: 768px) {
           .video-item-row { flex-direction: row; }
           .video-player-area { flex: 7; }
-          .detail-area { flex: 3; padding-left: 20px; }
+          .detail-area { flex: 3; padding-left: 20px; text-align: left; }
+        }
+        @media (max-width: 768px) {
+          header nav { display: none !important; }
+          footer .container { flex-direction: column !important; text-align: center !important; }
         }
       `}} />
     </div>
