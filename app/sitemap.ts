@@ -5,9 +5,13 @@ import path from 'path'
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 function getSitemapEntries(folderPath: string, routePrefix: string) {
+  // contents フォルダの絶対パスを取得
   const fullPath = path.join(process.cwd(), 'contents', folderPath)
   
-  if (!fs.existsSync(fullPath)) return []
+  if (!fs.existsSync(fullPath)) {
+    console.warn(`Directory not found: ${fullPath}`)
+    return []
+  }
 
   const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.json'))
   
@@ -15,14 +19,20 @@ function getSitemapEntries(folderPath: string, routePrefix: string) {
     const filePath = path.join(fullPath, file)
     const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     
-    // スラッグを抽出
-    const slug = content.ogUrl 
-      ? content.ogUrl.split('/').pop().toLowerCase() 
-      : content.id.toString()
+    // 【修正ポイント】
+    // ogUrlから取るのではなく、URLの末尾（スラッグ）を明示的に指定、
+    // もしくはファイル名やIDから生成するように統一する
+    let slug = ""
+    if (content.ogUrl) {
+      // 例: "https://.../article/stake" -> "stake"
+      slug = content.ogUrl.split('/').pop() || content.id.toString()
+    } else {
+      slug = content.id.toString()
+    }
 
     return {
       url: `${BASE_URL}/${routePrefix}/${slug}`,
-      lastModified: new Date("2025-12-20"),
+      lastModified: new Date(content.date || "2025-12-20"),
       changeFrequency: 'weekly' as const,
       priority: 0.8
     }
@@ -30,17 +40,21 @@ function getSitemapEntries(folderPath: string, routePrefix: string) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 1. 各フォルダを走査
   const strategyEntries = getSitemapEntries('strategies', 'strategies')
   const articleEntries = getSitemapEntries('articles/ja', 'article')
 
-  // 2. 固定ページ
-  const staticPages = [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
       lastModified: new Date("2025-12-20"),
-      changeFrequency: 'daily' as const,
+      changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${BASE_URL}/latest-news`,
+      lastModified: new Date("2025-12-20"),
+      changeFrequency: 'daily',
+      priority: 0.9,
     }
   ]
 
