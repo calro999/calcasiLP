@@ -5,14 +5,26 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
-// ✅ SpeedInsights をインポート
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "calcasiどっとこむ",
-  description: "オンラインカジノに関する最新情報を提供します。",
+  // titleオブジェクトを使うことで、各ページで「記事タイトル | カジノ比較ならCalcasi！」と自動表示されます
+  title: {
+    default: "カジノ比較ならCalcasi！",
+    template: "%s | カジノ比較ならCalcasi！",
+  },
+  description: "人気オンラインカジノのランキング・ゲーム紹介・初心者ガイドを提供するカジノ比較サイトです。",
+  // Googleにサイト名を直接伝える設定
+  openGraph: {
+    siteName: "カジノ比較ならCalcasi！",
+    locale: "ja_JP",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://calcasi-lp.vercel.app/",
+  },
 };
 
 export default function RootLayout({
@@ -44,7 +56,6 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
-        {/* ✅ SpeedInsights コンポーネントを追加 */}
         <SpeedInsights />
       </body>
     </html>
