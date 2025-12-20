@@ -5,6 +5,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+// ✅ SpeedInsights をインポート
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +44,8 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        {/* ✅ SpeedInsights コンポーネントを追加 */}
+        <SpeedInsights />
       </body>
     </html>
   );
