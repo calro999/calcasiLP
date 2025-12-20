@@ -11,11 +11,15 @@ export type Strategy = {
   readTime: string;
   author: string;
   content: string;
-  slug?: string; // ← 追加
+  slug?: string;
+  ogUrl?: string; // 追加
 };
 
 export function getAllStrategies(): Strategy[] {
   const strategiesDir = path.join(process.cwd(), "contents", "strategies");
+  
+  if (!fs.existsSync(strategiesDir)) return [];
+
   const fileNames = fs.readdirSync(strategiesDir);
 
   const strategies: Strategy[] = fileNames
@@ -24,21 +28,39 @@ export function getAllStrategies(): Strategy[] {
       const filePath = path.join(strategiesDir, file);
       const fileContents = fs.readFileSync(filePath, "utf-8");
       const strategy: Strategy = JSON.parse(fileContents);
-      const id = path.parse(file).name; // ファイル名から ID を取得
+      
+      // ogUrlの末尾をスラッグとして使用。なければファイル名(ID)
+      const urlPart = strategy.ogUrl 
+        ? strategy.ogUrl.split('/').filter(Boolean).pop() 
+        : path.parse(file).name;
+
       return {
         ...strategy,
-        slug: `/strategies/${id}`,
+        slug: `/strategies/${urlPart}`,
       };
     });
 
-  return strategies;
+  // 日付の降順でソート（必要であれば）
+  return strategies.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getStrategyById(id: string): Strategy | null {
-  const filePath = path.join(process.cwd(), "contents", "strategies", `${id}.json`);
-  if (!fs.existsSync(filePath)) return null;
+export function getStrategyById(idOrSlug: string): Strategy | null {
+  const strategiesDir = path.join(process.cwd(), "contents", "strategies");
+  
+  // 1. まずはID（ファイル名）で直接探す
+  const directPath = path.join(strategiesDir, `${idOrSlug}.json`);
+  if (fs.existsSync(directPath)) {
+    return JSON.parse(fs.readFileSync(directPath, "utf-8"));
+  }
 
-  const fileContents = fs.readFileSync(filePath, "utf-8");
-  const strategy: Strategy = JSON.parse(fileContents);
-  return strategy;
+  // 2. 見つからない場合は全ファイルを走査してogUrlのスラッグと一致するものを探す
+  const fileNames = fs.readdirSync(strategiesDir).filter(f => f.endsWith('.json'));
+  for (const file of fileNames) {
+    const strategy: Strategy = JSON.parse(fs.readFileSync(path.join(strategiesDir, file), "utf-8"));
+    if (strategy.ogUrl && strategy.ogUrl.split('/').filter(Boolean).pop() === idOrSlug) {
+      return strategy;
+    }
+  }
+
+  return null;
 }
