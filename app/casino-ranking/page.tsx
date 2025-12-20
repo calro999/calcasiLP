@@ -8,6 +8,9 @@ import { motion } from "framer-motion";
 import { Star, ExternalLink, Crown, Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const containerVariants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
@@ -20,15 +23,25 @@ const itemVariants = {
 
 export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "en" } }) {
   const [casinos, setCasinos] = useState<Casino[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const lang = params.lang || "ja";
 
   useEffect(() => {
     async function loadCasinos() {
-      const data = await getAllCasinos(lang);
-      setCasinos(data);
+      setIsLoading(true);
+      try {
+        const data = await getAllCasinos(lang);
+        setCasinos(data);
+      } catch (error) {
+        console.error("Failed to load casinos:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
     loadCasinos();
   }, [lang]);
+
+  if (isLoading) return <div className="min-h-screen bg-black" />;
 
   return (
     <main className="pt-20 pb-20 bg-black min-h-screen">
@@ -46,11 +59,12 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
           {casinos.map((casino, index) => {
             const rank = index + 1;
 
-            // ★ 星評価の新ロジック
-            // 1位: 5.0 / 2位: 4.5 / 3位: 4.0 / 4位以降: 4.0で固定
+            // ★ 新しい評価ロジック
+            // 1位: 5.0 / 2位: 4.5 / 3位: 4.3 / 4位以降: 4.0 固定
             let rating = 4.0;
             if (rank === 1) rating = 5.0;
             else if (rank === 2) rating = 4.5;
+            else if (rank === 3) rating = 4.3;
             else rating = 4.0;
             
             return (
@@ -69,21 +83,22 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                   </div>
 
                   {/* ロゴバナー */}
-                  <div className="relative flex-shrink-0 w-48 h-28 rounded-lg overflow-hidden border border-gray-600 shadow-md">
+                  <div className="relative flex-shrink-0 w-48 h-28 rounded-lg overflow-hidden border border-gray-600 shadow-md bg-gray-900">
                     <Image src={casino.banner} alt={casino.name} fill className="object-cover" />
                   </div>
 
                   {/* 情報エリア */}
                   <div className="flex-1 flex flex-col justify-center">
                     <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-2">
-                      <h2 className="text-2xl font-bold text-white leading-none">{casino.name}</h2>
+                      <h2 className="text-2xl font-bold text-white leading-tight">{casino.name}</h2>
                       
-                      {/* 星評価の描画 */}
+                      {/* 星評価の精密描画 */}
                       <div className="flex items-center">
                         <div className="flex text-amber-400 mr-2">
                           {[1, 2, 3, 4, 5].map((starIdx) => {
                             const isFull = starIdx <= Math.floor(rating);
-                            const isHalf = !isFull && starIdx <= Math.ceil(rating);
+                            const decimal = rating % 1;
+                            const isPartial = !isFull && starIdx === Math.ceil(rating);
                             
                             return (
                               <div key={starIdx} className="relative">
@@ -91,8 +106,11 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                                 {isFull && (
                                   <Star size={16} className="absolute top-0 left-0 text-amber-400" fill="currentColor" />
                                 )}
-                                {isHalf && (
-                                  <div className="absolute top-0 left-0 w-1/2 overflow-hidden text-amber-400">
+                                {isPartial && (
+                                  <div 
+                                    className="absolute top-0 left-0 overflow-hidden text-amber-400" 
+                                    style={{ width: `${decimal * 100}%` }}
+                                  >
                                     <Star size={16} fill="currentColor" />
                                   </div>
                                 )}
@@ -100,7 +118,7 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                             );
                           })}
                         </div>
-                        <span className="text-amber-400 font-bold text-sm">{rating.toFixed(1)}</span>
+                        <span className="text-amber-400 font-bold text-sm leading-none">{rating.toFixed(1)}</span>
                       </div>
                     </div>
 
@@ -113,7 +131,7 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                         </span>
                         <div className="flex items-center text-gray-500 text-[11px]">
                           <ExternalLink size={12} className="ml-1" />
-                          <span className="ml-1">詳細レビュー</span>
+                          <span className="ml-1">レビュー</span>
                         </div>
                       </div>
                     )}
