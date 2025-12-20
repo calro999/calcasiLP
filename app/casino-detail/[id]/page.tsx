@@ -4,7 +4,6 @@ import { Metadata } from "next"
 import { ArrowLeft, Star, ExternalLink } from "lucide-react"
 import { casinoData, Casino } from "@/lib/casinoData"
 
-// 公開サイトでのキャッシュを完全に無効化するための設定
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
@@ -13,8 +12,15 @@ interface Props {
   params: { id: string };
 }
 
+// ヘルパー関数：IDまたはSlugでカジノを特定する
+const findCasino = (idOrSlug: string) => {
+  return casinoData.find((c: Casino) => 
+    c.id === idOrSlug || (c as any).slug === idOrSlug
+  );
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const casino = casinoData.find((c: Casino) => c.id === params.id);
+  const casino = findCasino(params.id);
   if (!casino) return { title: "カジノが見つかりません" };
 
   return {
@@ -27,8 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function CasinoDetail({ params }: Props) {
-  // データを取得
-  const casino = casinoData.find((c: Casino) => c.id === params.id);
+  const casino = findCasino(params.id);
 
   if (!casino) {
     return (
@@ -44,8 +49,6 @@ export default function CasinoDetail({ params }: Props) {
     );
   }
 
-  // ★ 非常に重要：casinoオブジェクト自体が持っている rating を直接変数に入れる
-  // 外部関数やif文での計算を通さないことで、データの不一致を防ぎます。
   const currentRating = casino.rating;
 
   return (
@@ -57,7 +60,6 @@ export default function CasinoDetail({ params }: Props) {
         </Link>
 
         <div className="flex flex-col md:flex-row gap-12">
-          {/* 左カラム */}
           <div className="md:w-1/3">
             <div className="bg-white rounded-2xl p-8 flex items-center justify-center shadow-2xl border border-gray-800">
               <Image 
@@ -104,28 +106,21 @@ export default function CasinoDetail({ params }: Props) {
             </div>
           </div>
 
-          {/* 右カラム */}
           <div className="md:w-2/3">
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold text-amber-300 mb-4 border-l-4 border-amber-500 pl-4">カジノ概要</h2>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                {casino.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mb-8">
-                {casino.features.map((feature, i) => (
-                  <span key={i} className="bg-gray-800 text-amber-200 px-3 py-1 rounded-full text-sm border border-gray-700">
-                    #{feature}
-                  </span>
-                ))}
-              </div>
+            <h2 className="text-2xl font-bold text-amber-300 mb-4 border-l-4 border-amber-500 pl-4">カジノ概要</h2>
+            <p className="text-gray-300 text-lg leading-relaxed mb-6">
+              {casino.description}
+            </p>
+            
+            <div className="flex flex-wrap gap-2 mb-8">
+              {casino.features.map((feature, i) => (
+                <span key={i} className="bg-gray-800 text-amber-200 px-3 py-1 rounded-full text-sm border border-gray-700">
+                  #{feature}
+                </span>
+              ))}
             </div>
 
-            <div className="bg-gradient-to-br from-amber-500/20 to-yellow-600/5 border border-amber-500/30 p-8 rounded-2xl mb-10 shadow-xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <ExternalLink size={80} />
-              </div>
-              <div className="text-amber-500 text-xs font-black uppercase tracking-[0.2em] mb-2">Exclusive Bonus Offer</div>
+            <div className="bg-gradient-to-br from-amber-500/20 to-yellow-600/5 border border-amber-500/30 p-8 rounded-2xl mb-10 shadow-xl">
               <div className="text-2xl md:text-3xl font-black text-white relative z-10">
                 🎁 {casino.bonus}
               </div>

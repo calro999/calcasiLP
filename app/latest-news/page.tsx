@@ -5,20 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
 
-// ニュース一覧ページ自体のメタ情報
 export const metadata: Metadata = {
   title: "最新オンラインカジノニュース一覧｜2025年最新情報",
-  description: "新着カジノの入金不要ボーナスや、2025年最新の攻略ニュースをID順（最新順）に掲載。プレイヤーに役立つ情報をいち早くお届けします。",
-  openGraph: {
-    title: "最新オンラインカジノニュース・ボーナス情報一覧",
-    description: "新着カジノレビューからお得なキャンペーン情報まで、最新記事をチェック。",
-    url: "https://calcasi-lp.vercel.app/latest-news",
-    type: "website",
-  },
+  description: "新着カジノの入金不要ボーナスや、2025年最新の攻略ニュースを掲載。プレイヤーに役立つ情報をいち早くお届けします。",
 };
 
 interface Article {
   id: number;
+  slug?: string; // slugを追加
   title: string;
   excerpt: string;
   image: string;
@@ -26,7 +20,6 @@ interface Article {
   date: string;
   readTime: string;
   author: string;
-  content?: string;
 }
 
 async function getLocalArticles(): Promise<Article[]> {
@@ -40,14 +33,13 @@ async function getLocalArticles(): Promise<Article[]> {
         .filter((f) => f.endsWith(".json"))
         .map(async (file) => {
           const data = await fs.readFile(path.join(dir, file), "utf8");
-          return JSON.parse(data);
+          const json = JSON.parse(data);
+          // ファイル名（拡張子抜き）をslugとして利用する、またはJSON内のslugを優先
+          return { ...json, slug: json.slug || file.replace(".json", "") };
         })
     );
     
-    // 【重要修正】日付を無視し、IDの数値で降順（大きい順）にソート
-    // これにより、ID 13, 12, 11... の順で必ず並びます
     return articles.sort((a, b) => Number(b.id) - Number(a.id));
-    
   } catch (error) {
     console.error("記事の取得に失敗しました:", error);
     return [];
@@ -63,26 +55,10 @@ export default async function LatestNewsPage() {
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
 
-          {/* 簡易検索とカテゴリ表示 */}
-          <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4">
-            <input
-              type="text"
-              placeholder="記事を検索..."
-              className="w-full md:w-1/2 px-4 py-2 rounded bg-white text-black mb-4 md:mb-0 shadow-inner"
-            />
-            <div className="flex gap-2 flex-wrap">
-              {[...new Set(articles.map(a => a.category))].map(category => (
-                <span key={category} className="px-3 py-1 bg-gray-700 text-amber-300 text-xs font-semibold rounded-full border border-amber-300/30">
-                  {category}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* 記事カード一覧 */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
-              <Link href={`/article/${article.id}`} key={article.id} className="group">
+              /* ★修正箇所：IDではなくslug（またはファイル名）をリンクに使う */
+              <Link href={`/article/${article.slug || article.id}`} key={article.id} className="group">
                 <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
@@ -102,10 +78,7 @@ export default async function LatestNewsPage() {
                     <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
                     <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
                       <span>公開日: {article.date}</span>
-                      <span className="flex items-center gap-1">
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        {article.readTime}
-                      </span>
+                      <span>{article.readTime}</span>
                     </div>
                   </div>
                 </div>
