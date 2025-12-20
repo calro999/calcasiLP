@@ -4,8 +4,9 @@ import { Metadata } from "next"
 import { ArrowLeft, Star, ExternalLink } from "lucide-react"
 import { casinoData, Casino } from "@/lib/casinoData"
 
-// キャッシュを強制的に無効化し、常に最新のデータを読み込む設定
+// 公開サイトでのキャッシュを完全に無効化するための設定
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 export const revalidate = 0;
 
 interface Props {
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function CasinoDetail({ params }: Props) {
-  // casinoData.tsからデータを取得
+  // データを取得
   const casino = casinoData.find((c: Casino) => c.id === params.id);
 
   if (!casino) {
@@ -43,8 +44,9 @@ export default function CasinoDetail({ params }: Props) {
     );
   }
 
-  // データ内の数値を直接使用
-  const displayRating = casino.rating;
+  // ★ 非常に重要：casinoオブジェクト自体が持っている rating を直接変数に入れる
+  // 外部関数やif文での計算を通さないことで、データの不一致を防ぎます。
+  const currentRating = casino.rating;
 
   return (
     <main className="pt-20 pb-20 bg-black min-h-screen text-white">
@@ -72,13 +74,13 @@ export default function CasinoDetail({ params }: Props) {
               <h1 className="text-4xl font-bold mb-4">{casino.name}</h1>
               <div className="flex items-center justify-center md:justify-start">
                 <div className="flex text-amber-400">
-                  {[1, 2, 3, 4, 5].map((s) => {
-                    const isFull = s <= Math.floor(displayRating);
-                    const isPartial = !isFull && s === Math.ceil(displayRating);
-                    const partialWidth = (displayRating % 1) * 100;
+                  {[1, 2, 3, 4, 5].map((num) => {
+                    const isFull = num <= Math.floor(currentRating);
+                    const isPartial = !isFull && num === Math.ceil(currentRating);
+                    const partialWidth = (currentRating % 1) * 100;
 
                     return (
-                      <div key={s} className="relative">
+                      <div key={num} className="relative">
                         <Star size={28} className="text-gray-700" fill="currentColor" />
                         {isFull && (
                           <Star size={28} className="absolute top-0 left-0 text-amber-400" fill="currentColor" />
@@ -96,7 +98,7 @@ export default function CasinoDetail({ params }: Props) {
                   })}
                 </div>
                 <span className="ml-4 text-3xl font-bold text-amber-400">
-                  {displayRating.toFixed(1)}
+                  {currentRating.toFixed(1)}
                 </span>
               </div>
             </div>
@@ -133,7 +135,7 @@ export default function CasinoDetail({ params }: Props) {
               href={casino.officialLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-yellow-600 text-black font-black px-12 py-5 rounded-full hover:scale-105 transition-all shadow-[0_10px_20px_rgba(251,191,36,0.3)] w-full md:w-auto"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-yellow-600 text-black font-black px-12 py-5 rounded-full hover:scale-105 transition-all shadow-[0_10px_20px_rgba(251,191,36,0.3)] w-full md:w-auto text-center"
             >
               公式サイトでボーナスを受け取る
               <ExternalLink size={20} className="ml-2" />
