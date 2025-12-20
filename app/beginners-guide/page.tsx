@@ -1,9 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Metadata } from "next" // 追加
 import { BookOpen, CheckCircle, HelpCircle, AlertTriangle, ArrowRight } from "lucide-react"
 import ScrollAnimation from "@/components/animations/scroll-animation"
 import Shimmer from "@/components/animations/shimmer"
 import Particles from "@/components/animations/particles"
+
+// ★ メタデータ（タブタイトルと説明文）を追加
+export const metadata: Metadata = {
+  title: "オンラインカジノ初心者ガイド | 基礎知識から安全な始め方まで解説",
+  description: "オンラインカジノ初心者の方へ、基本ルール、安全なサイトの選び方、入出金の手順をステップバイステップで分かりやすく解説します。初めての方でも安心してスタートできる完全ガイドです。",
+}
 
 export default function BeginnersGuide() {
   const guides = [
@@ -14,7 +21,7 @@ export default function BeginnersGuide() {
         "オンラインカジノの基本的な仕組みや、実際のカジノとの違いについて解説します。初心者が知っておくべき基礎知識を紹介します。",
       icon: <BookOpen className="w-10 h-10 text-amber-400" />,
       image: "/slot.png?height=400&width=600",
-      href: "/beginners-guide/basics", // ★修正点: 新しいページのURLパス
+      href: "/beginners-guide/basics", 
     },
     {
       id: 2,
@@ -23,7 +30,7 @@ export default function BeginnersGuide() {
         "信頼できるオンラインカジノを見分けるポイントや、ライセンスの重要性について解説します。安全にプレイするための選び方を紹介します。",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
       image: "/tate.png?height=400&width=600",
-      href: "/beginners-guide/safety", // 例: 必要に応じて追加
+      href: "/beginners-guide/safety", 
     },
     {
       id: 3,
@@ -32,7 +39,7 @@ export default function BeginnersGuide() {
         "オンラインカジノのアカウント登録方法や、入金・出金の手順について詳しく解説します。初めての方でも安心して始められます。",
       icon: <HelpCircle className="w-10 h-10 text-amber-400" />,
       image: "/touroku.png?height=400&width=600",
-      href: "/beginners-guide/registration", // 例: 必要に応じて追加
+      href: "/beginners-guide/registration", 
     },
     {
       id: 4,
@@ -41,7 +48,7 @@ export default function BeginnersGuide() {
         "各種ボーナスの種類や効果的な活用方法、出金条件などの注意点について解説します。お得にプレイするためのコツを紹介します。",
       icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
       image: "/kin.png?height=400&width=600",
-      href: "/beginners-guide/bonuses", // 例: 必要に応じて追加
+      href: "/beginners-guide/bonuses", 
     },
   ]
 
@@ -99,11 +106,10 @@ export default function BeginnersGuide() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             {guides.map((guide, index) => (
               <ScrollAnimation key={guide.id} variant="fadeInUp" delay={index * 0.1}>
-                {/* ★ここをLinkコンポーネントでラップしました */}
                 <Link href={guide.href} className="block h-full group">
                   <div className="bg-gray-800/70 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden h-full transition-all duration-300 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 hover:translate-y-[-5px]">
                     <div className="grid grid-cols-1 md:grid-cols-3 h-full">
-                      <div className="relative md:col-span-1">
+                      <div className="relative md:col-span-1 min-h-[200px] md:min-h-full">
                         <Image
                           src={guide.image || "/placeholder.svg"}
                           alt={guide.title}
