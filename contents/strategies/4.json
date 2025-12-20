@@ -9,7 +9,7 @@
   "author": "カジノ戦略研究所所属のココ",
   "includeDiceGame": false,
   "ogImage": "/co.png",
-  "ogUrl": "https://calcasi.com/strategies/kokomo-method",
+  "ogUrl": "https://calcasi-lp.vercel.app/strategies/kokomo-method",
   "metaTitle": "ココモ法の計算方法とシミュレーション | カジノ攻略 calcasiどっとこむ",
   "metaDescription": "3倍配当のゲームで連敗時の損失を回収する「ココモ法」を解説。フィボナッチ数列に基づいた賭け金の増やし方、マーチンゲール法との違い、メリット・リスクを詳しく紹介。",
   "content": "<p><strong>概要：</strong>ココモ法は、フィボナッチ数列（1, 2, 3, 5, 8, 13, ...）に基づいて賭け金を増加させ、連敗時の損失を回収し、最終的に利益を得る戦略です。</p><p><strong>使用方法：</strong>初期ベット額を$10とし、負けるたびにフィボナッチ数列に従って賭け金を増やします。勝利したら、初期ベット額に戻します。</p><p><strong>メリット：</strong>賭け金の増加が緩やかであり、資金の消耗を抑えつつ損失回収を目指せます。</p><p><strong>デメリット：</strong>連敗が続くと賭け金が高額になり、資金が尽けるリスクがあります。また、勝率が低いゲームでは効果が薄れます。</p><p><strong>適用可能なゲーム：</strong>ルーレット（1-12、13-24、25-36などの3倍配当ベット）、キノ、スロットなど、配当が3倍のゲームに適しています。</p><p><strong>注意点：</strong>ゲームの配当が3倍であることが前提の戦略であり、2倍配当のゲームでは損失回収が難しくなります。適切なゲーム選択が重要です。</p><section><h2>次に読むべき記事</h2><p>連勝と損失管理を両立する別の数列戦略：<br><a href='/strategies/burnett-system' class='text-amber-400 hover:text-amber-300 font-bold'>⇒ 次の戦略：バーネット法（ラブシェール法）</a></p></section><section style='margin-top: 40px; padding: 25px; background: rgba(251, 191, 36, 0.05); border: 2px dashed #fbbf24; border-radius: 20px;'><h3>🎲 当サイトの擬似ダイスで試してみる</h3><p>3倍配当の戦略をテスト！当サイトの擬似ダイスで「倍率」を3.0に設定して、ココモ法の回収効率を実際に確認してみましょう。</p><div style='text-align: center; margin-top: 15px;'><a href='/strategies/dice' style='display: inline-block; padding: 12px 24px; background: #fbbf24; color: #000; font-weight: 900; border-radius: 10px; text-decoration: none;'>⇒ 擬似ダイスで「ココモ法」を試す</a></div></section>"
