@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-// ✅ インポートパスを相対パスに修正
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -58,20 +57,9 @@ export default function VideosPage() {
     <div className="page-root">
       <Head>
         <title>【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック</title>
-        <meta
-          name="description"
-          content="最新のカジノ動画をまとめた動画ギャラリーです。Golden Panda（ゴールデンパンダ）、1xBetやワンダーカジノ、デュエルビッツなどのプレイ動画や攻略情報を日本語で分かりやすく紹介しています。"
-        />
-        <meta name="keywords" content="カジノ動画, Golden Panda（ゴールデンパンダ）, stake, 1xBet, ワンダーカジノ, デュエルビッツ, オンラインカジノ, オンカジ, 日本語解説" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック" />
-        <meta property="og:description" content="最新のカジノ動画をまとめた動画ギャラリーです。Golden Panda（ゴールデンパンダ）、1xBetやワンダーカジノ、デュエルビッツなどのプレイ動画や攻略情報を日本語で分かりやすく紹介しています。" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://calcasi-lp.vercel.app/videos" />
-        <meta property="og:image" content="/images/videos-og-image.jpg" />
+        <meta name="description" content="最新のカジノ動画をまとめた動画ギャラリーです。" />
       </Head>
 
-      {/* ✅ 共通ヘッダー */}
       <Header />
 
       <main className="content-area">
@@ -92,16 +80,8 @@ export default function VideosPage() {
 
                 {video.bannerImage && (
                   <div className="banner-wrapper">
-                    <a
-                      href={video.bannerLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        src={video.bannerImage}
-                        alt="banner"
-                        className="banner-image"
-                      />
+                    <a href={video.bannerLink} target="_blank" rel="noopener noreferrer">
+                      <img src={video.bannerImage} alt="banner" className="banner-image" />
                     </a>
                   </div>
                 )}
@@ -114,38 +94,57 @@ export default function VideosPage() {
           <h2 className="twitter-title">最新のX投稿</h2>
           <div className="twitter-scroll-box">
             <div className="tweet-center">
-              <iframe
-                src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
-                loading="lazy"
-              />
+              <iframe src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668" loading="lazy" />
             </div>
             <div className="tweet-center">
-              <iframe
-                src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
-                loading="lazy"
-              />
+              <iframe src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056" loading="lazy" />
             </div>
           </div>
-          <a
-            href="https://x.com/calro_shorts"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="twitter-button"
-          >
+          <a href="https://x.com/calro_shorts" target="_blank" rel="noopener noreferrer" className="twitter-button">
             Xで全ての投稿を見る →
           </a>
         </div>
       </main>
 
-      {/* ✅ 共通フッター */}
       <Footer />
 
-      {/* ✅ TypeScriptエラー回避のため dangerouslySetInnerHTML を使用 */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* --- ヘッダー・レイアウトの強制補正 --- */
+        header {
+          display: block !important;
+          width: 100% !important;
+        }
+        
+        /* 共通Headerコンポーネント内のコンテナを強制的に横並びにする */
+        header .container {
+          display: flex !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+          max-width: 1200px !important;
+          margin: 0 auto !important;
+          padding: 10px 20px !important;
+        }
+
+        header nav {
+          display: flex !important;
+          gap: 20px !important;
+        }
+
+        /* モバイルメニューボタンの調整 */
+        header button {
+          display: none !important; /* デスクトップでは隠す */
+        }
+        @media (max-width: 768px) {
+          header nav { display: none !important; }
+          header button { display: block !important; }
+        }
+
+        /* --- ページ全体のスタイル --- */
         .page-root {
           background: #000;
           min-height: 100vh;
-          font-family: sans-serif;
+          font-family: 'Inter', sans-serif;
+          color: #fff;
         }
 
         .content-area {
@@ -203,30 +202,16 @@ export default function VideosPage() {
           line-height: 1.6;
         }
 
-        .banner-wrapper {
-          margin-top: 16px;
-          text-align: center;
-        }
-
         .banner-image {
           max-height: 132px;
           border-radius: 8px;
-          transition: 0.3s ease;
-        }
-        .banner-image:hover {
-          transform: scale(1.02);
         }
 
+        /* X セクション */
         .twitter-section {
           max-width: 1000px;
           margin: 120px auto 0;
           text-align: center;
-        }
-
-        .twitter-title {
-          color: #67e8f9;
-          font-size: 28px;
-          margin-bottom: 30px;
         }
 
         .twitter-scroll-box {
@@ -235,53 +220,24 @@ export default function VideosPage() {
           background: #0a0a0a;
           border-radius: 16px;
           padding: 32px 0;
-          box-shadow: 0 0 14px rgba(0, 255, 255, 0.1);
           border: 1px solid rgba(103, 232, 249, 0.2);
-        }
-
-        .tweet-center {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 40px;
-        }
-
-        .tweet-center iframe {
-          width: 720px;
-          height: 900px;
-          max-width: 100%;
-          border: none;
         }
 
         .twitter-button {
           display: inline-block;
           margin-top: 35px;
           padding: 16px 40px;
-          font-size: 16px;
-          color: #000;
           background: #67e8f9;
           border-radius: 999px;
+          color: #000;
           text-decoration: none;
           font-weight: bold;
-          box-shadow: 0 0 15px rgba(103, 232, 249, 0.6);
-          transition: 0.3s ease;
-        }
-
-        .twitter-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 0 25px rgba(103, 232, 249, 0.9);
         }
 
         @media (min-width: 768px) {
           .video-item-row { flex-direction: row; }
           .video-player-area { flex: 7; }
-          .detail-area {
-            flex: 3;
-            padding-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-          }
-          .banner-wrapper { text-align: left; }
+          .detail-area { flex: 3; padding-left: 20px; }
         }
       `}} />
     </div>
