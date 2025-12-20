@@ -3,9 +3,9 @@ import { MetadataRoute } from 'next'
 import fs from 'fs/promises'
 import path from 'path'
 
-const BASE_URL = 'https://calcasi.com'
+// 独自ドメインを使わないため、VercelのURLをベースに設定
+const BASE_URL = 'https://calcasi-lp.vercel.app'
 
-// フォルダ内のJSONからURLエントリーを生成する共通関数
 async function getJsonEntries(directoryName: string, routePrefix: string) {
   const dirPath = path.join(process.cwd(), 'contents', directoryName)
   try {
@@ -17,7 +17,6 @@ async function getJsonEntries(directoryName: string, routePrefix: string) {
           const filePath = path.join(dirPath, file)
           const content = JSON.parse(await fs.readFile(filePath, 'utf-8'))
           
-          // ogUrlの末尾からスラッグを取得、なければIDを使用
           const slug = content.ogUrl 
             ? content.ogUrl.split('/').pop().toLowerCase() 
             : content.id.toString()
@@ -31,17 +30,14 @@ async function getJsonEntries(directoryName: string, routePrefix: string) {
         })
     )
   } catch (e) {
-    console.error(`Directory not found: ${directoryName}`)
     return []
   }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1. 各ディレクトリから動的URLを取得
   const strategyEntries = await getJsonEntries('strategies', 'strategies')
-  const newsEntries = await getJsonEntries('news', 'news') // 最新情報がcontents/newsにある場合
+  const newsEntries = await getJsonEntries('news', 'news')
 
-  // 2. 固定ページの定義
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
@@ -50,13 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}/tools`, // ツール（ダイス等）のページがある場合
+      url: `${BASE_URL}/tools`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
   ]
 
-  // 全てを統合
   return [...staticPages, ...strategyEntries, ...newsEntries]
 }
