@@ -3,15 +3,15 @@ import fs from "fs/promises";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
-import { Metadata } from "next"; // メタデータ型を追加
+import { Metadata } from "next";
 
-// メタデータの追加
+// ニュース一覧ページ自体のメタ情報
 export const metadata: Metadata = {
-  title: "最新オンラインカジノニュース・お得なボーナス情報一覧",
-  description: "2025年最新のオンラインカジノ入金不要ボーナス、新着カジノレビュー、攻略法など、プレイヤーに役立つ最新情報を随時更新中。",
+  title: "最新オンラインカジノニュース一覧｜2025年最新情報",
+  description: "新着カジノの入金不要ボーナスや、2025年最新の攻略ニュースをID順（最新順）に掲載。プレイヤーに役立つ情報をいち早くお届けします。",
   openGraph: {
-    title: "最新オンラインカジノニュース一覧 | 2025年最新版",
-    description: "お得な入金不要ボーナスや最新カジノのリリース情報をチェック！",
+    title: "最新オンラインカジノニュース・ボーナス情報一覧",
+    description: "新着カジノレビューからお得なキャンペーン情報まで、最新記事をチェック。",
     url: "https://calcasi-lp.vercel.app/latest-news",
     type: "website",
   },
@@ -43,9 +43,13 @@ async function getLocalArticles(): Promise<Article[]> {
           return JSON.parse(data);
         })
     );
-    // ★ ここを修正：日付ではなく、IDの降順（大きい順）でソート
-    return articles.sort((a, b) => b.id - a.id);
-  } catch {
+    
+    // 【重要修正】日付を無視し、IDの数値で降順（大きい順）にソート
+    // これにより、ID 13, 12, 11... の順で必ず並びます
+    return articles.sort((a, b) => Number(b.id) - Number(a.id));
+    
+  } catch (error) {
+    console.error("記事の取得に失敗しました:", error);
     return [];
   }
 }
@@ -59,46 +63,49 @@ export default async function LatestNewsPage() {
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
 
-          {/* カテゴリフィルター（重複削除して表示） */}
+          {/* 簡易検索とカテゴリ表示 */}
           <div className="mb-8 flex flex-col md:flex-row md:items-center md:gap-4">
             <input
               type="text"
               placeholder="記事を検索..."
-              className="w-full md:w-1/2 px-4 py-2 rounded bg-white text-black mb-4 md:mb-0"
+              className="w-full md:w-1/2 px-4 py-2 rounded bg-white text-black mb-4 md:mb-0 shadow-inner"
             />
             <div className="flex gap-2 flex-wrap">
               {[...new Set(articles.map(a => a.category))].map(category => (
-                <span key={category} className="px-3 py-1 bg-white text-black text-sm rounded-full">
+                <span key={category} className="px-3 py-1 bg-gray-700 text-amber-300 text-xs font-semibold rounded-full border border-amber-300/30">
                   {category}
                 </span>
               ))}
             </div>
           </div>
 
+          {/* 記事カード一覧 */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
-              <Link href={`/article/${article.id}`} key={article.id} className="block">
-                <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
-                  <div className="relative aspect-[16/9]">
-                    {/* 画像のプレースホルダー対応 */}
+              <Link href={`/article/${article.id}`} key={article.id} className="group">
+                <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
+                  <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
                       src={article.image || "/default-og.jpg"}
                       alt={article.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
-                    <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-3">
+                    <span className="inline-block px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase rounded mb-3 self-start">
                       {article.category}
                     </span>
-                    <h3 className="text-xl font-bold text-white mb-3 flex-grow">
+                    <h3 className="text-xl font-bold text-white mb-3 flex-grow group-hover:text-amber-300 transition-colors">
                       {article.title}
                     </h3>
-                    <p className="text-gray-300 text-sm mb-4 line-clamp-3">{article.excerpt}</p>
-                    <div className="flex justify-between items-center text-gray-500 text-sm mt-auto">
+                    <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
+                    <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
                       <span>公開日: {article.date}</span>
-                      <span>読了: {article.readTime}</span>
+                      <span className="flex items-center gap-1">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {article.readTime}
+                      </span>
                     </div>
                   </div>
                 </div>
