@@ -46,11 +46,12 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
           {casinos.map((casino, index) => {
             const rank = index + 1;
 
-            // ★ 星評価の計算（確実にindexを使って計算）
-            // index 0(1位) -> 5.0
-            // index 1(2位) -> 4.5
-            // index 2(3位) -> 4.0 ...
-            const rating = Math.max(1, 5 - (index * 0.5));
+            // ★ 星評価の新ロジック
+            // 1位: 5.0 / 2位: 4.5 / 3位: 4.0 / 4位以降: 4.0で固定
+            let rating = 4.0;
+            if (rank === 1) rating = 5.0;
+            else if (rank === 2) rating = 4.5;
+            else rating = 4.0;
             
             return (
               <motion.div key={casino.id} variants={itemVariants} className="w-full">
@@ -77,7 +78,7 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                     <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-2">
                       <h2 className="text-2xl font-bold text-white leading-none">{casino.name}</h2>
                       
-                      {/* ★ 星評価の描画ロジック */}
+                      {/* 星評価の描画 */}
                       <div className="flex items-center">
                         <div className="flex text-amber-400 mr-2">
                           {[1, 2, 3, 4, 5].map((starIdx) => {
@@ -86,9 +87,7 @@ export default function CasinoRankingPage({ params }: { params: { lang: "ja" | "
                             
                             return (
                               <div key={starIdx} className="relative">
-                                {/* 下地のグレーの星 */}
                                 <Star size={16} className="text-gray-600" fill="currentColor" />
-                                {/* 重ねる金色の星 */}
                                 {isFull && (
                                   <Star size={16} className="absolute top-0 left-0 text-amber-400" fill="currentColor" />
                                 )}
