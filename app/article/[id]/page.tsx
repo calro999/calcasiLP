@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 import React from "react";
 import fs from "fs/promises";
 import path from "path";
-// 型定義エラーを避けるため、必要なものだけを最小限インポート
 import parse from "html-react-parser";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -38,13 +37,12 @@ export default async function ArticlePage({ params }: Props) {
   const article = await getArticleBySlugOrId(params.id);
   if (!article) return notFound();
 
-  // HTMLパースオプション：エラー回避のため any を使用しつつ確実にパース
+  // HTMLパースオプション：JSON内の特定の構造をデザインパーツへ置換
   const options: any = {
     replace: (domNode: any) => {
-      // 特定のクラス名を持つ div を見つけた場合
+      // 内部リンクカードの自動変換
       if (domNode.attribs && domNode.attribs.class === 'next-read-box') {
         const listItems = domNode.children.find((c: any) => c.name === 'ul');
-        
         if (listItems && listItems.children) {
           const links = listItems.children
             .filter((li: any) => li.name === 'li')
@@ -74,6 +72,23 @@ export default async function ArticlePage({ params }: Props) {
           );
         }
       }
+
+      // CTAボタンの自動変換（🎁テキスト🎁 スタイル）
+      if (domNode.attribs && domNode.attribs.class === 'gorgeous-cta-wrapper') {
+        const anchor = domNode.children.find((c: any) => c.name === 'a');
+        const href = anchor?.attribs?.href || "#";
+        return (
+          <div className="gorgeous-cta-wrapper">
+            <a href={href} target="_blank" rel="noopener noreferrer" className="gorgeous-cta-button">
+              <span className="shimmer"></span>
+              <span>🎁</span>
+              <span>今すぐ200%ボーナスを受け取る</span>
+              <span>🎁</span>
+            </a>
+            <p className="cta-note">※期間限定オファーにつきお急ぎください</p>
+          </div>
+        );
+      }
     }
   };
 
@@ -88,10 +103,10 @@ export default async function ArticlePage({ params }: Props) {
         .meta-divider { color: #334155; }
         .article-header { border-bottom: 1px solid #1e293b; padding-bottom: 1.5rem; margin-bottom: 2rem; }
         
-        /* メインビジュアル */
+        /* 画像 */
         .main-visual { border-radius: 1.5rem; overflow: hidden; border: 1px solid #1e293b; margin-bottom: 3.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
-        /* コンテンツパーツ共通 */
+        /* タイトル・カード類 */
         .gold-border-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 4rem 0 2rem; padding-left: 1rem; border-left: 4px solid #fbbf24; }
         .premium-feature-card { background: #0f172a; border: 1px solid #1e293b; padding: 2rem; border-radius: 1.25rem; margin-bottom: 1.5rem; }
         .premium-feature-card h3 { color: #fbbf24; font-size: 1.25rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
@@ -111,14 +126,14 @@ export default async function ArticlePage({ params }: Props) {
         .luxury-table th { background: #1e293b; color: #fbbf24; padding: 1.2rem; }
         .luxury-table td { padding: 1.2rem; border-top: 1px solid #1e293b; text-align: center; color: #fff; }
 
-        /* CTA */
+        /* CTA修正版：横並びを強制 */
         .gorgeous-cta-wrapper { text-align: center; margin: 4.5rem 0; }
         .gorgeous-cta-button {
-          display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-          padding: 1.25rem 3rem; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-          color: #000; font-weight: 900; font-size: 1.35rem; border-radius: 9999px;
+          display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+          padding: 1.25rem 2.5rem; background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+          color: #000; font-weight: 900; font-size: 1.3rem; border-radius: 9999px;
           text-decoration: none; box-shadow: 0 10px 40px rgba(217, 119, 6, 0.4);
-          position: relative; overflow: hidden;
+          position: relative; overflow: hidden; white-space: nowrap;
         }
         .shimmer { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); animation: shine 3.5s infinite; }
         @keyframes shine { 100% { left: 200%; } }
