@@ -96,12 +96,12 @@ export default function Footer() {
                 <li className="flex items-start group">
                   <Twitter size={20} className="text-amber-400 mr-3 mt-1 group-hover:scale-110 transition-transform" />
                   <Link
-                    href="https://x.com/Calro_kuzumaru"
+                    href="https://x.com/Calro_shorts"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 group-hover:text-amber-300 transition-colors"
                   >
-                    @calcasi_com
+                    @calro_shorts
                   </Link>
                 </li>
               </ul>
