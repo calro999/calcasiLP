@@ -1,4 +1,3 @@
-// カジノデータの型定義（TypeScriptのエラーを防ぐために重要です）
 export interface Casino {
   id: string;
   rank: number;
@@ -6,7 +5,7 @@ export interface Casino {
   logo: string;
   banner: string;
   bonus: string;
-  rating: number; // ★ ここに各カジノの星の数値を設定します
+  rating: number; 
   description: string;
   officialLink: string;
   features: string[];
@@ -20,7 +19,7 @@ export const casinoData: Casino[] = [
     logo: "/goldenpanda_top.jpg",
     banner: "/goldenpanda_top.jpg",
     bonus: "初回入金100%ボーナス＋大型スロットキャンペーン開催中",
-    rating: 5.0, // 1位: 星5.0
+    rating: 5.0,
     description: "破壊力の高いスロットが多数揃う新進気鋭のオンラインカジノ。豪華ボーナスと高確率ジャックポットが魅力で、日本人プレイヤーからの支持も急増中。",
     officialLink: "https://record.discasinoaffiliates.com/_R757TaLb9LkdIqIeVhNpQ2Nd7ZgqdRLk/1/?pg=0",
     features: ["高爆発スロット", "新台が豊富", "日本語サポート"]
@@ -32,7 +31,7 @@ export const casinoData: Casino[] = [
     logo: "/stake_logo.png",
     banner: "/stake_logo.png",
     bonus: "初回入金200%ボーナス（最大$2,000）＋入金不要ボーナス$14",
-    rating: 4.5, // 2位: 星4.5
+    rating: 4.5,
     description: "世界トップクラスの仮想通貨カジノ。高速出金・独自ゲーム・VIP待遇を備え、ビットコインユーザーから圧倒的な支持を獲得している。",
     officialLink: "https://stake.com/?c=411c9bbd82&offer=calro",
     features: ["仮想通貨特化", "VIP制度", "即時出金"]
@@ -44,7 +43,7 @@ export const casinoData: Casino[] = [
     logo: "/k8_logo.png",
     banner: "/k8_logo.png",
     bonus: "初回入金100%ボーナス（最大$800）＋288回のフリースピン",
-    rating: 4.3, // 3位: 星4.3
+    rating: 4.3,
     description: "ハイローラーから絶大な人気を得ているオンラインカジノ。旧式パチスロや高還元スロットが豊富で、ベットの自由度の高さも魅力。",
     officialLink: "https://k8.io/?invite=calron",
     features: ["旧式パチスロあり", "高額ベット対応", "高速出金"]
@@ -56,7 +55,7 @@ export const casinoData: Casino[] = [
     logo: "/duelbits_logo.png",
     banner: "/duelbits_logo.png",
     bonus: "最大$1000のウェルカムパッケージ",
-    rating: 4.0, // 4位以降は一律 4.0
+    rating: 4.0,
     description: "仮想通貨に特化した次世代型カジノ。独自のクラッシュ系などのオリジナルゲームと、ユーザーに寄り添ったVIP特典が魅力。",
     officialLink: "https://affiliates.duelbits.com/visit/?bta=35925&nci=5768",
     features: ["仮想通貨対応", "独自ゲーム", "VIP制度あり"]
