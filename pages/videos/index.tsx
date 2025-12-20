@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+// ✅ 共通CSSをインポートしてTailwindを有効化する
+import "../../app/globals.css"; 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -37,7 +39,7 @@ export default function VideosPage() {
       return (
         <iframe
           src={`https://www.youtube.com/embed/${ytMatch[2]}`}
-          style={{ width: "100%", height: "100%", border: 0 }}
+          className="w-full h-full border-0"
           allowFullScreen
         />
       );
@@ -48,40 +50,53 @@ export default function VideosPage() {
         src={url}
         controls
         playsInline
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        className="w-full h-full object-cover"
       />
     );
   };
 
   return (
-    <div className="page-root">
+    <div className="min-h-screen bg-black text-white font-sans">
       <Head>
         <title>【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック</title>
         <meta name="description" content="最新のカジノ動画をまとめた動画ギャラリーです。" />
       </Head>
 
+      {/* ✅ Tailwindが有効になれば、Header内のflexなどが正しく機能します */}
       <Header />
 
-      <main className="content-area">
-        <h1 className="title">動画ギャラリー</h1>
+      <main className="pt-32 pb-20 px-4 max-w-[1300px] mx-auto">
+        <h1 className="text-4xl md:text-5xl text-center font-black text-[#67e8f9] mb-16 drop-shadow-[0_0_12px_rgba(0,234,255,0.8)]">
+          動画ギャラリー
+        </h1>
 
-        <div className="videos">
+        <div className="flex flex-col gap-16 md:gap-20 max-w-[1100px] mx-auto">
           {videos.map((video) => (
-            <div key={video.id} className="video-item-row">
-              <div className="video-player-area">
-                <div className="player-box">{renderVideo(video.url)}</div>
+            <div key={video.id} className="flex flex-col md:flex-row gap-8 p-6 rounded-2xl bg-[#111] border border-cyan-500/30 shadow-[0_0_15px_rgba(0,255,255,0.1)]">
+              <div className="md:flex-[7]">
+                <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
+                  {renderVideo(video.url)}
+                </div>
               </div>
 
-              <div className="detail-area">
+              <div className="md:flex-[3] flex flex-col justify-between">
                 <div>
-                  <h2 className="videoTitle">{video.title}</h2>
-                  <p className="description">{video.description}</p>
+                  <h2 className="text-xl md:text-2xl font-bold text-[#67e8f9] mb-4">
+                    {video.title}
+                  </h2>
+                  <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                    {video.description}
+                  </p>
                 </div>
 
                 {video.bannerImage && (
-                  <div className="banner-wrapper">
+                  <div className="mt-6">
                     <a href={video.bannerLink} target="_blank" rel="noopener noreferrer">
-                      <img src={video.bannerImage} alt="banner" className="banner-image" />
+                      <img
+                        src={video.bannerImage}
+                        alt="banner"
+                        className="max-h-[132px] rounded-lg hover:scale-105 transition-transform duration-300"
+                      />
                     </a>
                   </div>
                 )}
@@ -90,184 +105,34 @@ export default function VideosPage() {
           ))}
         </div>
 
-        <div className="twitter-section">
-          <h2 className="twitter-title">最新のX投稿</h2>
-          <div className="twitter-scroll-box">
-            <div className="tweet-center">
+        <div className="mt-32 text-center">
+          <h2 className="text-3xl font-bold text-[#67e8f9] mb-8">最新のX投稿</h2>
+          <div className="h-[800px] overflow-y-auto bg-[#0a0a0a] rounded-2xl p-8 border border-cyan-900/30">
+            <div className="flex flex-col items-center gap-10">
               <iframe
                 src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
                 loading="lazy"
-                className="x-iframe"
               />
-            </div>
-            <div className="tweet-center">
               <iframe
                 src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
                 loading="lazy"
-                className="x-iframe"
               />
             </div>
           </div>
-          <a href="https://x.com/calro_shorts" target="_blank" rel="noopener noreferrer" className="twitter-button">
+          <a
+            href="https://x.com/calro_shorts"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-10 px-10 py-4 bg-[#67e8f9] text-black font-black rounded-full shadow-[0_0_20px_rgba(103,232,249,0.5)] hover:scale-105 transition-transform"
+          >
             Xで全ての投稿を見る →
           </a>
         </div>
       </main>
 
       <Footer />
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        /* --- ページ全体のベース --- */
-        .page-root {
-          background-color: #000 !important;
-          min-height: 100vh;
-          color: #fff;
-          font-family: sans-serif;
-        }
-
-        /* --- ヘッダー強制修正 --- */
-        header {
-          background-color: rgba(0, 0, 0, 0.95) !important;
-          backdrop-filter: blur(8px) !important;
-          border-bottom: 1px solid rgba(255, 215, 0, 0.2) !important;
-          position: fixed !important;
-          top: 0; left: 0; right: 0; z-index: 100;
-          height: auto !important;
-          padding: 12px 0 !important;
-        }
-        header .container {
-          display: flex !important;
-          justify-content: space-between !important;
-          align-items: center !important;
-          max-width: 1200px !important;
-          margin: 0 auto !important;
-          padding: 0 20px !important;
-        }
-        header nav {
-          display: flex !important;
-          align-items: center !important;
-          gap: 24px !important;
-        }
-        header a {
-          color: #fff !important;
-          text-decoration: none !important;
-          font-size: 15px !important;
-        }
-
-        /* --- フッター強制修正 --- */
-        footer {
-          background-color: #0a0a0a !important;
-          padding: 60px 20px !important;
-          border-top: 1px solid #1e293b !important;
-          margin-top: 100px !important;
-        }
-        footer .container {
-          display: flex !important;
-          flex-direction: row !important;
-          flex-wrap: wrap !important;
-          justify-content: space-between !important;
-          max-width: 1200px !important;
-          margin: 0 auto !important;
-          gap: 40px !important;
-        }
-        footer .container > div {
-          flex: 1 !important;
-          min-width: 200px !important;
-        }
-        footer h3, footer h4 {
-          color: #fbbf24 !important;
-          margin-bottom: 20px !important;
-        }
-        footer ul {
-          list-style: none !important;
-          padding: 0 !important;
-        }
-        footer li {
-          margin-bottom: 10px !important;
-        }
-        footer a {
-          color: #94a3b8 !important;
-          text-decoration: none !important;
-        }
-
-        /* --- メインコンテンツ --- */
-        .content-area {
-          padding: 140px 20px 80px;
-          max-width: 1300px;
-          margin: 0 auto;
-        }
-        .title {
-          text-align: center;
-          color: #67e8f9;
-          font-size: clamp(24px, 5vw, 36px);
-          margin-bottom: 60px;
-          text-shadow: 0 0 12px #00eaff;
-          font-weight: 900;
-        }
-
-        .videos {
-          display: flex;
-          flex-direction: column;
-          gap: 70px;
-        }
-        .video-item-row {
-          display: flex;
-          flex-direction: column;
-          gap: 30px;
-          padding: 24px;
-          border-radius: 14px;
-          background: #111;
-          border: 1px solid rgba(0, 255, 255, 0.3);
-        }
-        .player-box {
-          width: 100%;
-          aspect-ratio: 16 / 9;
-          background: #000;
-          border-radius: 10px;
-          overflow: hidden;
-        }
-        .videoTitle { color: #67e8f9; font-size: 22px; margin-bottom: 12px; }
-        .description { color: #cbd5e1; line-height: 1.6; font-size: 14px; }
-        .banner-image { max-height: 132px; border-radius: 8px; }
-
-        /* --- X(Twitter)修正 --- */
-        .twitter-section { margin: 120px auto 0; text-align: center; }
-        .twitter-scroll-box {
-          height: 800px;
-          overflow-y: auto;
-          background: #0a0a0a;
-          border-radius: 16px;
-          padding: 32px 0;
-          border: 1px solid rgba(103,232,249,0.2);
-        }
-        .x-iframe {
-          width: 550px !important; /* Xの標準サイズに固定 */
-          height: 800px !important;
-          max-width: 100% !important;
-          border: none !important;
-        }
-        .twitter-button {
-          display: inline-block;
-          margin-top: 35px;
-          padding: 16px 40px;
-          background: #67e8f9;
-          border-radius: 999px;
-          color: #000;
-          font-weight: bold;
-          text-decoration: none;
-        }
-
-        /* --- レスポンシブ --- */
-        @media (min-width: 768px) {
-          .video-item-row { flex-direction: row; }
-          .video-player-area { flex: 7; }
-          .detail-area { flex: 3; padding-left: 20px; text-align: left; }
-        }
-        @media (max-width: 768px) {
-          header nav { display: none !important; }
-          footer .container { flex-direction: column !important; text-align: center !important; }
-        }
-      `}} />
     </div>
   );
 }
