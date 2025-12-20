@@ -18,29 +18,37 @@ interface Props {
 }
 
 async function getArticleBySlugOrId(slug: string): Promise<Article | null> {
-  const lang = "ja";
-  const dir = path.join(process.cwd(), "contents", "articles", lang);
+  // lang = "ja" を削除
+  const dir = path.join(process.cwd(), "contents", "articles");
   try {
     const files = await fs.readdir(dir);
     for (const file of files) {
       if (!file.endsWith(".json")) continue;
       const data = await fs.readFile(path.join(dir, file), "utf8");
       const article: Article = JSON.parse(data);
+      
+      // ID一致チェック
       if (article.id.toString() === slug) return article;
-      if (article.ogUrl && article.ogUrl.split('/').pop() === slug) return article;
+      
+      // Slug（URL末尾）一致チェック
+      if (article.ogUrl) {
+        const urlPart = article.ogUrl.split('/').filter(Boolean).pop();
+        if (urlPart === slug) return article;
+      }
     }
     return null;
-  } catch { return null; }
+  } catch (error) {
+    console.error("記事詳細の取得に失敗しました:", error);
+    return null;
+  }
 }
 
 export default async function ArticlePage({ params }: Props) {
   const article = await getArticleBySlugOrId(params.id);
   if (!article) return notFound();
 
-  // HTMLパースオプション：JSON内の特定の構造をデザインパーツへ置換
   const options: any = {
     replace: (domNode: any) => {
-      // 内部リンクカードの自動変換
       if (domNode.attribs && domNode.attribs.class === 'next-read-box') {
         const listItems = domNode.children.find((c: any) => c.name === 'ul');
         if (listItems && listItems.children) {
@@ -73,7 +81,6 @@ export default async function ArticlePage({ params }: Props) {
         }
       }
 
-      // CTAボタンの自動変換（🎁テキスト🎁 スタイル）
       if (domNode.attribs && domNode.attribs.class === 'gorgeous-cta-wrapper') {
         const anchor = domNode.children.find((c: any) => c.name === 'a');
         const href = anchor?.attribs?.href || "#";
@@ -82,7 +89,7 @@ export default async function ArticlePage({ params }: Props) {
             <a href={href} target="_blank" rel="noopener noreferrer" className="gorgeous-cta-button">
               <span className="shimmer"></span>
               <span>🎁</span>
-              <span>今すぐ200%ボーナスを受け取る</span>
+              <span>今すぐボーナスを受け取る</span>
               <span>🎁</span>
             </a>
             <p className="cta-note">※期間限定オファーにつきお急ぎください</p>
@@ -96,37 +103,25 @@ export default async function ArticlePage({ params }: Props) {
     <main className="pt-20 pb-20 bg-[#050505] min-h-screen text-[#cbd5e1]">
       <style dangerouslySetInnerHTML={{ __html: `
         .premium-article { max-width: 850px; margin: 0 auto; line-height: 1.9; }
-
-        /* ヘッダー・メタ情報 */
         .meta-container { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; font-size: 0.95rem; color: #94a3b8; font-weight: 500; margin-bottom: 1.5rem; }
         .category-tag { background: #fbbf24; color: #000; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 900; }
         .meta-divider { color: #334155; }
         .article-header { border-bottom: 1px solid #1e293b; padding-bottom: 1.5rem; margin-bottom: 2rem; }
-        
-        /* 画像 */
         .main-visual { border-radius: 1.5rem; overflow: hidden; border: 1px solid #1e293b; margin-bottom: 3.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-
-        /* タイトル・カード類 */
         .gold-border-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 4rem 0 2rem; padding-left: 1rem; border-left: 4px solid #fbbf24; }
         .premium-feature-card { background: #0f172a; border: 1px solid #1e293b; padding: 2rem; border-radius: 1.25rem; margin-bottom: 1.5rem; }
         .premium-feature-card h3 { color: #fbbf24; font-size: 1.25rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
         .luxury-bonus-card { background: linear-gradient(145deg, #111827, #050505); border: 2px solid #fbbf24; padding: 3rem 2rem; border-radius: 2rem; text-align: center; margin: 3rem 0; }
         .bonus-amount { font-size: 4.5rem; font-weight: 900; color: #fbbf24; line-height: 1; }
         .bonus-amount .unit { font-size: 2rem; }
-
-        /* 3ステップ */
         .step-roadmap { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin: 3rem 0; }
         @media (min-width: 768px) { .step-roadmap { grid-template-columns: repeat(3, 1fr); } }
         .step-item { background: #0f172a; border: 1px solid #1e293b; padding: 2rem 1.5rem; border-radius: 1.5rem; text-align: center; }
         .step-num { width: 40px; height: 40px; background: #fbbf24; color: #000; font-size: 1.25rem; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; }
-
-        /* テーブル */
         .table-responsive { margin: 2.5rem 0; border-radius: 1rem; overflow: hidden; border: 1px solid #1e293b; }
         .luxury-table { width: 100%; border-collapse: collapse; background: #0a0f1d; }
         .luxury-table th { background: #1e293b; color: #fbbf24; padding: 1.2rem; }
         .luxury-table td { padding: 1.2rem; border-top: 1px solid #1e293b; text-align: center; color: #fff; }
-
-        /* CTA修正版：横並びを強制 */
         .gorgeous-cta-wrapper { text-align: center; margin: 4.5rem 0; }
         .gorgeous-cta-button {
           display: inline-flex; align-items: center; justify-content: center; gap: 12px;
@@ -138,8 +133,6 @@ export default async function ArticlePage({ params }: Props) {
         .shimmer { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); animation: shine 3.5s infinite; }
         @keyframes shine { 100% { left: 200%; } }
         .cta-note { font-size: 0.85rem; color: #64748b; margin-top: 15px; font-weight: 500; }
-
-        /* 内部リンクカード */
         .next-read-wrapper { margin-top: 6rem; border-top: 1px solid #1e293b; padding-top: 3rem; }
         .next-read-title { font-size: 1.4rem; font-weight: 900; color: #fbbf24; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
         .related-card-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }

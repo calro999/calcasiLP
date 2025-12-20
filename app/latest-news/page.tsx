@@ -18,12 +18,12 @@ interface Article {
   category: string;
   date: string;
   readTime: string;
-  ogUrl?: string; // JSON内のogUrlを使用
+  ogUrl?: string;
 }
 
 async function getLocalArticles(): Promise<Article[]> {
-  const lang = "ja";
-  const dir = path.join(process.cwd(), "contents", "articles", lang);
+  // lang = "ja" を削除し、直下の articles フォルダを参照
+  const dir = path.join(process.cwd(), "contents", "articles");
 
   try {
     const files = await fs.readdir(dir);
@@ -35,6 +35,7 @@ async function getLocalArticles(): Promise<Article[]> {
           return JSON.parse(data);
         })
     );
+    // IDの降順でソート
     return articles.sort((a, b) => Number(b.id) - Number(a.id));
   } catch (error) {
     console.error("記事の取得に失敗しました:", error);
@@ -53,11 +54,8 @@ export default async function LatestNewsPage() {
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => {
-              // ★ ここが重要：ogUrlの末尾を抽出。
-              // 例: ".../article/golden-panda" なら "golden-panda" になる。
-              // もし ogUrl が ".../article/13" なら "13" になる。
               const urlSlug = article.ogUrl 
-                ? article.ogUrl.split('/').pop() 
+                ? article.ogUrl.split('/').filter(Boolean).pop() 
                 : article.id.toString();
 
               return (
