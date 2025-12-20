@@ -4,6 +4,14 @@ import Link from "next/link";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import fs from "fs/promises";
 import path from "path";
+import { Metadata } from "next";
+
+// ✅ メタデータの追加
+export const metadata: Metadata = {
+  title: "オンラインカジノ最強攻略法・ストラテジー一覧 | calcasiどっとこむ",
+  description: "バカラ、ルーレット、スロット、ダイスゲームなど、オンラインカジノで勝つための最新ストラテジーを公開。マーチンゲール法から独自の計算式まで、実践的な攻略法を網羅しています。",
+  keywords: ["カジノ攻略法", "バカラストラテジー", "ルーレット必勝法", "ダイスゲーム攻略", "オンカジ計算ツール", "calcasi"],
+};
 
 interface Strategy {
   id: number;
@@ -48,10 +56,10 @@ export default async function StrategyListPage() {
   const strategies = await getStrategies();
 
   return (
-    <main className="pt-20 pb-20 bg-black min-h-screen">
+    <main className="pt-24 pb-20 bg-black min-h-screen">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-white mb-8 text-center">
-          攻略法一覧
+        <h1 className="text-4xl md:text-5xl font-black text-center mb-12 bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
+          カジノ攻略ストラテジー
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -59,33 +67,33 @@ export default async function StrategyListPage() {
             <ScrollAnimation key={strategy.id} variant="fadeInUp" delay={index * 0.1}>
               <Link
                 href={`/strategies/${strategy.id}`}
-                className="block bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full"
+                className="group block bg-[#111] rounded-xl overflow-hidden border border-gray-800 hover:border-amber-500/50 transition-all duration-300 h-full shadow-lg"
               >
-                <div className="relative aspect-[16/9]">
+                <div className="relative aspect-[16/9] overflow-hidden">
                   <Image
                     src={strategy.image}
                     alt={strategy.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-3 py-1 bg-amber-500 text-black text-xs font-black rounded-full shadow-lg">
+                      {strategy.category}
+                    </span>
+                  </div>
                 </div>
-                <div className="p-6 flex flex-col h-full">
-                  <span className="inline-block px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full mb-3">
-                    {strategy.category}
-                  </span>
-
-                  <h3 className="text-xl font-bold text-white mb-2">
+                <div className="p-6 flex flex-col h-[280px]">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
                     {strategy.title}
                   </h3>
 
-                  {/* ✅ ここで excerpt を表示 */}
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
                     {strategy.excerpt}
                   </p>
 
-                  <div className="flex justify-between items-center text-gray-500 text-sm mt-auto">
-                    <span>公開日: {strategy.date}</span>
-                    <span>読了時間: {strategy.readTime}</span>
+                  <div className="flex justify-between items-center text-gray-500 text-[10px] mt-auto border-t border-gray-800 pt-4">
+                    <span>📅 公開日: {strategy.date}</span>
+                    <span>⏱️ {strategy.readTime}</span>
                   </div>
                 </div>
               </Link>
