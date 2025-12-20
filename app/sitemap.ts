@@ -1,13 +1,12 @@
-// app/sitemap.ts
 import { MetadataRoute } from 'next'
 import fs from 'fs/promises'
 import path from 'path'
 
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
-async function getJsonEntries(directoryName: string, routePrefix: string) {
-  // 階層が深い（ja/1.jsonなど）場合に対応するため、再帰的に探すか、特定のパスを指定
-  const dirPath = path.join(process.cwd(), 'contents', directoryName, 'ja')
+// JSONを解析してサイトマップのエントリーを作る関数
+async function getJsonEntries(relativeDirPath: string, routePrefix: string) {
+  const dirPath = path.join(process.cwd(), 'contents', relativeDirPath)
   
   try {
     const filenames = await fs.readdir(dirPath)
@@ -18,39 +17,54 @@ async function getJsonEntries(directoryName: string, routePrefix: string) {
           const filePath = path.join(dirPath, file)
           const content = JSON.parse(await fs.readFile(filePath, 'utf-8'))
           
-          // ogUrlがある場合はそこからスラッグを取得、なければIDを使用
-          // ここでURLが https://calcasi-lp.vercel.app/article/xxx になるように調整
           const slug = content.ogUrl 
             ? content.ogUrl.split('/').pop().toLowerCase() 
             : content.id.toString()
 
+          // 画像URLの構築（/top.png などのパスを完全なURLに変換）
+          const imageUrl = content.image?.startsWith('http') 
+            ? content.image 
+            : `${BASE_URL}${content.image}`
+
           return {
             url: `${BASE_URL}/${routePrefix}/${slug}`,
-            lastModified: new Date("2025-12-20"), // 全て12/20に固定
+            lastModified: new Date("2025-12-20"),
             changeFrequency: 'weekly' as const,
             priority: 0.8,
+            // Google用の画像拡張（MetadataRoute.Sitemapの型定義によりエラーが出る場合は as any を使用）
+            images: [imageUrl] 
           }
         })
     )
   } catch (e) {
-    console.error(`Error loading ${directoryName}:`, e)
+    console.error(`Error loading directory ${relativeDirPath}:`, e)
     return []
   }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 各カテゴリのJSONを読み込み
+  // 1. 各ディレクトリの取得（階層を正確に指定）
   const strategyEntries = await getJsonEntries('strategies', 'strategies')
-  const articleEntries = await getJsonEntries('articles', 'article') // Prefixをarticleに合わせる
+  
+  // articlesは contents/articles/ja の中にあるので 'articles/ja' と指定
+  const articleEntries = await getJsonEntries('articles/ja', 'article')
 
-  const staticPages: MetadataRoute.Sitemap = [
+  // 2. 固定ページ
+  const staticPages = [
     {
       url: BASE_URL,
       lastModified: new Date("2025-12-20"),
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1.0,
     },
+    {
+      url: `${BASE_URL}/strategies/dice`,
+      lastModified: new Date("2025-12-20"),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    }
   ]
 
-  return [...staticPages, ...strategyEntries, ...articleEntries]
+  // 全てを統合
+  return [...staticPages, ...strategyEntries, ...articleEntries] as any
 }
