@@ -91,11 +91,17 @@ import { gameData as piggyriches } from "../data/games/piggy-riches-megaways";
 import { gameData as gonzort } from "../data/games/gonzos-quest-megaways-rt";
 import { gameData as primal } from "../data/games/primal-frontier";
 
-// 76-79 (Quickspin 追加分)
+// 76-79
 import { gameData as sakura } from "../data/games/sakura-fortune";
 import { gameData as wolfmega } from "../data/games/big-bad-wolf-megaways";
 import { gameData as bandits } from "../data/games/sticky-bandits";
 import { gameData as emeralds } from "../data/games/eastern-emeralds";
+
+// 80-83 (Play'n GO 追加分)
+import { gameData as riseolympus } from "../data/games/rise-of-olympus";
+import { gameData as wildblood2 } from "../data/games/wild-blood-2";
+import { gameData as honeyrush } from "../data/games/honey-rush";
+import { gameData as goldenticket } from "../data/games/golden-ticket";
 
 export const getAllGames = () => {
   return [
@@ -113,7 +119,8 @@ export const getAllGames = () => {
     jammin, razorreturns, fatsanta, retrotapes,
     templetumble, ironbank, netgains, hellcatraz,
     dragonluck, piggyriches, gonzort, primal,
-    sakura, wolfmega, bandits, emeralds
+    sakura, wolfmega, bandits, emeralds,
+    riseolympus, wildblood2, honeyrush, goldenticket
   ];
 };
 
