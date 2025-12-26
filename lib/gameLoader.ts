@@ -5,9 +5,17 @@ import { gameData as san } from "../data/games/san-quentin";
 import { gameData as wanted } from "../data/games/wanted-dead-or-a-wild";
 import { gameData as tome } from "../data/games/tome-of-madness";
 import { gameData as outsourced } from "../data/games/outsourced";
+import { gameData as princess } from "../data/games/starlight-princess";
+import { gameData as mental } from "../data/games/mental";
+import { gameData as sugar } from "../data/games/sugar-rush";
+import { gameData as bass } from "../data/games/big-bass-splash";
 
 export const getAllGames = () => {
-  return [gates, sweet, hawaiian, san, wanted, tome, outsourced];
+  return [
+    gates, sweet, hawaiian, san, wanted, 
+    tome, outsourced, princess, mental, 
+    sugar, bass
+  ];
 };
 
 export const getGameBySlug = (slug: string) => {
