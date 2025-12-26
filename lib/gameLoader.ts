@@ -34,19 +34,44 @@ import { gameData as sanq2 } from "../data/games/san-quentin-2";
 import { gameData as lebandit } from "../data/games/le-bandit";
 import { gameData as anubis } from "../data/games/hand-of-anubis";
 
-// 31-35 (重複修正済み)
+// 31-55
 import { gameData as rise100 } from "../data/games/rise-of-olympus-100";
 import { gameData as gems } from "../data/games/gems-bonanza";
 import { gameData as fruit } from "../data/games/fruit-party";
 import { gameData as wwg } from "../data/games/wild-west-gold";
 import { gameData as multihold } from "../data/games/the-dog-house-multihold";
+import { gameData as bonanza } from "../data/games/bonanza";
+import { gameData as chilli } from "../data/games/extra-chilli";
+import { gameData as danger } from "../data/games/danger-high-voltage";
+import { gameData as millionaire } from "../data/games/who-wants-to-be-a-millionaire";
+import { gameData as crazy } from "../data/games/crazy-time";
+import { gameData as lightning } from "../data/games/lightning-roulette";
+import { gameData as monopoly } from "../data/games/monopoly-live";
+import { gameData as funky } from "../data/games/funky-time";
+import { gameData as tombrip } from "../data/games/tombstone-rip";
+import { gameData as fith } from "../data/games/fire-in-the-hole";
+import { gameData as folsom } from "../data/games/folsom-prison";
+import { gameData as crypt } from "../data/games/the-crypt";
+import { gameData as storm } from "../data/games/lightning-storm";
+import { gameData as xxxtreme } from "../data/games/xxxtreme-lightning-roulette";
+import { gameData as coc } from "../data/games/cash-or-crash";
+import { gameData as dream } from "../data/games/dream-catcher";
+import { gameData as bookofdead } from "../data/games/book-of-dead";
+import { gameData as gemix } from "../data/games/gemix";
+import { gameData as legacy } from "../data/games/legacy-of-dead";
+import { gameData as ticket2 } from "../data/games/golden-ticket-2";
 
 export const getAllGames = () => {
   return [
     gates, sweet, hawaiian, san, wanted, tome, outsourced, princess, mental, sugar,
     bass, oiran, sugar1000, moon, razor, moneytrain, puglife, chaoscrew, wolfgold, reactoonz,
     fire, doghouse, buffalo, beamboys, ripcity, bigbamboo, gonzomega, sanq2, lebandit, anubis,
-    rise100, gems, fruit, wwg, multihold
+    rise100, gems, fruit, wwg, multihold,
+    bonanza, chilli, danger, millionaire,
+    crazy, lightning, monopoly, funky,
+    tombrip, fith, folsom, crypt,
+    storm, xxxtreme, coc, dream,
+    bookofdead, gemix, legacy, ticket2
   ];
 };
 
