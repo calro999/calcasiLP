@@ -24,7 +24,7 @@ export const gameData: Game = {
   slug: "sweet-bonanza",
   title: "Sweet Bonanza",
   provider: "Pragmatic Play",
-  imageUrl: "/sweet-bonanza.jpg", // 指示通り slug名.jpg に設定
+  imageUrl: "/sweet-bonanza.png", // 指示通り slug名.jpg に設定
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

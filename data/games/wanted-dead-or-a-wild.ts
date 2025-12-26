@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wanted-dead-or-a-wild",
   title: "Wanted Dead or a Wild",
   provider: "Hacksaw Gaming",
-  imageUrl: "/wanted-dead-or-a-wild.jpg",
+  imageUrl: "/wanted-dead-or-a-wild.png",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

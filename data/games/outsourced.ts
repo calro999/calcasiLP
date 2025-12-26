@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "outsourced",
   title: "Outsourced",
   provider: "Nolimit City",
-  imageUrl: "/outsourced.jpg",
+  imageUrl: "/outsourced.png",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

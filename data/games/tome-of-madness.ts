@@ -23,7 +23,7 @@ export const gameData: Game = {
   slug: "tome-of-madness",
   title: "Tome of Madness",
   provider: "Play'n GO",
-  imageUrl: "/tome-of-madness.jpg",
+  imageUrl: "/tome-of-madness.png",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,
