@@ -16,77 +16,140 @@ export default function GameDetailPage({ params }: Props) {
   const game = getGameBySlug(params.slug);
   if (!game) notFound();
 
-  // 星を表示する部品
   const Star = ({ count }: { count: number }) => (
     <span className="text-yellow-400">{"★".repeat(count)}{"☆".repeat(5 - count)}</span>
   );
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": { "@type": "Game", "name": game.title, "author": { "@type": "Organization", "name": game.provider } },
-    "reviewRating": { "@type": "Rating", "ratingValue": game.ratingFun, "bestRating": "5" },
-    "author": { "@type": "Organization", "name": "Calcasi" }
-  };
-
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white pb-20">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      
-      <div className="bg-gradient-to-b from-blue-900/40 to-[#0f172a] pt-32 pb-16 px-4 text-center">
-        <nav className="text-sm text-gray-400 mb-6">
-          <Link href="/" className="hover:text-white">TOP</Link> / <Link href="/games" className="hover:text-white">ゲーム一覧</Link> / {game.title}
-        </nav>
-        <p className="text-blue-400 font-bold tracking-tighter mb-2">{game.provider}</p>
-        <h1 className="text-4xl md:text-6xl font-black mb-6">{game.title}</h1>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-            <h2 className="text-lg font-bold mb-4 flex items-center">📊 ゲームスペック</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between"><span>面白さ</span><Star count={game.ratingFun} /></div>
-              <div className="flex justify-between"><span>爆発力</span><Star count={game.ratingExplosive} /></div>
-              <div className="flex justify-between border-t border-gray-700 pt-3"><span>還元率 (RTP)</span><span className="text-blue-400 font-mono">{game.rtp}</span></div>
-              <div className="flex justify-between"><span>FS購入</span><span className={game.canBuyFS ? "text-green-400" : "text-red-400"}>{game.canBuyFS ? "可能" : "不可"}</span></div>
-            </div>
-          </div>
-          <div className="bg-blue-900/20 p-6 rounded-2xl border border-blue-500/30">
-            <h2 className="text-lg font-bold mb-4 text-blue-400">✅ メリット・デメリット</h2>
-            {/* 🔽 ここのエラー（pとiの型）を修正しました */}
-            <ul className="text-sm space-y-2 mb-4">
-              {game.pros.map((p: string, i: number) => (
-                <li key={i} className="flex items-start">👍 {p}</li>
-              ))}
-            </ul>
-            <ul className="text-sm space-y-2 text-gray-400 italic">
-              {game.cons.map((c: string, i: number) => (
-                <li key={i} className="flex items-start">⚠️ {c}</li>
-              ))}
-            </ul>
+    <div className="min-h-screen bg-[#020617] text-gray-100 pb-20">
+      {/* ヒーローヘッダー */}
+      <div className="relative h-[450px] w-full flex items-center justify-center overflow-hidden">
+        <img src={game.imageUrl} className="absolute w-full h-full object-cover opacity-10 blur-md scale-110" alt="" />
+        <div className="relative z-10 text-center px-4">
+          <nav className="text-[10px] text-blue-400 font-black mb-6 tracking-[0.3em] uppercase">
+            <Link href="/" className="hover:text-white">Home</Link> 
+            <span className="mx-3 text-gray-700">/</span> 
+            <Link href="/games" className="hover:text-white">Game Analysis</Link> 
+            <span className="mx-3 text-gray-700">/</span> 
+            <span className="text-gray-500">{game.title}</span>
+          </nav>
+          <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter text-white uppercase italic">{game.title}</h1>
+          <div className="flex justify-center items-center gap-6">
+            <span className="bg-blue-600 px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">{game.provider}</span>
+            <div className="h-px w-12 bg-gray-700"></div>
+            <span className="text-sm font-bold text-gray-400">RTP: {game.rtp}</span>
           </div>
         </div>
+      </div>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-4 border-l-4 border-blue-600 pl-4">基本ルールと特徴</h2>
-          <p className="text-gray-300 leading-loose whitespace-pre-wrap bg-gray-800/30 p-6 rounded-xl">
-            {game.rules}
-          </p>
-        </section>
+      <div className="max-w-5xl mx-auto px-4 -mt-16 relative z-20">
+        {/* 外部リンク：アフィリエイトボタン */}
+        <div className="mb-16">
+          <a 
+            href={game.affiliateUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="group relative block w-full text-center py-8 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-[#0f172a] text-2xl font-black rounded-3xl shadow-[0_20px_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] transition-all duration-300 overflow-hidden"
+          >
+            <div className="relative z-10">ゴールデンパンダで入金不要をもらってプレイ</div>
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+          </a>
+        </div>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">よくある質問</h2>
-          <div className="bg-gray-800/80 p-5 rounded-lg">
-            <p className="font-bold text-blue-300 mb-1">Q. このゲームは勝てる？</p>
-            <p className="text-gray-400 text-sm">A. {game.title}は{game.ratingExplosive >= 4 ? "高ボラティリティなため、短時間での爆発力が期待できますが、慎重なプレイも必要です。" : "安定感があり、長く楽しむのに向いています。"}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* メインカラム */}
+          <div className="lg:col-span-2 space-y-16">
+            <section>
+              <h2 className="text-2xl font-bold mb-8 flex items-center">
+                <span className="w-2 h-8 bg-blue-600 mr-4 rounded-full"></span>
+                ゲーム詳細レビュー
+              </h2>
+              <p className="leading-loose text-gray-300 text-lg mb-8">{game.description}</p>
+              <div className="bg-gray-900 border border-gray-800 p-8 rounded-[2rem]">
+                <h3 className="text-blue-400 font-bold mb-4 uppercase tracking-widest text-sm">Key Highlight</h3>
+                <p className="leading-relaxed text-gray-200 italic text-xl">「{game.features}」</p>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-8 flex items-center">
+                <span className="w-2 h-8 bg-blue-600 mr-4 rounded-full"></span>
+                配当ルールと遊び方
+              </h2>
+              <div className="bg-gray-900/40 p-10 rounded-[2rem] border border-gray-800 text-gray-300 leading-loose whitespace-pre-wrap">
+                {game.rules}
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold mb-8 flex items-center">
+                <span className="w-2 h-8 bg-green-500 mr-4 rounded-full"></span>
+                プロが教える攻略のコツ
+              </h2>
+              <div className="bg-green-500/5 border border-green-500/20 p-10 rounded-[2rem] text-gray-300 whitespace-pre-wrap leading-loose shadow-inner">
+                {game.strategy}
+              </div>
+            </section>
+
+            {/* Pros/Cons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-blue-500/5 border border-blue-500/20 p-8 rounded-3xl">
+                <h3 className="font-bold text-blue-400 mb-6 flex items-center">メリット</h3>
+                <ul className="space-y-4 text-sm">
+                  {game.pros.map((p: string, i: number) => <li key={i} className="flex items-start">✅ <span className="ml-3">{p}</span></li>)}
+                </ul>
+              </div>
+              <div className="bg-red-500/5 border border-red-500/20 p-8 rounded-3xl">
+                <h3 className="font-bold text-red-400 mb-6 flex items-center">デメリット</h3>
+                <ul className="space-y-4 text-sm">
+                  {game.cons.map((c: string, i: number) => <li key={i} className="flex items-start">⚠️ <span className="ml-3">{c}</span></li>)}
+                </ul>
+              </div>
+            </div>
           </div>
-        </section>
 
-        <div className="text-center mt-20">
-          <Link href="/games" className="px-8 py-3 bg-gray-700 rounded-full hover:bg-gray-600 transition">
-            一覧ページへ戻る
-          </Link>
+          {/* サイドバー（スペック表） */}
+          <aside className="space-y-8">
+            <div className="bg-gray-900 border border-gray-800 p-8 rounded-[2.5rem] sticky top-24">
+              <h3 className="text-center font-black text-xl mb-8 tracking-widest">TECHNICAL</h3>
+              <div className="space-y-6">
+                <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                  <span className="text-gray-500 text-xs uppercase">Provider</span>
+                  <span className="font-bold text-blue-400">{game.provider}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                  <span className="text-gray-500 text-xs uppercase">Fun Rating</span>
+                  <Star count={game.ratingFun} />
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                  <span className="text-gray-500 text-xs uppercase">Explosive</span>
+                  <Star count={game.ratingExplosive} />
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                  <span className="text-gray-500 text-xs uppercase">RTP</span>
+                  <span className="font-mono text-white">{game.rtp}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-800">
+                  <span className="text-gray-500 text-xs uppercase">Volatility</span>
+                  <span className="text-xs text-right">{game.volatility}</span>
+                </div>
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-gray-500 text-xs uppercase">Buy FS</span>
+                  <span className="text-xs">{game.canBuyFS ? "✅ ENABLED" : "❌ DISABLED"}</span>
+                </div>
+              </div>
+
+              {/* 内部リンク：一覧へ戻る */}
+              <div className="mt-12">
+                <Link 
+                  href="/games" 
+                  className="block w-full text-center py-4 rounded-xl bg-gray-800 text-xs font-bold hover:bg-gray-700 transition"
+                >
+                  ← ALL GAMES
+                </Link>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>

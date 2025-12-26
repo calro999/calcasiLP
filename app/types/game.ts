@@ -1,14 +1,20 @@
 export type Game = {
-  slug: string;           // URLになる名前 (例: gates-of-olympus)
-  title: string;          // ゲーム名
-  provider: string;       // プロバイダー名
-  ratingFun: 1 | 2 | 3 | 4 | 5; // 面白さ
-  ratingExplosive: 1 | 2 | 3 | 4 | 5; // 爆発力
-  canBuyFS: boolean;      // FS購入可否
-  rtp: string;            // 還元率
-  description: string;    // 簡単な紹介文
-  rules: string;          // 基本ルール
-  pros: string[];         // メリット（SEO対策）
-  cons: string[];         // デメリット（信頼性向上）
-  seoDescription: string; // 検索用説明文
+  slug: string;
+  title: string;
+  provider: string;
+  imageUrl: string;       // 画像用
+  ratingFun: 1 | 2 | 3 | 4 | 5;
+  ratingExplosive: 1 | 2 | 3 | 4 | 5;
+  canBuyFS: boolean;
+  rtp: string;
+  maxWin: string;         // 最大配当（追加）
+  volatility: string;     // 変動率（追加）
+  description: string;
+  rules: string;
+  features: string;       // ゲームの特徴（詳細用）
+  strategy: string;       // 攻略のコツ（SEO用）
+  pros: string[];
+  cons: string[];
+  seoDescription: string;
+  affiliateUrl: string;   // 外部リンク用
 };

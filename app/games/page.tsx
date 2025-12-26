@@ -1,32 +1,79 @@
-import React from "react";
-import { Metadata } from "next";
-import Link from "next/link";
-import { getAllGames } from "../../lib/gameLoader"; // 修正
+"use client";
 
-export const metadata: Metadata = {
-  title: "オンラインカジノゲーム徹底解説一覧 | Calcasi",
-  description: "人気のスロットから最新ゲームまで、スペックや攻略法を詳しく紹介。",
-};
+import React, { useState } from "react";
+import Link from "next/link";
+import { getAllGames } from "../../lib/gameLoader";
 
 export default function GamesPage() {
-  const games = getAllGames();
+  const allGames = getAllGames();
+  const [selectedProvider, setSelectedProvider] = useState<string>("All");
+
+  // プロバイダーの一覧を自動取得
+  const providers = ["All", ...Array.from(new Set(allGames.map(g => g.provider)))];
+
+  const filteredGames = selectedProvider === "All" 
+    ? allGames 
+    : allGames.filter(g => g.provider === selectedProvider);
 
   return (
-    <main className="min-h-screen bg-[#0f172a] py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-black text-white mb-10 text-center uppercase tracking-widest">Popular Games</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {games.map((game) => (
-            <Link key={game.slug} href={`/games/${game.slug}`} className="group">
-              <div className="bg-gray-800 border border-gray-700 p-8 rounded-3xl hover:border-blue-500 transition-all duration-300 transform group-hover:-translate-y-2 shadow-2xl">
-                <p className="text-blue-500 text-xs font-bold mb-2 uppercase">{game.provider}</p>
-                <h2 className="text-2xl font-bold text-white mb-4">{game.title}</h2>
-                <div className="flex space-x-4 mb-6">
-                  <div className="text-xs text-gray-400">RTP: <span className="text-white">{game.rtp}</span></div>
-                  <div className="text-xs text-gray-400">FS: <span className="text-white">{game.canBuyFS ? "OK" : "NO"}</span></div>
+    <main className="min-h-screen bg-[#020617] py-24 px-4">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-4xl font-black text-white mb-4 text-center">POPULAR GAMES</h1>
+        <p className="text-gray-400 text-center mb-12 text-sm">厳選された人気ゲームの攻略情報をチェック</p>
+
+        {/* プロバイダー絞り込みタグ */}
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
+          {providers.map(p => (
+            <button
+              key={p}
+              onClick={() => setSelectedProvider(p)}
+              className={`px-5 py-2 rounded-full text-xs font-bold transition-all ${
+                selectedProvider === p 
+                ? "bg-blue-600 text-white shadow-lg" 
+                : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+              }`}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+
+        {/* ゲームリスト：横型レイアウト */}
+        <div className="space-y-8">
+          {filteredGames.map((game) => (
+            <Link key={game.slug} href={`/games/${game.slug}`} className="group block">
+              <div className="bg-gray-900/50 border border-gray-800 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row shadow-2xl">
+                {/* 左側：画像 */}
+                <div className="w-full md:w-[400px] h-64 md:h-auto overflow-hidden">
+                  <img 
+                    src={game.imageUrl} 
+                    alt={game.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
                 </div>
-                <div className="text-blue-400 font-bold group-hover:underline text-sm flex items-center">
-                  詳細を見る →
+
+                {/* 右側：説明テキスト */}
+                <div className="flex-1 p-8 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-blue-500 text-[10px] font-black tracking-widest uppercase bg-blue-500/10 px-2 py-1 rounded">
+                        {game.provider}
+                      </span>
+                    </div>
+                    <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                      {game.title}
+                    </h2>
+                    <p className="text-gray-400 text-sm line-clamp-3 mb-6 leading-relaxed">
+                      {game.description}
+                    </p>
+                    <div className="flex gap-6 mb-2">
+                      <div className="text-xs text-gray-500">RTP: <span className="text-white font-bold">{game.rtp}</span></div>
+                      <div className="text-xs text-gray-500">MAX WIN: <span className="text-white font-bold">{game.maxWin}</span></div>
+                    </div>
+                  </div>
+                  <div className="mt-6 text-blue-500 text-xs font-bold flex items-center">
+                    VIEW DETAILS <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                  </div>
                 </div>
               </div>
             </Link>
