@@ -1,9 +1,11 @@
-// データの場所を直接指定します
+// 既存のゲーム
 import { gameData as gates } from "../data/games/gates-of-olympus";
+// 🔽 新しく追加
+import { gameData as sweet } from "../data/games/sweet-bonanza";
 
 export const getAllGames = () => {
-  // ゲームが増えたらここにカンマ区切りで追加します
-  const allGames = [gates]; 
+  // 🔽 新しいゲーム(sweet)を配列に追加
+  const allGames = [gates, sweet]; 
   return allGames;
 };
 
