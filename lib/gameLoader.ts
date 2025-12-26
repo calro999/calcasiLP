@@ -61,11 +61,41 @@ import { gameData as gemix } from "../data/games/gemix";
 import { gameData as legacy } from "../data/games/legacy-of-dead";
 import { gameData as ticket2 } from "../data/games/golden-ticket-2";
 
-// 56-59 (Win Fast 追加分)
+// 56-59
 import { gameData as dwarf } from "../data/games/battle-dwarf";
 import { gameData as goldfrog } from "../data/games/dreams-of-gold";
 import { gameData as hawaiianboost } from "../data/games/hawaiian-dream-boost";
 import { gameData as engeki } from "../data/games/engeki-rising";
+
+// 60-63
+import { gameData as amazon } from "../data/games/big-bass-amazon-xtreme";
+import { gameData as dragonmegaways } from "../data/games/floating-dragon-ultra-megaways";
+import { gameData as tropicana } from "../data/games/club-tropicana";
+import { gameData as pizza } from "../data/games/pizza-pizza-pizza";
+
+// 64-67
+import { gameData as jammin } from "../data/games/jammin-jars";
+import { gameData as razorreturns } from "../data/games/razor-returns";
+import { gameData as fatsanta } from "../data/games/fat-santa";
+import { gameData as retrotapes } from "../data/games/retro-tapes";
+
+// 68-71
+import { gameData as templetumble } from "../data/games/temple-tumble";
+import { gameData as ironbank } from "../data/games/iron-bank";
+import { gameData as netgains } from "../data/games/net-gains";
+import { gameData as hellcatraz } from "../data/games/hellcatraz";
+
+// 72-75
+import { gameData as dragonluck } from "../data/games/dragons-luck-megaways";
+import { gameData as piggyriches } from "../data/games/piggy-riches-megaways";
+import { gameData as gonzort } from "../data/games/gonzos-quest-megaways-rt";
+import { gameData as primal } from "../data/games/primal-frontier";
+
+// 76-79 (Quickspin 追加分)
+import { gameData as sakura } from "../data/games/sakura-fortune";
+import { gameData as wolfmega } from "../data/games/big-bad-wolf-megaways";
+import { gameData as bandits } from "../data/games/sticky-bandits";
+import { gameData as emeralds } from "../data/games/eastern-emeralds";
 
 export const getAllGames = () => {
   return [
@@ -78,7 +108,12 @@ export const getAllGames = () => {
     tombrip, fith, folsom, crypt,
     storm, xxxtreme, coc, dream,
     bookofdead, gemix, legacy, ticket2,
-    dwarf, goldfrog, hawaiianboost, engeki
+    dwarf, goldfrog, hawaiianboost, engeki,
+    amazon, dragonmegaways, tropicana, pizza,
+    jammin, razorreturns, fatsanta, retrotapes,
+    templetumble, ironbank, netgains, hellcatraz,
+    dragonluck, piggyriches, gonzort, primal,
+    sakura, wolfmega, bandits, emeralds
   ];
 };
 
