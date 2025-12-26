@@ -1,3 +1,4 @@
+// 既存の15タイトル
 import { gameData as gates } from "../data/games/gates-of-olympus";
 import { gameData as sweet } from "../data/games/sweet-bonanza";
 import { gameData as hawaiian } from "../data/games/hawaiian-dream";
@@ -14,11 +15,45 @@ import { gameData as sugar1000 } from "../data/games/sugar-rush-1000";
 import { gameData as moon } from "../data/games/moon-princess";
 import { gameData as razor } from "../data/games/razor-shark";
 
+// 今回追加した8タイトル
+import { gameData as moneytrain } from "../data/games/money-train-4";
+import { gameData as puglife } from "../data/games/pug-life";
+import { gameData as chaoscrew } from "../data/games/chaos-crew-2";
+import { gameData as wolfgold } from "../data/games/wolf-gold";
+import { gameData as reactoonz } from "../data/games/reactoonz";
+import { gameData as fire } from "../data/games/fire-in-the-hole-2";
+import { gameData as doghouse } from "../data/games/the-dog-house-megaways";
+import { gameData as buffalo } from "../data/games/buffalo-king-megaways";
+
 export const getAllGames = () => {
   return [
-    gates, sweet, hawaiian, san, wanted, 
-    tome, outsourced, princess, mental, 
-    sugar, bass, oiran, sugar1000, moon, razor
+    // 1-5
+    gates,
+    sweet,
+    hawaiian,
+    san,
+    wanted,
+    // 6-10
+    tome,
+    outsourced,
+    princess,
+    mental,
+    sugar,
+    // 11-15
+    bass,
+    oiran,
+    sugar1000,
+    moon,
+    razor,
+    // 16-23 (今回追加分)
+    moneytrain,
+    puglife,
+    chaoscrew,
+    wolfgold,
+    reactoonz,
+    fire,
+    doghouse,
+    buffalo,
   ];
 };
 
