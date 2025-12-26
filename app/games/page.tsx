@@ -67,12 +67,12 @@ export default function GamesPage() {
                       {game.description}
                     </p>
                     <div className="flex gap-6 mb-2">
-                      <div className="text-xs text-gray-500">RTP: <span className="text-white font-bold">{game.rtp}</span></div>
-                      <div className="text-xs text-gray-500">MAX WIN: <span className="text-white font-bold">{game.maxWin}</span></div>
+                      <div className="text-xs text-gray-500 font-mono">RTP: <span className="text-white font-bold">{game.rtp}</span></div>
+                      <div className="text-xs text-gray-500 font-mono">MAX: <span className="text-white font-bold">{game.maxWin}</span></div>
                     </div>
                   </div>
                   <div className="mt-6 text-blue-500 text-xs font-bold flex items-center">
-                    VIEW DETAILS <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    VIEW ANALYSIS <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
                   </div>
                 </div>
               </div>
