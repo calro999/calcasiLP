@@ -42,7 +42,7 @@ import { gameData as wwg } from "../data/games/wild-west-gold";
 import { gameData as multihold } from "../data/games/the-dog-house-multihold";
 import { gameData as bonanza } from "../data/games/bonanza";
 import { gameData as chilli } from "../data/games/extra-chilli";
-import { gameData as danger } from "../data/games/danger-high-voltage";
+import { gameData as danger } from "../data/games/danger-high-voltage"; // ここで既出
 import { gameData as millionaire } from "../data/games/who-wants-to-be-a-millionaire";
 import { gameData as crazy } from "../data/games/crazy-time";
 import { gameData as lightning } from "../data/games/lightning-roulette";
@@ -61,47 +61,56 @@ import { gameData as gemix } from "../data/games/gemix";
 import { gameData as legacy } from "../data/games/legacy-of-dead";
 import { gameData as ticket2 } from "../data/games/golden-ticket-2";
 
-// 56-59
+// 56-75 (WinFast, Pragmatic, Push, Relax, Red Tiger)
 import { gameData as dwarf } from "../data/games/battle-dwarf";
 import { gameData as goldfrog } from "../data/games/dreams-of-gold";
 import { gameData as hawaiianboost } from "../data/games/hawaiian-dream-boost";
 import { gameData as engeki } from "../data/games/engeki-rising";
-
-// 60-63
 import { gameData as amazon } from "../data/games/big-bass-amazon-xtreme";
 import { gameData as dragonmegaways } from "../data/games/floating-dragon-ultra-megaways";
 import { gameData as tropicana } from "../data/games/club-tropicana";
 import { gameData as pizza } from "../data/games/pizza-pizza-pizza";
-
-// 64-67
 import { gameData as jammin } from "../data/games/jammin-jars";
 import { gameData as razorreturns } from "../data/games/razor-returns";
 import { gameData as fatsanta } from "../data/games/fat-santa";
 import { gameData as retrotapes } from "../data/games/retro-tapes";
-
-// 68-71
 import { gameData as templetumble } from "../data/games/temple-tumble";
 import { gameData as ironbank } from "../data/games/iron-bank";
 import { gameData as netgains } from "../data/games/net-gains";
 import { gameData as hellcatraz } from "../data/games/hellcatraz";
-
-// 72-75
 import { gameData as dragonluck } from "../data/games/dragons-luck-megaways";
 import { gameData as piggyriches } from "../data/games/piggy-riches-megaways";
 import { gameData as gonzort } from "../data/games/gonzos-quest-megaways-rt";
 import { gameData as primal } from "../data/games/primal-frontier";
 
-// 76-79
+// 76-95 (Quickspin, Play'n GO, AvatarUX, ELK, Thunderkick)
 import { gameData as sakura } from "../data/games/sakura-fortune";
 import { gameData as wolfmega } from "../data/games/big-bad-wolf-megaways";
 import { gameData as bandits } from "../data/games/sticky-bandits";
 import { gameData as emeralds } from "../data/games/eastern-emeralds";
-
-// 80-83 (Play'n GO 追加分)
 import { gameData as riseolympus } from "../data/games/rise-of-olympus";
 import { gameData as wildblood2 } from "../data/games/wild-blood-2";
 import { gameData as honeyrush } from "../data/games/honey-rush";
 import { gameData as goldenticket } from "../data/games/golden-ticket";
+import { gameData as cherry } from "../data/games/cherry-pop";
+import { gameData as hippo } from "../data/games/hippo-pop";
+import { gameData as tiki } from "../data/games/tiki-pop";
+import { gameData as papaya } from "../data/games/papaya-pop";
+import { gameData as pilipili } from "../data/games/pili-pili";
+import { gameData as cygnus } from "../data/games/cygnus";
+import { gameData as nitro4 } from "../data/games/nitropolis-4";
+import { gameData as wildtoro } from "../data/games/wild-toro";
+import { gameData as elephants2 } from "../data/games/pink-elephants-2";
+import { gameData as midas } from "../data/games/midas-golden-touch";
+import { gameData as esque2 } from "../data/games/esqueleto-explosivo-2";
+import { gameData as swordkhans } from "../data/games/sword-of-khans";
+
+// 96-100 (Big Time Gaming - 差し替え版)
+import { gameData as rabbit } from "../data/games/white-rabbit";
+import { gameData as goldencatch } from "../data/games/golden-catch"; // 新規
+import { gameData as lildevil } from "../data/games/lil-devil";
+import { gameData as chilli2 } from "../data/games/extra-chilli-btg";
+import { gameData as apollo } from "../data/games/apollo-pays";
 
 export const getAllGames = () => {
   return [
@@ -120,7 +129,11 @@ export const getAllGames = () => {
     templetumble, ironbank, netgains, hellcatraz,
     dragonluck, piggyriches, gonzort, primal,
     sakura, wolfmega, bandits, emeralds,
-    riseolympus, wildblood2, honeyrush, goldenticket
+    riseolympus, wildblood2, honeyrush, goldenticket,
+    cherry, hippo, tiki, papaya,
+    pilipili, cygnus, nitro4, wildtoro,
+    elephants2, midas, esque2, swordkhans,
+    rabbit, goldencatch, lildevil, chilli2, apollo
   ];
 };
 
