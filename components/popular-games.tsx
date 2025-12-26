@@ -1,106 +1,55 @@
-// components/popular-games.tsx
-import Image from "next/image"
-import { Star } from "lucide-react"
-import ScrollAnimation from "./animations/scroll-animation"
-import Parallax from "./animations/parallax"
+import React from "react";
+import Link from "next/link";
+import { getAllGames } from "@/lib/gameLoader";
 
 export default function PopularGames() {
-  const games = [
-    {
-      id: 1,
-      name: "Sweet Bonanza",
-      provider: "Pragmatic Play",
-      image: "/sweet.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "Hawaiian Dream",
-      provider: "win fast",
-      image: "/hawai.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: "SAN QUENTIN",
-      provider: "Nolimit City",
-      image: "/san.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 5, // 高レート設定
-    },
-    {
-      id: 4,
-      name: "WANTED",
-      provider: "Hacksaw Gaming",
-      image: "/wan.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 5, // 高レート設定
-    },
-    {
-      id: 5,
-      name: "Tom of MADNESS",
-      provider: "Play'n GO",
-      image: "/tom.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 4,
-    },
-    {
-      id: 6,
-      name: "OUT SOURCED", // このゲームは一般的なスロットプロバイダーでは見かけないため、プロバイダーは仮設定
-      provider: "Nolimit City", // 仮のプロバイダー名
-      image: "/out.png?height=300&width=500", // 実際の画像パスに置き換え
-      rating: 4,
-    },
-  ]
+  // 全ゲームデータからTOP用に最初の6件を取得
+  const games = getAllGames().slice(0, 6);
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
-      <Parallax speed={0.2} direction="up" className="absolute inset-0 z-0 opacity-5">
-        <div className="grid grid-cols-5 gap-4">
-          {Array.from({ length: 50 }).map((_, i) => (
-            <div key={i} className="aspect-square bg-amber-500/20 rounded-full"></div>
-          ))}
-        </div>
-      </Parallax>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <ScrollAnimation variant="fadeInUp">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              人気の
-              <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                ゲーム
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              オンラインカジノで人気のスロットゲームをご紹介します。高いペイアウト率と面白いゲーム性が魅力です。
-            </p>
+    <section className="py-24 px-4 bg-[#020617]">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tighter">Popular Games</h2>
+            <div className="h-1 w-20 bg-blue-600"></div>
           </div>
-        </ScrollAnimation>
+          <Link href="/games" className="text-blue-500 font-bold hover:underline">
+            すべて見る →
+          </Link>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {games.map((game, index) => (
-            <ScrollAnimation key={game.id} variant="fadeInUp" delay={0.2 * index} className="h-full">
-              <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden h-full transition-all duration-500 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 transform hover:translate-y-[-5px]">
-                <div className="relative aspect-[16/9]">
-                  <Image src={game.image || "/placeholder.svg"} alt={game.name} fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {games.map((game) => (
+            <Link key={game.slug} href={`/games/${game.slug}`} className="group">
+              <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-blue-500 transition-all duration-300 transform group-hover:-translate-y-2 shadow-xl">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={game.imageUrl} 
+                    alt={game.title} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                  />
+                  <div className="absolute top-3 left-3 bg-blue-600 text-[10px] font-black px-2 py-1 rounded">
+                    {game.provider}
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-white text-lg">{game.name}</h3>
-                  <p className="text-gray-400 text-sm mb-2">{game.provider}</p>
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        className={`${i < game.rating ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
-                      />
-                    ))}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                    {game.title}
+                  </h3>
+                  <p className="text-gray-400 text-xs line-clamp-2 leading-relaxed mb-4">
+                    {game.description}
+                  </p>
+                  <div className="flex justify-between items-center text-[10px] font-bold text-gray-500 border-t border-gray-800 pt-4">
+                    <span>RTP: <span className="text-white">{game.rtp}</span></span>
+                    <span className="text-blue-500">READ MORE →</span>
                   </div>
                 </div>
               </div>
-            </ScrollAnimation>
+            </Link>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

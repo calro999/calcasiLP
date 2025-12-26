@@ -1,4 +1,3 @@
-// app/page.tsx
 import React from "react";
 import { Metadata } from "next";
 import Hero from "@/components/hero";
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default async function LangHome() {
   const articles = await getAllArticles();
 
-  // Googleにサイト名を正しく伝えるための構造化データ
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -27,7 +25,6 @@ export default async function LangHome() {
 
   return (
     <main>
-      {/* 構造化データを注入 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -39,7 +36,6 @@ export default async function LangHome() {
       <PopularGames />
       <CTA />
 
-      {/* 🔽 外部サイトの埋め込み（iframe） */}
       <div className="w-full mt-20 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>
