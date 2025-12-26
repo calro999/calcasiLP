@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllGames } from "@/lib/gameLoader";
+import { getAllGames } from "../../lib/gameLoader"; // 修正
 
 export const metadata: Metadata = {
   title: "オンラインカジノゲーム徹底解説一覧 | Calcasi",

@@ -1,4 +1,18 @@
-import { Game } from "@/types/game";
+// 型の定義を直接入れることでエラーを回避します
+export type Game = {
+  slug: string;
+  title: string;
+  provider: string;
+  ratingFun: 1 | 2 | 3 | 4 | 5;
+  ratingExplosive: 1 | 2 | 3 | 4 | 5;
+  canBuyFS: boolean;
+  rtp: string;
+  description: string;
+  rules: string;
+  pros: string[];
+  cons: string[];
+  seoDescription: string;
+};
 
 export const gameData: Game = {
   slug: "gates-of-olympus",

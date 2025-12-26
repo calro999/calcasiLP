@@ -1,9 +1,8 @@
-import { gameData as gates } from "@/data/games/gates-of-olympus";
-// 🔽 ゲームを増やしたら、ここにインポートを追加するだけ
-// import { gameData as sugar } from "@/data/games/sugar-rush";
+// データの場所を直接指定します
+import { gameData as gates } from "../data/games/gates-of-olympus";
 
 export const getAllGames = () => {
-  // 🔽 増やしたゲームをこの配列に入れる
+  // ゲームが増えたらここにカンマ区切りで追加します
   const allGames = [gates]; 
   return allGames;
 };
