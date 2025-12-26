@@ -5,20 +5,17 @@ import Features from "@/components/features";
 import CasinoDetails from "@/components/casino-details";
 import PopularGames from "@/components/popular-games";
 import CTA from "@/components/cta";
-import { ProviderLogos } from "@/components/ProviderLogos"; // ロゴをインポート
+import { ProviderLogos } from "@/components/ProviderLogos";
 import { getAllArticles } from "@/lib/getAllArticles";
 
-// ブラウザのタブ名と説明（SEO用）
 export const metadata: Metadata = {
   title: "カジノ比較ならCalcasi！",
   description: "人気オンラインカジノのランキング・ゲーム紹介・初心者ガイドを提供するカジノ比較サイトです。",
 };
 
 export default async function LangHome() {
-  // 既存の記事取得ロジック
   const articles = await getAllArticles();
 
-  // Googleにサイト名を正しく伝えるための構造化データ
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -29,35 +26,24 @@ export default async function LangHome() {
 
   return (
     <main>
-      {/* 構造化データを注入 */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* ヒーローセクション */}
       <Hero />
-      
-      {/* サイトの特徴 */}
       <Features />
-      
-      {/* カジノの詳細（ランキング等） */}
       <CasinoDetails />
 
-      {/* 🔽 追加：プロバイダーロゴセクション */}
+      {/* 関数を渡さず、表示専用として呼び出す */}
       <ProviderLogos />
       
-      {/* 「人気のゲームを紹介！」セクション */}
       <PopularGames />
-      
-      {/* 登録誘導ボタン */}
       <CTA />
 
-      {/* 外部サイトの埋め込み（iframe） */}
       <div className="w-full mt-20 px-4 pb-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>
-      
           <iframe 
             src="https://calcasi-lp.vercel.app/videos" 
             width="1200"
@@ -65,7 +51,6 @@ export default async function LangHome() {
             allow="fullscreen"
             className="w-full border-2 border-gray-700 rounded-xl shadow-2xl"
           />
-      
           <div className="text-center mt-6">
             <a 
               href="https://calcasi-lp.vercel.app/videos" 
