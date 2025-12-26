@@ -1,15 +1,13 @@
-// 既存のゲーム
 import { gameData as gates } from "../data/games/gates-of-olympus";
-// 🔽 新しく追加
 import { gameData as sweet } from "../data/games/sweet-bonanza";
+import { gameData as hawaiian } from "../data/games/hawaiian-dream";
+import { gameData as san } from "../data/games/san-quentin";
+import { gameData as wanted } from "../data/games/wanted-dead-or-a-wild";
 
 export const getAllGames = () => {
-  // 🔽 新しいゲーム(sweet)を配列に追加
-  const allGames = [gates, sweet]; 
-  return allGames;
+  return [gates, sweet, hawaiian, san, wanted];
 };
 
 export const getGameBySlug = (slug: string) => {
-  const allGames = getAllGames();
-  return allGames.find((game) => game.slug === slug);
+  return getAllGames().find((game) => game.slug === slug);
 };
