@@ -15,11 +15,12 @@ export default function GamesPage() {
     ? allGames 
     : allGames.filter(g => g.provider === selectedProvider);
 
-  // ロゴクリック時にフィルタリングを適用する関数
   const handleProviderClick = (providerName: string) => {
     setSelectedProvider(providerName);
-    // クリック後にゲーム一覧までスムーズスクロールさせる場合
-    document.getElementById('game-list')?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('game-list');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -29,12 +30,10 @@ export default function GamesPage() {
         <div className="h-1.5 w-20 bg-blue-600 mx-auto mb-6 rounded-full"></div>
         <p className="text-gray-400 text-center mb-12 text-sm">プロによる最新スロット攻略・分析データ一覧</p>
 
-        {/* ロゴセクション：クリック時にhandleProviderClickを実行 */}
         <div className="mb-10">
           <ProviderLogos onProviderSelect={handleProviderClick} />
         </div>
 
-        {/* プロバイダー絞り込みタグ */}
         <div id="game-list" className="flex flex-wrap justify-center gap-2 mb-16 pt-10">
           {providers.map(p => (
             <button
@@ -51,7 +50,6 @@ export default function GamesPage() {
           ))}
         </div>
 
-        {/* ゲームリスト */}
         <div className="space-y-8">
           {filteredGames.length > 0 ? (
             filteredGames.map((game) => (
@@ -64,15 +62,12 @@ export default function GamesPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
-
                   <div className="flex-1 p-8 flex flex-col justify-between">
                     <div>
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-blue-500 text-[10px] font-black tracking-widest uppercase bg-blue-500/10 px-2 py-1 rounded">
-                          {game.provider}
-                        </span>
-                      </div>
-                      <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                      <span className="text-blue-500 text-[10px] font-black tracking-widest uppercase bg-blue-500/10 px-2 py-1 rounded">
+                        {game.provider}
+                      </span>
+                      <h2 className="text-3xl font-bold text-white mt-4 mb-4 group-hover:text-blue-400 transition-colors">
                         {game.title}
                       </h2>
                       <p className="text-gray-400 text-sm line-clamp-3 mb-6 leading-relaxed">
