@@ -9,12 +9,16 @@ import { gameData as princess } from "../data/games/starlight-princess";
 import { gameData as mental } from "../data/games/mental";
 import { gameData as sugar } from "../data/games/sugar-rush";
 import { gameData as bass } from "../data/games/big-bass-splash";
+import { gameData as oiran } from "../data/games/oiran-dream";
+import { gameData as sugar1000 } from "../data/games/sugar-rush-1000";
+import { gameData as moon } from "../data/games/moon-princess";
+import { gameData as razor } from "../data/games/razor-shark";
 
 export const getAllGames = () => {
   return [
     gates, sweet, hawaiian, san, wanted, 
     tome, outsourced, princess, mental, 
-    sugar, bass
+    sugar, bass, oiran, sugar1000, moon, razor
   ];
 };
 
