@@ -8,7 +8,6 @@ export default function GamesPage() {
   const allGames = getAllGames();
   const [selectedProvider, setSelectedProvider] = useState<string>("All");
 
-  // プロバイダーの一覧を自動取得
   const providers = ["All", ...Array.from(new Set(allGames.map(g => g.provider)))];
 
   const filteredGames = selectedProvider === "All" 
@@ -18,8 +17,9 @@ export default function GamesPage() {
   return (
     <main className="min-h-screen bg-[#020617] py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-black text-white mb-4 text-center">POPULAR GAMES</h1>
-        <p className="text-gray-400 text-center mb-12 text-sm">厳選された人気ゲームの攻略情報をチェック</p>
+        <h1 className="text-4xl font-black text-white mb-4 text-center">人気のゲームを紹介！</h1>
+        <div className="h-1.5 w-20 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+        <p className="text-gray-400 text-center mb-12 text-sm">プロによる最新スロット攻略・分析データ一覧</p>
 
         {/* プロバイダー絞り込みタグ */}
         <div className="flex flex-wrap justify-center gap-2 mb-16">
@@ -33,17 +33,16 @@ export default function GamesPage() {
                 : "bg-gray-800 text-gray-400 hover:bg-gray-700"
               }`}
             >
-              {p}
+              {p === "All" ? "すべて" : p}
             </button>
           ))}
         </div>
 
-        {/* ゲームリスト：横型レイアウト */}
+        {/* ゲームリスト */}
         <div className="space-y-8">
           {filteredGames.map((game) => (
             <Link key={game.slug} href={`/games/${game.slug}`} className="group block">
               <div className="bg-gray-900/50 border border-gray-800 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row shadow-2xl">
-                {/* 左側：画像 */}
                 <div className="w-full md:w-[400px] h-64 md:h-auto overflow-hidden">
                   <img 
                     src={game.imageUrl} 
@@ -52,7 +51,6 @@ export default function GamesPage() {
                   />
                 </div>
 
-                {/* 右側：説明テキスト */}
                 <div className="flex-1 p-8 flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between items-start mb-4">
@@ -68,16 +66,22 @@ export default function GamesPage() {
                     </p>
                     <div className="flex gap-6 mb-2">
                       <div className="text-xs text-gray-500 font-mono">RTP: <span className="text-white font-bold">{game.rtp}</span></div>
-                      <div className="text-xs text-gray-500 font-mono">MAX: <span className="text-white font-bold">{game.maxWin}</span></div>
+                      <div className="text-xs text-gray-500 font-mono">最大配当: <span className="text-white font-bold">{game.maxWin}</span></div>
                     </div>
                   </div>
                   <div className="mt-6 text-blue-500 text-xs font-bold flex items-center">
-                    VIEW ANALYSIS <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                    攻略情報を詳しく読む <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
                   </div>
                 </div>
               </div>
             </Link>
           ))}
+        </div>
+        
+        <div className="mt-20 text-center">
+          <Link href="/" className="text-gray-500 hover:text-white transition-colors text-sm">
+             ← TOPページへ戻る
+          </Link>
         </div>
       </div>
     </main>
