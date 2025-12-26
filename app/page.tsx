@@ -5,6 +5,7 @@ import Features from "@/components/features";
 import CasinoDetails from "@/components/casino-details";
 import PopularGames from "@/components/popular-games";
 import CTA from "@/components/cta";
+import { ProviderLogos } from "@/components/ProviderLogos"; // ロゴをインポート
 import { getAllArticles } from "@/lib/getAllArticles";
 
 // ブラウザのタブ名と説明（SEO用）
@@ -14,10 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function LangHome() {
-  // 既存の記事取得ロジック（そのまま維持）
+  // 既存の記事取得ロジック
   const articles = await getAllArticles();
 
-  // Googleにサイト名を正しく伝えるための構造化データ（そのまま維持）
+  // Googleにサイト名を正しく伝えるための構造化データ
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -42,15 +43,17 @@ export default async function LangHome() {
       
       {/* カジノの詳細（ランキング等） */}
       <CasinoDetails />
+
+      {/* 🔽 追加：プロバイダーロゴセクション */}
+      <ProviderLogos />
       
-      {/* 🔽 今回修正した「人気のゲームを紹介！」セクション 
-          components/popular-games.tsx で詳細ページへのリンクが自動生成されます */}
+      {/* 「人気のゲームを紹介！」セクション */}
       <PopularGames />
       
       {/* 登録誘導ボタン */}
       <CTA />
 
-      {/* 外部サイトの埋め込み（iframe） - 元の構成を100%維持 */}
+      {/* 外部サイトの埋め込み（iframe） */}
       <div className="w-full mt-20 px-4 pb-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>

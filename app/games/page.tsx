@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { getAllGames } from "../../lib/gameLoader";
+import { ProviderLogos } from "@/components/ProviderLogos"; // ロゴをインポート
 
 export default function GamesPage() {
   const allGames = getAllGames();
@@ -20,6 +21,11 @@ export default function GamesPage() {
         <h1 className="text-4xl font-black text-white mb-4 text-center">人気のゲームを紹介！</h1>
         <div className="h-1.5 w-20 bg-blue-600 mx-auto mb-6 rounded-full"></div>
         <p className="text-gray-400 text-center mb-12 text-sm">プロによる最新スロット攻略・分析データ一覧</p>
+
+        {/* 🔽 追加：プロバイダーロゴセクション */}
+        <div className="mb-10">
+          <ProviderLogos />
+        </div>
 
         {/* プロバイダー絞り込みタグ */}
         <div className="flex flex-wrap justify-center gap-2 mb-16">

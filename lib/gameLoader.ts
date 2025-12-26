@@ -22,7 +22,7 @@ import { gameData as chaoscrew } from "../data/games/chaos-crew-2";
 import { gameData as wolfgold } from "../data/games/wolf-gold";
 import { gameData as reactoonz } from "../data/games/reactoonz";
 
-// 21-27
+// 21-30
 import { gameData as fire } from "../data/games/fire-in-the-hole-2";
 import { gameData as doghouse } from "../data/games/the-dog-house-megaways";
 import { gameData as buffalo } from "../data/games/buffalo-king-megaways";
@@ -30,36 +30,23 @@ import { gameData as beamboys } from "../data/games/beam-boys";
 import { gameData as ripcity } from "../data/games/rip-city";
 import { gameData as bigbamboo } from "../data/games/big-bamboo";
 import { gameData as gonzomega } from "../data/games/gonzos-quest-megaways";
+import { gameData as sanq2 } from "../data/games/san-quentin-2";
+import { gameData as lebandit } from "../data/games/le-bandit";
+import { gameData as anubis } from "../data/games/hand-of-anubis";
+
+// 31-35 (重複修正済み)
+import { gameData as rise100 } from "../data/games/rise-of-olympus-100";
+import { gameData as gems } from "../data/games/gems-bonanza";
+import { gameData as fruit } from "../data/games/fruit-party";
+import { gameData as wwg } from "../data/games/wild-west-gold";
+import { gameData as multihold } from "../data/games/the-dog-house-multihold";
 
 export const getAllGames = () => {
   return [
-    gates,
-    sweet,
-    hawaiian,
-    san,
-    wanted,
-    tome,
-    outsourced,
-    princess,
-    mental,
-    sugar,
-    bass,
-    oiran,
-    sugar1000,
-    moon,
-    razor,
-    moneytrain,
-    puglife,
-    chaoscrew,
-    wolfgold,
-    reactoonz,
-    fire,
-    doghouse,
-    buffalo,
-    beamboys,
-    ripcity,
-    bigbamboo,
-    gonzomega,
+    gates, sweet, hawaiian, san, wanted, tome, outsourced, princess, mental, sugar,
+    bass, oiran, sugar1000, moon, razor, moneytrain, puglife, chaoscrew, wolfgold, reactoonz,
+    fire, doghouse, buffalo, beamboys, ripcity, bigbamboo, gonzomega, sanq2, lebandit, anubis,
+    rise100, gems, fruit, wwg, multihold
   ];
 };
 
