@@ -61,6 +61,12 @@ import { gameData as gemix } from "../data/games/gemix";
 import { gameData as legacy } from "../data/games/legacy-of-dead";
 import { gameData as ticket2 } from "../data/games/golden-ticket-2";
 
+// 56-59 (Win Fast 追加分)
+import { gameData as dwarf } from "../data/games/battle-dwarf";
+import { gameData as goldfrog } from "../data/games/dreams-of-gold";
+import { gameData as hawaiianboost } from "../data/games/hawaiian-dream-boost";
+import { gameData as engeki } from "../data/games/engeki-rising";
+
 export const getAllGames = () => {
   return [
     gates, sweet, hawaiian, san, wanted, tome, outsourced, princess, mental, sugar,
@@ -71,7 +77,8 @@ export const getAllGames = () => {
     crazy, lightning, monopoly, funky,
     tombrip, fith, folsom, crypt,
     storm, xxxtreme, coc, dream,
-    bookofdead, gemix, legacy, ticket2
+    bookofdead, gemix, legacy, ticket2,
+    dwarf, goldfrog, hawaiianboost, engeki
   ];
 };
 
