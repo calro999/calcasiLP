@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+// 追加いただいた画像リストに基づいてプロバイダーデータを定義
 const providers = [
   { name: 'Pragmatic Play', id: 'Pragmatic Play', image: '/providers/pragmatic.png' },
   { name: 'Hacksaw Gaming', id: 'Hacksaw Gaming', image: '/providers/hacksaw.png' },
@@ -9,6 +10,11 @@ const providers = [
   { name: 'Play\'n GO', id: 'Play\'n GO', image: '/providers/playngo.png' },
   { name: 'Relax Gaming', id: 'Relax Gaming', image: '/providers/relax.png' },
   { name: 'Push Gaming', id: 'Push Gaming', image: '/providers/push.png' },
+  { name: 'Evolution', id: 'Evolution', image: '/providers/evolution.png' },
+  { name: 'NetEnt', id: 'NetEnt', image: '/providers/netent.png' },
+  { name: 'Big Time Gaming', id: 'Big Time Gaming', image: '/providers/btg.png' },
+  { name: 'Quickspin', id: 'Quickspin', image: '/providers/quick.png' },
+  { name: 'Red Tiger', id: 'Red Tiger', image: '/providers/redtiger.png' },
   { name: 'Win Fast', id: 'Win Fast', image: '/providers/winfast.png' },
 ];
 
@@ -24,18 +30,20 @@ export const ProviderLogos: React.FC<ProviderLogosProps> = ({ onProviderSelect }
           Software Providers
         </h2>
         
-        <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 max-w-5xl mx-auto">
+        {/* ロゴの数が増えたため、中央寄せで綺麗に並ぶよう調整 */}
+        <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-8 max-w-6xl mx-auto">
           {providers.map((p) => {
-            // クリックハンドラーがある場合はbutton、ない場合はdivとしてレンダリング
             const Wrapper = onProviderSelect ? 'button' : 'div';
             
             return (
               <Wrapper
                 key={p.name}
                 {...(onProviderSelect ? { onClick: () => onProviderSelect(p.id) } : {})}
-                className={`group flex flex-col items-center transition-all duration-300 transform ${onProviderSelect ? 'hover:-translate-y-1 cursor-pointer' : ''}`}
+                className={`group flex flex-col items-center transition-all duration-300 transform ${
+                  onProviderSelect ? 'hover:-translate-y-1 cursor-pointer' : ''
+                }`}
               >
-                <div className="h-12 w-32 md:w-40 flex items-center justify-center filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+                <div className="h-10 w-28 md:w-36 flex items-center justify-center filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
                   <img 
                     src={p.image} 
                     alt={p.name} 
@@ -43,7 +51,7 @@ export const ProviderLogos: React.FC<ProviderLogosProps> = ({ onProviderSelect }
                   />
                 </div>
                 {onProviderSelect && (
-                  <span className="mt-2 text-[10px] text-gray-600 font-bold opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
+                  <span className="mt-2 text-[9px] text-gray-500 font-bold opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
                     View Games
                   </span>
                 )}
