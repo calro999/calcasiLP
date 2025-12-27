@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-// ✅ 共通CSSをインポートしてTailwindを有効化する
+// ✅ 共通CSSをインポートしてTailwindを有効化
 import "../../app/globals.css"; 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -16,6 +16,18 @@ interface VideoItem {
 
 export default function VideosPage() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
+
+  // 表示したいXポストのIDを新しい順に配列に格納
+  const xPostIds = [
+    "2004852201714581550",
+    "2004503320707391824",
+    "2003769020538044485",
+    "2003059697222595054",
+    "2003057715120312805",
+    "2001610077279785283",
+    "1999061313306460668",
+    "1999370377307509056"
+  ];
 
   useEffect(() => {
     async function loadVideos() {
@@ -62,7 +74,6 @@ export default function VideosPage() {
         <meta name="description" content="最新のカジノ動画をまとめた動画ギャラリーです。" />
       </Head>
 
-      {/* ✅ Tailwindが有効になれば、Header内のflexなどが正しく機能します */}
       <Header />
 
       <main className="pt-32 pb-20 px-4 max-w-[1300px] mx-auto">
@@ -109,51 +120,16 @@ export default function VideosPage() {
           <h2 className="text-3xl font-bold text-[#67e8f9] mb-8">最新のX投稿</h2>
           <div className="h-[800px] overflow-y-auto bg-[#0a0a0a] rounded-2xl p-8 border border-cyan-900/30">
             <div className="flex flex-col items-center gap-10">
-              <iframe
-                src="https://x.com/calro_shorts/status/2004852201714581550"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2004503320707391824"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2003769020538044485"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2003059697222595054"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2003059697222595054"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2003057715120312805"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://x.com/calro_shorts/status/2001610077279785283"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
-              <iframe
-                src="https://platform.twitter.com/embed/Tweet.html?id=1999370377307509056"
-                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
-                loading="lazy"
-              />
+              {/* ✅ 修正：ID配列を使用して正しいエンドポイントから読み込む */}
+              {xPostIds.map((id) => (
+                <iframe
+                  key={id}
+                  src={`https://platform.twitter.com/embed/Tweet.html?id=${id}&theme=dark`}
+                  style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                  loading="lazy"
+                  title={`X Post ${id}`}
+                />
+              ))}
             </div>
           </div>
           <a
