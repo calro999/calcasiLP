@@ -110,6 +110,41 @@ export default function VideosPage() {
           <div className="h-[800px] overflow-y-auto bg-[#0a0a0a] rounded-2xl p-8 border border-cyan-900/30">
             <div className="flex flex-col items-center gap-10">
               <iframe
+                src="https://x.com/calro_shorts/status/2004852201714581550"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2004503320707391824"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2003769020538044485"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2003059697222595054"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2003059697222595054"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2003057715120312805"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
+                src="https://x.com/calro_shorts/status/2001610077279785283"
+                style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
+                loading="lazy"
+              />
+              <iframe
                 src="https://platform.twitter.com/embed/Tweet.html?id=1999061313306460668"
                 style={{ width: '550px', height: '600px', maxWidth: '100%', border: 'none' }}
                 loading="lazy"
