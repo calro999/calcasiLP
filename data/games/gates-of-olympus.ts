@@ -25,7 +25,7 @@ export const gameData: Game = {
   title: "Gates of Olympus",
   provider: "Pragmatic Play",
   // 画像は仮のものです。お手持ちの画像URLがあれば差し替えてください
-  imageUrl: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?q=80&w=600&h=400&auto=format&fit=crop",
+  imageUrl: "/gates-of-olympus.jpg",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,
