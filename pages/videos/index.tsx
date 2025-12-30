@@ -70,7 +70,7 @@ export default function VideosPage() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       <Head>
-        <title>【2025年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック</title>
+        <title>【2026年最新版】動画ギャラリー｜人気カジノ動画を徹底チェック</title>
         <meta name="description" content="最新のカジノ動画をまとめた動画ギャラリーです。" />
       </Head>
 

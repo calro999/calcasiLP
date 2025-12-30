@@ -43,7 +43,7 @@ export default function CasinoDetails() {
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              2025年最新の信頼できるオンラインカジノを厳選。各カジノの入金不要ボーナスや出金スピードなど、詳細な特徴をチェック。
+              2026年最新の信頼できるオンラインカジノを厳選。各カジノの入金不要ボーナスや出金スピードなど、詳細な特徴をチェック。
             </p>
           </div>
         </ScrollAnimation>

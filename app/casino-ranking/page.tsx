@@ -49,7 +49,7 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
     <main className="pt-20 pb-20 bg-black min-h-screen">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-white mb-8 border-l-4 border-amber-500 pl-4">
-          2025年最新カジノランキング
+          2026年最新カジノランキング
         </h1>
 
         <motion.div

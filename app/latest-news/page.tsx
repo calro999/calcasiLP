@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "最新オンラインカジノニュース一覧｜2025年最新情報",
-  description: "新着カジノの入金不要ボーナスや、2025年最新の攻略ニュースを掲載。プレイヤーに役立つ情報をいち早くお届けします。",
+  title: "最新オンラインカジノニュース一覧｜2026年最新情報",
+  description: "新着カジノの入金不要ボーナスや、2026年最新の攻略ニュースを掲載。プレイヤーに役立つ情報をいち早くお届けします。",
 };
 
 interface Article {

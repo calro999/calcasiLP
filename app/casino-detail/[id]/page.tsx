@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!casino) return { title: "カジノが見つかりません" };
 
   return {
-    title: `${casino.name}の評判・ボーナス徹底解説【2025最新】`,
+    title: `${casino.name}の評判・ボーナス徹底解説【2026最新】`,
     description: `${casino.name}の最新ボーナス情報：${casino.bonus}`,
     openGraph: {
       images: [{ url: casino.banner || casino.logo }],
