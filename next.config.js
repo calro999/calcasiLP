@@ -3,11 +3,13 @@ const nextConfig = {
   images: {
     domains: ["calcasi-lp.vercel.app"],
   },
-  // Vercelにdata/games内の.tsファイルを認識させる
+  // Vercel上のサーバーにフォルダを保持させる魔法の設定
   outputFileTracingIncludes: {
-    '/sitemap.xml': ['./data/games/**/*'],
+    '/sitemap.xml': [
+      './contents/**/*',
+      './data/games/**/*'
+    ],
   },
-  // 以前の sitemap.xml の rewrite は必ず削除してください
 };
 
 module.exports = nextConfig;
