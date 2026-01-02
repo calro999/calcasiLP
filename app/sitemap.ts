@@ -2,14 +2,14 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
-// キャッシュを無効化し、リクエストごとに生成を強制する
+// 常に最新の状態を生成するための設定
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 1. 固定ページ
+  // 1. 固定ルート
   const staticRoutes = [
     { url: '', priority: 1.0, changeFrequency: 'daily' as const },
     { url: '/latest-news', priority: 0.9, changeFrequency: 'daily' as const },
@@ -26,25 +26,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }))
 
-  // 2. 動的記事（strategies）
+  // 2. 動的記事の取得
   const strategyEntries = generateEntries('strategies', 'strategies')
-  
-  // 3. 動的記事（articles）
   const articleEntries = generateEntries('articles', 'article')
+  
+  // 【追加】動画個別ページの取得
+  // contents/videos フォルダが存在することを想定しています
+  const videoEntries = generateEntries('videos', 'videos')
 
-  return [...staticPages, ...strategyEntries, ...articleEntries]
+  return [...staticPages, ...strategyEntries, ...articleEntries, ...videoEntries]
 }
 
-function generateEntries(folderPath: string, routePrefix: string): MetadataRoute.Sitemap {
+function generateEntries(folderName: string, routePrefix: string): MetadataRoute.Sitemap {
   try {
-    // 【重要】もし contents がプロジェクト直下でない場合、ここを調整する必要があります。
-    // プロジェクトルート/contents の場合はこれでOK。
-    // もし /src/contents なら path.join(process.cwd(), 'src', 'contents', folderPath)
-    const fullPath = path.join(process.cwd(), 'contents', folderPath)
+    const fullPath = path.join(process.cwd(), 'contents', folderName)
     
-    // パスが通っているかビルドログで確認するためのデバッグ（Vercelのログに出ます）
     if (!fs.existsSync(fullPath)) {
-      console.error(`Sitemap error: Path not found -> ${fullPath}`)
+      console.warn(`[Sitemap] Directory missing: ${fullPath}`)
       return []
     }
 
@@ -55,25 +53,24 @@ function generateEntries(folderPath: string, routePrefix: string): MetadataRoute
       const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
       
       let slug = ""
-      // ogUrlからスラッグを抽出
       if (content.ogUrl && typeof content.ogUrl === 'string') {
         const cleanUrl = content.ogUrl.replace(/\/$/, '')
         const parts = cleanUrl.split('/')
         slug = parts[parts.length - 1]
       }
       
-      // slugが空、またはIDと同一でないかチェック
-      const finalSlug = (slug && slug !== "") ? slug : content.id.toString()
+      // Slug優先 -> content.id優先 -> ファイル名
+      const finalSlug = slug || content.id?.toString() || file.replace('.json', '')
 
       return {
         url: `${BASE_URL}/${routePrefix}/${finalSlug}`,
-        lastModified: new Date(content.date || "2025-12-20"),
+        lastModified: content.date ? new Date(content.date) : new Date("2026-01-02"),
         changeFrequency: 'weekly' as const,
         priority: 0.8
       }
     })
   } catch (error) {
-    console.error(`Sitemap error in ${folderPath}:`, error)
+    console.error(`[Sitemap] Error in ${folderName}:`, error)
     return []
   }
 }
