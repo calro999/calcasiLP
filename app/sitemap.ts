@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const strategyEntries = generateEntriesFromFiles('strategies', 'strategies')
   const articleEntries = generateEntriesFromFiles('articles', 'article')
   
-  // 3. ゲーム（TSファイル）
+  // 3. ゲーム詳細ページ（data/games フォルダの .ts ファイル群）
   const gameEntries = generateEntriesFromGameTs()
 
   return [...staticPages, ...strategyEntries, ...articleEntries, ...gameEntries]
@@ -30,7 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 function generateEntriesFromFiles(folderName: string, routePrefix: string): MetadataRoute.Sitemap {
   try {
-    // process.cwd() はプロジェクトルート。その直下の contents フォルダを探す
     const fullPath = path.resolve(process.cwd(), 'contents', folderName)
     if (!fs.existsSync(fullPath)) return []
 
@@ -50,21 +49,23 @@ function generateEntriesFromFiles(folderName: string, routePrefix: string): Meta
 
 function generateEntriesFromGameTs(): MetadataRoute.Sitemap {
   try {
-    // ローカルパスに合わせて data/games を絶対パスで解決
+    // /data/games フォルダの絶対パスを取得
     const gamesPath = path.resolve(process.cwd(), 'data', 'games')
     
     if (!fs.existsSync(gamesPath)) {
-      console.warn("Games directory not found at:", gamesPath)
+      console.error("【警告】ゲームフォルダが見つかりません:", gamesPath)
       return []
     }
 
-    // .ts または .tsx ファイルを取得（index.ts は除外）
+    // フォルダ内の .ts または .tsx ファイルを取得（indexは除く）
     const files = fs.readdirSync(gamesPath).filter(f => 
       (f.endsWith('.ts') || f.endsWith('.tsx')) && !f.startsWith('index')
     )
     
+    console.log(`【デバッグ】ゲームファイルを ${files.length} 件見つけました`)
+
     return files.map(file => {
-      const slug = file.replace(/\.tsx?$/, '')
+      const slug = file.replace(/\.tsx?$/, '') // 拡張子を取ってスラッグにする
       return {
         url: `${BASE_URL}/games/${slug}`,
         lastModified: new Date("2026-01-02"),
@@ -73,7 +74,7 @@ function generateEntriesFromGameTs(): MetadataRoute.Sitemap {
       }
     })
   } catch (err) {
-    console.error("Game scan error:", err)
+    console.error("ゲームスキャン中にエラーが発生しました:", err)
     return []
   }
 }
