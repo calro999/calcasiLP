@@ -2,18 +2,17 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
-// 常に最新の状態を生成するための設定
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 1. 固定ルート
+  // 1. 固定ルート（動画は一覧ページのみにする）
   const staticRoutes = [
     { url: '', priority: 1.0, changeFrequency: 'daily' as const },
     { url: '/latest-news', priority: 0.9, changeFrequency: 'daily' as const },
-    { url: '/videos', priority: 0.8, changeFrequency: 'weekly' as const },
+    { url: '/videos', priority: 0.8, changeFrequency: 'weekly' as const }, // ここが動画一覧
     { url: '/beginners-guide', priority: 0.8, changeFrequency: 'weekly' as const },
     { url: '/strategies', priority: 0.8, changeFrequency: 'weekly' as const },
     { url: '/casino-ranking', priority: 0.8, changeFrequency: 'weekly' as const },
@@ -26,28 +25,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }))
 
-  // 2. 動的記事（JSONファイル形式）
+  // 2. 動的記事（contentsフォルダ）
   const strategyEntries = generateEntriesFromFiles('strategies', 'strategies')
   const articleEntries = generateEntriesFromFiles('articles', 'article')
   
-  // 3. 動画ページ（一つのJSONファイルから読み込み）
-  const videoEntries = generateEntriesFromVideoJson()
-
-  // 4. ゲームページ（TSファイル名から生成）
+  // 3. ゲームページ（data/games フォルダの .tsファイル）
   const gameEntries = generateEntriesFromGameTsFiles()
 
   return [
     ...staticPages, 
     ...strategyEntries, 
     ...articleEntries, 
-    ...videoEntries, 
     ...gameEntries
   ]
 }
 
-/**
- * contentsフォルダ内の個別JSONファイルから生成
- */
 function generateEntriesFromFiles(folderName: string, routePrefix: string): MetadataRoute.Sitemap {
   try {
     const fullPath = path.join(process.cwd(), 'contents', folderName)
@@ -71,44 +63,41 @@ function generateEntriesFromFiles(folderName: string, routePrefix: string): Meta
   } catch { return [] }
 }
 
-/**
- * public/videos.json の配列データから生成
- */
-function generateEntriesFromVideoJson(): MetadataRoute.Sitemap {
-  try {
-    const filePath = path.join(process.cwd(), 'public', 'videos.json')
-    if (!fs.existsSync(filePath)) return []
-    const videos = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
-    
-    // videos.jsonが配列であることを想定
-    return videos.map((video: any) => ({
-      url: `${BASE_URL}/videos/${video.id || video.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7
-    }))
-  } catch { return [] }
-}
-
-/**
- * data/games/*.ts のファイル名から生成
- */
 function generateEntriesFromGameTsFiles(): MetadataRoute.Sitemap {
   try {
-    const fullPath = path.join(process.cwd(), 'data', 'games')
-    if (!fs.existsSync(fullPath)) return []
+    // Vercel環境でソースコード側のディレクトリを参照するための指定
+    // ローカルの /Users/calro/.../data/games に対応
+    const gamesPath = path.join(process.cwd(), 'data', 'games')
     
-    // .ts ファイル（index.tsなどを除く）を取得
-    const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.ts') && f !== 'index.ts')
-    
-    return files.map(file => {
-      const slug = file.replace('.ts', '')
-      return {
-        url: `${BASE_URL}/games/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.6
-      }
-    })
-  } catch { return [] }
+    if (!fs.existsSync(gamesPath)) {
+      // もし上記で見つからない場合、Next.jsの構造によってはこちらを試す
+      const altPath = path.join(process.cwd(), 'src', 'data', 'games')
+      if (!fs.existsSync(altPath)) return []
+      return scanTsFiles(altPath)
+    }
+
+    return scanTsFiles(gamesPath)
+  } catch (error) {
+    console.error("Game TS scan error:", error)
+    return []
+  }
+}
+
+function scanTsFiles(dirPath: string): MetadataRoute.Sitemap {
+  const files = fs.readdirSync(dirPath).filter(f => 
+    (f.endsWith('.ts') || f.endsWith('.tsx')) && 
+    f !== 'index.ts' && 
+    f !== 'index.tsx'
+  )
+  
+  return files.map(file => {
+    // 拡張子を除去してスラッグにする (apollo-pays.ts -> apollo-pays)
+    const slug = file.replace(/\.tsx?$/, '')
+    return {
+      url: `${BASE_URL}/games/${slug}`,
+      lastModified: new Date("2026-01-02"),
+      changeFrequency: 'monthly',
+      priority: 0.6
+    }
+  })
 }
