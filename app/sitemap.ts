@@ -2,6 +2,10 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
+// 【重要】サイトマップを動的に生成し、キャッシュさせない設定
+export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -25,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 2. 動的記事（strategies）
   const strategyEntries = generateEntries('strategies', 'strategies')
   
-  // 3. 動的記事（articles） ← ここから /ja を消しました
+  // 3. 動的記事（articles）
   const articleEntries = generateEntries('articles', 'article')
 
   return [...staticPages, ...strategyEntries, ...articleEntries]
@@ -35,7 +39,6 @@ function generateEntries(folderPath: string, routePrefix: string): MetadataRoute
   try {
     const fullPath = path.join(process.cwd(), 'contents', folderPath)
     
-    // フォルダが存在しない場合は空配列を返す（エラーで止めない）
     if (!fs.existsSync(fullPath)) {
       console.warn(`Directory missing: ${fullPath}`)
       return []
@@ -48,17 +51,19 @@ function generateEntries(folderPath: string, routePrefix: string): MetadataRoute
       const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
       
       let slug = ""
-      if (content.ogUrl) {
-        const parts = content.ogUrl.split('/').filter(Boolean)
+      // ogUrlが存在し、かつ文字列であることを確認
+      if (content.ogUrl && typeof content.ogUrl === 'string') {
+        // 末尾のスラッシュを削除し、最後のパスを取得
+        const cleanUrl = content.ogUrl.replace(/\/$/, '')
+        const parts = cleanUrl.split('/')
         slug = parts[parts.length - 1]
       }
       
-      if (!slug) {
-        slug = content.id.toString()
-      }
+      // slugが取得できなかった場合のみIDを使用
+      const finalSlug = (slug && slug !== "") ? slug : content.id.toString()
 
       return {
-        url: `${BASE_URL}/${routePrefix}/${slug}`,
+        url: `${BASE_URL}/${routePrefix}/${finalSlug}`,
         lastModified: new Date(content.date || "2025-12-20"),
         changeFrequency: 'weekly' as const,
         priority: 0.8
