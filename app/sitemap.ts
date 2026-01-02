@@ -8,54 +8,39 @@ export const dynamic = 'force-dynamic'
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 1. 固定ルート（動画は一覧ページのみにする）
-  const staticRoutes = [
-    { url: '', priority: 1.0, changeFrequency: 'daily' as const },
-    { url: '/latest-news', priority: 0.9, changeFrequency: 'daily' as const },
-    { url: '/videos', priority: 0.8, changeFrequency: 'weekly' as const }, // ここが動画一覧
-    { url: '/beginners-guide', priority: 0.8, changeFrequency: 'weekly' as const },
-    { url: '/strategies', priority: 0.8, changeFrequency: 'weekly' as const },
-    { url: '/casino-ranking', priority: 0.8, changeFrequency: 'weekly' as const },
+  // 1. 固定ページ
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
+    { url: `${BASE_URL}/latest-news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/videos`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE_URL}/beginners-guide`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE_URL}/strategies`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${BASE_URL}/casino-ranking`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
 
-  const staticPages: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-    url: `${BASE_URL}${route.url}`,
-    lastModified: new Date("2025-12-20"),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }))
-
-  // 2. 動的記事（contentsフォルダ）
+  // 2. 記事（JSONファイル）
   const strategyEntries = generateEntriesFromFiles('strategies', 'strategies')
   const articleEntries = generateEntriesFromFiles('articles', 'article')
   
-  // 3. ゲームページ（data/games フォルダの .tsファイル）
-  const gameEntries = generateEntriesFromGameTsFiles()
+  // 3. ゲーム（TSファイル）
+  const gameEntries = generateEntriesFromGameTs()
 
-  return [
-    ...staticPages, 
-    ...strategyEntries, 
-    ...articleEntries, 
-    ...gameEntries
-  ]
+  return [...staticPages, ...strategyEntries, ...articleEntries, ...gameEntries]
 }
 
 function generateEntriesFromFiles(folderName: string, routePrefix: string): MetadataRoute.Sitemap {
   try {
-    const fullPath = path.join(process.cwd(), 'contents', folderName)
+    // process.cwd() はプロジェクトルート。その直下の contents フォルダを探す
+    const fullPath = path.resolve(process.cwd(), 'contents', folderName)
     if (!fs.existsSync(fullPath)) return []
+
     const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.json'))
-    
     return files.map(file => {
       const content = JSON.parse(fs.readFileSync(path.join(fullPath, file), 'utf-8'))
-      let slug = ""
-      if (content.ogUrl) {
-        slug = content.ogUrl.replace(/\/$/, '').split('/').pop() || ""
-      }
-      const finalSlug = slug || content.id?.toString() || file.replace('.json', '')
+      const slug = content.ogUrl?.replace(/\/$/, '').split('/').pop() || content.id?.toString() || file.replace('.json', '')
       return {
-        url: `${BASE_URL}/${routePrefix}/${finalSlug}`,
-        lastModified: content.date ? new Date(content.date) : new Date("2026-01-02"),
+        url: `${BASE_URL}/${routePrefix}/${slug}`,
+        lastModified: new Date(content.date || "2026-01-02"),
         changeFrequency: 'weekly',
         priority: 0.8
       }
@@ -63,41 +48,32 @@ function generateEntriesFromFiles(folderName: string, routePrefix: string): Meta
   } catch { return [] }
 }
 
-function generateEntriesFromGameTsFiles(): MetadataRoute.Sitemap {
+function generateEntriesFromGameTs(): MetadataRoute.Sitemap {
   try {
-    // Vercel環境でソースコード側のディレクトリを参照するための指定
-    // ローカルの /Users/calro/.../data/games に対応
-    const gamesPath = path.join(process.cwd(), 'data', 'games')
+    // ローカルパスに合わせて data/games を絶対パスで解決
+    const gamesPath = path.resolve(process.cwd(), 'data', 'games')
     
     if (!fs.existsSync(gamesPath)) {
-      // もし上記で見つからない場合、Next.jsの構造によってはこちらを試す
-      const altPath = path.join(process.cwd(), 'src', 'data', 'games')
-      if (!fs.existsSync(altPath)) return []
-      return scanTsFiles(altPath)
+      console.warn("Games directory not found at:", gamesPath)
+      return []
     }
 
-    return scanTsFiles(gamesPath)
-  } catch (error) {
-    console.error("Game TS scan error:", error)
+    // .ts または .tsx ファイルを取得（index.ts は除外）
+    const files = fs.readdirSync(gamesPath).filter(f => 
+      (f.endsWith('.ts') || f.endsWith('.tsx')) && !f.startsWith('index')
+    )
+    
+    return files.map(file => {
+      const slug = file.replace(/\.tsx?$/, '')
+      return {
+        url: `${BASE_URL}/games/${slug}`,
+        lastModified: new Date("2026-01-02"),
+        changeFrequency: 'monthly',
+        priority: 0.6
+      }
+    })
+  } catch (err) {
+    console.error("Game scan error:", err)
     return []
   }
-}
-
-function scanTsFiles(dirPath: string): MetadataRoute.Sitemap {
-  const files = fs.readdirSync(dirPath).filter(f => 
-    (f.endsWith('.ts') || f.endsWith('.tsx')) && 
-    f !== 'index.ts' && 
-    f !== 'index.tsx'
-  )
-  
-  return files.map(file => {
-    // 拡張子を除去してスラッグにする (apollo-pays.ts -> apollo-pays)
-    const slug = file.replace(/\.tsx?$/, '')
-    return {
-      url: `${BASE_URL}/games/${slug}`,
-      lastModified: new Date("2026-01-02"),
-      changeFrequency: 'monthly',
-      priority: 0.6
-    }
-  })
 }
