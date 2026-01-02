@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
-// 【重要】サイトマップを動的に生成し、キャッシュさせない設定
+// キャッシュを無効化し、リクエストごとに生成を強制する
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
@@ -37,10 +37,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 function generateEntries(folderPath: string, routePrefix: string): MetadataRoute.Sitemap {
   try {
+    // 【重要】もし contents がプロジェクト直下でない場合、ここを調整する必要があります。
+    // プロジェクトルート/contents の場合はこれでOK。
+    // もし /src/contents なら path.join(process.cwd(), 'src', 'contents', folderPath)
     const fullPath = path.join(process.cwd(), 'contents', folderPath)
     
+    // パスが通っているかビルドログで確認するためのデバッグ（Vercelのログに出ます）
     if (!fs.existsSync(fullPath)) {
-      console.warn(`Directory missing: ${fullPath}`)
+      console.error(`Sitemap error: Path not found -> ${fullPath}`)
       return []
     }
 
@@ -51,15 +55,14 @@ function generateEntries(folderPath: string, routePrefix: string): MetadataRoute
       const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
       
       let slug = ""
-      // ogUrlが存在し、かつ文字列であることを確認
+      // ogUrlからスラッグを抽出
       if (content.ogUrl && typeof content.ogUrl === 'string') {
-        // 末尾のスラッシュを削除し、最後のパスを取得
         const cleanUrl = content.ogUrl.replace(/\/$/, '')
         const parts = cleanUrl.split('/')
         slug = parts[parts.length - 1]
       }
       
-      // slugが取得できなかった場合のみIDを使用
+      // slugが空、またはIDと同一でないかチェック
       const finalSlug = (slug && slug !== "") ? slug : content.id.toString()
 
       return {
