@@ -7,7 +7,7 @@ const nextConfig = {
   outputFileTracingIncludes: {
     '/sitemap.xml': ['./data/games/**/*'],
   },
-  // 以前の sitemap.xml の rewrite は削除しました（標準機能を使うため）
+  // 【重要】rewrites セクションを削除しました
 };
 
 module.exports = nextConfig;

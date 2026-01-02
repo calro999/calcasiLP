@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
+// キャッシュを強制的に無効化する
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
@@ -18,11 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/casino-ranking`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
 
-  // 2. 記事（contents/strategies と contents/articles）
+  // 2. 記事（JSONファイル）
   const strategyEntries = generateFromFiles('strategies', 'strategies')
   const articleEntries = generateFromFiles('articles', 'article')
   
-  // 3. ゲーム詳細（data/games/*.ts）
+  // 3. ゲーム詳細（TSファイル）
   const gameEntries = generateFromGames()
 
   return [...staticPages, ...strategyEntries, ...articleEntries, ...gameEntries]
@@ -50,9 +51,9 @@ function generateFromGames(): MetadataRoute.Sitemap {
   try {
     const gamesPath = path.resolve(process.cwd(), 'data', 'games')
     if (!fs.existsSync(gamesPath)) return []
-    const files = fs.readdirSync(gamesPath).filter(f => f.endsWith('.ts') && !f.startsWith('index'))
+    const files = fs.readdirSync(gamesPath).filter(f => (f.endsWith('.ts') || f.endsWith('.tsx')) && !f.startsWith('index'))
     return files.map(file => {
-      const slug = file.replace('.ts', '')
+      const slug = file.replace(/\.tsx?$/, '')
       return {
         url: `${BASE_URL}/games/${slug}`,
         lastModified: new Date("2026-01-02"),
