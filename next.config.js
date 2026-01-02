@@ -3,9 +3,11 @@ const nextConfig = {
   images: {
     domains: ["calcasi-lp.vercel.app"],
   },
-  // サーバーサイドでfsを使うための設定
-  outputFileTracingIncludes: {
-    '/sitemap.xml': ['./contents/**/*', './data/games/**/*'],
+  // 全てのページにおいてこれらのフォルダを読み取り可能にする
+  experimental: {
+    outputFileTracingIncludes: {
+      '/**': ['./contents/**/*', './data/games/**/*'],
+    },
   },
 }
 module.exports = nextConfig

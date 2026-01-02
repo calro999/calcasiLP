@@ -2,13 +2,15 @@ import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
-// キャッシュを無効化
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// 【重要】動的生成（force-dynamic）を削除し、ビルド時に生成させる
+export const revalidate = 3600 // 1時間キャッシュ（または false）
 
 const BASE_URL = 'https://calcasi-lp.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // process.cwd() はビルド時、プロジェクトのルートを指す
+  const root = process.cwd()
+
   // 1. 固定ページ
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
@@ -19,71 +21,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/casino-ranking`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
 
-  // Vercel環境で確実にルートディレクトリを指すように設定
-  const rootDir = process.cwd()
+  // 2. strategies
+  const strategyEntries = getEntries(path.resolve(root, 'contents/strategies'), 'strategies')
 
-  // 2. strategies (prefix: strategies)
-  const strategyEntries = getDynamicEntries(path.join(rootDir, 'contents/strategies'), 'strategies')
+  // 3. articles
+  const articleEntries = getEntries(path.resolve(root, 'contents/articles'), 'article')
 
-  // 3. articles (prefix: article)
-  const articleEntries = getDynamicEntries(path.join(rootDir, 'contents/articles'), 'article')
-
-  // 4. games (prefix: games)
-  const gameEntries = getGameEntries(path.join(rootDir, 'data/games'))
+  // 4. games
+  const gameEntries = getGames(path.resolve(root, 'data/games'))
 
   return [...staticPages, ...strategyEntries, ...articleEntries, ...gameEntries]
 }
 
-function getDynamicEntries(fullPath: string, prefix: string): MetadataRoute.Sitemap {
-  try {
-    // フォルダが存在するかチェック
-    if (!fs.existsSync(fullPath)) {
-      console.warn(`Directory not found: ${fullPath}`)
-      return []
-    }
-
-    const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.json'))
-    
-    return files.map(file => {
-      try {
-        const raw = fs.readFileSync(path.join(fullPath, file), 'utf-8')
-        const content = JSON.parse(raw)
-        
-        // スラッグ抽出
-        let slug = ""
-        if (content.ogUrl) {
-          slug = content.ogUrl.replace(/\/$/, '').split('/').pop() || ""
-        }
-        const finalSlug = slug || content.id?.toString() || file.replace('.json', '')
-
-        return {
-          url: `${BASE_URL}/${prefix}/${finalSlug}`,
-          lastModified: content.date ? new Date(content.date) : new Date("2026-01-02"),
-          changeFrequency: 'weekly' as const,
-          priority: 0.8
-        }
-      } catch (e) {
-        return null
-      }
-    }).filter((item): item is any => item !== null)
-  } catch (e) {
-    return []
-  }
-}
-
-function getGameEntries(fullPath: string): MetadataRoute.Sitemap {
+function getEntries(fullPath: string, prefix: string): MetadataRoute.Sitemap {
   try {
     if (!fs.existsSync(fullPath)) return []
+    const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.json'))
+    return files.map(file => {
+      const content = JSON.parse(fs.readFileSync(path.join(fullPath, file), 'utf-8'))
+      const slug = content.ogUrl?.replace(/\/$/, '').split('/').pop() || content.id?.toString() || file.replace('.json', '')
+      return {
+        url: `${BASE_URL}/${prefix}/${slug}`,
+        lastModified: new Date(content.date || "2026-01-02"),
+        changeFrequency: 'weekly',
+        priority: 0.8
+      }
+    })
+  } catch { return [] }
+}
 
+function getGames(fullPath: string): MetadataRoute.Sitemap {
+  try {
+    if (!fs.existsSync(fullPath)) return []
     const files = fs.readdirSync(fullPath).filter(f => (f.endsWith('.ts') || f.endsWith('.tsx')) && !f.startsWith('index'))
-    
     return files.map(file => ({
       url: `${BASE_URL}/games/${file.replace(/\.tsx?$/, '')}`,
       lastModified: new Date("2026-01-02"),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'monthly',
       priority: 0.6
     }))
-  } catch (e) {
-    return []
-  }
+  } catch { return [] }
 }
