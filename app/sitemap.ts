@@ -18,27 +18,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/casino-ranking`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
 
-  // 2. 記事（JSONファイル）
-  const strategyEntries = generateEntriesFromFiles('strategies', 'strategies')
-  const articleEntries = generateEntriesFromFiles('articles', 'article')
+  // 2. 記事（contents/strategies と contents/articles）
+  const strategyEntries = generateFromFiles('strategies', 'strategies')
+  const articleEntries = generateFromFiles('articles', 'article')
   
-  // 3. ゲーム詳細ページ（data/games フォルダの .ts ファイル群）
-  const gameEntries = generateEntriesFromGameTs()
+  // 3. ゲーム詳細（data/games/*.ts）
+  const gameEntries = generateFromGames()
 
   return [...staticPages, ...strategyEntries, ...articleEntries, ...gameEntries]
 }
 
-function generateEntriesFromFiles(folderName: string, routePrefix: string): MetadataRoute.Sitemap {
+function generateFromFiles(folder: string, prefix: string): MetadataRoute.Sitemap {
   try {
-    const fullPath = path.resolve(process.cwd(), 'contents', folderName)
+    const fullPath = path.resolve(process.cwd(), 'contents', folder)
     if (!fs.existsSync(fullPath)) return []
-
     const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.json'))
     return files.map(file => {
       const content = JSON.parse(fs.readFileSync(path.join(fullPath, file), 'utf-8'))
       const slug = content.ogUrl?.replace(/\/$/, '').split('/').pop() || content.id?.toString() || file.replace('.json', '')
       return {
-        url: `${BASE_URL}/${routePrefix}/${slug}`,
+        url: `${BASE_URL}/${prefix}/${slug}`,
         lastModified: new Date(content.date || "2026-01-02"),
         changeFrequency: 'weekly',
         priority: 0.8
@@ -47,25 +46,13 @@ function generateEntriesFromFiles(folderName: string, routePrefix: string): Meta
   } catch { return [] }
 }
 
-function generateEntriesFromGameTs(): MetadataRoute.Sitemap {
+function generateFromGames(): MetadataRoute.Sitemap {
   try {
-    // /data/games フォルダの絶対パスを取得
     const gamesPath = path.resolve(process.cwd(), 'data', 'games')
-    
-    if (!fs.existsSync(gamesPath)) {
-      console.error("【警告】ゲームフォルダが見つかりません:", gamesPath)
-      return []
-    }
-
-    // フォルダ内の .ts または .tsx ファイルを取得（indexは除く）
-    const files = fs.readdirSync(gamesPath).filter(f => 
-      (f.endsWith('.ts') || f.endsWith('.tsx')) && !f.startsWith('index')
-    )
-    
-    console.log(`【デバッグ】ゲームファイルを ${files.length} 件見つけました`)
-
+    if (!fs.existsSync(gamesPath)) return []
+    const files = fs.readdirSync(gamesPath).filter(f => f.endsWith('.ts') && !f.startsWith('index'))
     return files.map(file => {
-      const slug = file.replace(/\.tsx?$/, '') // 拡張子を取ってスラッグにする
+      const slug = file.replace('.ts', '')
       return {
         url: `${BASE_URL}/games/${slug}`,
         lastModified: new Date("2026-01-02"),
@@ -73,8 +60,5 @@ function generateEntriesFromGameTs(): MetadataRoute.Sitemap {
         priority: 0.6
       }
     })
-  } catch (err) {
-    console.error("ゲームスキャン中にエラーが発生しました:", err)
-    return []
-  }
+  } catch { return [] }
 }
