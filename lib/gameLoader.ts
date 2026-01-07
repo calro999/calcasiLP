@@ -23,9 +23,9 @@ import { gameData as wolfgold } from "../data/games/wolf-gold";
 import { gameData as reactoonz } from "../data/games/reactoonz";
 
 // --- 21-30 ---
-import { gameData as fire } from "../data/games/fire-in-the-hole-2";
+import { gameData as fire2 } from "../data/games/fire-in-the-hole-2";
 import { gameData as doghouse } from "../data/games/the-dog-house-megaways";
-import { gameData as buffalo } from "../data/games/buffalo-king-megaways";
+import { gameData as buffalo_mega } from "../data/games/buffalo-king-megaways";
 import { gameData as beamboys } from "../data/games/beam-boys";
 import { gameData as ripcity } from "../data/games/rip-city";
 import { gameData as bigbamboo } from "../data/games/big-bamboo";
@@ -106,7 +106,7 @@ import { gameData as papaya } from "../data/games/papaya-pop";
 import { gameData as cygnus } from "../data/games/cygnus";
 import { gameData as nitro4 } from "../data/games/nitropolis-4";
 
-// --- 91-99 ---
+// --- 91-100 ---
 import { gameData as wildtoro } from "../data/games/wild-toro";
 import { gameData as elephants2 } from "../data/games/pink-elephants-2";
 import { gameData as midas } from "../data/games/midas-golden-touch";
@@ -116,19 +116,82 @@ import { gameData as rabbit } from "../data/games/white-rabbit";
 import { gameData as goldencatch } from "../data/games/golden-catch";
 import { gameData as lildevil } from "../data/games/lil-devil";
 import { gameData as apollo } from "../data/games/apollo-pays";
+import { gameData as pirots3 } from "../data/games/pirots-3";
+
+// --- 101-110 ---
+import { gameData as countdown } from "../data/games/the-final-countdown";
+import { gameData as dragonsfire } from "../data/games/dragons-fire-megaways";
+import { gameData as zeusvshades } from "../data/games/zeus-vs-hades";
+import { gameData as insanity } from "../data/games/tome-of-insanity";
+import { gameData as jokersjewels } from "../data/games/jokers-jewels-hold-spin";
+import { gameData as chaoscrew3 } from "../data/games/chaos-crew-3";
+import { gameData as possessed } from "../data/games/possessed";
+import { gameData as necrogate } from "../data/games/necromancers-gate";
+import { gameData as pinkele3 } from "../data/games/pink-elephants-trinity";
+import { gameData as mahjong3 } from "../data/games/mahjong-ways-3";
+
+// --- 111-120 ---
+import { gameData as therave } from "../data/games/the-rave";
+import { gameData as zeus_hades_war } from "../data/games/zeus-vs-hades-gods-of-war";
+import { gameData as pirots2 } from "../data/games/pirots-2";
+import { gameData as canary } from "../data/games/dead-canary";
+import { gameData as stackem } from "../data/games/stack-em";
+import { gameData as gluttony } from "../data/games/gluttony";
+import { gameData as bigbass_races } from "../data/games/big-bass-day-at-the-races";
+import { gameData as moon_trinity } from "../data/games/moon-princess-trinity";
+import { gameData as wildswarm2 } from "../data/games/wild-swarm-2";
+import { gameData as gigajar } from "../data/games/giga-jar";
+
+// --- 121-130 ---
+import { gameData as nitro5 } from "../data/games/nitropolis-5";
+import { gameData as gates1000 } from "../data/games/gates-of-olympus-1000";
+import { gameData as landfree } from "../data/games/land-of-the-free";
+import { gameData as bricksnake } from "../data/games/brick-snake-2000";
+import { gameData as lure } from "../data/games/lure-of-fortune";
+import { gameData as moneycart4 } from "../data/games/money-cart-4";
+import { gameData as kenneth } from "../data/games/kenneth-must-die";
+import { gameData as pachi } from "../data/games/starlight-princess-pachi";
+import { gameData as frogblox } from "../data/games/frog-blox";
+import { gameData as deep_mega } from "../data/games/beware-the-deep-megaways";
+
+// --- 131-140 ---
+import { gameData as bowery } from "../data/games/the-bowery-boys";
+import { gameData as candyblitz } from "../data/games/candy-blitz-bombs";
+import { gameData as bloodshadow2 } from "../data/games/blood-and-shadow-2";
+import { gameData as sweet1000 } from "../data/games/sweet-bonanza-1000";
+import { gameData as tombstone_nm } from "../data/games/tombstone-no-mercy";
+import { gameData as fist } from "../data/games/fist-of-destruction";
+import { gameData as jammin2 } from "../data/games/jammin-jars-2";
+import { gameData as buffalo_king } from "../data/games/buffalo-king";
+import { gameData as deadwood_rip } from "../data/games/deadwood-rip";
+import { gameData as cursed_crypt } from "../data/games/cursed-crypt";
+
+// --- 141-150 ---
+import { gameData as beastbelow } from "../data/games/beast-below";
+import { gameData as ninetofive } from "../data/games/nine-to-five";
+import { gameData as retrosweets } from "../data/games/retro-sweets";
+import { gameData as zezeus } from "../data/games/zezeus";
+import { gameData as fire_orig } from "../data/games/fire-in-the-hole";
+import { gameData as bountyhunter } from "../data/games/bountyhunter";
+import { gameData as wisdom_athena } from "../data/games/wisdom-of-athena";
 
 export const getAllGames = () => {
   return [
     gates, sweet, hawaiian, san, wanted, tome, outsourced, princess, mental, sugar,
     bass, oiran, sugar1000, moon, razor, moneytrain, puglife, chaoscrew, wolfgold, reactoonz,
-    fire, doghouse, buffalo, beamboys, ripcity, bigbamboo, gonzomega, sanq2, lebandit, anubis,
+    fire2, doghouse, buffalo_mega, beamboys, ripcity, bigbamboo, gonzomega, sanq2, lebandit, anubis,
     rise100, gems, fruit, wwg, multihold, bonanza, chilli, danger, millionaire, crazy,
     lightning, monopoly, funky, tombrip, fith, folsom, crypt, storm, xxxtreme, coc,
     dream, bookofdead, gemix, legacy, ticket2, dwarf, goldfrog, hawaiianboost, engeki, amazon,
     dragonmegaways, tropicana, pizza, jammin, razorreturns, fatsanta, retrotapes, templetumble, ironbank, netgains,
     hellcatraz, dragonluck, piggyriches, gonzort, cashvolt, diamondblitz, sakura, wolfmega, bandits, emeralds,
     riseolympus, wildblood2, honeyrush, goldenticket, cherry, hippo, tiki, papaya, cygnus, nitro4,
-    wildtoro, elephants2, midas, esque2, swordkhans, rabbit, goldencatch, lildevil, apollo
+    wildtoro, elephants2, midas, esque2, swordkhans, rabbit, goldencatch, lildevil, apollo, pirots3,
+    countdown, dragonsfire, zeusvshades, insanity, jokersjewels, chaoscrew3, possessed, necrogate, pinkele3, mahjong3,
+    therave, zeus_hades_war, pirots2, canary, stackem, gluttony, bigbass_races, moon_trinity, wildswarm2, gigajar,
+    nitro5, gates1000, landfree, bricksnake, lure, moneycart4, kenneth, pachi, frogblox, deep_mega,
+    bowery, candyblitz, bloodshadow2, sweet1000, tombstone_nm, fist, jammin2, buffalo_king, deadwood_rip, cursed_crypt,
+    beastbelow, ninetofive, retrosweets, zezeus, fire_orig, bountyhunter,wisdom_athena
   ];
 };
 
