@@ -16,6 +16,24 @@ export default function GameDetailPage({ params }: Props) {
   const game = getGameBySlug(params.slug);
   if (!game) notFound();
 
+  // アフィリエイトリンクから表示テキストを動的に生成する関数
+  const getButtonText = (url: string) => {
+    if (url.includes("duelbits")) {
+      return "Duelbitsでボーナスをもらってプレイ！";
+    }
+    if (url.includes("k8.io")) {
+      return "K8カジノでボーナスをもらってプレイ！";
+    }
+    if (url.includes("stake")) {
+      return "ステークカジノでボーナスをもらってプレイ！";
+    }
+    if (url.includes("discasinoaffiliates")) {
+      return "ゴールデンパンダでボーナスをもらってプレイ！";
+    }
+    // 万が一どれにも当てはまらない場合のデフォルト
+    return "このゲームを今すぐプレイ！";
+  };
+
   const Star = ({ count }: { count: number }) => (
     <span className="text-yellow-400">{"★".repeat(count)}{"☆".repeat(5 - count)}</span>
   );
@@ -43,7 +61,7 @@ export default function GameDetailPage({ params }: Props) {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 -mt-16 relative z-20">
-        {/* 外部リンク：アフィリエイトボタン */}
+        {/* 外部リンク：アフィリエイトボタン（動的テキスト対応） */}
         <div className="mb-16">
           <a 
             href={game.affiliateUrl} 
@@ -51,7 +69,9 @@ export default function GameDetailPage({ params }: Props) {
             rel="noopener noreferrer" 
             className="group relative block w-full text-center py-8 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-[#0f172a] text-2xl font-black rounded-3xl shadow-[0_20px_50px_rgba(234,179,8,0.4)] hover:scale-[1.01] transition-all duration-300 overflow-hidden"
           >
-            <div className="relative z-10">ゴールデンパンダで入金不要をもらってプレイ</div>
+            <div className="relative z-10">
+              {getButtonText(game.affiliateUrl)}
+            </div>
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
           </a>
         </div>
