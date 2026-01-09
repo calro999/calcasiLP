@@ -48,6 +48,7 @@ export default function RootLayout({
             gtag('config', 'G-D4M7BJXJWJ');
           `}
         </Script>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="zBllRvLyWAW1rJkjmmwqBw" async></script>
 
         {/* ✅ Google Search Console */}
         <meta name="google-site-verification" content="DkCMrOjpxPVzY0T8G34bKQQDsDP9Biu83kk2wfz5hz4" />
