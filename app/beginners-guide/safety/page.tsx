@@ -217,7 +217,7 @@ export default function OnlineCasinoSafetyPage() {
           <div className="text-center">
             <Shimmer>
               <Link 
-                href="/best-casinos" 
+                href="/casino-ranking" 
                 className="inline-flex items-center gap-2 bg-amber-500 text-black font-bold py-4 px-10 rounded-full hover:bg-amber-400 transition-all hover:scale-105"
               >
                 信頼できる推奨カジノランキングを見る
