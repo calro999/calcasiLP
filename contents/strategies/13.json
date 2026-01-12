@@ -7,7 +7,7 @@
   "date": "2026-01-12",
   "readTime": "19分",
   "author": "カジノ戦略研究所 ダイス分析班",
-  "includeDiceGame": true,
+  "includeDiceGame": false,
   "ogImage": "/craps.png",
   "ogUrl": "https://calcasi-lp.vercel.app/strategies/craps",
   "metaTitle": "クラップスの遊び方・勝ち方・有利ベット完全解説 | calcasi",
