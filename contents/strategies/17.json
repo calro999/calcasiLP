@@ -1,0 +1,16 @@
+{
+  "id": 17,
+  "title": "【AI理論】クラップスを確率構造で攻略｜期待値・分散・破産確率の最適解",
+  "excerpt": "クラップスを感覚ではなく確率構造で解析。AIが選ぶベット体系、分散を最小化する判断基準、長期生存を前提とした資金管理を理論的に解説。",
+  "image": "/craps.png",
+  "category": "テーブルゲーム攻略",
+  "date": "2026-01-12",
+  "readTime": "25分",
+  "author": "カジノ戦略研究所 AI確率解析班",
+  "includeDiceGame": true,
+  "ogImage": "/craps.png",
+  "ogUrl": "https://calcasi-lp.vercel.app/strategies/craps-ai",
+  "metaTitle": "クラップス攻略｜AIが導く最適ベット構造と分散制御理論【2026年】",
+  "metaDescription": "クラップスをAI視点で完全解析。期待値が劇的に変わる理由、分散が資金曲線に与える影響、破産確率を抑える最適ベット構造を理論で解説。",
+  "content": "<p><strong>クラップス</strong>は、テーブルゲームの中でも例外的に<strong>賭け方そのものが期待値を変化させる</strong>ゲームです。</p><p>しかしAI視点では、「期待値が高いかどうか」よりも<strong>分散・破産確率・資金耐久力</strong>が重視されます。</p><p>本記事では、初心者向けの説明を排し、<strong>クラップスを確率構造として捉えたAI的攻略理論</strong>を解説します。</p><h2>クラップスの本質は「二段階確率構造」</h2><p>クラップスは、</p><ul><li>カムアウトロール</li><li>ポイント成立後の継続ロール</li></ul><p>という<strong>二段階の確率構造</strong>を持ちます。</p><p>この構造により、同じ勝敗でも<strong>資金変動の仕方が大きく異なる</strong>のが特徴です。</p><h2>AIは「勝敗」ではなく「資金曲線」を見る</h2><p>AIはクラップスを以下の軸で評価します。</p><h3>AI評価軸</h3><ul><li>1ロールあたりの期待損失</li><li>連敗時のドローダウン</li><li>オッズ併用時の分散増減</li></ul><p>その結果、多くの派手なベットは初期段階で排除されます。</p><h2>AIが許容するベット構造</h2><p>AIが採用するベットは、以下に限定されます。</p><ul><li>パスライン</li><li>ドントパス</li><li>オッズベット</li></ul><p>これらは<strong>確率分布が明確で、分散が制御可能</strong>という共通点があります。</p><h3>オッズベットの位置づけ</h3><p>オッズベットはハウスエッジがゼロですが、<strong>分散を拡大させる要因</strong>にもなります。</p><p>AIは最大オッズを常に使うのではなく、<strong>資金量に応じて制限</strong>します。</p><h2>プロポジションベットが排除される理由</h2><p>エニーナンバー・ハードウェイ・ワンロール系は、</p><ul><li>期待値が極端に低い</li><li>分散が過剰</li><li>再現性がない</li></ul><p>という理由から、AI戦略では<strong>完全に排除</strong>されます。</p><h2>マーチンゲールがクラップスで危険な理由</h2><p>クラップスは勝率が比較的高いベットが存在するため、マーチンゲールと相性が良さそうに見えます。</p><p>しかしAIは以下の理由で否定します。</p><ul><li>ポイント継続による長期負けの存在</li><li>オッズ併用時の賭け金急増</li><li>テーブル上限への到達確率</li></ul><h2>AIが採用する資金管理モデル</h2><h3>AI推奨構成</h3><ul><li>固定ベット</li><li>低〜中オッズのみ併用</li><li>セッション単位の最大損失設定</li></ul><p>重要なのは、<strong>勝っても賭け金を増やさない</strong>ことです。</p><h2>クラップスは「期待値ゲーム」ではない</h2><p>AI視点では、クラップスは<strong>期待値を追うゲームではなく、破産確率を抑えるゲーム</strong>です。</p><p>この視点に切り替えられるかどうかが、長期結果を決定します。</p><h2>FAQ（理論編）</h2><section itemscope itemtype='https://schema.org/FAQPage'><div itemscope itemprop='mainEntity' itemtype='https://schema.org/Question'><h3 itemprop='name'>オッズベットは常に最大が正解ですか？</h3><div itemscope itemprop='acceptedAnswer' itemtype='https://schema.org/Answer'><p itemprop='text'>いいえ。分散が過剰になり、破産確率が上昇するため資金量に応じて制限する必要があります。</p></div></div><div itemscope itemprop='mainEntity' itemtype='https://schema.org/Question'><h3 itemprop='name'>ドントパスは本当に有利ですか？</h3><div itemscope itemprop='acceptedAnswer' itemtype='https://schema.org/Answer'><p itemprop='text'>期待値はわずかに有利ですが、資金推移の違いを理解せず使うと逆効果になる場合があります。</p></div></div><div itemscope itemprop='mainEntity' itemtype='https://schema.org/Question'><h3 itemprop='name'>AIは短期勝負を想定しますか？</h3><div itemscope itemprop='acceptedAnswer' itemtype='https://schema.org/Answer'><p itemprop='text'>想定しません。常に長期試行を前提に判断します。</p></div></div></section><h2>まとめ</h2><p>クラップス攻略の核心は、<strong>賭け方ではなく構造理解</strong>にあります。</p><p>AIのように確率と分散だけを見て判断すれば、無駄な損失を大幅に抑えることが可能です。</p>"
+}
