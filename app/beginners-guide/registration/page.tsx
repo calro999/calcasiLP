@@ -155,19 +155,19 @@ export default function RegistrationAndDepositGuidePage() {
           {/* リンク誘導（仮リンク） */}
           <ScrollAnimation variant="fadeInUp">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Link href="/FIXME_LINK_FOR_PAYMENT_METHODS_DETAIL" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
+              <Link href="/article/Registration" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
                 <h4 className="font-bold text-lg flex items-center justify-between group-hover:text-amber-400 transition-colors">
                   入出金方法の詳しい解説
                   <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </h4>
                 <p className="text-gray-500 text-sm mt-2">銀行送金や電子決済サービスの使い方を詳しく見る</p>
               </Link>
-              <Link href="/FIXME_LINK_FOR_KYC_GUIDE" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
+              <Link href="/article/bonus" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
                 <h4 className="font-bold text-lg flex items-center justify-between group-hover:text-amber-400 transition-colors">
-                  本人確認の失敗しないコツ
+                  オンラインカジノのボーナス完全解説！
                   <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </h4>
-                <p className="text-gray-500 text-sm mt-2">書類の撮り方や承認が早いカジノを紹介</p>
+                <p className="text-gray-500 text-sm mt-2">種類と賭け条件を理解して賢くプレイ</p>
               </Link>
             </div>
           </ScrollAnimation>
@@ -178,7 +178,7 @@ export default function RegistrationAndDepositGuidePage() {
           <div className="text-center mt-20">
             <Shimmer>
               <Link 
-                href="/FIXME_LINK_FOR_BEST_CASINOS" 
+                href="/casino-ranking" 
                 className="inline-flex items-center gap-2 bg-amber-500 text-black font-black py-4 px-12 rounded-full hover:bg-amber-400 transition-all hover:scale-105 shadow-xl"
               >
                 まずは登録して特典を受け取ろう
