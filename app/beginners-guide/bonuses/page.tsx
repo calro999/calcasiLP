@@ -160,17 +160,17 @@ export default function BonusGuidePage() {
 
               {/* 内部リンク（仮） */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-12">
-                <Link href="/FIXME_LINK_FOR_NO_DEPOSIT_BONUS_LIST" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
+                <Link href="/article/bonus" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
                   <span className="text-amber-500 text-xs font-bold mb-2 block uppercase tracking-widest">Recommended</span>
                   <h4 className="font-bold text-lg flex items-center justify-between group-hover:text-amber-400 transition-colors">
-                    入金不要ボーナス一覧へ
+                    オンラインカジノのボーナス完全解説一覧へ
                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </h4>
                 </Link>
-                <Link href="/FIXME_LINK_FOR_FIRST_DEPOSIT_BONUS_LIST" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
+                <Link href="/article/Registration" className="group p-6 bg-gray-900 border border-gray-800 rounded-2xl hover:border-amber-500/50 transition-all">
                   <span className="text-amber-500 text-xs font-bold mb-2 block uppercase tracking-widest">Recommended</span>
                   <h4 className="font-bold text-lg flex items-center justify-between group-hover:text-amber-400 transition-colors">
-                    初回入金ボーナス一覧へ
+                    オンラインカジノの登録から入金までを徹底解説一覧へ
                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </h4>
                 </Link>
@@ -185,10 +185,10 @@ export default function BonusGuidePage() {
             <h3 className="text-2xl font-bold mb-6 text-white">条件を理解したら、さっそく遊んでみよう</h3>
             <Shimmer>
               <Link 
-                href="/FIXME_LINK_FOR_CASINO_RANKING" 
+                href="/casino-ranking" 
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-600 to-amber-400 text-black font-black py-4 px-12 rounded-full hover:scale-105 transition-all shadow-[0_0_30px_rgba(245,158,11,0.3)]"
               >
-                信頼できるカジノランキングを見る
+                2026年最新オンラインカジノランキングを見る
                 <Coins size={20} />
               </Link>
             </Shimmer>
