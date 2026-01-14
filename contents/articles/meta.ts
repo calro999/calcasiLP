@@ -8,6 +8,9 @@ interface ArticleMapItem {
   category: string;
   author: string;
   image: string;
+  metaTitle: string;
+  metaDescription: string;
+  focusKeyword: string;
   component: any;
 }
 
