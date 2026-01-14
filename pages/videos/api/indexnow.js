@@ -1,19 +1,30 @@
 import indexnow from 'indexnow-request';
 
 export default async function handler(req, res) {
+  const API_KEY = '824596b7f9ea5784db91d73dbe461184';
+  const DOMAIN = 'calcasi-lp.vercel.app';
+
   try {
-    // 検索エンジンに「更新したよ」と通知を出す命令
     await indexnow({
-      host: 'calcasi-lp.vercel.app',
-      key: '824596b7f9ea5784db91d73dbe461184',
-      keyLocation: 'https://calcasi-lp.vercel.app/824596b7f9ea5784db91d73dbe461184.txt',
+      host: DOMAIN,
+      key: API_KEY,
+      // txtファイルはpublic直下にある前提のURLです
+      keyLocation: `https://${DOMAIN}/${API_KEY}.txt`,
       urlList: [
-        'https://calcasi-lp.vercel.app/', // 更新を伝えたいURL
+        `https://${DOMAIN}/`,
+        // 他にインデックスさせたいURLがあればここに追加
       ],
     });
 
-    return res.status(200).json({ message: 'Success' });
+    return res.status(200).json({ 
+      success: true, 
+      message: 'IndexNow submission successful' 
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error('IndexNow error:', error);
+    return res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
   }
 }
