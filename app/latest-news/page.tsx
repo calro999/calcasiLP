@@ -4,91 +4,139 @@ import path from "path";
 import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "最新オンラインカジノニュース一覧｜2026年最新情報",
-  description: "新着カジノの入金不要ボーナスや、2026年最新の攻略ニュースを掲載。プレイヤーに役立つ情報をいち早くお届けします。",
-};
+import { notFound } from "next/navigation";
 
 interface Article {
   id: number;
   title: string;
-  excerpt: string;
-  image: string;
-  category: string;
   date: string;
   readTime: string;
+  category: string;
+  author: string;
+  image: string;
+  excerpt: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  content: string;
   ogUrl?: string;
 }
 
-async function getLocalArticles(): Promise<Article[]> {
-  // lang = "ja" を削除し、直下の articles フォルダを参照
+// ヘルパー関数: スラグに基づいて特定のJSONファイルを読み込む
+async function getArticleData(slug: string): Promise<Article | null> {
   const dir = path.join(process.cwd(), "contents", "articles");
-
   try {
     const files = await fs.readdir(dir);
-    const articles = await Promise.all(
-      files
-        .filter((f) => f.endsWith(".json"))
-        .map(async (file) => {
-          const data = await fs.readFile(path.join(dir, file), "utf8");
-          return JSON.parse(data);
-        })
-    );
-    // IDの降順でソート
-    return articles.sort((a, b) => Number(b.id) - Number(a.id));
+    for (const file of files) {
+      if (!file.endsWith(".json")) continue;
+      const data = await fs.readFile(path.join(dir, file), "utf8");
+      const article: Article = JSON.parse(data);
+      
+      // JSON内のogUrlから末尾のスラグを抽出して比較
+      const articleSlug = article.ogUrl 
+        ? article.ogUrl.split('/').filter(Boolean).pop() 
+        : article.id.toString();
+
+      if (articleSlug === slug) {
+        return article;
+      }
+    }
+    return null;
   } catch (error) {
-    console.error("記事の取得に失敗しました:", error);
-    return [];
+    console.error("記事データの取得に失敗しました:", error);
+    return null;
   }
 }
 
-export default async function LatestNewsPage() {
-  const articles = await getLocalArticles();
+// ★動的メタデータ生成関数: これがタブの名前（titleタグ）を決定します
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const article = await getArticleData(params.slug);
+
+  if (!article) {
+    return { title: "記事が見つかりません" };
+  }
+
+  // metaTitleがあればそれを優先、なければ通常のtitleを使用
+  const displayTitle = article.metaTitle || article.title;
+
+  return {
+    title: displayTitle,
+    description: article.metaDescription || article.excerpt,
+    openGraph: {
+      title: article.ogTitle || displayTitle,
+      description: article.ogDescription || article.excerpt,
+      images: [article.ogImage || article.image],
+      url: article.ogUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.ogTitle || displayTitle,
+      description: article.ogDescription || article.excerpt,
+      images: [article.ogImage || article.image],
+    },
+  };
+}
+
+// ページコンポーネント
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = await getArticleData(params.slug);
+
+  if (!article) {
+    notFound();
+  }
 
   return (
-    <main className="pt-20 pb-20 bg-black">
-      <section className="bg-gray-900 py-16 px-4 md:px-8">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => {
-              const urlSlug = article.ogUrl 
-                ? article.ogUrl.split('/').filter(Boolean).pop() 
-                : article.id.toString();
-
-              return (
-                <Link href={`/article/${urlSlug}`} key={article.id} className="group">
-                  <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
-                    <div className="relative aspect-[16/9] overflow-hidden">
-                      <Image
-                        src={article.image || "/default-og.jpg"}
-                        alt={article.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="p-6 flex flex-col flex-grow">
-                      <span className="inline-block px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase rounded mb-3 self-start">
-                        {article.category}
-                      </span>
-                      <h3 className="text-xl font-bold text-white mb-3 flex-grow group-hover:text-amber-300 transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
-                      <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
-                        <span>公開日: {article.date}</span>
-                        <span>{article.readTime}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+    <main className="pt-24 pb-20 bg-black min-h-screen">
+      <article className="container mx-auto max-w-4xl px-4 md:px-8">
+        {/* ヘッダーセクション */}
+        <header className="mb-12 text-center">
+          <span className="inline-block px-4 py-1 bg-amber-500 text-black text-[10px] font-black uppercase rounded mb-4">
+            {article.category}
+          </span>
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            {article.title}
+          </h1>
+          <div className="flex items-center justify-center gap-6 text-gray-500 text-xs border-y border-gray-800 py-4">
+            <time>公開日: {article.date}</time>
+            <span>著者: {article.author}</span>
+            <span>読了: {article.readTime}</span>
           </div>
+        </header>
+
+        {/* アイキャッチ画像 */}
+        <div className="relative aspect-video rounded-xl overflow-hidden mb-12 border border-gray-800 shadow-2xl">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
-      </section>
+
+        {/* 記事コンテンツ（HTML文字列をパース） */}
+        <div 
+          className="prose prose-invert prose-amber max-w-none text-gray-300
+            prose-h2:text-3xl prose-h2:font-bold prose-h2:text-amber-300 prose-h2:mb-6 prose-h2:mt-12
+            prose-h3:text-xl prose-h3:font-bold prose-h3:text-white prose-h3:mb-4
+            prose-p:mb-6 prose-p:leading-relaxed
+            prose-a:text-amber-400 prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-white prose-strong:font-bold"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
+
+        <footer className="mt-20 pt-10 border-t border-gray-800 flex justify-center">
+          <Link 
+            href="/latest-news" 
+            className="px-8 py-3 bg-gray-900 border border-gray-700 text-amber-400 rounded-full font-bold hover:bg-gray-800 transition-all shadow-lg"
+          >
+            ← 最新ニュース一覧へ戻る
+          </Link>
+        </footer>
+      </article>
     </main>
   );
 }
