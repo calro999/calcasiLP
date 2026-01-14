@@ -17,8 +17,8 @@ interface Props {
   params: { id: string };
 }
 
+// 記事データを取得する共通関数
 async function getArticleBySlugOrId(slug: string): Promise<Article | null> {
-  // lang = "ja" を削除
   const dir = path.join(process.cwd(), "contents", "articles");
   try {
     const files = await fs.readdir(dir);
@@ -41,6 +41,36 @@ async function getArticleBySlugOrId(slug: string): Promise<Article | null> {
     console.error("記事詳細の取得に失敗しました:", error);
     return null;
   }
+}
+
+/**
+ * ★追加：タブの名前（タイトル）を動的に設定する関数
+ */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const article = await getArticleBySlugOrId(params.id);
+
+  if (!article) {
+    return { title: "記事が見つかりません" };
+  }
+
+  // JSONにある metaTitle を優先、なければ title を使用
+  return {
+    title: article.metaTitle || article.title,
+    description: article.metaDescription,
+    openGraph: {
+      title: article.ogTitle || article.metaTitle || article.title,
+      description: article.ogDescription || article.metaDescription,
+      images: [article.ogImage || article.image],
+      url: article.ogUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.ogTitle || article.metaTitle || article.title,
+      description: article.ogDescription || article.metaDescription,
+      images: [article.ogImage || article.image],
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {
