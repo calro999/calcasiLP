@@ -6,35 +6,35 @@ export default function Features() {
   const features = [
     {
       icon: <Dice5 size={28} className="text-amber-400" />,
-      title: "豊富なゲーム",
-      description: "スロット、ポーカー、ブラックジャック、ルーレットなど、500種類以上のゲームをご用意しています。",
+      title: "Wide Variety of Games",
+      description: "Enjoy over 500+ games including slots, poker, blackjack, and live roulette from top providers.",
     },
     {
       icon: <Shield size={28} className="text-amber-400" />,
-      title: "安全なプレイ環境",
-      description: "最新の暗号化技術と厳格なセキュリティ対策で、お客様の情報とお金を守ります。",
+      title: "Safe & Secure Environment",
+      description: "Your safety is our priority. We only list casinos with the latest encryption and strict regulations.",
     },
     {
       icon: <CreditCard size={28} className="text-amber-400" />,
-      title: "簡単な入出金",
-      description: "クレジットカード、電子マネー、仮想通貨など、多様な決済方法に対応しています。",
+      title: "Fast Deposits & Withdrawals",
+      description: "Supports major payment methods including Interac, credit cards, and crypto for seamless transactions.",
     },
     {
       icon: <Trophy size={28} className="text-amber-400" />,
-      title: "VIPプログラム",
-      description: "遊ぶほどにランクが上がりお得になるVIPプログラム！。",
+      title: "Tiered VIP Rewards",
+      description: "Unlock exclusive perks, higher limits, and personalized bonuses as you climb the VIP ranks.",
     },
     {
       icon: <Clock size={28} className="text-amber-400" />,
-      title: "24時間サポート",
-      description: "経験豊富なカスタマーサポートチームが、24時間365日お客様のお問い合わせにお答えします。",
+      title: "24/7 Expert Support",
+      description: "Pro support teams are available around the clock to help with any questions or issues.",
     },
     {
       icon: <Gift size={28} className="text-amber-400" />,
-      title: "豪華ボーナス",
-      description: "初回登録ボーナスやリロードボーナス、フリースピンなど、お得なプロモーションを常時開催中です。",
+      title: "Massive Welcome Bonuses",
+      description: "Get the best value with exclusive welcome offers, free spins, and reload bonuses for Canadians.",
     },
-  ]
+  ];
 
   return (
     <section className="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
@@ -43,12 +43,12 @@ export default function Features() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                厳選したカジノ
+                Hand-Picked
               </span>
-              のみを紹介
+              {" "}Top Casinos
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              魅力的なボーナスやプロモーションが盛り沢山
+              Discover the most lucrative bonuses and secure platforms in Canada.
             </p>
           </div>
         </ScrollAnimation>

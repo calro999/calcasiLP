@@ -66,12 +66,12 @@ async function findStrategyBySlugOrId(target: string): Promise<StrategyData | nu
 
 export async function generateMetadata({ params }: ParamsProps): Promise<Metadata> {
   const strategy = await findStrategyBySlugOrId(params.id);
-  if (!strategy) return { title: "攻略記事が見つかりません" };
+  if (!strategy) return { title: "Strategy Not Found" };
 
   const finalUrl = strategy.ogUrl || `https://calcasi.com/strategies/${strategy.id}`;
 
   return {
-    title: strategy.metaTitle || `${strategy.title} | calcasiどっとこむ`,
+    title: strategy.metaTitle || `${strategy.title} | Calcasi Canada`,
     description: strategy.metaDescription || strategy.excerpt,
     openGraph: {
       title: strategy.title,

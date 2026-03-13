@@ -9,7 +9,7 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const game = getGameBySlug(params.slug);
   if (!game) return { title: "Game Not Found" };
-  return { title: `${game.title}の徹底解説・攻略ガイド | Calcasi`, description: game.seoDescription };
+  return { title: `${game.title} Strategy Guide & Analysis | Calcasi Canada`, description: game.seoDescription };
 }
 
 export default function GameDetailPage({ params }: Props) {
@@ -19,19 +19,19 @@ export default function GameDetailPage({ params }: Props) {
   // アフィリエイトリンクから表示テキストを動的に生成する関数
   const getButtonText = (url: string) => {
     if (url.includes("duelbits")) {
-      return "Duelbitsでボーナスをもらってプレイ！";
+      return "Claim Your Bonus & Play at Duelbits!";
     }
     if (url.includes("k8.io")) {
-      return "K8カジノでボーナスをもらってプレイ！";
+      return "Get Your Bonus & Join K8 Casino!";
     }
     if (url.includes("stake")) {
-      return "ステークカジノでボーナスをもらってプレイ！";
+      return "Play with Bonus at Stake Casino!";
     }
     if (url.includes("discasinoaffiliates")) {
-      return "ゴールデンパンダでボーナスをもらってプレイ！";
+      return "Start with a Bonus at Golden Panda!";
     }
-    // 万が一どれにも当てはまらない場合のデフォルト
-    return "このゲームを今すぐプレイ！";
+    // Default fallback
+    return "Play This Game Now!";
   };
 
   const Star = ({ count }: { count: number }) => (
@@ -82,7 +82,7 @@ export default function GameDetailPage({ params }: Props) {
             <section>
               <h2 className="text-2xl font-bold mb-8 flex items-center">
                 <span className="w-2 h-8 bg-blue-600 mr-4 rounded-full"></span>
-                ゲーム詳細レビュー
+                Detailed Game Review
               </h2>
               <p className="leading-loose text-gray-300 text-lg mb-8">{game.description}</p>
               <div className="bg-gray-900 border border-gray-800 p-8 rounded-[2rem]">
@@ -94,7 +94,7 @@ export default function GameDetailPage({ params }: Props) {
             <section>
               <h2 className="text-2xl font-bold mb-8 flex items-center">
                 <span className="w-2 h-8 bg-blue-600 mr-4 rounded-full"></span>
-                配当ルールと遊び方
+                Payout Rules & Gameplay
               </h2>
               <div className="bg-gray-900/40 p-10 rounded-[2rem] border border-gray-800 text-gray-300 leading-loose whitespace-pre-wrap">
                 {game.rules}
@@ -104,7 +104,7 @@ export default function GameDetailPage({ params }: Props) {
             <section>
               <h2 className="text-2xl font-bold mb-8 flex items-center">
                 <span className="w-2 h-8 bg-green-500 mr-4 rounded-full"></span>
-                プロが教える攻略のコツ
+                Pro Winning Strategy
               </h2>
               <div className="bg-green-500/5 border border-green-500/20 p-10 rounded-[2rem] text-gray-300 whitespace-pre-wrap leading-loose shadow-inner">
                 {game.strategy}
@@ -114,13 +114,13 @@ export default function GameDetailPage({ params }: Props) {
             {/* Pros/Cons */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-blue-500/5 border border-blue-500/20 p-8 rounded-3xl">
-                <h3 className="font-bold text-blue-400 mb-6 flex items-center">メリット</h3>
+                <h3 className="font-bold text-blue-400 mb-6 flex items-center">Pros</h3>
                 <ul className="space-y-4 text-sm">
                   {game.pros.map((p: string, i: number) => <li key={i} className="flex items-start">✅ <span className="ml-3">{p}</span></li>)}
                 </ul>
               </div>
               <div className="bg-red-500/5 border border-red-500/20 p-8 rounded-3xl">
-                <h3 className="font-bold text-red-400 mb-6 flex items-center">デメリット</h3>
+                <h3 className="font-bold text-red-400 mb-6 flex items-center">Cons</h3>
                 <ul className="space-y-4 text-sm">
                   {game.cons.map((c: string, i: number) => <li key={i} className="flex items-start">⚠️ <span className="ml-3">{c}</span></li>)}
                 </ul>

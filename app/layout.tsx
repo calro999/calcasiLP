@@ -12,14 +12,14 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   // titleオブジェクトを使うことで、各ページで「記事タイトル | カジノ比較ならCalcasi！」と自動表示されます
   title: {
-    default: "カジノ比較ならCalcasi！",
-    template: "%s | カジノ比較ならCalcasi！",
+    default: "Calcasi | Top Online Casino Comparison Site in Canada",
+    template: "%s | Calcasi Canada",
   },
-  description: "人気オンラインカジノのランキング・ゲーム紹介・初心者ガイドを提供するカジノ比較サイトです。",
+  description: "The ultimate guide to online casinos in Canada. We provide rankings, game reviews, and beginner guides to help you play safely and win big.",
   // Googleにサイト名を直接伝える設定
   openGraph: {
-    siteName: "カジノ比較ならCalcasi！",
-    locale: "ja_JP",
+    siteName: "Calcasi Canada",
+    locale: "en_CA",
     type: "website",
   },
   alternates: {
@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="dark">
+    <html lang="en" className="dark">
       <head>
         {/* ✅ Googleアナリティクス */}
         <Script

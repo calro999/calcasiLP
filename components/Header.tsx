@@ -36,13 +36,13 @@ export default function Header() {
   };
 
   const menuItems = [
-    { name: "ホーム", path: "/" },
-    { name: "最新情報", path: "/latest-news" },
-    { name: "プレイ動画", path: "/videos" },
-    { name: "初心者ガイド", path: "/beginners-guide" },
-    { name: "攻略法", path: "/strategies" },
-    { name: "カジノランキング", path: "/casino-ranking" },
-    { name: "人気ゲーム", path: "/games" },
+    { name: "Home", path: "/" },
+    { name: "Latest News", path: "/latest-news" },
+    { name: "Videos", path: "/videos" },
+    { name: "Guides", path: "/beginners-guide" },
+    { name: "Strategies", path: "/strategies" },
+    { name: "Ranking", path: "/casino-ranking" },
+    { name: "Popular Games", path: "/games" },
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <Shimmer interval={5000}>
             <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-              calcasiどっとこむ
+              Calcasi Canada
             </span>
           </Shimmer>
         </Link>
@@ -78,7 +78,7 @@ export default function Header() {
             rel="noopener noreferrer"
             className="ml-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-1.5 rounded-md text-sm md:text-base transition-all duration-300 shadow-lg shadow-amber-500/20"
           >
-            お問い合わせ
+            Contact Us
           </Link>
         </nav>
 

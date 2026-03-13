@@ -21,11 +21,11 @@ const findCasino = (idOrSlug: string) => {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const casino = findCasino(params.id);
-  if (!casino) return { title: "カジノが見つかりません" };
+  if (!casino) return { title: "Casino Not Found" };
 
   return {
-    title: `${casino.name}の評判・ボーナス徹底解説【2026最新】`,
-    description: `${casino.name}の最新ボーナス情報：${casino.bonus}`,
+    title: `${casino.name} Review & Bonuses 2026 | Calcasi Canada`,
+    description: `Latest bonus information for ${casino.name}: ${casino.bonus}. Get all the details on withdrawal speeds and game selection.`,
     openGraph: {
       images: [{ url: casino.banner || casino.logo }],
     }
@@ -39,10 +39,10 @@ export default function CasinoDetail({ params }: Props) {
     return (
       <main className="pt-20 pb-20 bg-black min-h-screen flex items-center justify-center text-white text-center">
         <div>
-          <h1 className="text-4xl font-bold mb-4">カジノが見つかりません</h1>
+          <h1 className="text-4xl font-bold mb-4">Casino Not Found</h1>
           <Link href="/casino-ranking" className="text-amber-400 hover:underline flex items-center justify-center">
             <ArrowLeft size={16} className="mr-2" />
-            ランキングへ戻る
+            Back to Ranking
           </Link>
         </div>
       </main>
@@ -56,7 +56,7 @@ export default function CasinoDetail({ params }: Props) {
       <div className="container mx-auto px-4">
         <Link href="/casino-ranking" className="text-amber-400 hover:underline flex items-center mb-8 w-fit group">
           <ArrowLeft size={18} className="mr-2 transition-transform group-hover:-translate-x-1" />
-          ランキングに戻る
+          Back to Ranking
         </Link>
 
         <div className="flex flex-col md:flex-row gap-12">
@@ -64,7 +64,7 @@ export default function CasinoDetail({ params }: Props) {
             <div className="bg-white rounded-2xl p-8 flex items-center justify-center shadow-2xl border border-gray-800">
               <Image 
                 src={casino.logo} 
-                alt={`${casino.name}のロゴ`} 
+                alt={`${casino.name} logo`} 
                 width={300} 
                 height={150} 
                 className="object-contain w-full h-auto"
@@ -107,7 +107,7 @@ export default function CasinoDetail({ params }: Props) {
           </div>
 
           <div className="md:w-2/3">
-            <h2 className="text-2xl font-bold text-amber-300 mb-4 border-l-4 border-amber-500 pl-4">カジノ概要</h2>
+            <h2 className="text-2xl font-bold text-amber-300 mb-4 border-l-4 border-amber-500 pl-4">Casino Overview</h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-6">
               {casino.description}
             </p>
@@ -132,7 +132,7 @@ export default function CasinoDetail({ params }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-yellow-600 text-black font-black px-12 py-5 rounded-full hover:scale-105 transition-all shadow-[0_10px_20px_rgba(251,191,36,0.3)] w-full md:w-auto text-center"
             >
-              公式サイトでボーナスを受け取る
+              Get Your Bonus at Official Site
               <ExternalLink size={20} className="ml-2" />
             </Link>
           </div>

@@ -1,4 +1,3 @@
-// このファイルだけで完結するように設定しました
 export type Game = {
   slug: string;
   title: string;
@@ -24,20 +23,19 @@ export const gameData: Game = {
   slug: "gates-of-olympus",
   title: "Gates of Olympus",
   provider: "Pragmatic Play",
-  // 画像は仮のものです。お手持ちの画像URLがあれば差し替えてください
   imageUrl: "/gates-of-olympus.jpg",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,
   rtp: "96.50%",
-  maxWin: "5,000倍",
-  volatility: "High (高い)",
-  description: "ギリシャ神話のゼウスがテーマの超人気スロット。シンボルがどこでも8個以上揃えば配当が発生する革新的なシステム「ペイ・エニウェア」を採用しています。最大500倍のマルチプライヤーが絡み合う爆発力は、全スロットの中でもトップクラスです。",
-  rules: "【基本配当】\n・6×5の画面上に、同じシンボルが合計8個以上現れると配当獲得。\n・配当があったシンボルは消え、新しいシンボルが降ってくる「タンブル（連鎖）」機能。\n\n【マルチプライヤー（倍率）】\n・ゼウスがランダムに放つ「雷」によって、2倍〜500倍のマルチプライヤーが出現。\n・1回のスピンで複数のマルチプライヤーが出た場合、それらは合算されます。\n\n【フリースピン】\n・スキャッター（ゼウスの顔）が4つ以上で15回のフリースピン。\n・フリースピン中にマルチプライヤーを含んだ配当が出ると、その倍率は「総マルチプライヤー」として画面左側に蓄積され、以降の配当すべてに適用されます。これが爆発の鍵です。",
-  features: "最大の魅力はフリースピン中の「倍率の蓄積」です。後半になればなるほど、小さな配当でも「蓄積された100倍、200倍」といったマルチプライヤーが乗るため、一撃で数千倍の配当が飛び出すポテンシャルを秘めています。",
-  strategy: "1. アンティベット（ベット額25%増）をONにすることを推奨。フリースピン突入率が2倍になります。\n2. フリースピン購入（ベット額の100倍）は、ボラティリティが非常に高いため、資金に余裕がある時に勝負をかける手法として有効です。\n3. 高配当シンボル（王冠や時計）の連鎖を待つゲーム性なので、短期間のマイナスに一喜一憂せず、長期戦を見据えた資金管理が重要です。",
-  pros: ["最大500倍のマルチプライヤーが強烈", "フリースピン中の倍率蓄積でカンストが狙える", "連鎖が続くので通常時も退屈しない"],
-  cons: ["ハイボラティリティのため、資金の減りが速いこともある", "フリースピン中にマルチプライヤーが出ないと伸び悩む"],
-  seoDescription: "Gates of Olympus（ゲートオブオリンパス）の徹底攻略。勝てる確率を上げるコツ、フリースピン購入の是非、RTPやボラティリティ情報をプロが詳しく解説。",
+  maxWin: "5,000x",
+  volatility: "High",
+  description: "A legendary slot themed after Zeus from Greek mythology. Features the innovative 'Pay Anywhere' system where wins occur if 8 or more identical symbols appear anywhere on the grid. Known for massive multipliers up to 500x, it's a top-tier explosive slot.",
+  rules: "[Basic Payouts]\n- Wins are triggered when 8 or more identical symbols appear on the 6x5 grid.\n- Features a 'Tumble' mechanic where winning symbols vanish and new ones fall in.\n\n[Multipliers]\n- Zeus can randomly cast lightning to drop multipliers ranging from 2x up to 500x.\n- Multiple multipliers in a single spin are summed together.\n\n[Free Spins]\n- 4 or more Scatters (Zeus's face) trigger 15 free spins.\n- During free spins, any multiplier that contributes to a win is added to a 'Total Multiplier' that applies to all subsequent wins, creating massive payout potential.",
+  features: "The biggest draw is the 'Accumulating Multiplier' during free spins. As the multiplier grows throughout the session, even small wins can turn into massive payouts of 1000x or more.",
+  strategy: "1. We recommend turning on the Ante Bet (25% extra stake) to double your chances of hitting free spins.\n2. Bonus Buys (100x stake) are effective for high-stakes play if your bankroll allows for high volatility.\n3. Focus on long-term play; manage your funds to weather the swings while waiting for high-value symbol chains.",
+  pros: ["Massive multipliers up to 500x", "Multiplier accumulation in free spins allows for huge max wins", "Tumble mechanics keep the base game engaging"],
+  cons: ["High volatility means the balance can drain quickly during dry spells", "Can be Frustrating if no multipliers appear during the bonus round"],
+  seoDescription: "In-depth strategy guide for Gates of Olympus. Learn tips to increase your win probability, the pros and cons of bonus buys, and detailed RTP and volatility analysis.",
   affiliateUrl: "https://record.discasinoaffiliates.com/_R757TaLb9LkdIqIeVhNpQ2Nd7ZgqdRLk/1/?pg=0",
 };

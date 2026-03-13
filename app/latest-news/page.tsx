@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "最新オンラインカジノニュース一覧｜2026年最新情報",
-  description: "新着カジノの入金不要ボーナスや、2026年最新の攻略ニュースを掲載。プレイヤーに役立つ情報をいち早くお届けします。",
+  title: "Latest Online Casino News | 2026 Updates for Canada",
+  description: "Get the scoop on new casino no-deposit bonuses and the latest gambling strategies for 2026. We bring you the most helpful info for Canadian players.",
 };
 
 interface Article {
@@ -50,7 +50,7 @@ export default async function LatestNewsPage() {
     <main className="pt-20 pb-20 bg-black">
       <section className="bg-gray-900 py-16 px-4 md:px-8">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">最新情報</h2>
+          <h2 className="text-4xl font-bold text-amber-300 text-center mb-12">Latest News</h2>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => {
@@ -78,7 +78,7 @@ export default async function LatestNewsPage() {
                       </h3>
                       <p className="text-gray-400 text-sm mb-4 line-clamp-2">{article.excerpt}</p>
                       <div className="flex justify-between items-center text-gray-500 text-[11px] mt-auto pt-4 border-t border-gray-700">
-                        <span>公開日: {article.date}</span>
+                        <span>Published: {article.date}</span>
                         <span>{article.readTime}</span>
                       </div>
                     </div>

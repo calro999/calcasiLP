@@ -46,7 +46,7 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
     <main className="pt-20 pb-24 bg-black min-h-screen text-gray-300">
       <div className="container mx-auto px-4 max-w-6xl">
         <h1 className="text-4xl font-bold text-white mb-10 border-l-4 border-amber-500 pl-4">
-          2026年最新オンラインカジノおすすめランキング
+          Top Online Casino Rankings for Canadians 2026
         </h1>
 
         {/* ===== ランキング ===== */}
@@ -69,7 +69,7 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
                   <div className="w-24 text-center text-white">
                     {rank === 1 && <Crown size={36} className="mx-auto text-yellow-400 fill-yellow-400 mb-1" />}
                     {(rank === 2 || rank === 3) && <Trophy size={36} className="mx-auto text-amber-500 fill-amber-500 mb-1" />}
-                    <div className="text-3xl font-black">{rank}位</div>
+                    <div className="text-3xl font-black">Rank {rank}</div>
                   </div>
 
                   <div className="relative w-48 h-28 rounded-lg overflow-hidden border border-gray-600">
@@ -89,82 +89,73 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
           })}
         </motion.div>
 
-        {/* ===== SEOコンテンツ ===== */}
-        <section className="mt-24 bg-gradient-to-b from-gray-900 to-black border border-gray-700 rounded-2xl p-10 shadow-xl">
+        {/* ===== SEO Content ===== */}
+        <section className="mt-24 bg-gradient-to-b from-gray-900 to-black border border-gray-700 rounded-2xl p-10 shadow-xl text-gray-300">
           <h2 className="text-3xl font-bold text-white mb-6">
-            オンラインカジノおすすめを2026年に選ぶための完全ガイド
+            Complete Guide to Choosing the Best Online Casinos in Canada
           </h2>
 
-          <p className="mb-6">
-            本ページでは、単なるランキング表示だけでなく、
-            <strong>オンカジおすすめを安全かつ合理的に選ぶための判断基準</strong>
-            を詳しく解説しています。
-            特に2026年現在は、オンラインカジノ市場が拡大する一方で、
-            正しい知識を持たないまま利用するとリスクが高まる状況です。
+          <p className="mb-6 leading-relaxed">
+            On this page, we don't just show rankings; we provide the 
+            <strong> criteria for choosing an online casino safely and rationally</strong> 
+            in the Canadian market. Especially in 2026, as the market expands, it's vital to have the right knowledge to avoid risks.
           </p>
 
           <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            初心者がオンカジおすすめサイトを選ぶ際に重視すべきポイント
+            Key Factors for Canadian Beginners
           </h3>
-          <p>
-            初めてオンラインカジノを利用する方は、
-            日本語サポートの有無、出金実績、操作のわかりやすさを最優先で確認してください。
-            詳細は初心者向けガイドで解説しています。
+          <p className="leading-relaxed">
+            If you're new to online gambling, prioritize things like Interac support, license validity (like Kahnawake, MGA, or iGaming Ontario), and withdrawal history. For a more detailed walkthrough, check our guide below.
           </p>
 
           <div className="mt-4">
-            <Link href="https://calcasi-lp.vercel.app/beginners-guide" className="text-amber-400 underline">
-              ▶ オンラインカジノ初心者ガイドを見る
+            <Link href="https://calcasi-lp.vercel.app/beginners-guide" className="text-amber-400 underline hover:text-amber-300 transition-colors">
+              ▶ View Online Casino Beginner Guide
             </Link>
           </div>
 
           <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            仮想通貨対応オンカジが2026年におすすめされる理由
+            Why Crypto Casinos are Surging in 2026
           </h3>
-          <p>
-            ビットコインやUSDTなどの仮想通貨決済に対応したオンラインカジノは、
-            出金スピードが早く、手数料が抑えられる点で大きなメリットがあります。
-            最新の対応状況や注意点は、最新情報ページで随時更新しています。
+          <p className="leading-relaxed">
+            Casinos that support Bitcoin, USDT, and Ethereum offer near-instant withdrawals and lower fees. This is becoming a preferred method for tech-savvy Canadians who value privacy and speed.
           </p>
 
           <div className="mt-4">
-            <Link href="https://calcasi-lp.vercel.app/latest-news" className="text-amber-400 underline">
-              ▶ オンカジ最新ニュース・アップデート情報
+            <Link href="https://calcasi-lp.vercel.app/latest-news" className="text-amber-400 underline hover:text-amber-300 transition-colors">
+              ▶ Latest Casino News & Updates
             </Link>
           </div>
 
           <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            管理者カルロが実際にプレイしている動画で確認する安心感
+            Expert Insights: Watch Carlo in Action
           </h3>
-          <p>
-            当サイトでは、管理者のカルロが実際にオンラインカジノをプレイしている動画を公開しています。
-            実際の入金・プレイ・出金の流れを確認することで、
-            安心してオンカジを選ぶことができます。
+          <p className="leading-relaxed">
+            To give you extra confidence, we provide videos of our expert, Carlo, actually playing at these casinos. You can see the full flow from deposit to play and withdrawal.
           </p>
 
           <div className="mt-4">
-            <Link href="https://calcasi-lp.vercel.app/videos" className="text-amber-400 underline">
-              ▶ 実際のプレイ動画を見る
+            <Link href="https://calcasi-lp.vercel.app/videos" className="text-amber-400 underline hover:text-amber-300 transition-colors">
+              ▶ Watch Real Gameplay Videos
             </Link>
           </div>
 
           <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            勝率を高めたい人向けの攻略法・人気ゲーム情報
+            Increase Your Odds: Strategies & Popular Games
           </h3>
-          <p>
-            オンカジは運だけでなく、ゲーム選びや資金管理によって結果が大きく変わります。
-            当サイトでは攻略法や人気ゲーム情報も詳しく解説しています。
+          <p className="leading-relaxed">
+            Winning at a casino isn't just about luck; it's about choosing the right games and managing your bankroll effectively.
           </p>
 
           <ul className="list-disc list-inside mt-4 space-y-2">
             <li>
-              <Link href="https://calcasi-lp.vercel.app/strategies" className="text-amber-400 underline">
-                ▶ オンラインカジノ攻略法一覧
+              <Link href="https://calcasi-lp.vercel.app/strategies" className="text-amber-400 underline hover:text-amber-300 transition-colors">
+                ▶ Online Casino Strategies List
               </Link>
             </li>
             <li>
-              <Link href="https://calcasi-lp.vercel.app/games" className="text-amber-400 underline">
-                ▶ 人気オンラインカジノゲーム特集
+              <Link href="https://calcasi-lp.vercel.app/games" className="text-amber-400 underline hover:text-amber-300 transition-colors">
+                ▶ Featured Online Casino Games
               </Link>
             </li>
           </ul>
@@ -180,26 +171,26 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
               "mainEntity": [
                 {
                   "@type": "Question",
-                  "name": "オンラインカジノは日本人が利用しても安全ですか？",
+                  "name": "Is it safe for Canadians to play at online casinos?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "正式なライセンスを取得している海外オンラインカジノであれば、日本人でも比較的安全に利用できます。"
+                    "text": "Yes, as long as the casino holds a valid international license (MGA, Kahnawake, Curacao) or is provincially regulated, it is safe for Canadian players."
                   }
                 },
                 {
                   "@type": "Question",
-                  "name": "2026年におすすめのオンラインカジノの特徴は？",
+                  "name": "What should I look for in a 2026 casino?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "出金スピードが早く、日本語対応があり、仮想通貨決済に対応している点が重要です。"
+                    "text": "Fast withdrawal speeds, Interac/Crypto support, and 24/7 customer service are key factors for a top-tier experience."
                   }
                 },
                 {
                   "@type": "Question",
-                  "name": "初心者でも勝てるオンラインカジノはありますか？",
+                  "name": "Can beginners actually win?",
                   "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "初心者向けボーナスや低リスクで遊べるゲームが用意されているカジノがおすすめです。"
+                    "text": "Yes, by utilizing welcome bonuses and playing high-RTP slots, beginners can increase their chances of winning."
                   }
                 }
               ]
@@ -213,7 +204,7 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
             href="https://calcasi-lp.vercel.app/"
             className="inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold px-10 py-4 rounded-full transition shadow-lg"
           >
-            ホームへ戻る
+            Back to Home
           </Link>
         </div>
       </div>

@@ -9,8 +9,8 @@ import { ProviderLogos } from "@/components/ProviderLogos";
 import { getAllArticles } from "@/lib/getAllArticles";
 
 export const metadata: Metadata = {
-  title: "カジノ比較ならCalcasi！",
-  description: "人気オンラインカジノのランキング・ゲーム紹介・初心者ガイドを提供するカジノ比較サイトです。",
+  title: "Calcasi | The Best Online Casino Comparison Site in Canada",
+  description: "Find the best online casinos in Canada. We offer rankings, game reviews, and beginner guides for Canadian players.",
 };
 
 export default async function LangHome() {
@@ -19,9 +19,9 @@ export default async function LangHome() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "カジノ比較ならCalcasi！",
+    "name": "Calcasi | Best Casino Comparison for Canadians",
     "url": "https://calcasi-lp.vercel.app/",
-    "alternateName": ["Calcasi", "カルカジ"],
+    "alternateName": ["Calcasi"],
   };
 
   return (
@@ -43,7 +43,7 @@ export default async function LangHome() {
 
       <div className="w-full mt-20 px-4 pb-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-4">カルロの動画はこちら</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Watch Our Latest Videos</h2>
           <iframe 
             src="https://calcasi-lp.vercel.app/videos" 
             width="1200"
@@ -56,7 +56,7 @@ export default async function LangHome() {
               href="https://calcasi-lp.vercel.app/videos" 
               className="inline-block px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
             >
-              もっと見る
+              Watch More
             </a>
           </div>
         </div>

@@ -7,29 +7,29 @@ export default function CasinoDetails() {
   const casinos = [
     {
       id: "goldenpanda",
-      name: "ゴールデンパンダ",
-      category: "オンラインカジノ",
+      name: "Golden Panda",
+      category: "Online Casino",
       image: "/goldenpanda_top.jpg", 
-      description: "爆発力の高いスロットと太っ腹なボーナスで人気急上昇中の最新オンラインカジノ。",
-      keyword: "ゴールデンパンダの評判・詳細"
+      description: "A rapidly growing casino known for high-velocity slots and massive welcome bonuses for Canadian players.",
+      keyword: "Golden Panda Review & Details"
     },
     {
       id: "k8",
-      name: "K8カジノ",
-      category: "オンラインカジノ",
+      name: "K8 Casino",
+      category: "Online Casino",
       image: "/k8_logo.png",
-      description: "世界的に有名なハイローラー御用達サイト。スポーツ・ライブカジノの品質が圧倒的。",
-      keyword: "K8カジノの評判・詳細"
+      description: "A world-renowned site favored by high rollers. Exceptional quality in sports betting and live casino games.",
+      keyword: "K8 Casino Review & Details"
     },
     {
       id: "stake",
-      name: "Stakeカジノ",
-      category: "オンラインカジノ",
+      name: "Stake Casino",
+      category: "Online Casino",
       image: "/stake_logo.png",
-      description: "仮想通貨ユーザーから絶大な支持を集めるカジノ。高速出金と独自ゲームが魅力。",
-      keyword: "Stakeカジノの評判・詳細"
+      description: "The fan-favorite for crypto enthusiasts. Features instant signups, fast withdrawals, and unique in-house games.",
+      keyword: "Stake Casino Review & Details"
     },
-  ]
+  ];
 
   return (
     <section className="py-20 bg-gray-900" aria-labelledby="casino-details-title">
@@ -37,13 +37,13 @@ export default function CasinoDetails() {
         <ScrollAnimation variant="fadeInUp">
           <div className="text-center mb-16">
             <h2 id="casino-details-title" className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              おすすめの
+              Detailed{" "}
               <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                オンラインカジノ詳細比較
+                Online Casino Comparison
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              2026年最新の信頼できるオンラインカジノを厳選。各カジノの入金不要ボーナスや出金スピードなど、詳細な特徴をチェック。
+              We hand-pick the most trustworthy online casinos for 2026. Check out our detailed reviews on exclusive bonuses, withdrawal speeds, and pros/cons for Canadians.
             </p>
           </div>
         </ScrollAnimation>
@@ -63,7 +63,7 @@ export default function CasinoDetails() {
                     <div className="aspect-[16/9] relative">
                       <Image
                         src={casino.image || "/placeholder.svg"}
-                        alt={`${casino.name}の公式サイトイメージ`}
+                        alt={`${casino.name} official site interface`}
                         fill
                         className="object-cover transition-transform duration-500 hover:scale-110"
                       />

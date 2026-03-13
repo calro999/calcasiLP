@@ -7,8 +7,8 @@ import path from "path";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "オンラインカジノ最強攻略法・ストラテジー一覧 | calcasiどっとこむ",
-  description: "バカラ、ルーレット、スロット、ダイスゲームなど、オンラインカジノで勝つための最新ストラテジーを公開。マーチンゲール法から独自の計算式まで、実践的な攻略法を網羅しています。",
+  title: "Best Online Casino Winning Strategies | Calcasi Canada",
+  description: "Master the best strategies for Baccarat, Roulette, Slots, and more. From Martingale to pro counting methods, we cover it all to help you win.",
 };
 
 interface Strategy {
@@ -58,7 +58,7 @@ export default async function StrategyListPage() {
     <main className="pt-24 pb-20 bg-black min-h-screen">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-black text-center mb-12 bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-          カジノ攻略ストラテジー
+          Winning Strategies
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -99,7 +99,7 @@ export default async function StrategyListPage() {
                     </p>
 
                     <div className="flex justify-between items-center text-gray-500 text-[10px] mt-auto border-t border-gray-800 pt-4">
-                      <span>📅 公開日: {strategy.date}</span>
+                      <span>📅 Published: {strategy.date}</span>
                       <span>⏱️ {strategy.readTime}</span>
                     </div>
                   </div>

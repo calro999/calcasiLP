@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticleBySlugOrId(params.id);
 
   if (!article) {
-    return { title: "記事が見つかりません" };
+    return { title: "Article Not Found" };
   }
 
   // JSONにある metaTitle を優先、なければ title を使用
@@ -94,7 +94,7 @@ export default async function ArticlePage({ params }: Props) {
 
           return (
             <div className="next-read-wrapper">
-              <h3 className="next-read-title"><span>🔍</span> さらに詳しく知る</h3>
+              <h3 className="next-read-title"><span>🔍</span> Learn More</h3>
               <div className="related-card-grid">
                 {links.map((link: { href: string; text: string }, i: number) => (
                   <a key={i} href={link.href} className="related-card">
@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: Props) {
                       <div className="related-card-label">{i === 0 ? "Bonus Strategy" : "Payment Guide"}</div>
                       <div className="related-card-title">{link.text}</div>
                     </div>
-                    <div className="related-card-arrow">記事を読む <span>→</span></div>
+                    <div className="related-card-arrow">Read Article <span>→</span></div>
                   </a>
                 ))}
               </div>
@@ -119,10 +119,10 @@ export default async function ArticlePage({ params }: Props) {
             <a href={href} target="_blank" rel="noopener noreferrer" className="gorgeous-cta-button">
               <span className="shimmer"></span>
               <span>🎁</span>
-              <span>今すぐボーナスを受け取る</span>
+              <span>Claim Your Bonus Now</span>
               <span>🎁</span>
             </a>
-            <p className="cta-note">※期間限定オファーにつきお急ぎください</p>
+            <p className="cta-note">*Limited time offer. Grab it while it lasts!</p>
           </div>
         );
       }

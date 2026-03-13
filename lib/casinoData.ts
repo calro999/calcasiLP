@@ -15,74 +15,74 @@ export const casinoData: Casino[] = [
   {
     id: "goldenpanda",
     rank: 1,
-    name: "ゴールデンパンダ",
+    name: "Golden Panda",
     logo: "/goldenpanda_top.jpg",
     banner: "/goldenpanda_top.jpg",
-    bonus: "初回入金100%ボーナス＋大型スロットキャンペーン開催中",
+    bonus: "100% First Deposit Bonus + Exclusive Slot Campaigns",
     rating: 5.0,
-    description: "破壊力の高いスロットが多数揃う新進気鋭のオンラインカジノ。豪華ボーナスと高確率ジャックポットが魅力で、日本人プレイヤーからの支持も急増中。",
+    description: "A fast-growing online casino known for its high-volatility slots. It attracts players with luxurious bonuses and high-probability jackpots, now becoming a top choice for global players.",
     officialLink: "https://record.discasinoaffiliates.com/_R757TaLb9LkdIqIeVhNpQ2Nd7ZgqdRLk/1/?pg=0",
-    features: ["高爆発スロット", "新台が豊富", "日本語サポート"]
+    features: ["High Volatility Slots", "New Releases Frequent", "24/7 Global Support"]
   },
   {
     id: "stake",
     rank: 2,
-    name: "Stakeカジノ",
+    name: "Stake Casino",
     logo: "/stake_logo.png",
     banner: "/stake_logo.png",
-    bonus: "初回入金200%ボーナス（最大$2,000）＋入金不要ボーナス$14",
+    bonus: "200% First Deposit Bonus (up to $2,000) + $14 No-Deposit Bonus",
     rating: 4.5,
-    description: "世界トップクラスの仮想通貨カジノ。高速出金・独自ゲーム・VIP待遇を備え、ビットコインユーザーから圧倒的な支持を獲得している。",
+    description: "The world's leading crypto casino. Offering lightning-fast withdrawals, exclusive original games, and premium VIP treatment, it is the top pick for Bitcoin and Altcoin users.",
     officialLink: "https://stake.com/?c=411c9bbd82&offer=calro",
-    features: ["仮想通貨特化", "VIP制度", "即時出金"]
+    features: ["Crypto Focused", "Elite VIP Program", "Instant Withdrawals"]
   },
   {
     id: "k8",
     rank: 3,
-    name: "K8カジノ",
+    name: "K8 Casino",
     logo: "/k8_logo.png",
     banner: "/k8_logo.png",
-    bonus: "初回入金100%ボーナス（最大$800）＋288回のフリースピン",
+    bonus: "100% First Deposit Bonus (up to $800) + 288 Free Spins",
     rating: 4.3,
-    description: "ハイローラーから絶大な人気を得ているオンラインカジノ。旧式パチスロや高還元スロットが豊富で、ベットの自由度の高さも魅力。",
+    description: "A favorite among high rollers. K8 offers a massive selection of high-RTP slots and classic gaming machines, with flexible betting limits to suit any strategy.",
     officialLink: "https://k8.io/?invite=calron",
-    features: ["旧式パチスロあり", "高額ベット対応", "高速出金"]
+    features: ["Diverse Slot Library", "High Limit Tables", "Fast Payouts"]
   },
   {
     id: "duelbits",
     rank: 4,
-    name: "デュエルビッツ",
+    name: "Duelbits",
     logo: "/duelbits_logo.png",
     banner: "/duelbits_logo.png",
-    bonus: "最大$1000のウェルカムパッケージ",
+    bonus: "Up to $1,000 Welcome Package",
     rating: 4.0,
-    description: "仮想通貨に特化した次世代型カジノ。独自のクラッシュ系などのオリジナルゲームと、ユーザーに寄り添ったVIP特典が魅力。",
+    description: "A next-generation casino specializing in crypto. Features unique original games like Crash and Dice, combined with rewarding VIP perks that prioritize the player.",
     officialLink: "https://affiliates.duelbits.com/visit/?bta=35925&nci=5768",
-    features: ["仮想通貨対応", "独自ゲーム", "VIP制度あり"]
+    features: ["Crypto Support", "Exclusive Originals", "Rewarding VIP System"]
   },
   {
     id: "kachiwin",
     rank: 5,
-    name: "勝win",
+    name: "Katsuwina",
     logo: "/katsu.jpg",
     banner: "/katsu.jpg",
-    bonus: "最大$1000のウェルカムボーナス",
+    bonus: "Up to $1,000 Welcome Bonus",
     rating: 4.0,
-    description: "日本人向けの設計が魅力のカジノ＆スポーツ総合プラットフォーム。多彩な決済方法や使いやすさが高評価。",
+    description: "A comprehensive casino and sports betting platform. Highly rated for its user-friendly interface and support for a wide variety of payment methods including Interac.",
     officialLink: "https://tracker.katsuwinaffiliates.ai/link?btag=90306436_414265",
-    features: ["日本特化", "スポーツ＆カジノ", "多彩な決済方法"]
+    features: ["Canadian Friendly", "Sports & Casino", "Interac & Crypto"]
   },
   {
     id: "wonder",
     rank: 6,
-    name: "ワンダーカジノ",
+    name: "Wonder Casino",
     logo: "/wondercasino_logo.png",
     banner: "/wondercasino_logo.png",
-    bonus: "登録ボーナス$30！初回入金100%ボーナス（最大$500）",
+    bonus: "$30 Signup Bonus! 100% First Deposit Bonus (up to $500)",
     rating: 4.0,
-    description: "初心者にも優しい日本語サポートと、安心の運営体制が魅力の高評価オンラインカジノ。登録ボーナスがあるため、初めての人にも人気。",
+    description: "Known for its '30-second withdrawals' and reliable support. The generous sign-up bonus makes it a popular entry point for new casino enthusiasts.",
     officialLink: "https://tracker-pm2.casino-wonder.com/link?btag=96420424_437635",
-    features: ["日本語サポート", "豊富なゲーム数", "高速出金"]
+    features: ["Low Wagering Bonus", "Massive Game Collection", "Ultra-Fast Withdrawals"]
   },
   {
     id: "1xbet",
@@ -90,10 +90,10 @@ export const casinoData: Casino[] = [
     name: "1xBet",
     logo: "/1xbet_top.jpg",
     banner: "/1xbet_top.jpg",
-    bonus: "初回入金最大78,000円＋その他豊富なキャンペーン",
+    bonus: "Big Welcome Package + Frequent Promotions",
     rating: 4.0,
-    description: "世界最大級のブックメーカーとして有名。スポーツベットとカジノを同時に楽しめ、プロモコード『CALRO777』でお得に始められる。",
+    description: "A world-class bookmaker. Enjoy sports betting and thousands of casino games simultaneously. Use promo code 'CALRO777' for an enhanced start.",
     officialLink: "https://affpa.top/L?tag=d_4455915m_1236c_&site=4455915&ad=1236",
-    features: ["日本語対応", "高額ボーナス", "仮想通貨対応"]
+    features: ["24/7 Live Support", "High Payout Bonuses", "Crypto & Interac Support"]
   }
 ];

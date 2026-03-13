@@ -26,9 +26,9 @@ export default function GamesPage() {
   return (
     <main className="min-h-screen bg-[#020617] py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-black text-white mb-4 text-center">人気のゲームを紹介！</h1>
+        <h1 className="text-4xl font-black text-white mb-4 text-center">Top Casino Games</h1>
         <div className="h-1.5 w-20 bg-blue-600 mx-auto mb-6 rounded-full"></div>
-        <p className="text-gray-400 text-center mb-12 text-sm">プロによる最新スロット攻略・分析データ一覧</p>
+        <p className="text-gray-400 text-center mb-12 text-sm">Expert analysis and data for the latest online slots in Canada</p>
 
         <div className="mb-10">
           <ProviderLogos onProviderSelect={handleProviderClick} />
@@ -45,7 +45,7 @@ export default function GamesPage() {
                 : "bg-gray-800 text-gray-400 hover:bg-gray-700"
               }`}
             >
-              {p === "All" ? "すべて" : p}
+              {p === "All" ? "All" : p}
             </button>
           ))}
         </div>
@@ -75,24 +75,24 @@ export default function GamesPage() {
                       </p>
                       <div className="flex gap-6 mb-2">
                         <div className="text-xs text-gray-500 font-mono">RTP: <span className="text-white font-bold">{game.rtp}</span></div>
-                        <div className="text-xs text-gray-500 font-mono">最大配当: <span className="text-white font-bold">{game.maxWin}</span></div>
+                        <div className="text-xs text-gray-500 font-mono">Max Win: <span className="text-white font-bold">{game.maxWin}</span></div>
                       </div>
                     </div>
                     <div className="mt-6 text-blue-500 text-xs font-bold flex items-center">
-                      攻略情報を詳しく読む <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+                      Read Strategy Details <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
                     </div>
                   </div>
                 </div>
               </Link>
             ))
           ) : (
-            <p className="text-center text-gray-500 py-20">該当するゲームが見つかりませんでした。</p>
+            <p className="text-center text-gray-500 py-20">No matching games found.</p>
           )}
         </div>
         
         <div className="mt-20 text-center">
           <Link href="/" className="text-gray-500 hover:text-white transition-colors text-sm">
-             ← TOPページへ戻る
+             ← Back to Home
           </Link>
         </div>
       </div>

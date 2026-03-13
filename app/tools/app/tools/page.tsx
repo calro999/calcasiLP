@@ -110,7 +110,7 @@ export default function StakeDiceGame() {
 
     const betValue = Number.parseFloat(betAmount) || 0
     if (betValue > balance) {
-      alert("残高が不足しています")
+      alert("Insufficient balance")
       return
     }
 
@@ -211,7 +211,7 @@ export default function StakeDiceGame() {
             <div className="flex items-center gap-2">
 
             <TrendingUp className="w-4 h-4" />
-            <span className="font-medium text-white">ライブ統計</span>
+            <span className="font-medium text-white">Live Statistics</span>
           </div>
           <X className="w-4 h-4 cursor-pointer hover:text-slate-300" />
         </div>
@@ -219,7 +219,7 @@ export default function StakeDiceGame() {
         <div className="p-4 space-y-4 flex-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-white">全て</span>
+              <span className="text-sm text-white">All</span>
               <ChevronDown className="w-3 h-3" />
             </div>
             <RotateCcw className="w-4 h-4 cursor-pointer hover:text-slate-300" onClick={resetStats} />
@@ -227,22 +227,22 @@ export default function StakeDiceGame() {
 
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-sm text-slate-300">利益</span>
+              <span className="text-sm text-slate-300">Profit</span>
               <span className={`text-sm font-medium ${profit >= 0 ? "text-green-400" : "text-red-400"}`}>
                 ${profit.toFixed(2)} 💎
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm text-slate-300">ベット額</span>
+              <span className="text-sm text-slate-300">Wagered</span>
               <span className="text-sm font-medium text-yellow-400">${totalBetAmount.toFixed(2)} 💎</span>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center">
-                <div className="text-sm text-slate-300">勝ち</div>
+                <div className="text-sm text-slate-300">Wins</div>
                 <div className="text-lg font-bold text-green-400">{wins}</div>
               </div>
               <div className="text-center">
-                <div className="text-sm text-slate-300">負け回数</div>
+                <div className="text-sm text-slate-300">Losses</div>
                 <div className="text-lg font-bold text-red-400">{losses}</div>
               </div>
             </div>
@@ -268,7 +268,7 @@ export default function StakeDiceGame() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium text-slate-300">最近の結果</div>
+            <div className="text-sm font-medium text-slate-300">Recent Results</div>
             <div className="space-y-1 max-h-24 overflow-y-auto">
               {gameHistory.slice(0, 5).map((result) => (
                 <div
@@ -297,8 +297,8 @@ export default function StakeDiceGame() {
             className="block"
           >
             <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded p-3 text-center">
-              <div className="text-sm font-medium text-white">🎯 k8で</div>
-              <div className="text-xs text-slate-200 mt-1">実際にプレイ！</div>
+              <div className="text-sm font-medium text-white">🎯 Play at k8</div>
+              <div className="text-xs text-slate-200 mt-1">for Real Money!</div>
             </div>
           </a>
         </div>
@@ -310,7 +310,7 @@ export default function StakeDiceGame() {
         {/* モバイルで要素が折り返し、バランス表示が適切になるように調整 */}
         <div className="p-4 border-b border-slate-700 flex flex-col sm:flex-row justify-between items-center">
           <div className="flex-1 w-full sm:w-auto mb-4 sm:mb-0"> {/* モバイルで幅いっぱい、PCで自動幅。下マージン調整 */}
-            <div className="text-sm text-slate-300 mb-2">最近の結果</div>
+            <div className="text-sm text-slate-300 mb-2">Recent Results</div>
             <div className="flex flex-wrap gap-2">
               {recentResults.length > 0 ? (
                 recentResults.map((result, index) => {
@@ -327,7 +327,7 @@ export default function StakeDiceGame() {
                   )
                 })
               ) : (
-                <div className="text-slate-400 text-xs">ゲームを開始すると結果が表示されます</div>
+                <div className="text-slate-400 text-xs">Start the game to see results</div>
               )}
             </div>
           </div>
@@ -336,7 +336,7 @@ export default function StakeDiceGame() {
           <div className="bg-slate-800 rounded-lg p-4 border border-slate-600 w-full sm:w-48 flex-shrink-0">
             <div className="flex items-center justify-between"> {/* モバイルで両端寄せ */}
               <div>
-                <div className="text-sm text-slate-300">残高</div>
+                <div className="text-sm text-slate-300">Balance</div>
                 <div className={`text-xl font-bold ${balance >= 0 ? "text-green-400" : "text-red-400"}`}>
                   ${balance.toFixed(2)}
                 </div>
@@ -364,10 +364,10 @@ export default function StakeDiceGame() {
                 <Tabs defaultValue="manual" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 bg-slate-700 rounded-none">
                     <TabsTrigger value="manual" className="data-[state=active]:bg-slate-600 rounded-none text-white text-sm sm:text-base"> {/* テキストサイズ調整 */}
-                      手動
+                      Manual
                     </TabsTrigger>
                     <TabsTrigger value="auto" className="data-[state=active]:bg-slate-600 rounded-none text-white text-sm sm:text-base"> {/* テキストサイズ調整 */}
-                      自動
+                      Auto
                     </TabsTrigger>
                   </TabsList>
 
@@ -377,7 +377,7 @@ export default function StakeDiceGame() {
                       <TabsContent value="manual" className="space-y-3 sm:space-y-4 mt-0"> {/* スペース調整 */}
                         <div>
                           <div className="flex justify-between items-center mb-1 sm:mb-2"> {/* マージン調整 */}
-                            <label className="text-sm text-slate-300">ベット額</label>
+                            <label className="text-sm text-slate-300">Bet Amount</label>
                             <span className="text-xs text-slate-400">0.00000000 TRX</span>
                           </div>
                           <div className="relative">
@@ -406,7 +406,7 @@ export default function StakeDiceGame() {
                         <div className="space-y-2">
                           <div>
                             <div className="flex justify-between items-center mb-0.5">
-                              <label className="text-xs text-slate-300">ベット額</label>
+                              <label className="text-xs text-slate-300">Bet Amount</label>
                               <span className="text-xs text-slate-400">0.00000000 TRX</span>
                             </div>
                             <Input
@@ -418,7 +418,7 @@ export default function StakeDiceGame() {
                           </div>
 
                           <div>
-                            <label className="text-xs text-slate-300 block mb-0.5">ベット数</label>
+                            <label className="text-xs text-slate-300 block mb-0.5">Number of Bets</label>
                             <div className="flex items-center gap-2">
                               <Input
                                 value={betCount}
@@ -431,10 +431,10 @@ export default function StakeDiceGame() {
                           </div>
 
                           <div>
-                            <label className="text-xs text-slate-300 block mb-0.5">勝利</label>
+                            <label className="text-xs text-slate-300 block mb-0.5">On Win</label>
                             <div className="flex items-center gap-2 text-sm">
-                              <span className="text-xs text-slate-300">リセット</span>
-                              <span className="text-xs text-slate-300">増加：</span>
+                              <span className="text-xs text-slate-300">Reset</span>
+                              <span className="text-xs text-slate-300">Increase:</span>
                               <Input
                                 value={winOnIncrease}
                                 onChange={(e) => setWinOnIncrease(e.target.value)}
@@ -445,10 +445,10 @@ export default function StakeDiceGame() {
                           </div>
 
                           <div>
-                            <label className="text-xs text-slate-300 block mb-0.5">損失</label>
+                            <label className="text-xs text-slate-300 block mb-0.5">On Loss</label>
                             <div className="flex items-center gap-2 text-sm">
-                              <span className="text-xs text-slate-300">リセット</span>
-                              <span className="text-xs text-slate-300">増加：</span>
+                              <span className="text-xs text-slate-300">Reset</span>
+                              <span className="text-xs text-slate-300">Increase:</span>
                               <Input
                                 value={lossOnIncrease}
                                 onChange={(e) => setLossOnIncrease(e.target.value)}
@@ -460,7 +460,7 @@ export default function StakeDiceGame() {
 
                           <div>
                             <div className="flex justify-between items-center mb-0.5">
-                              <label className="text-xs text-slate-300">勝ち切り</label>
+                              <label className="text-xs text-slate-300">Stop on Profit</label>
                               <span className="text-xs text-slate-400">0.00000000 TRX</span>
                             </div>
                             <div className="flex items-center gap-2">
@@ -477,7 +477,7 @@ export default function StakeDiceGame() {
 
                           <div>
                             <div className="flex justify-between items-center mb-0.5">
-                              <label className="text-xs text-slate-300">損切り</label>
+                              <label className="text-xs text-slate-300">Stop on Loss</label>
                               <span className="text-xs text-slate-400">0.00000000 TRX</span>
                             </div>
                             <div className="flex items-center gap-2">
@@ -499,14 +499,14 @@ export default function StakeDiceGame() {
                                 onClick={startAutoPlay}
                                 disabled={isRolling}
                               >
-                                自動ベットを開始
+                                Start Auto Bet
                               </Button>
                             ) : (
                               <Button
                                 className="w-full bg-red-500 hover:bg-red-600 text-white py-1.5 font-medium"
                                 onClick={stopAutoPlay}
                               >
-                                自動ベットを停止
+                                Stop Auto Bet
                               </Button>
                             )}
                           </div>
@@ -535,7 +535,7 @@ export default function StakeDiceGame() {
                         </div>
                         {!isRolling && lastResult && (
                           <div className={`text-lg font-medium ${lastResult.won ? "text-green-400" : "text-red-400"}`}>
-                            {lastResult.won ? "勝利!" : "敗北"}
+                            {lastResult.won ? "WIN!" : "LOSS"}
                           </div>
                         )}
                       </>
@@ -584,7 +584,7 @@ export default function StakeDiceGame() {
 
                   <div className="grid grid-cols-3 gap-6 text-center h-20">
                     <div>
-                      <div className="text-sm text-slate-300 mb-1">倍率</div>
+                      <div className="text-sm text-slate-300 mb-1">Multiplier</div>
                       <div className="text-xl font-bold text-white">{multiplier}</div>
                       <div className="text-xs text-slate-400">✕</div>
                     </div>
@@ -593,13 +593,13 @@ export default function StakeDiceGame() {
                         className="text-sm text-slate-300 mb-1 cursor-pointer hover:text-white"
                         onClick={toggleRollMode}
                       >
-                        {isRollOver ? "ロールオーバー" : "ロールアンダー"}
+                        {isRollOver ? "Roll Over" : "Roll Under"}
                       </div>
                       <div className="text-xl font-bold text-white">{rollUnder[0].toFixed(2)}</div>
                       <div className="text-xs text-slate-400">🔄</div>
                     </div>
                     <div>
-                      <div className="text-sm text-slate-300 mb-1">勝利チャンス</div>
+                      <div className="text-sm text-slate-300 mb-1">Win Chance</div>
                       <div className="text-xl font-bold text-white">{winChance}</div>
                       <div className="text-xs text-slate-400">%</div>
                     </div>
@@ -617,7 +617,7 @@ export default function StakeDiceGame() {
                       } font-medium`}
                     >
                       <Zap className="w-4 h-4 mr-2" />
-                      ターボモード {isTurboMode ? "ON" : "OFF"}
+                      Turbo Mode {isTurboMode ? "ON" : "OFF"}
                     </Button>
 
                     <Button
@@ -625,7 +625,7 @@ export default function StakeDiceGame() {
                       onClick={rollDice}
                       disabled={isRolling}
                     >
-                      {isRolling ? "ロール中..." : "ベット"}
+                      {isRolling ? "Rolling..." : "Bet"}
                     </Button>
                   </div>
                 </div>

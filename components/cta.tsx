@@ -15,23 +15,24 @@ export default function CTA() {
           <div className="max-w-4xl mx-auto bg-gray-800/70 backdrop-blur-sm border border-amber-500/20 rounded-2xl p-8 md:p-12 shadow-xl shadow-amber-500/5 transform transition-all duration-500 hover:shadow-amber-500/20 hover:border-amber-500/40">
             <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Stay{" "}
                 <Shimmer>
                   <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                    最新情報
+                    Ahead
                   </span>
                 </Shimmer>
-                をチェックしよう
+                {" "}of the Game
               </h2>
               <p className="text-xl text-gray-300">
-                オンラインカジノの最新ボーナス情報や新作ゲーム情報をいち早くお届けします。
-                <span className="text-amber-400 font-bold">calcasiどっとこむ</span>で最新情報をチェック！
+                Get the latest scoop on Canadian casino bonuses and new releases.
+                Stay informed with <span className="text-amber-400 font-bold">Calcasi Canada</span>!
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <ScrollAnimation variant="fadeInLeft" delay={0.2}>
                 <div className="bg-gray-700/50 border border-gray-600 rounded-xl p-6 transform transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/30">
-                  <h3 className="text-xl font-bold mb-3 text-white">最新ボーナス情報</h3>
+                  <h3 className="text-xl font-bold mb-3 text-white">Exclusive Bonuses</h3>
                   <ul className="space-y-2 text-gray-300">
                     <li className="flex items-center">
                       <svg
@@ -42,7 +43,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      入金不要ボーナスの最新情報
+                      Latest No-Deposit Offers
                     </li>
                     <li className="flex items-center">
                       <svg
@@ -53,7 +54,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      限定フリースピンキャンペーン
+                      Limited Free Spin Campaigns
                     </li>
                     <li className="flex items-center">
                       <svg
@@ -64,7 +65,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      お得な入金ボーナス情報
+                      High-Value Deposit Bonuses
                     </li>
                   </ul>
                 </div>
@@ -72,7 +73,7 @@ export default function CTA() {
 
               <ScrollAnimation variant="fadeInRight" delay={0.2}>
                 <div className="bg-gray-700/50 border border-gray-600 rounded-xl p-6 transform transition-all duration-300 hover:scale-[1.02] hover:border-amber-500/30">
-                  <h3 className="text-xl font-bold mb-3 text-white">新着コンテンツ</h3>
+                  <h3 className="text-xl font-bold mb-3 text-white">Premium Content</h3>
                   <ul className="space-y-2 text-gray-300">
                     <li className="flex items-center">
                       <svg
@@ -83,7 +84,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      初心者向けカジノガイド
+                      Beginner-Friendly Guides
                     </li>
                     <li className="flex items-center">
                       <svg
@@ -94,7 +95,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      勝率アップの攻略法
+                      Pro Strategies & Odds
                     </li>
                     <li className="flex items-center">
                       <svg
@@ -105,7 +106,7 @@ export default function CTA() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      カジノ徹底比較レビュー
+                      In-Depth Casino Reviews
                     </li>
                   </ul>
                 </div>
@@ -118,9 +119,9 @@ export default function CTA() {
                   href="/latest-news"
                   className="inline-block bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-10 py-4 rounded-md transition-all duration-300 shadow-lg shadow-amber-500/20 text-lg transform hover:scale-105 active:scale-95"
                 >
-                  最新情報をチェック
+                  Check Latest News
                 </Link>
-                <p className="text-gray-400 mt-4 text-sm">*情報は随時更新されます。最新の情報をご確認ください。</p>
+                <p className="text-gray-400 mt-4 text-sm">*Information is updated frequently. Please verify terms on the official casino sites.</p>
               </div>
             </ScrollAnimation>
           </div>

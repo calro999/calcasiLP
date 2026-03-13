@@ -25,10 +25,10 @@ export default function Hero() {
         <div className="max-w-3xl mx-auto text-center">
           <ScrollAnimation variant="fadeInDown" duration={0.8}>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              <span className="block">オンカジ最新</span>
+              <span className="block">Canada's Premier</span>
               <Shimmer interval={5000}>
                 <span className="bg-gradient-to-r from-amber-300 to-yellow-500 text-transparent bg-clip-text">
-                  ニュース情報局
+                  Casino News Hub
                 </span>
               </Shimmer>
             </h1>
@@ -36,7 +36,7 @@ export default function Hero() {
 
           <ScrollAnimation variant="fadeInUp" delay={0.3} duration={0.8}>
             <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              オンカジの「今」を知るならカルカジ！最速で情報をお届け。
+              Get the latest updates on Canadian online casinos with Calcasi.
             </p>
           </ScrollAnimation>
 
@@ -46,7 +46,7 @@ export default function Hero() {
                 href="/casino-ranking"
                 className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-8 py-4 rounded-md transition-all duration-300 shadow-lg shadow-amber-500/20 text-lg transform hover:scale-105 active:scale-95"
               >
-                おすすめカジノランキング
+                Best Casino Rankings
               </Link>
             </div>
           </ScrollAnimation>
@@ -57,13 +57,13 @@ export default function Hero() {
                 <p className="text-3xl md:text-4xl font-bold text-amber-400">
                   <CountUp end={500} suffix="+" />
                 </p>
-                <p className="text-gray-400">カジノ</p>
+                <p className="text-gray-400">Casinos</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-amber-400">
                   <Typing text="24/7" speed={100} />
                 </p>
-                <p className="text-gray-400">更新</p>
+                <p className="text-gray-400">Updates</p>
               </div>
             </div>
           </ScrollAnimation>
