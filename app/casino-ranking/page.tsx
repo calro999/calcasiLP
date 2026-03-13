@@ -127,18 +127,7 @@ export default function CasinoRankingPage({ params }: { params: { lang?: "ja" | 
             </Link>
           </div>
 
-          <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
-            Expert Insights: Watch Carlo in Action
-          </h3>
-          <p className="leading-relaxed">
-            To give you extra confidence, we provide videos of our expert, Carlo, actually playing at these casinos. You can see the full flow from deposit to play and withdrawal.
-          </p>
 
-          <div className="mt-4">
-            <Link href="https://calcasi-lp.vercel.app/videos" className="text-amber-400 underline hover:text-amber-300 transition-colors">
-              ▶ Watch Real Gameplay Videos
-            </Link>
-          </div>
 
           <h3 className="text-2xl font-semibold text-white mt-10 mb-4">
             Increase Your Odds: Strategies & Popular Games

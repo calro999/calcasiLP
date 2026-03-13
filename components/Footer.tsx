@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Youtube, Mail } from "lucide-react"
+import { Facebook, Instagram, Mail } from "lucide-react"
 import ScrollAnimation from "./animations/scroll-animation"
 import React from 'react';
 
@@ -17,9 +17,7 @@ export default function Footer() {
               <div className="flex space-x-4">
                 {[
                   { icon: <Facebook size={20} />, label: "Facebook" },
-                  { icon: <Twitter size={20} />, label: "Twitter" },
                   { icon: <Instagram size={20} />, label: "Instagram" },
-                  { icon: <Youtube size={20} />, label: "YouTube" },
                 ].map((social, index) => (
                   <Link
                     key={social.label}
@@ -94,14 +92,12 @@ export default function Footer() {
                   <span className="text-gray-400 group-hover:text-amber-300 transition-colors">info@calcasi.com</span>
                 </li>
                 <li className="flex items-start group">
-                  <Twitter size={20} className="text-amber-400 mr-3 mt-1 group-hover:scale-110 transition-transform" />
+                  <Mail size={20} className="text-amber-400 mr-3 mt-1 group-hover:scale-110 transition-transform" />
                   <Link
-                    href="https://x.com/Calro_shorts"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/contact"
                     className="text-gray-400 group-hover:text-amber-300 transition-colors"
                   >
-                    @calro_shorts
+                    Contact via Form
                   </Link>
                 </li>
               </ul>

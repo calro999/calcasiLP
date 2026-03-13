@@ -38,7 +38,6 @@ export default function Header() {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "Latest News", path: "/latest-news" },
-    { name: "Videos", path: "/videos" },
     { name: "Guides", path: "/beginners-guide" },
     { name: "Strategies", path: "/strategies" },
     { name: "Ranking", path: "/casino-ranking" },
@@ -73,12 +72,10 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="https://x.com/Calro_shorts"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact"
             className="ml-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-1.5 rounded-md text-sm md:text-base transition-all duration-300 shadow-lg shadow-amber-500/20"
           >
-            Contact Us
+            Contact
           </Link>
         </nav>
 
@@ -107,13 +104,11 @@ export default function Header() {
                   </Link>
                 ))}
                 <Link
-                  href="https://x.com/Calro_shorts"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   className="mt-2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-4 py-2 rounded-md text-sm transition-all duration-300 shadow-lg shadow-amber-500/20 text-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  お問い合わせ
+                  Contact
                 </Link>
               </nav>
             </motion.div>
