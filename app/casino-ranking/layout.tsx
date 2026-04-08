@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "【2026年最新】オンラインカジノおすすめランキング｜プロが選ぶ優良サイト",
-  description: "2026年最新のオンラインカジノランキングを公開！安全性、出金スピード、ボーナスの豪華さを徹底比較。初心者でも安心して遊べる日本向け優良オンカジTOP10を紹介します。",
+  title: "Best Online Casino Canada Ranking 2026 | Safest & Trusted Picks",
+  description: "Experts reviewed the top 7 online casinos in Canada for 2026. Comparing payout speed, Interac support, and massive loyalty rewards for high-rollers.",
   openGraph: {
-    title: "2026年最新オンラインカジノランキングTOP10",
-    description: "プロ厳選の優良カジノをランキング形式で紹介。限定ボーナス情報も満載！",
+    title: "Best Online Casino Canada Ranking 2026 | Safest & Trusted Picks",
+    description: "Experts reviewed the top 7 online casinos in Canada for 2026. Comparing payout speed, Interac support, and massive loyalty rewards for high-rollers.",
     url: "https://calcasi-lp.vercel.app/casino-ranking",
-    images: ["/top.webp"], // ランキング用のイメージ画像
+    images: ["/top.png"], // Image for ranking
     type: "website",
   },
 };
