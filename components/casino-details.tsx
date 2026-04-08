@@ -9,7 +9,7 @@ export default function CasinoDetails() {
       id: "goldenpanda",
       name: "Golden Panda",
       category: "Online Casino",
-      image: "/goldenpanda_top.jpg", 
+      image: "/goldenpanda_top.webp", 
       description: "A rapidly growing casino known for high-velocity slots and massive welcome bonuses for Canadian players.",
       keyword: "Golden Panda Review & Details"
     },
@@ -17,7 +17,7 @@ export default function CasinoDetails() {
       id: "k8",
       name: "K8 Casino",
       category: "Online Casino",
-      image: "/k8_logo.png",
+      image: "/k8_logo.webp",
       description: "A world-renowned site favored by high rollers. Exceptional quality in sports betting and live casino games.",
       keyword: "K8 Casino Review & Details"
     },
@@ -25,7 +25,7 @@ export default function CasinoDetails() {
       id: "stake",
       name: "Stake Casino",
       category: "Online Casino",
-      image: "/stake_logo.png",
+      image: "/stake_logo.webp",
       description: "The fan-favorite for crypto enthusiasts. Features instant signups, fast withdrawals, and unique in-house games.",
       keyword: "Stake Casino Review & Details"
     },

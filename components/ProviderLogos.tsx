@@ -4,18 +4,18 @@ import React from 'react';
 
 // 追加いただいた画像リストに基づいてプロバイダーデータを定義
 const providers = [
-  { name: 'Pragmatic Play', id: 'Pragmatic Play', image: '/providers/pragmatic.png' },
-  { name: 'Hacksaw Gaming', id: 'Hacksaw Gaming', image: '/providers/hacksaw.png' },
-  { name: 'Nolimit City', id: 'Nolimit City', image: '/providers/nolimit.png' },
-  { name: 'Play\'n GO', id: 'Play\'n GO', image: '/providers/playngo.png' },
-  { name: 'Relax Gaming', id: 'Relax Gaming', image: '/providers/relax.png' },
-  { name: 'Push Gaming', id: 'Push Gaming', image: '/providers/push.png' },
-  { name: 'Evolution', id: 'Evolution', image: '/providers/evolution.png' },
-  { name: 'NetEnt', id: 'NetEnt', image: '/providers/netent.png' },
-  { name: 'Big Time Gaming', id: 'Big Time Gaming', image: '/providers/btg.png' },
-  { name: 'Quickspin', id: 'Quickspin', image: '/providers/quick.png' },
-  { name: 'Red Tiger', id: 'Red Tiger', image: '/providers/redtiger.png' },
-  { name: 'Win Fast', id: 'Win Fast', image: '/providers/winfast.png' },
+  { name: 'Pragmatic Play', id: 'Pragmatic Play', image: '/providers/pragmatic.webp' },
+  { name: 'Hacksaw Gaming', id: 'Hacksaw Gaming', image: '/providers/hacksaw.webp' },
+  { name: 'Nolimit City', id: 'Nolimit City', image: '/providers/nolimit.webp' },
+  { name: 'Play\'n GO', id: 'Play\'n GO', image: '/providers/playngo.webp' },
+  { name: 'Relax Gaming', id: 'Relax Gaming', image: '/providers/relax.webp' },
+  { name: 'Push Gaming', id: 'Push Gaming', image: '/providers/push.webp' },
+  { name: 'Evolution', id: 'Evolution', image: '/providers/evolution.webp' },
+  { name: 'NetEnt', id: 'NetEnt', image: '/providers/netent.webp' },
+  { name: 'Big Time Gaming', id: 'Big Time Gaming', image: '/providers/btg.webp' },
+  { name: 'Quickspin', id: 'Quickspin', image: '/providers/quick.webp' },
+  { name: 'Red Tiger', id: 'Red Tiger', image: '/providers/redtiger.webp' },
+  { name: 'Win Fast', id: 'Win Fast', image: '/providers/winfast.webp' },
 ];
 
 interface ProviderLogosProps {
