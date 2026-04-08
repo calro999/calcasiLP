@@ -63,7 +63,7 @@ export default async function LatestNewsPage() {
                   <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-amber-500/20 transition-all duration-300 h-full flex flex-col border border-gray-700 group-hover:border-amber-500/50">
                     <div className="relative aspect-[16/9] overflow-hidden">
                       <Image
-                        src={article.image || "/default-og.jpg"}
+                        src={article.image || "/default-og.webp"}
                         alt={article.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"

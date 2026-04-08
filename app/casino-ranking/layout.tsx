@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     title: "2026年最新オンラインカジノランキングTOP10",
     description: "プロ厳選の優良カジノをランキング形式で紹介。限定ボーナス情報も満載！",
     url: "https://calcasi-lp.vercel.app/casino-ranking",
-    images: ["/top.png"], // ランキング用のイメージ画像
+    images: ["/top.webp"], // ランキング用のイメージ画像
     type: "website",
   },
 };

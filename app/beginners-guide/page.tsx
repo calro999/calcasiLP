@@ -24,7 +24,7 @@ export default function BeginnersGuide() {
       description:
         "Understand the mechanics of online casinos and how they differ from land-based ones. Essential knowledge for every Canadian beginner.",
       icon: <BookOpen className="w-10 h-10 text-amber-400" />,
-      image: "/slot.png",
+      image: "/slot.webp",
       href: "/beginners-guide/basics", 
     },
     {
@@ -33,7 +33,7 @@ export default function BeginnersGuide() {
       description:
         "Learn how to identify trustworthy sites and why licensing (like iGaming Ontario or Kahnawake) matters for your security.",
       icon: <CheckCircle className="w-10 h-10 text-amber-400" />,
-      image: "/tate.png",
+      image: "/tate.webp",
       href: "/beginners-guide/safety", 
     },
     {
@@ -42,7 +42,7 @@ export default function BeginnersGuide() {
       description:
         "A detailed walk-through of account creation and using Canadian-friendly payment methods like Interac.",
       icon: <HelpCircle className="w-10 h-10 text-amber-400" />,
-      image: "/touroku.png",
+      image: "/touroku.webp",
       href: "/beginners-guide/registration", 
     },
     {
@@ -51,7 +51,7 @@ export default function BeginnersGuide() {
       description:
         "Explore bonus types, effective strategies, and the fine print on wagering requirements to maximize your wins.",
       icon: <AlertTriangle className="w-10 h-10 text-amber-400" />,
-      image: "/kin.png",
+      image: "/kin.webp",
       href: "/beginners-guide/bonuses", 
     },
   ]
