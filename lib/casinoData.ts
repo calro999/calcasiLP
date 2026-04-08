@@ -5,7 +5,7 @@ export interface Casino {
   logo: string;
   banner: string;
   bonus: string;
-  rating: number; 
+  rating: number;
   description: string;
   officialLink: string;
   features: string[];
@@ -33,7 +33,7 @@ export const casinoData: Casino[] = [
     bonus: "200% First Deposit Bonus (up to $2,000) + $14 No-Deposit Bonus",
     rating: 4.5,
     description: "The world's leading crypto casino. Offering lightning-fast withdrawals, exclusive original games, and premium VIP treatment, it is the top pick for Bitcoin and Altcoin users.",
-    officialLink: "https://stake.com/?c=411c9bbd82&offer=calro",
+    officialLink: "https://stake.com/?c=2dBwSq2x",
     features: ["Crypto Focused", "Elite VIP Program", "Instant Withdrawals"]
   },
   {
