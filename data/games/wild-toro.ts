@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wild-toro",
   title: "Wild Toro",
   provider: "ELK Studios",
-  imageUrl: "/wild-toro.jpg",
+  imageUrl: "/wild-toro.webp",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,

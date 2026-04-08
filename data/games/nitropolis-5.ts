@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "nitropolis-5",
   title: "Nitropolis 5",
   provider: "ELK Studios",
-  imageUrl: "/nitropolis-5.jpg",
+  imageUrl: "/nitropolis-5.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

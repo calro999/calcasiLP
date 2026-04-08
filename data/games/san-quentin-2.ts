@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "san-quentin-2",
   title: "San Quentin 2: Death Row",
   provider: "Nolimit City",
-  imageUrl: "/san-quentin-2.jpg",
+  imageUrl: "/san-quentin-2.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "floating-dragon-ultra-megaways",
   title: "Floating Dragon Ultra Megaways",
   provider: "Reel Kingdom",
-  imageUrl: "/floating-dragon-ultra-megaways.jpg",
+  imageUrl: "/floating-dragon-ultra-megaways.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "tome-of-insanity",
   title: "Tome of Insanity",
   provider: "Play'n GO",
-  imageUrl: "/tome-of-insanity.jpg",
+  imageUrl: "/tome-of-insanity.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

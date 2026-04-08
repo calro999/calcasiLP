@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "iron-bank",
   title: "Iron Bank",
   provider: "Relax Gaming",
-  imageUrl: "/iron-bank.jpg",
+  imageUrl: "/iron-bank.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

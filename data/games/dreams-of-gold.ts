@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "dreams-of-gold",
   title: "Dreams of Gold",
   provider: "Win Fast",
-  imageUrl: "/dreams-of-gold.jpg",
+  imageUrl: "/dreams-of-gold.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

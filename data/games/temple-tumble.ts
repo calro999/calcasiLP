@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "temple-tumble",
   title: "Temple Tumble Megaways",
   provider: "Relax Gaming",
-  imageUrl: "/temple-tumble.jpg",
+  imageUrl: "/temple-tumble.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

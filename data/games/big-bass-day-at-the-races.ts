@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "big-bass-day-at-the-races",
   title: "Big Bass Day at the Races",
   provider: "Pragmatic Play",
-  imageUrl: "/big-bass-day-at-the-races.jpg",
+  imageUrl: "/big-bass-day-at-the-races.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

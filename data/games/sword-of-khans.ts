@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "sword-of-khans",
   title: "Sword of Khans",
   provider: "Thunderkick",
-  imageUrl: "/sword-of-khans.jpg",
+  imageUrl: "/sword-of-khans.webp",
   ratingFun: 3,
   ratingExplosive: 5,
   canBuyFS: false,

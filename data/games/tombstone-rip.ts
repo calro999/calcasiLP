@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "tombstone-rip",
   title: "Tombstone R.I.P.",
   provider: "Nolimit City",
-  imageUrl: "/tombstone-rip.jpg",
+  imageUrl: "/tombstone-rip.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

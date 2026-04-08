@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "pug-life",
   title: "Pug Life",
   provider: "Hacksaw Gaming",
-  imageUrl: "/pug-life.jpg",
+  imageUrl: "/pug-life.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

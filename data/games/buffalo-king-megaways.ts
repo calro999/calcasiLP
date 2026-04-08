@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "buffalo-king-megaways",
   title: "Buffalo King Untamed Megaways",
   provider: "Pragmatic Play",
-  imageUrl: "/buffalo-king-megaways.jpg",
+  imageUrl: "/buffalo-king-megaways.webp",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: true,

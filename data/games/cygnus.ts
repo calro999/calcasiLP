@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "cygnus",
   title: "Cygnus",
   provider: "ELK Studios",
-  imageUrl: "/cygnus.jpg",
+  imageUrl: "/cygnus.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

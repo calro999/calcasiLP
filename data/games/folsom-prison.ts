@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "folsom-prison",
   title: "Folsom Prison",
   provider: "Nolimit City",
-  imageUrl: "/folsom-prison.jpg",
+  imageUrl: "/folsom-prison.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

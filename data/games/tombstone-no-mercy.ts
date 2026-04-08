@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "tombstone-no-mercy",
   title: "Tombstone No Mercy",
   provider: "Nolimit City",
-  imageUrl: "/tombstone-no-mercy.jpg",
+  imageUrl: "/tombstone-no-mercy.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

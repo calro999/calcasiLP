@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "golden-ticket-2",
   title: "Golden Ticket 2",
   provider: "Play'n GO",
-  imageUrl: "/golden-ticket-2.jpg",
+  imageUrl: "/golden-ticket-2.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

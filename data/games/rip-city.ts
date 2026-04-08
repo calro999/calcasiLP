@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "rip-city",
   title: "Rip City",
   provider: "Hacksaw Gaming",
-  imageUrl: "/rip-city.jpg",
+  imageUrl: "/rip-city.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

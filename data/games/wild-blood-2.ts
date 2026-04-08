@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wild-blood-2",
   title: "Wild Blood 2",
   provider: "Play'n GO",
-  imageUrl: "/wild-blood-2.jpg",
+  imageUrl: "/wild-blood-2.webp",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: false,

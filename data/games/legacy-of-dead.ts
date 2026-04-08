@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "legacy-of-dead",
   title: "Legacy of Dead",
   provider: "Play'n GO",
-  imageUrl: "/legacy-of-dead.jpg",
+  imageUrl: "/legacy-of-dead.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

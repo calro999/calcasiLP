@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "honey-rush",
   title: "Honey Rush",
   provider: "Play'n GO",
-  imageUrl: "/honey-rush.jpg",
+  imageUrl: "/honey-rush.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

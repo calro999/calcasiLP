@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "lightning-storm",
   title: "Lightning Storm",
   provider: "Evolution",
-  imageUrl: "/lightning-storm.jpg",
+  imageUrl: "/lightning-storm.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "sakura-fortune",
   title: "Sakura Fortune",
   provider: "Quickspin",
-  imageUrl: "/sakura-fortune.jpg",
+  imageUrl: "/sakura-fortune.webp",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,

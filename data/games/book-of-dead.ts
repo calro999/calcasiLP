@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "book-of-dead",
   title: "Book of Dead",
   provider: "Play'n GO",
-  imageUrl: "/book-of-dead.jpg",
+  imageUrl: "/book-of-dead.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

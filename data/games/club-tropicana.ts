@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "club-tropicana",
   title: "Club Tropicana",
   provider: "Reel Kingdom",
-  imageUrl: "/club-tropicana.jpg",
+  imageUrl: "/club-tropicana.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

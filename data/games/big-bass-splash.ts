@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "big-bass-splash",
   title: "Big Bass Splash",
   provider: "Reel Kingdom",
-  imageUrl: "/big-bass-splash.jpg",
+  imageUrl: "/big-bass-splash.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

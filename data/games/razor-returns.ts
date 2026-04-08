@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "razor-returns",
   title: "Razor Returns",
   provider: "Push Gaming",
-  imageUrl: "/razor-returns.jpg",
+  imageUrl: "/razor-returns.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

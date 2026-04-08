@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "diamond-blitz",
   title: "Diamond Blitz",
   provider: "Red Tiger",
-  imageUrl: "/diamond-blitz.jpg",
+  imageUrl: "/diamond-blitz.webp",
   ratingFun: 3,
   ratingExplosive: 3,
   canBuyFS: false,

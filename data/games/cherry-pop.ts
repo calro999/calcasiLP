@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "cherry-pop",
   title: "CherryPop",
   provider: "AvatarUX",
-  imageUrl: "/cherry-pop.jpg",
+  imageUrl: "/cherry-pop.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

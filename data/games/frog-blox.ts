@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "frog-blox",
   title: "Frog Blox",
   provider: "ELK Studios",
-  imageUrl: "/frog-blox.jpg",
+  imageUrl: "/frog-blox.webp",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: true,

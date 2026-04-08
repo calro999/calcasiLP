@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wild-swarm-2",
   title: "Wild Swarm 2",
   provider: "Push Gaming",
-  imageUrl: "/wild-swarm-2.jpg",
+  imageUrl: "/wild-swarm-2.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

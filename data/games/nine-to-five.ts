@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "nine-to-five",
   title: "Nine To Five",
   provider: "Nolimit City",
-  imageUrl: "/nine-to-five.jpg",
+  imageUrl: "/nine-to-five.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

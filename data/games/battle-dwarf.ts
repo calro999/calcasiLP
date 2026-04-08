@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "battle-dwarf",
   title: "Battle Dwarf",
   provider: "Win Fast",
-  imageUrl: "/battle-dwarf.jpg",
+  imageUrl: "/battle-dwarf.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

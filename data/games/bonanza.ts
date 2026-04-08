@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "bonanza",
   title: "Bonanza",
   provider: "Big Time Gaming",
-  imageUrl: "/bonanza.jpg",
+  imageUrl: "/bonanza.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

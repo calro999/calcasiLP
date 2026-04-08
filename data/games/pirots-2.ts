@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "pirots-2",
   title: "Pirots 2",
   provider: "ELK Studios",
-  imageUrl: "/pirots-2.jpg",
+  imageUrl: "/pirots-2.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

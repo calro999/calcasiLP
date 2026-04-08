@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "lil-devil",
   title: "Lil' Devil",
   provider: "Big Time Gaming",
-  imageUrl: "/lil-devil.jpg",
+  imageUrl: "/lil-devil.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

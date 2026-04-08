@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "chaos-crew-3",
   title: "Chaos Crew 3",
   provider: "Hacksaw Gaming",
-  imageUrl: "/chaos-crew-3.jpg",
+  imageUrl: "/chaos-crew-3.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

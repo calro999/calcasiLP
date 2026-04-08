@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "necromancers-gate",
   title: "Necromancer's Gate",
   provider: "Relax Gaming",
-  imageUrl: "/necromancers-gate.jpg",
+  imageUrl: "/necromancers-gate.webp",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: true,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "beast-below",
   title: "Beast Below",
   provider: "Hacksaw Gaming",
-  imageUrl: "/beast-below.jpg",
+  imageUrl: "/beast-below.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

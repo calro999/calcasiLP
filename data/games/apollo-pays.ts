@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "apollo-pays",
   title: "Apollo Pays Megaways",
   provider: "Big Time Gaming",
-  imageUrl: "/apollo-pays.jpg",
+  imageUrl: "/apollo-pays.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

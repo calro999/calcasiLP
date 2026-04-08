@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "lure-of-fortune",
   title: "Lure of Fortune",
   provider: "Relax Gaming",
-  imageUrl: "/lure-of-fortune.jpg",
+  imageUrl: "/lure-of-fortune.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wolf-gold",
   title: "Wolf Gold",
   provider: "Pragmatic Play",
-  imageUrl: "/wolf-gold.jpg",
+  imageUrl: "/wolf-gold.webp",
   ratingFun: 4,
   ratingExplosive: 3,
   canBuyFS: false,

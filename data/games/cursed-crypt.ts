@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "cursed-crypt",
   title: "Cursed Crypt",
   provider: "Hacksaw Gaming",
-  imageUrl: "/cursed-crypt.jpg",
+  imageUrl: "/cursed-crypt.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

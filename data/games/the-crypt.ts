@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "the-crypt",
   title: "The Crypt",
   provider: "Nolimit City",
-  imageUrl: "/the-crypt.jpg",
+  imageUrl: "/the-crypt.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

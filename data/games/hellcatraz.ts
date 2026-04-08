@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "hellcatraz",
   title: "Hellcatraz",
   provider: "Relax Gaming",
-  imageUrl: "/hellcatraz.jpg",
+  imageUrl: "/hellcatraz.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

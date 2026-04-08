@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "sweet-bonanza-1000",
   title: "Sweet Bonanza 1000",
   provider: "Pragmatic Play",
-  imageUrl: "/sweet-bonanza-1000.jpg",
+  imageUrl: "/sweet-bonanza-1000.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "big-bamboo",
   title: "Big Bamboo",
   provider: "Push Gaming",
-  imageUrl: "/big-bamboo.jpg",
+  imageUrl: "/big-bamboo.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

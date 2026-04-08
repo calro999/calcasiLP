@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "the-final-countdown",
   title: "The Final Countdown",
   provider: "Big Time Gaming",
-  imageUrl: "/the-final-countdown.jpg",
+  imageUrl: "/the-final-countdown.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

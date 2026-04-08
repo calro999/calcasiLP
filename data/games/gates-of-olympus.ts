@@ -23,7 +23,7 @@ export const gameData: Game = {
   slug: "gates-of-olympus",
   title: "Gates of Olympus",
   provider: "Pragmatic Play",
-  imageUrl: "/gates-of-olympus.jpg",
+  imageUrl: "/gates-of-olympus.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

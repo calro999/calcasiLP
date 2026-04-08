@@ -23,7 +23,7 @@ export const gameData: Game = {
   slug: "starlight-princess",
   title: "Starlight Princess",
   provider: "Pragmatic Play",
-  imageUrl: "/starlight-princess.jpg",
+  imageUrl: "/starlight-princess.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

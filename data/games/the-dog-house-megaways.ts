@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "the-dog-house-megaways",
   title: "The Dog House Megaways",
   provider: "Pragmatic Play",
-  imageUrl: "/the-dog-house-megaways.jpg",
+  imageUrl: "/the-dog-house-megaways.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

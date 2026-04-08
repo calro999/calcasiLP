@@ -23,7 +23,7 @@ export const gameData: Game = {
   slug: "money-train-4",
   title: "Money Train 4",
   provider: "Relax Gaming",
-  imageUrl: "/money-train-4.jpg",
+  imageUrl: "/money-train-4.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

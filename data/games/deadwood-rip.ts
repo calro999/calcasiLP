@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "deadwood-rip",
   title: "Deadwood R.I.P.",
   provider: "Nolimit City",
-  imageUrl: "/deadwood-rip.jpg",
+  imageUrl: "/deadwood-rip.webp",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

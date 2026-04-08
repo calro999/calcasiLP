@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "white-rabbit",
   title: "White Rabbit Megaways",
   provider: "Big Time Gaming",
-  imageUrl: "/white-rabbit.jpg",
+  imageUrl: "/white-rabbit.webp",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

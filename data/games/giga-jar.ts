@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "giga-jar",
   title: "Giga Jar",
   provider: "Push Gaming",
-  imageUrl: "/giga-jar.jpg",
+  imageUrl: "/giga-jar.webp",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,
