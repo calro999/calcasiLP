@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "jokers-jewels-hold-spin",
   title: "Joker's Jewels Hold & Spin",
   provider: "Pragmatic Play",
-  imageUrl: "/jokers-jewels-hold-spin.webp",
+  imageUrl: "/jokers-jewels-hold-spin.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

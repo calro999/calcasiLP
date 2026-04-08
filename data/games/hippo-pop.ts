@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "hippo-pop",
   title: "HippoPop",
   provider: "AvatarUX",
-  imageUrl: "/hippo-pop.webp",
+  imageUrl: "/hippo-pop.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

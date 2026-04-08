@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "zeus-vs-hades",
   title: "Zeus vs Hades",
   provider: "Pragmatic Play",
-  imageUrl: "/zeus-vs-hades.webp",
+  imageUrl: "/zeus-vs-hades.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

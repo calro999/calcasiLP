@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "mahjong-ways-3",
   title: "Mahjong Ways 3",
   provider: "PG Soft",
-  imageUrl: "/mahjong-ways-3.webp",
+  imageUrl: "/mahjong-ways-3.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

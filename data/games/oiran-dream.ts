@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "oiran-dream",
   title: "Oiran Dream",
   provider: "Win Fast",
-  imageUrl: "/oiran-dream.webp",
+  imageUrl: "/oiran-dream.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

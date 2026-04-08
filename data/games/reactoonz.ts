@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "reactoonz",
   title: "Reactoonz",
   provider: "Play'n GO",
-  imageUrl: "/reactoonz.webp",
+  imageUrl: "/reactoonz.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "papaya-pop",
   title: "PapayaPop",
   provider: "AvatarUX",
-  imageUrl: "/papaya-pop.webp",
+  imageUrl: "/papaya-pop.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

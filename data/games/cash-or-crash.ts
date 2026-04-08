@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "cash-or-crash",
   title: "Cash or Crash",
   provider: "Evolution",
-  imageUrl: "/cash-or-crash.webp",
+  imageUrl: "/cash-or-crash.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: false,

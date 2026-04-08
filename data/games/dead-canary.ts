@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "dead-canary",
   title: "Dead Canary",
   provider: "Nolimit City",
-  imageUrl: "/dead-canary.webp",
+  imageUrl: "/dead-canary.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

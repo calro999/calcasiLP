@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "big-bass-amazon-xtreme",
   title: "Big Bass Amazon Xtreme",
   provider: "Reel Kingdom",
-  imageUrl: "/big-bass-amazon-xtreme.webp",
+  imageUrl: "/big-bass-amazon-xtreme.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

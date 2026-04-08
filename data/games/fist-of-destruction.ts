@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "fist-of-destruction",
   title: "Fist of Destruction",
   provider: "Hacksaw Gaming",
-  imageUrl: "/fist-of-destruction.webp",
+  imageUrl: "/fist-of-destruction.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

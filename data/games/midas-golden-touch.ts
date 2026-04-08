@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "midas-golden-touch",
   title: "Midas Golden Touch",
   provider: "Thunderkick",
-  imageUrl: "/midas-golden-touch.webp",
+  imageUrl: "/midas-golden-touch.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

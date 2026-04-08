@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "ze-zeus",
   title: "Ze Zeus",
   provider: "Hacksaw Gaming",
-  imageUrl: "/ze-zeus.webp",
+  imageUrl: "/ze-zeus.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

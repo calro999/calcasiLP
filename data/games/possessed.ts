@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "possessed",
   title: "Possessed",
   provider: "Nolimit City",
-  imageUrl: "/possessed.webp",
+  imageUrl: "/possessed.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

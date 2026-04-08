@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "golden-catch",
   title: "Golden Catch",
   provider: "Big Time Gaming",
-  imageUrl: "/golden-catch.webp",
+  imageUrl: "/golden-catch.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

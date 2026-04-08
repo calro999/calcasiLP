@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "fire-in-the-hole",
   title: "Fire in the Hole xBomb",
   provider: "Nolimit City",
-  imageUrl: "/fire-in-the-hole.webp",
+  imageUrl: "/fire-in-the-hole.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

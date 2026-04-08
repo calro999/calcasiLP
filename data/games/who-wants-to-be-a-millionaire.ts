@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "who-wants-to-be-a-millionaire",
   title: "Who Wants to Be a Millionaire",
   provider: "Big Time Gaming",
-  imageUrl: "/millionaire.webp",
+  imageUrl: "/millionaire.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

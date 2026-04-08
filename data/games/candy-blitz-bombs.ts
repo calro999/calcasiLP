@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "candy-blitz-bombs",
   title: "Candy Blitz Bombs",
   provider: "Pragmatic Play",
-  imageUrl: "/candy-blitz-bombs.webp",
+  imageUrl: "/candy-blitz-bombs.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

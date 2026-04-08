@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "the-bowery-boys",
   title: "The Bowery Boys",
   provider: "Hacksaw Gaming",
-  imageUrl: "/the-bowery-boys.webp",
+  imageUrl: "/the-bowery-boys.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

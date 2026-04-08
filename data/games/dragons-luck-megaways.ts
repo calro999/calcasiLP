@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "dragons-luck-megaways",
   title: "Dragon's Luck Megaways",
   provider: "Red Tiger",
-  imageUrl: "/dragons-luck-megaways.webp",
+  imageUrl: "/dragons-luck-megaways.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

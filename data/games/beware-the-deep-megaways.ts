@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "beware-the-deep-megaways",
   title: "Beware the Deep Megaways",
   provider: "Pragmatic Play",
-  imageUrl: "/beware-the-deep-megaways.webp",
+  imageUrl: "/beware-the-deep-megaways.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: true,

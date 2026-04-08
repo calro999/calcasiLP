@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "esqueleto-explosivo-2",
   title: "Esqueleto Explosivo 2",
   provider: "Thunderkick",
-  imageUrl: "/esqueleto-explosivo-2.webp",
+  imageUrl: "/esqueleto-explosivo-2.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

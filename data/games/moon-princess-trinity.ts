@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "moon-princess-trinity",
   title: "Moon Princess Trinity",
   provider: "Play'n GO",
-  imageUrl: "/moon-princess-trinity.webp",
+  imageUrl: "/moon-princess-trinity.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wild-west-gold",
   title: "Wild West Gold",
   provider: "Pragmatic Play",
-  imageUrl: "/wild-west-gold.webp",
+  imageUrl: "/wild-west-gold.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

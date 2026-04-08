@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "gates-of-olympus-1000",
   title: "Gates of Olympus 1000",
   provider: "Pragmatic Play",
-  imageUrl: "/gates-of-olympus-1000.webp",
+  imageUrl: "/gates-of-olympus-1000.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

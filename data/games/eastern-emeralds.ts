@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "eastern-emeralds",
   title: "Eastern Emeralds",
   provider: "Quickspin",
-  imageUrl: "/eastern-emeralds.webp",
+  imageUrl: "/eastern-emeralds.webp?v=20260408",
   ratingFun: 3,
   ratingExplosive: 5,
   canBuyFS: false,

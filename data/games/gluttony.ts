@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "gluttony",
   title: "Gluttony",
   provider: "Nolimit City",
-  imageUrl: "/gluttony.webp",
+  imageUrl: "/gluttony.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

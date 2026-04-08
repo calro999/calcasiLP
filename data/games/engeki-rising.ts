@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "engeki-rising",
   title: "Engeki Rising x50",
   provider: "Win Fast",
-  imageUrl: "/engeki-rising.webp",
+  imageUrl: "/engeki-rising.webp?v=20260408",
   ratingFun: 3,
   ratingExplosive: 5,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "fat-santa",
   title: "Fat Santa",
   provider: "Push Gaming",
-  imageUrl: "/fat-santa.webp",
+  imageUrl: "/fat-santa.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

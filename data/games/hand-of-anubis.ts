@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "hand-of-anubis",
   title: "Hand of Anubis",
   provider: "Hacksaw Gaming",
-  imageUrl: "/hand-of-anubis.webp",
+  imageUrl: "/hand-of-anubis.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

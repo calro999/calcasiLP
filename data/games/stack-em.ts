@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "stack-em",
   title: "Stack 'Em",
   provider: "Hacksaw Gaming",
-  imageUrl: "/stack-em.webp",
+  imageUrl: "/stack-em.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

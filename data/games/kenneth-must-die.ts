@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "kenneth-must-die",
   title: "Kenneth Must Die",
   provider: "Nolimit City",
-  imageUrl: "/kenneth-must-die.webp",
+  imageUrl: "/kenneth-must-die.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

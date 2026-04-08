@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "money-cart-4",
   title: "Money Cart 4",
   provider: "Relax Gaming",
-  imageUrl: "/money-cart-4.webp",
+  imageUrl: "/money-cart-4.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: false,

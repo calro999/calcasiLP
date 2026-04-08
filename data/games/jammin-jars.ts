@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "jammin-jars",
   title: "Jammin' Jars",
   provider: "Push Gaming",
-  imageUrl: "/jammin-jars.webp",
+  imageUrl: "/jammin-jars.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: false,

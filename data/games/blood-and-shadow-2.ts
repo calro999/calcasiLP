@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "blood-and-shadow-2",
   title: "Blood & Shadow 2",
   provider: "Nolimit City",
-  imageUrl: "/blood-and-shadow-2.webp",
+  imageUrl: "/blood-and-shadow-2.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

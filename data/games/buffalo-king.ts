@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "buffalo-king",
   title: "Buffalo King",
   provider: "Pragmatic Play",
-  imageUrl: "/buffalo-king.webp",
+  imageUrl: "/buffalo-king.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

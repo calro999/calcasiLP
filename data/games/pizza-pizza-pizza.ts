@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "pizza-pizza-pizza",
   title: "Pizza! Pizza? Pizza!",
   provider: "Reel Kingdom",
-  imageUrl: "/pizza-pizza-pizza.webp",
+  imageUrl: "/pizza-pizza-pizza.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

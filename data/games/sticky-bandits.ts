@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "sticky-bandits",
   title: "Sticky Bandits",
   provider: "Quickspin",
-  imageUrl: "/sticky-bandits.webp",
+  imageUrl: "/sticky-bandits.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: false,

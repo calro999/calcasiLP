@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "san-quentin",
   title: "SAN QUENTIN xWays",
   provider: "Nolimit City",
-  imageUrl: "/san-quentin.webp",
+  imageUrl: "/san-quentin.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,

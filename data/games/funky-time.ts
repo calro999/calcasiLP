@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "funky-time",
   title: "Funky Time",
   provider: "Evolution",
-  imageUrl: "/funky-time.webp",
+  imageUrl: "/funky-time.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: false,

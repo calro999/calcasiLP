@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "rise-of-olympus",
   title: "Rise of Olympus",
   provider: "Play'n GO",
-  imageUrl: "/rise-of-olympus.webp",
+  imageUrl: "/rise-of-olympus.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "big-bad-wolf-megaways",
   title: "Big Bad Wolf Megaways",
   provider: "Quickspin",
-  imageUrl: "/big-bad-wolf-megaways.webp",
+  imageUrl: "/big-bad-wolf-megaways.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

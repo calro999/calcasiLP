@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "brick-snake-2000",
   title: "Brick Snake 2000",
   provider: "Nolimit City",
-  imageUrl: "/brick-snake-2000.webp",
+  imageUrl: "/brick-snake-2000.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

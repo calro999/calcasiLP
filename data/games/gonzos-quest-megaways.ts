@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "gonzos-quest-megaways",
   title: "Gonzo's Quest Megaways",
   provider: "Red Tiger",
-  imageUrl: "/gonzos-quest-megaways.webp",
+  imageUrl: "/gonzos-quest-megaways.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: false,

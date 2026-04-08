@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "the-rave",
   title: "The Rave",
   provider: "Nolimit City",
-  imageUrl: "/the-rave.webp",
+  imageUrl: "/the-rave.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

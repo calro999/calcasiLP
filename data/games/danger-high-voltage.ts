@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "danger-high-voltage",
   title: "Danger High Voltage",
   provider: "Big Time Gaming",
-  imageUrl: "/danger-high-voltage.webp",
+  imageUrl: "/danger-high-voltage.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: false,

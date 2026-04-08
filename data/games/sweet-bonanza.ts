@@ -24,7 +24,7 @@ export const gameData: Game = {
   slug: "sweet-bonanza",
   title: "Sweet Bonanza",
   provider: "Pragmatic Play",
-  imageUrl: "/sweet-bonanza.webp", // 指示通り slug名.webp に設定
+  imageUrl: "/sweet-bonanza.webp?v=20260408", // 指示通り slug名.webp に設定
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

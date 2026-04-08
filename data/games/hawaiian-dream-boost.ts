@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "hawaiian-dream-boost",
   title: "Hawaiian Dream Boost",
   provider: "Win Fast",
-  imageUrl: "/hawaiian-dream-boost.webp",
+  imageUrl: "/hawaiian-dream-boost.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: false,

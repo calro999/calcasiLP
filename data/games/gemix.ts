@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "gemix",
   title: "Gemix",
   provider: "Play'n GO",
-  imageUrl: "/gemix.webp",
+  imageUrl: "/gemix.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 3,
   canBuyFS: false,

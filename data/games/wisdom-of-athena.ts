@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "wisdom-of-athena",
   title: "Wisdom of Athena",
   provider: "Pragmatic Play",
-  imageUrl: "/wisdom-of-athena.webp",
+  imageUrl: "/wisdom-of-athena.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: true,

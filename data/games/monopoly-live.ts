@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "monopoly-live",
   title: "Monopoly Live",
   provider: "Evolution",
-  imageUrl: "/monopoly-live.webp",
+  imageUrl: "/monopoly-live.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: false,

@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "dream-catcher",
   title: "Dream Catcher",
   provider: "Evolution",
-  imageUrl: "/dream-catcher.webp",
+  imageUrl: "/dream-catcher.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 3,
   canBuyFS: false,

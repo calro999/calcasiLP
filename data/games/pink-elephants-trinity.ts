@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "pink-elephants-trinity",
   title: "Pink Elephants Trinity",
   provider: "Thunderkick",
-  imageUrl: "/pink-elephants-trinity.webp",
+  imageUrl: "/pink-elephants-trinity.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

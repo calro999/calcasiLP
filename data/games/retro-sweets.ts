@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "retro-sweets",
   title: "Retro Sweets",
   provider: "Push Gaming",
-  imageUrl: "/retro-sweets.webp",
+  imageUrl: "/retro-sweets.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 5,
   canBuyFS: true,

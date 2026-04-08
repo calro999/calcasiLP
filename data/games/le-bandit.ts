@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "le-bandit",
   title: "Le Bandit",
   provider: "Hacksaw Gaming",
-  imageUrl: "/le-bandit.webp",
+  imageUrl: "/le-bandit.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

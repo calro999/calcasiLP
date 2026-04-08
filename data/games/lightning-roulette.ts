@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "lightning-roulette",
   title: "Lightning Roulette",
   provider: "Evolution",
-  imageUrl: "/lightning-roulette.webp",
+  imageUrl: "/lightning-roulette.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 4,
   canBuyFS: false,

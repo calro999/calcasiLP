@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "cash-volt",
   title: "Cash Volt",
   provider: "Red Tiger",
-  imageUrl: "/cash-volt.webp",
+  imageUrl: "/cash-volt.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 3,
   canBuyFS: false,

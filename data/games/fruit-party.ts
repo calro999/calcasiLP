@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "fruit-party",
   title: "Fruit Party",
   provider: "Pragmatic Play",
-  imageUrl: "/fruit-party.webp",
+  imageUrl: "/fruit-party.webp?v=20260408",
   ratingFun: 5,
   ratingExplosive: 4,
   canBuyFS: true,

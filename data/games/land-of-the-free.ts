@@ -4,7 +4,7 @@ export const gameData: Game = {
   slug: "land-of-the-free",
   title: "Land of the Free",
   provider: "Nolimit City",
-  imageUrl: "/land-of-the-free.webp",
+  imageUrl: "/land-of-the-free.webp?v=20260408",
   ratingFun: 4,
   ratingExplosive: 5,
   canBuyFS: true,
