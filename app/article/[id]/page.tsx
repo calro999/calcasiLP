@@ -5,10 +5,14 @@ import path from "path";
 import parse from "html-react-parser";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import Image from "next/image";
+import Script from "next/script";
+import { buildSupplementalSection, SITE_URL, stripHtmlTags } from "@/lib/seo";
 
 interface Article {
   id: number; title: string; content: string; image: string; category: string;
   date: string; readTime: string; author: string; metaTitle?: string;
+  excerpt?: string;
   metaDescription?: string; ogTitle?: string; ogDescription?: string;
   ogImage?: string; ogUrl?: string;
 }
@@ -53,10 +57,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Article Not Found" };
   }
 
+  const canonicalPath = article.ogUrl
+    ? new URL(article.ogUrl).pathname
+    : `/article/${params.id}`;
+
   // JSONにある metaTitle を優先、なければ title を使用
   return {
     title: article.metaTitle || article.title,
     description: article.metaDescription,
+    alternates: {
+      canonical: `${SITE_URL}${canonicalPath}`,
+    },
     openGraph: {
       title: article.ogTitle || article.metaTitle || article.title,
       description: article.ogDescription || article.metaDescription,
@@ -76,6 +87,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ArticlePage({ params }: Props) {
   const article = await getArticleBySlugOrId(params.id);
   if (!article) return notFound();
+  const plainTextLength = stripHtmlTags(article.content).length;
+  const enrichedContent =
+    plainTextLength < 4500
+      ? `${article.content}${buildSupplementalSection(article.title, article.category)}`
+      : article.content;
+  const canonicalPath = article.ogUrl
+    ? new URL(article.ogUrl).pathname
+    : `/article/${params.id}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.metaTitle || article.title,
+    description: article.metaDescription || article.excerpt || article.title,
+    image: [`${SITE_URL}${article.ogImage || article.image}`],
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    datePublished: article.date,
+    dateModified: article.date,
+    mainEntityOfPage: `${SITE_URL}${canonicalPath}`,
+    publisher: {
+      "@type": "Organization",
+      name: "Calcasi Canada",
+    },
+  };
 
   const options: any = {
     replace: (domNode: any) => {
@@ -131,6 +168,11 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <main className="pt-20 pb-20 bg-[#050505] min-h-screen text-[#cbd5e1]">
+      <Script
+        id={`article-jsonld-${article.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <style dangerouslySetInnerHTML={{ __html: `
         .premium-article { max-width: 850px; margin: 0 auto; line-height: 1.9; }
         .meta-container { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; font-size: 0.95rem; color: #94a3b8; font-weight: 500; margin-bottom: 1.5rem; }
@@ -190,12 +232,19 @@ export default async function ArticlePage({ params }: Props) {
 
         {article.image && (
           <div className="main-visual">
-            <img src={article.image} alt={article.title} className="w-full h-auto object-cover" />
+            <Image
+              src={article.image}
+              alt={article.title}
+              width={1400}
+              height={788}
+              className="w-full h-auto object-cover"
+              priority
+            />
           </div>
         )}
 
         <div className="premium-article">
-          {parse(article.content, options)}
+          {parse(enrichedContent, options)}
         </div>
       </article>
     </main>

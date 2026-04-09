@@ -21,8 +21,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "【2026年版】安全なオンラインカジノの選び方｜信頼性を見分ける5つの鉄則",
-  description: "オンラインカジノで安全に遊ぶための必須知識。ライセンスの有無、運営企業の透明性、第三者機関の監査など、初心者でも失敗しない「信頼できるサイト」の見分け方をプロが徹底解説します。",
+  title: "How to Choose a Safe Online Casino in 2026",
+  description: "Use this checklist to verify licensing, operator transparency, audits, and payout trustworthiness before signing up.",
   keywords: ["オンラインカジノ 安全", "オンカジ ライセンス", "オンラインカジノ 信頼性", "オンカジ 初心者", "マルタライセンス"],
 };
 

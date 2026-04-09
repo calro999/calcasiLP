@@ -17,7 +17,8 @@ export function getAllPosts() {
       slug,
       title: data.title,
       date: data.date,
-      thumbnail: data.thumbnail || "/default-thumbnail.jpg",
+      description: data.description || "",
+      thumbnail: data.thumbnail || "/top.webp",
       excerpt: content.trim().slice(0, 80) + "…",
     };
   });
@@ -37,7 +38,8 @@ export async function getPostBySlug(slug: string) {
     slug,
     title: data.title,
     date: data.date,
-    thumbnail: data.thumbnail || "/default-thumbnail.jpg",
+    description: data.description || "",
+    thumbnail: data.thumbnail || "/top.webp",
     contentHtml,
   };
 }

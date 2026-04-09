@@ -22,8 +22,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "オンラインカジノの登録・入金手順ガイド｜スムーズに遊び始めるための全手順",
-  description: "オンラインカジノのアカウント登録から入金までのステップを初心者向けに詳しく解説。失敗しないための本人確認（KYC）の準備や、おすすめの入金方法も紹介します。",
+  title: "Online Casino Registration and Deposit Guide",
+  description: "Step-by-step guide for opening a casino account, completing KYC, and making your first safe deposit with methods suited for Canadian players.",
   keywords: ["オンラインカジノ 登録方法", "オンカジ 入金方法", "KYC 本人確認", "オンカジ 初め方", "オンラインカジノ 銀行振込"],
 };
 

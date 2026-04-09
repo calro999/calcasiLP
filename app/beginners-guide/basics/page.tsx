@@ -21,8 +21,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "オンラインカジノとは？初心者が知るべき仕組み・還元率・安全性を徹底解説",
-  description: "オンラインカジノの基礎知識を完全ガイド。実際のカジノとの違いや、高い還元率の秘密、政府公認ライセンスによる安全な仕組みまで、初心者が安心して始めるための情報を網羅しました。",
+  title: "What Is an Online Casino? Beginner Basics for Canada",
+  description: "Learn how online casinos work, why RTP matters, and what safety signals to check before playing real-money games.",
   keywords: ["オンラインカジノとは", "オンカジ 仕組み", "オンラインカジノ 初心者", "還元率", "オンカジ 安全性"],
 };
 

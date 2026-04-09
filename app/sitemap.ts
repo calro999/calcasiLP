@@ -1,11 +1,12 @@
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
+import { SITE_URL } from '@/lib/seo'
 
 // キャッシュ設定
 export const revalidate = 3600 
 
-const BASE_URL = 'https://calcasi-lp.vercel.app'
+const BASE_URL = SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const root = process.cwd()

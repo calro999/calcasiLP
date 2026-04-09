@@ -20,8 +20,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: "オンラインカジノのボーナス完全ガイド | 種類・仕組み・賭け条件を解説",
-  description: "オンラインカジノのボーナスの仕組みを徹底解説。入金不要ボーナスや初回入金ボーナスの活用法から、出金に不可欠な「賭け条件」の計算方法、注意すべき禁止事項まで網羅。",
+  title: "Online Casino Bonus Guide: Types, Terms, and Wagering Rules",
+  description: "Understand no-deposit bonuses, welcome offers, wagering requirements, and key restrictions so you can claim rewards without withdrawal issues.",
   keywords: ["オンラインカジノ ボーナス", "入金不要ボーナス", "初回入金ボーナス", "賭け条件", "出金条件 計算"],
 };
 

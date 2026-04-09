@@ -6,10 +6,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   // titleオブジェクトを使うことで、各ページで「記事タイトル | カジノ比較ならCalcasi！」と自動表示されます
   title: {
     default: "Calcasi | Top Online Casino Comparison Site in Canada",
@@ -23,7 +25,18 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://calcasi-lp.vercel.app/",
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
 

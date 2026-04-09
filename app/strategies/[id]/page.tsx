@@ -4,6 +4,9 @@ import fs from "fs/promises";
 import path from "path";
 import { Metadata } from "next";
 import DiceGame from "@/app/tools/app/tools/page";
+import Image from "next/image";
+import Script from "next/script";
+import { buildSupplementalSection, SITE_URL, stripHtmlTags } from "@/lib/seo";
 
 interface StrategyData {
   id: number;
@@ -68,11 +71,17 @@ export async function generateMetadata({ params }: ParamsProps): Promise<Metadat
   const strategy = await findStrategyBySlugOrId(params.id);
   if (!strategy) return { title: "Strategy Not Found" };
 
-  const finalUrl = strategy.ogUrl || `https://calcasi.com/strategies/${strategy.id}`;
+  const canonicalPath = strategy.ogUrl
+    ? new URL(strategy.ogUrl).pathname
+    : `/strategies/${strategy.id}`;
+  const finalUrl = `${SITE_URL}${canonicalPath}`;
 
   return {
     title: strategy.metaTitle || `${strategy.title} | Calcasi Canada`,
     description: strategy.metaDescription || strategy.excerpt,
+    alternates: {
+      canonical: finalUrl,
+    },
     openGraph: {
       title: strategy.title,
       description: strategy.excerpt,
@@ -96,12 +105,44 @@ export default async function StrategyDetailPage({ params }: ParamsProps) {
     return notFound();
   }
 
+  const plainTextLength = stripHtmlTags(strategy.content).length;
+  const enrichedContent =
+    plainTextLength < 4500
+      ? `${strategy.content}${buildSupplementalSection(strategy.title, strategy.category)}`
+      : strategy.content;
+  const canonicalPath = strategy.ogUrl
+    ? new URL(strategy.ogUrl).pathname
+    : `/strategies/${params.id}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: strategy.metaTitle || strategy.title,
+    description: strategy.metaDescription || strategy.excerpt,
+    image: [`${SITE_URL}${strategy.ogImage || strategy.image}`],
+    author: { "@type": "Person", name: strategy.author },
+    datePublished: strategy.date,
+    dateModified: strategy.date,
+    mainEntityOfPage: `${SITE_URL}${canonicalPath}`,
+    publisher: { "@type": "Organization", name: "Calcasi Canada" },
+  };
+
   return (
     <main className="pt-24 pb-20 bg-black text-white min-h-screen">
+      <Script
+        id={`strategy-jsonld-${strategy.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-4xl mx-auto px-4 space-y-8">
         {/* アイキャッチ */}
         <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-gray-800 shadow-2xl">
-          <img src={strategy.image} alt={strategy.title} className="w-full h-full object-cover" />
+          <Image
+            src={strategy.image}
+            alt={strategy.title}
+            fill
+            className="w-full h-full object-cover"
+            priority
+          />
         </div>
 
         {/* タイトルエリア */}
@@ -138,7 +179,7 @@ export default async function StrategyDetailPage({ params }: ParamsProps) {
                      prose-strong:text-amber-200 prose-strong:font-bold
                      prose-ul:list-disc prose-ul:pl-6
                      prose-a:text-amber-400 prose-a:font-bold hover:prose-a:underline"
-          dangerouslySetInnerHTML={{ __html: strategy.content }}
+          dangerouslySetInnerHTML={{ __html: enrichedContent }}
         />
       </div>
 
